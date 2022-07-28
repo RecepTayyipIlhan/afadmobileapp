@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:afad_app/screens/menu_page.dart';
+import 'package:afad_app/screens/home/menu_page.dart';
 
 
 class UserPage extends StatelessWidget {
@@ -32,7 +32,7 @@ class UserPage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context,MaterialPageRoute(builder: (context) => MenuPage(),));
+            Navigator.pop(context,MaterialPageRoute(builder: (context) => MenuScreen(),));
 
           },
           icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),

@@ -1,14 +1,15 @@
 //import 'package:afad_application/services/auth.dart';
-import 'package:afad_app/screens/menu_page.dart';
+import 'package:afad_app/screens/home/menu_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/start_page.dart';
 import 'package:afad_app/screens/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:afad_application/screens/User.dart';
+import 'package:afad_app/services/locaiton/location_louncher.dart';
+
 
 class LoginPage extends StatelessWidget {
-
+  Requests req = Requests();
 
   void login_(context)async{
 
@@ -20,8 +21,11 @@ class LoginPage extends StatelessWidget {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MenuPage(),
+            builder: (context) => MenuScreen(),
           ));
+
+      req.request_service();
+      req.request_permission();
 
     }else{
       print("Unexpected error occured");
@@ -51,6 +55,7 @@ class LoginPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => HomePage(),
+
                 ));
           },
           icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),

@@ -2,9 +2,10 @@ import 'package:afad_app/screens/side_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/constants.dart';
-import 'package:afad_app/screens/help_form.dart';
+import 'package:afad_app/services/locaiton/location_louncher.dart';
+import 'package:afad_app/screens/home/components/help_card.dart';
 
-class MenuPage extends StatelessWidget {
+/*class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +22,19 @@ class MenuPage extends StatelessWidget {
       home: MenuScreen(),
     );
   }
-}
+}*/
 
 class MenuScreen extends StatelessWidget {
   GlobalKey<ScaffoldState>_scafflodKey=GlobalKey<ScaffoldState>();
-
-
-
   @override
   Widget build(BuildContext context) {
+
+    //get locaiton from gps
+    Requests r = Requests();
+    List loc=r.get_location();
+
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       key: _scafflodKey,
       drawer: SideBar(),
@@ -100,11 +104,11 @@ class MenuScreen extends StatelessWidget {
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 13,
                         children: <Widget>[
-                          Card(title: "Destek Talebi",path: "assets/images/emergency-call.png"),
-                          Card(title: "Cihazlarım",path: "assets/images/lora.png"),
-                          Card(title: "En Yakın Toplanma Alanı",path: "assets/images/map.png"),
-                          Card(title: "Enkaz Altındayım Butonu",path: "assets/images/earthquake.png"),
-                          Card(title: "Afet Talimatları",path: "assets/images/info.png"),
+                          MenuCard(title:"Destek Talebi", path:"assets/images/emergency-call.png"),
+                          MenuCard(title: "Cihazlarım",path: "assets/images/lora.png"),
+                          MenuCard(title: "En Yakın Toplanma Alanı",path: "assets/images/map.png"),
+                          MenuCard(title: "Enkaz Altındayım Butonu",path: "assets/images/earthquake.png"),
+                          MenuCard(title: "Afet Talimatları",path: "assets/images/info.png"),
                           //koyu yeşil 3ea69b
                           //açık yeşil 44c4a1
                           //kırmızı ec7d83
@@ -130,50 +134,5 @@ class MenuScreen extends StatelessWidget {
   }
 }
 
-class Card extends StatelessWidget {
-  final String title;
-  final String path;
 
-  void card_pressed(var title,BuildContext context){
-    switch(title){
-      case  "Destek Talebi":
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MessageForm(),));
-
-    }
-
-
-  }
-
-  const Card({Key? key, required this.title, required this.path}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.black,
-        ),
-        borderRadius: BorderRadius.circular(18),
-      ),
-      onPressed:() => card_pressed(title,context),
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(5),
-                child: Image.asset(path),
-              ),
-            ),
-            Text(title,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black,fontSize: 17 ),),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
