@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class PlaceIcon extends StatefulWidget {
 
+
    String path;
    String title;
    PlaceIcon({@required this.path, @required this.title });
@@ -34,14 +35,15 @@ class _PlaceIconState extends State<PlaceIcon> {
             padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
 
-              color: _initialValue ? Colors.redAccent[200] : Colors.blueAccent,
+              color: _initialValue ? Colors.redAccent[200] : Colors.grey,
               borderRadius: BorderRadius.circular(8.0),
             ),
 
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 700),
               decoration: BoxDecoration(
                 //color: Color(0xFFE63946).withOpacity(0.5),
-                color: _initialValue ? Colors.redAccent[200] : Colors.blueAccent,
+                color: _initialValue ? Colors.redAccent[200] : Colors.grey,
                 image: DecorationImage(
                   scale: 0.8,
                   alignment: Alignment.topCenter,
@@ -53,7 +55,13 @@ class _PlaceIconState extends State<PlaceIcon> {
           ),
         ),
         SizedBox(height: 8,),
-        Text(widget.title,style: TextStyle(color: Colors.white,fontSize: 12),)
+        Text(widget.title,
+          style: TextStyle(
+            color: Colors.white,
+            //color: _initialValue ? Colors.white : Colors.black,
+            fontSize:  _initialValue ? 12 : 13,
+            fontWeight: _initialValue ? FontWeight.normal : FontWeight.bold,
+          ),)
       ],
     );
 

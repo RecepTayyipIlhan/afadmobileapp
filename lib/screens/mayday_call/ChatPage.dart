@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
-
+import 'components/all_requests.dart';
 import '../home/menu_page.dart';
 
 class ChatPage extends StatefulWidget {
@@ -101,7 +101,7 @@ class _ChatPage extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    //var size = MediaQuery.of(context).size;
     final List<Row> list = messages.map((_message) {
       return Row(
         children: <Widget>[
@@ -145,25 +145,25 @@ class _ChatPage extends State<ChatPage> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                    Text(
-                      "Afad Destek ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.pop(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MenuScreen()));
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_ios_new,
-                          color: Colors.white,)
-                    ),
-                  ]),
+                        Text(
+                          "Afad Destek ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MenuScreen()));
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.white,
+                            )),
+                      ]),
                   SizedBox(
                     height: 8,
                   ),
@@ -258,199 +258,13 @@ class _ChatPage extends State<ChatPage> {
                     child: Column(
                       children: [
                         /*GestureDetector(
-                          onTap:(){print("debeeeee");} ,
+                          onTap:(){} ,
                           child: Icon(
                             Icons.minimize_rounded,
                             color: Colors.grey,
                           ),
                         ),*/
-                        Container(
-                          color: Colors.grey[200],
-                          width: size.width,
-                          padding: EdgeInsets.all(25),
-                          child: Column(
-                            children: <Widget>[
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Yardım Talepleri',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Icon(Icons.more_horiz)
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.emergency,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "Ambulans",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle:
-                                      Text("Şuanki konumunuza ambulans gönderir"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.food_bank_rounded,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "Gıda Talebi",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle:
-                                      Text("Şuanki konumunuza gıda yardımı gönderir"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.local_hospital,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "İlaç Talebi",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle:
-                                      Text("Şuanki konumunuza ilaç yardımı gönderir"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.local_hotel_rounded,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "Barınma Talebi",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle: Text(
-                                      "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır"),
-                                ),
-                              ),
-
-                              //ikinci sayfa
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'İhbarlar',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Icon(Icons.more_horiz)
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.house_siding_rounded,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "Enkaz",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle: Text(
-                                      "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.fireplace_rounded,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "Yangın",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle: Text("Konumumun yakınlarında yangın var"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.dangerous_outlined,
-                                    color: Colors.redAccent,
-                                  ),
-                                  title: Text(
-                                    "Gaz Kaçağı",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                  subtitle: Text(
-                                      "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır"),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        AllRequests(),
                       ],
                     ),
                   ),
@@ -458,7 +272,7 @@ class _ChatPage extends State<ChatPage> {
               ),
             ),
 
-            /* Container(
+             /*Container(
               child: ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(primary: Colors.amberAccent),
