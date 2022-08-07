@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-
+import 'package:afad_app/screens/home/menu_page.dart';
 import './BluetoothDeviceListEntry.dart';
+
 
 class SelectBondedDevicePage extends StatefulWidget {
   /// If true, on page start there is performed discovery upon the bonded devices.
@@ -30,7 +31,8 @@ class _DeviceWithAvailability extends BluetoothDevice {
 }
 
 class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
-  List<_DeviceWithAvailability> devices = List<_DeviceWithAvailability>();
+  //List<_DeviceWithAvailability> devices = List<_DeviceWithAvailability>();
+  List<_DeviceWithAvailability> devices = <_DeviceWithAvailability>[];
 
   // Availability
   StreamSubscription<BluetoothDiscoveryResult> _discoveryStreamSubscription;
@@ -119,7 +121,13 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
         .toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select device'),
+        backgroundColor: Color(0xFFE63946),
+        title: Text('Lora Cihazınızı Seçiniz'),
+        leading: BackButton(
+        color: Colors.white,
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
+        },),
         actions: <Widget>[
           _isDiscovering
               ? FittedBox(

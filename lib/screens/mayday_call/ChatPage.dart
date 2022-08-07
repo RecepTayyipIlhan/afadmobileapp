@@ -24,6 +24,9 @@ class Person {
     this.id = id;
     this.location = location;
   }
+  void printt(){
+    print("fsafa");
+  }
 }
 
 class _Message {
@@ -42,6 +45,7 @@ class _ChatPage extends State<ChatPage> {
 
   String _messageBuffer = '';
   Person p = Person("186", "41.208277°K 28.957777°D");
+
 
   final TextEditingController textEditingController =
       new TextEditingController();
@@ -127,6 +131,7 @@ class _ChatPage extends State<ChatPage> {
     }).toList();
 
     return Scaffold(
+
       backgroundColor: Color(0xFFE63946),
       /*appBar: AppBar(
           backgroundColor: Color(0xFFE63946),
@@ -154,10 +159,11 @@ class _ChatPage extends State<ChatPage> {
                         ),
                         IconButton(
                             onPressed: () {
-                              Navigator.pop(
+                             /* Navigator.pop(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MenuScreen()));
+                                      builder: (context) => MenuScreen()));*/
+                              Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.arrow_back_ios_new,
@@ -234,7 +240,7 @@ class _ChatPage extends State<ChatPage> {
                         title: "Evdeyim",
                       ),
                       PlaceIcon(
-                        path: "assets/icons/assembly-point.png",
+                        path: "assets/icons/meeting.png",
                         title: "Toplanma Alanı",
                       ),
                       PlaceIcon(
@@ -272,7 +278,7 @@ class _ChatPage extends State<ChatPage> {
               ),
             ),
 
-             /*Container(
+            /* Container(
               child: ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(primary: Colors.amberAccent),
@@ -365,7 +371,7 @@ class _ChatPage extends State<ChatPage> {
     }
   }
 
-  void _sendMessage(String text) async {
+   void sendMessage(String text) async {
     text = text.trim();
     textEditingController.clear();
 
@@ -408,7 +414,7 @@ class HelpCard extends StatelessWidget {
         print("Evdeyim");
         break;
       case "Toplanma Alanaı":
-        print("");
+        print("Toplanma Alanındayım");
     }
   }
 

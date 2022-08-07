@@ -1,4 +1,4 @@
-import 'package:afad_app/screens/side_bar.dart';
+import 'package:afad_app/screens/home/components/side_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/constants.dart';
@@ -26,6 +26,7 @@ import 'package:afad_app/screens/home/components/help_card.dart';
 
 class MenuScreen extends StatelessWidget {
   GlobalKey<ScaffoldState>_scafflodKey=GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
@@ -51,6 +52,7 @@ class MenuScreen extends StatelessWidget {
 
               decoration: BoxDecoration(
                 color: Color(0xFFE63946),
+                //color : Colors.blue,
                 image: DecorationImage(
                   scale: 0.8,
                   alignment: Alignment.topCenter,

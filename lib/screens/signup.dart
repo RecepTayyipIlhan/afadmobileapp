@@ -37,7 +37,7 @@ class SignupPage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage(),));
+            Navigator.pop(context);
 
           },
           icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),

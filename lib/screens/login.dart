@@ -6,19 +6,24 @@ import 'package:afad_app/screens/start_page.dart';
 import 'package:afad_app/screens/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:afad_app/services/locaiton/location_louncher.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LoginPage extends StatelessWidget {
   Requests req = Requests();
 
   void login_(context)async{
+    //final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    //sharedPreferences.setString('email', email_c.text);
 
-    QuerySnapshot querySnapshot= await users_ref.where("email",isEqualTo: email_c.text).where("password",isEqualTo: password_c.text).get();
+
+    QuerySnapshot querySnapshot = await users_ref.where("email",isEqualTo: email_c.text).where("password",isEqualTo: password_c.text).get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
     if(allData.length == 0){
         print("User can not found");
     }else if(allData.length==1){
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => MenuScreen(),
@@ -51,12 +56,10 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
+            Navigator.pop(context);
+           /* Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-
-                ));
+                MaterialPageRoute(builder: (context) => HomePage()));*/
           },
           icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
@@ -126,6 +129,7 @@ class LoginPage extends StatelessWidget {
                   child: Text(
                     "Giriş",
                     style: TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),

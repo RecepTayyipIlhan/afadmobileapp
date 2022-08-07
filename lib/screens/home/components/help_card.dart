@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/help_form.dart';
 import 'package:afad_app/services/bluetooth/MainPage.dart';
-import 'package:afad_app/screens/mayday_call/ChatPage.dart';
+//import 'package:afad_app/screens/mayday_call/ChatPage.dart';
 class MenuCard extends StatelessWidget {
   final String title;
   final String path;
@@ -14,7 +14,7 @@ class MenuCard extends StatelessWidget {
   void card_pressed(var title,BuildContext context){
     switch(title){
       case  "Destek Talebi":
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(),));
         break;
       case "Cihazlarım" :
         Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(),));

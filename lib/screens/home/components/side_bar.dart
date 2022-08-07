@@ -23,7 +23,7 @@ class SideBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color(0xFFE63946),
               image: DecorationImage(
-                image: NetworkImage("https://cdn.pixabay.com/photo/2017/02/26/04/47/cracks-2099531__340.jpg"),
+                image: AssetImage("assets/images/sidebar.jpg"),
                 colorFilter: ColorFilter.mode(Color(0xFFE63946), BlendMode.modulate),
                 fit:BoxFit.cover,
               ),
