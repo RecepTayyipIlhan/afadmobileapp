@@ -134,7 +134,6 @@ class _MenuScreenState extends State<MenuScreen> {
                         children: <Widget>[
                           MenuCard(title:"Eğitim Videoları", path:"assets/icons/2.png"),
                           MenuCard(title: "Cihazlarım",path: "assets/icons/1.png"),
-
                           //koyu yeşil 3ea69b
                           //açık yeşil 44c4a1
                           //kırmızı ec7d83

@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:afad_app/screens/home/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
+//import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
 //import '../../services/locaiton/get_loc.dart';
 import '../../services/locaiton/get_loc.dart';
 //import 'components/all_requests.dart';
@@ -61,6 +61,11 @@ class _ChatPage extends State<ChatPage> {
 
   bool isDisconnecting = false;
 
+  bool zoom0 = true;
+  bool zoom1 = true;
+  bool zoom2 = true;
+  bool zoom3 = true;
+
 
 
   @override
@@ -112,6 +117,7 @@ class _ChatPage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    bool _initialValue = true;
 
     List loc = lat_lon.get_location();
     print("-------------------------");
@@ -191,7 +197,7 @@ class _ChatPage extends State<ChatPage> {
                   ),
                   Row(children: <Widget>[
                     Text(
-                      "25 July, 2021",
+                      "10 Ağustos, 2021",
                       style: TextStyle(
                           color: Colors.grey[300],
                           fontSize: 16,
@@ -251,7 +257,292 @@ class _ChatPage extends State<ChatPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      PlaceIcon(
+                      Column(
+                        children: [
+                          GestureDetector(
+
+                            onTap: isConnected
+                                ? () =>
+                                sendMessage(id + "," + "0" + "," +lat+ ","+lon)
+                                : null,
+
+                            /*onTap: () {
+                              isConnected
+                                  ? () =>
+                                  sendMessage(id + "," + "0" + "," +lat+ ","+lon)
+                                  : null;
+
+                              setState(() {
+                                zoom0 = !zoom0;
+                              });
+                            },*/
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 700),
+                              //color: Colors.amber,
+                              height: zoom0 ? 50 : 60,
+                              width: zoom0 ? 50 : 60,
+
+                              padding: EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.5),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                decoration: BoxDecoration(
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  image: DecorationImage(
+                                    scale: 0.2,
+                                    alignment: Alignment.topCenter,
+                                    image: AssetImage("assets/icons/sos.png"),
+                                    // opacity: 0.8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Enkaz Altındayım",
+                            style: TextStyle(
+                              color: Colors.white,
+                              //color: _initialValue ? Colors.white : Colors.black,
+                              fontSize: _initialValue ? 12 : 13,
+                              fontWeight: _initialValue ? FontWeight.normal : FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          GestureDetector(
+                            onTap: isConnected
+                                ? () =>
+                                sendMessage(id + "," + "8" + "," +lat+ ","+lon)
+                                : null,
+                            /*onTap: () {
+                              isConnected
+                                  ? () =>
+                                  sendMessage(id + "," + "8" + "," +lat+ ","+lon)
+                                  : null;
+                              setState(() {
+                                zoom1 = !zoom1;
+                              });
+                            },*/
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 700),
+                              //color: Colors.amber,
+                              height: zoom1 ? 50 : 60,
+                              width: zoom1 ? 50 : 60,
+
+                              padding: EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.5),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                decoration: BoxDecoration(
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  image: DecorationImage(
+                                    scale: 0.2,
+                                    alignment: Alignment.topCenter,
+                                    image: AssetImage("assets/icons/home.png"),
+                                    // opacity: 0.8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Evdeyim",
+                            style: TextStyle(
+                              color: Colors.white,
+                              //color: _initialValue ? Colors.white : Colors.black,
+                              fontSize: _initialValue ? 12 : 13,
+                              fontWeight: _initialValue ? FontWeight.normal : FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          GestureDetector(
+                            onTap: isConnected
+                                ? () =>
+                                sendMessage(id + "," + "9" + "," +lat+ ","+lon)
+                                : null,
+                            /*onTap: () {
+
+                              isConnected
+                                  ? () =>
+                                  sendMessage(id + "," + "9" + "," +lat+ ","+lon)
+                                  : null;
+                              setState(() {
+                                zoom2 = !zoom2;
+                              });
+                            },*/
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 700),
+                              //color: Colors.amber,
+                              height: zoom2 ? 50 : 60,
+                              width: zoom2 ? 50 : 60,
+
+                              padding: EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.5),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                decoration: BoxDecoration(
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  image: DecorationImage(
+                                    scale: 0.2,
+                                    alignment: Alignment.topCenter,
+                                    image: AssetImage("assets/icons/meeting.png"),
+                                    // opacity: 0.8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Toplanma Alanı",
+                            style: TextStyle(
+                              color: Colors.white,
+                              //color: _initialValue ? Colors.white : Colors.black,
+                              fontSize: _initialValue ? 12 : 13,
+                              fontWeight: _initialValue ? FontWeight.normal : FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          GestureDetector(
+                            onTap: isConnected
+                                ? () =>
+                                sendMessage(id + "," + "10" + "," +lat+ ","+lon)
+                                : null,
+                            /*onTap: () {
+                              isConnected
+                                  ? () =>
+                                  sendMessage(id + "," + "10" + "," +lat+ ","+lon)
+                                  : null;
+                              setState(() {
+                                zoom3 = !zoom3;
+                              });
+                            },*/
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 700),
+                              //color: Colors.amber,
+                              height: zoom3 ? 50 : 60,
+                              width: zoom3 ? 50 : 60,
+
+                              padding: EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.5),
+                                    spreadRadius: 0.5,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                decoration: BoxDecoration(
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  image: DecorationImage(
+                                    scale: 0.2,
+                                    alignment: Alignment.topCenter,
+                                    image: AssetImage("assets/icons/lost.png"),
+                                    // opacity: 0.8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Kayboldum",
+                            style: TextStyle(
+                              color: Colors.white,
+                              //color: _initialValue ? Colors.white : Colors.black,
+                              fontSize: _initialValue ? 12 : 13,
+                              fontWeight: _initialValue ? FontWeight.normal : FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+
+                      /*PlaceIcon(
                         path: "assets/icons/home.png",
                         title: "Evdeyim",
                         //value: x,
@@ -263,7 +554,8 @@ class _ChatPage extends State<ChatPage> {
                       PlaceIcon(
                         path: "assets/icons/lost.png",
                         title: "Kayboldum",
-                      ),
+                      ),*/
+
                     ],
                   ),
                 ],
@@ -352,7 +644,10 @@ class _ChatPage extends State<ChatPage> {
                                   MaterialButton(
                                     minWidth: double.infinity,
                                     padding: EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: () {},
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "2" + "," +lat+ ","+lon)
+                                        : null,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
@@ -393,7 +688,10 @@ class _ChatPage extends State<ChatPage> {
                                   MaterialButton(
                                     minWidth: double.infinity,
                                     padding: EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: () {},
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "3" + "," +lat+ ","+lon)
+                                        : null,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
@@ -434,7 +732,10 @@ class _ChatPage extends State<ChatPage> {
                                   MaterialButton(
                                     minWidth: double.infinity,
                                     padding: EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: () {},
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "4" + "," +lat+ ","+lon)
+                                        : null,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
@@ -492,7 +793,10 @@ class _ChatPage extends State<ChatPage> {
                                   MaterialButton(
                                     minWidth: double.infinity,
                                     padding: EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: () {},
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "5" + "," +lat+ ","+lon)
+                                        : null,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
@@ -533,7 +837,10 @@ class _ChatPage extends State<ChatPage> {
                                   MaterialButton(
                                     minWidth: double.infinity,
                                     padding: EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: () {},
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "6" + "," +lat+ ","+lon)
+                                        : null,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
@@ -574,7 +881,10 @@ class _ChatPage extends State<ChatPage> {
                                   MaterialButton(
                                     minWidth: double.infinity,
                                     padding: EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: () {},
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "7" + "," +lat+ ","+lon)
+                                        : null,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         boxShadow: [
@@ -611,21 +921,6 @@ class _ChatPage extends State<ChatPage> {
                                 ],
                               ),
 
-                              /*RequestButton(
-                                title: "Gaz Kaçağı",
-                                subtitle:
-                                "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır",
-                                icon_data: Icons.dangerous_outlined,
-                              ),
-                              RequestButton(
-                                  title: "Yangın",
-                                  subtitle: "Konumumun yakınlarında yangın var",
-                                  icon_data: Icons.fireplace_rounded),
-                              RequestButton(
-                                  title: "Enkaz",
-                                  subtitle:
-                                  "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var",
-                                  icon_data: Icons.house_siding_rounded),*/
                             ],
                           ),
                         ),
@@ -635,46 +930,6 @@ class _ChatPage extends State<ChatPage> {
                 ),
               ),
             ),
-
-            /*Container(
-              child: ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(primary: Colors.amberAccent),
-                  child: Text('help'),
-                  onPressed: isConnected
-                      ? () =>
-                          sendMessage("323")
-                      : null),
-            ),*/
-
-            /*Container(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.amber),
-                  child: Text('Aid'),
-                  onPressed: isConnected
-                      ? () =>
-                          _sendMessage(p.id + "," + " 1" + ", " + p.location)
-                      : null),
-            ),
-            Container(
-              child: ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(primary: Colors.greenAccent),
-                  child: Text('Water'),
-                  onPressed: isConnected
-                      ? () =>
-                          _sendMessage(p.id + "," + " 2" + ", " + p.location)
-                      : null),
-            ),
-            Container(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.red),
-                  child: Text('Food'),
-                  onPressed: isConnected
-                      ? () =>
-                          _sendMessage(p.id + "," + " 3" + ", " + p.location)
-                      : null),
-            ),*/
           ],
         ),
       ),

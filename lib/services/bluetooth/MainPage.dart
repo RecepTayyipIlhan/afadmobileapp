@@ -15,8 +15,8 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
-  String _address = "40:83:1D:28:81:48"; //B8:27:EB:F6:81:D1
-  String _name = "iphone2"; //raspberrypi
+  String _address = "00:19:07:34:C2:BA"; //B8:27:EB:F6:81:D1
+  String _name = "HC-06"; //raspberrypi
 
   @override
   void initState() {
@@ -82,7 +82,7 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     BluetoothDevice b =
-        new BluetoothDevice(name: "raspberrypi", address: "B8:27:EB:F6:81:D1");
+        new BluetoothDevice(name: "HC-06", address: "00:19:07:34:C2:BA");
     final BluetoothDevice selectedDevice = b;
 
     if (selectedDevice != null) {
