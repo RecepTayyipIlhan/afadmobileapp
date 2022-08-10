@@ -1,16 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:afad_app/screens/home/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
-import 'components/all_requests.dart';
-import '../home/menu_page.dart';
+//import '../../services/locaiton/get_loc.dart';
+import '../../services/locaiton/get_loc.dart';
+//import 'components/all_requests.dart';
+import 'package:afad_app/person.dart';
+//import '../home/menu_page.dart';
 
 class ChatPage extends StatefulWidget {
-  final BluetoothDevice server;
+  BluetoothDevice server;
+  //final Function() foo;
 
-  const ChatPage({this.server});
+  ChatPage({Key key, this.server}) : super(key: key);
 
   @override
   _ChatPage createState() => new _ChatPage();
@@ -24,9 +29,6 @@ class Person {
     this.id = id;
     this.location = location;
   }
-  void printt(){
-    print("fsafa");
-  }
 }
 
 class _Message {
@@ -37,6 +39,10 @@ class _Message {
 }
 
 class _ChatPage extends State<ChatPage> {
+  Loc lat_lon = Loc();
+  MenuScreen ms = MenuScreen();
+  //get locaiton from gps
+
   static final clientID = 0;
   BluetoothConnection connection;
 
@@ -46,7 +52,6 @@ class _ChatPage extends State<ChatPage> {
   String _messageBuffer = '';
   Person p = Person("186", "41.208277°K 28.957777°D");
 
-
   final TextEditingController textEditingController =
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
@@ -55,6 +60,8 @@ class _ChatPage extends State<ChatPage> {
   bool get isConnected => connection != null && connection.isConnected;
 
   bool isDisconnecting = false;
+
+
 
   @override
   void initState() {
@@ -99,13 +106,23 @@ class _ChatPage extends State<ChatPage> {
       connection.dispose();
       connection = null;
     }
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    //var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
+
+    List loc = lat_lon.get_location();
+    print("-------------------------");
+    print(loc);
+    print("------------");
+    print(person_list);
+
+    String lat = loc[0].toString();
+    String lon = loc[1].toString();
+    String id = person_list[0]["id"];
+
     final List<Row> list = messages.map((_message) {
       return Row(
         children: <Widget>[
@@ -131,8 +148,7 @@ class _ChatPage extends State<ChatPage> {
     }).toList();
 
     return Scaffold(
-
-      backgroundColor: Color(0xFFE63946),
+      backgroundColor: Color(0xFF003399),
       /*appBar: AppBar(
           backgroundColor: Color(0xFFE63946),
           title: (isConnecting
@@ -159,7 +175,7 @@ class _ChatPage extends State<ChatPage> {
                         ),
                         IconButton(
                             onPressed: () {
-                             /* Navigator.pop(
+                              /* Navigator.pop(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MenuScreen()));*/
@@ -189,7 +205,7 @@ class _ChatPage extends State<ChatPage> {
                   AnimatedContainer(
                     duration: const Duration(seconds: 2),
                     decoration: BoxDecoration(
-                      color: Colors.redAccent[200],
+                      color: Colors.grey.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     padding: EdgeInsets.all(12.0),
@@ -238,6 +254,7 @@ class _ChatPage extends State<ChatPage> {
                       PlaceIcon(
                         path: "assets/icons/home.png",
                         title: "Evdeyim",
+                        //value: x,
                       ),
                       PlaceIcon(
                         path: "assets/icons/meeting.png",
@@ -263,14 +280,355 @@ class _ChatPage extends State<ChatPage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        /*GestureDetector(
-                          onTap:(){} ,
-                          child: Icon(
-                            Icons.minimize_rounded,
-                            color: Colors.grey,
+                        Container(
+                          color: Colors.grey[200],
+                          width: size.width,
+                          padding: EdgeInsets.all(25),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Yardım Talepleri',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Icon(Icons.more_horiz)
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: isConnected
+                                        ? () =>
+                                        sendMessage(id + "," + "1" + "," +lat+ ","+lon)
+                                        : null,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.emergency,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "Ambulans",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Şuanki konumunuza ambulans gönderir"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: () {},
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.food_bank_rounded,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "Gıda Talebi",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Şuanki konumunuza gıda yardımı gönderir"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: () {},
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.local_hospital,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "İlaç Talebi",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Şuanki konumunuza ilaç yardımı gönderir"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: () {},
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.local_hotel_rounded,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "Barınma Talebi",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'İhbarlar',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Icon(Icons.more_horiz)
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: () {},
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.dangerous_outlined,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "Gaz Kaçağı",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: () {},
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.fireplace_rounded,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "Yangın",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Konumunun Yakınında yangın varsa basınız."),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  MaterialButton(
+                                    minWidth: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    onPressed: () {},
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                        //border: Border.all(color: Colors.black),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.house_siding_rounded,
+                                          color: Color(0xFF003399),
+                                        ),
+                                        title: Text(
+                                          "Enkaz",
+                                          style: TextStyle(
+                                              color: Color(0xFF003399)),
+                                        ),
+                                        subtitle: Text(
+                                            "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              ),
+
+                              /*RequestButton(
+                                title: "Gaz Kaçağı",
+                                subtitle:
+                                "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır",
+                                icon_data: Icons.dangerous_outlined,
+                              ),
+                              RequestButton(
+                                  title: "Yangın",
+                                  subtitle: "Konumumun yakınlarında yangın var",
+                                  icon_data: Icons.fireplace_rounded),
+                              RequestButton(
+                                  title: "Enkaz",
+                                  subtitle:
+                                  "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var",
+                                  icon_data: Icons.house_siding_rounded),*/
+                            ],
                           ),
-                        ),*/
-                        AllRequests(),
+                        ),
                       ],
                     ),
                   ),
@@ -278,17 +636,18 @@ class _ChatPage extends State<ChatPage> {
               ),
             ),
 
-            /* Container(
+            /*Container(
               child: ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(primary: Colors.amberAccent),
                   child: Text('help'),
                   onPressed: isConnected
                       ? () =>
-                          _sendMessage(p.id + "," + " 0" + ", " + p.location)
+                          sendMessage("323")
                       : null),
-            ),
-            Container(
+            ),*/
+
+            /*Container(
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.amber),
                   child: Text('Aid'),
@@ -371,7 +730,12 @@ class _ChatPage extends State<ChatPage> {
     }
   }
 
-   void sendMessage(String text) async {
+  void printt(String text){
+    print(text);
+
+  }
+
+  void sendMessage(String text) async {
     text = text.trim();
     textEditingController.clear();
 

@@ -11,6 +11,10 @@ import 'package:afad_app/services/locaiton/location_louncher.dart';
 
 class LoginPage extends StatelessWidget {
   Requests req = Requests();
+  List lat_lon;
+  //LoginPage(this.lat_lon);
+
+  //var allData = {};
 
   void login_(context)async{
     //final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -19,14 +23,15 @@ class LoginPage extends StatelessWidget {
 
     QuerySnapshot querySnapshot = await users_ref.where("email",isEqualTo: email_c.text).where("password",isEqualTo: password_c.text).get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    print(allData);
 
     if(allData.length == 0){
         print("User can not found");
     }else if(allData.length==1){
-      Navigator.pushReplacement(
-          context,
+      Navigator.of(context).pushReplacement(
+
           MaterialPageRoute(
-            builder: (context) => MenuScreen(),
+            builder: (context) => MenuScreen(allData : allData),
           ));
 
       req.request_service();
@@ -38,9 +43,13 @@ class LoginPage extends StatelessWidget {
 
   }
 
+  /*Map get_person(){
+    return allData;
+  }*/
+
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  CollectionReference users_ref = FirebaseFirestore.instance.collection('user');
+  CollectionReference users_ref = FirebaseFirestore.instance.collection('People');
   final TextEditingController email_c= TextEditingController();
   final TextEditingController password_c= TextEditingController();
 

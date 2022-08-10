@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/mayday_call/ChatPage.dart';
+//import 'package:afad_app/screens/mayday_call/ChatPage.dart';
 
 class RequestButton extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon_data;
 
+
+
   const RequestButton({Key key, @required this.title, @required this.subtitle, @required this.icon_data}) : super(key: key);
+
 
   static ChatPage chat = ChatPage();
   @override
   Widget build(BuildContext context) {
-
+   // const ChatPage c = ChatPage();
     return Column(
       children: [
 
@@ -20,12 +24,7 @@ class RequestButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 0),
           onPressed: (){
           },
-          //padding: EdgeInsets.all(8.0),
-       /* onPressed: isConnected
-            ? () =>
-            _sendMessage(p.id + "," + " 1" + ", " + p.location)
-            : null),*/
-          //onPressed: ,
+
           child: Container(
 
             decoration: BoxDecoration(
@@ -44,12 +43,12 @@ class RequestButton extends StatelessWidget {
             child: ListTile(
               leading: Icon(
                 icon_data,
-                color: Colors.redAccent,
+                color: Color(0xFF003399),
 
               ),
               title: Text(
                 title,
-                style: TextStyle(color: Colors.redAccent),
+                style: TextStyle(color:Color(0xFF003399)),
               ),
               subtitle: Text(subtitle),
             ),

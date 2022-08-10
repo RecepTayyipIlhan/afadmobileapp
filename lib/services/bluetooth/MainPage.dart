@@ -77,6 +77,7 @@ class _MainPage extends State<MainPage> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -101,7 +102,7 @@ class _MainPage extends State<MainPage> {
       //backgroundColor: Color(0xFFE63946),
       appBar: AppBar(
 
-        backgroundColor: Color(0xFFE63946),
+        backgroundColor: Color(0xFF003399).withOpacity(0.9),
 
         title: const Text('Lora Sensörüne Bağlanın'),
       ),
@@ -132,7 +133,7 @@ class _MainPage extends State<MainPage> {
                   }
                 } : null,
                 style: ElevatedButton.styleFrom(
-                  primary: _bluetoothState.isEnabled ? Color(0xFFE63946).withOpacity(0.8): Colors.white70,
+                  primary: _bluetoothState.isEnabled ?  Color(0xFF003399).withOpacity(0.7): Colors.white70,
 
                   shadowColor: Colors.blueAccent,
                   fixedSize: const Size(140, 140),
@@ -144,7 +145,7 @@ class _MainPage extends State<MainPage> {
             ],
           ),
           Container(
-            color: Color(0xFFE63946),
+            color : Color(0xFF003399).withOpacity(0.9),
             height: size.height/3,
             width: size.width,
             padding: EdgeInsets.symmetric(vertical: 15) ,

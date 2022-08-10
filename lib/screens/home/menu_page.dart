@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:afad_app/constants.dart';
 import 'package:afad_app/services/locaiton/location_louncher.dart';
 import 'package:afad_app/screens/home/components/help_card.dart';
+import 'package:afad_app/person.dart';
+//import '../../services/locaiton/get_loc.dart';
 
 /*class MenuPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-
       title: 'Menu Page',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -24,21 +23,48 @@ import 'package:afad_app/screens/home/components/help_card.dart';
   }
 }*/
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
+
+  List allData;
+  List lat_lon;
+
+
+  MenuScreen({Key key,this.allData,this.lat_lon}): super(key: key);
+
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+
+  List emptyList;
+
+  Requests r = Requests();
+
+
+
+
   GlobalKey<ScaffoldState>_scafflodKey=GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
 
-    //get locaiton from gps
-    Requests r = Requests();
-    List loc=r.get_location();
 
+    //get locaiton from gps
+    /*List loc = lat_lon.get_location();
+    print("***");
+    print(loc);*/
+    person_list = widget.allData;
+    print("alahukeber");
+    print(person_list);
+
+    String username=widget.allData[0]["name"]+" "+widget.allData[0]["surname"];
+    String email=widget.allData[0]["email"];
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
       key: _scafflodKey,
-      drawer: SideBar(),
+      drawer: SideBar(username,email,widget.allData),
 
       backgroundColor: background_color_1,
       body: Container(
@@ -51,13 +77,13 @@ class MenuScreen extends StatelessWidget {
               width: size.width,
 
               decoration: BoxDecoration(
-                color: Color(0xFFE63946),
+                color: Color(0xFF003399).withOpacity(0.9),
                 //color : Colors.blue,
                 image: DecorationImage(
                   scale: 0.8,
                   alignment: Alignment.topCenter,
                   image: AssetImage("assets/images/white_logo.png"),
-                 // opacity: 0.8,
+                  // opacity: 0.8,
                 ),
               ),
             ),
@@ -102,15 +128,13 @@ class MenuScreen extends StatelessWidget {
                     Flexible(
                       child: GridView.count(
                         crossAxisCount: 2,
-                        childAspectRatio: .85,
+                        childAspectRatio: .65,
                         crossAxisSpacing: 20,
-                        mainAxisSpacing: 13,
+                        mainAxisSpacing: 25,
                         children: <Widget>[
-                          MenuCard(title:"Destek Talebi", path:"assets/images/emergency-call.png"),
-                          MenuCard(title: "Cihazlarım",path: "assets/images/lora.png"),
-                          MenuCard(title: "En Yakın Toplanma Alanı",path: "assets/images/map.png"),
-                          MenuCard(title: "Enkaz Altındayım Butonu",path: "assets/images/earthquake.png"),
-                          MenuCard(title: "Afet Talimatları",path: "assets/images/info.png"),
+                          MenuCard(title:"Eğitim Videoları", path:"assets/icons/2.png"),
+                          MenuCard(title: "Cihazlarım",path: "assets/icons/1.png"),
+
                           //koyu yeşil 3ea69b
                           //açık yeşil 44c4a1
                           //kırmızı ec7d83
@@ -126,15 +150,13 @@ class MenuScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget button(GlobalKey<ScaffoldState>_scafflodKey){
     return IconButton(
       onPressed: (){
         _scafflodKey.currentState?.openDrawer();
-        },
+      },
       icon: Icon(Icons.menu,color: Colors.white,size: 30,),
-     );
+    );
   }
 }
-
-
-

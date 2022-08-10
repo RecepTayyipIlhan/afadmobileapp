@@ -13,11 +13,12 @@ class MenuCard extends StatelessWidget {
 
   void card_pressed(var title,BuildContext context){
     switch(title){
-      case  "Destek Talebi":
+      /*case  "Destek Talebi":
         Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(),));
-        break;
+        break;*/
       case "Cihazlarım" :
         Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(),));
+        break;
     }
 
   }
@@ -34,8 +35,9 @@ class MenuCard extends StatelessWidget {
       ),
       onPressed:() => card_pressed(title,context),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(12),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
               child: Container(
@@ -43,9 +45,10 @@ class MenuCard extends StatelessWidget {
                 child: Image.asset(path),
               ),
             ),
+            Divider(color: Colors.black,thickness: 1,),
             Text(title,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black,fontSize: 17 ),),
+              style: TextStyle(color: Colors.black,fontSize: 14 ),),
           ],
         ),
       ),

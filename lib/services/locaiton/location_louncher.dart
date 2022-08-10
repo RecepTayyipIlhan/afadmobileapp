@@ -23,24 +23,22 @@ class Requests {
     }
   }
 
-  List get_location() {
+  /*List get_location() {
     var loc = [];
     location.getLocation().then((value) {
       loc.add(value.latitude);
       loc.add(value.longitude);
-      //print(value.latitude);
-      //print(value.longitude);
+      print(value.latitude);
+      print(value.longitude);
     });
     return loc;
-  }
+  }*/
 }
 
 /*class LocationLauncher extends StatefulWidget {
-
   @override
   State<LocationLauncher> createState() => _LocationLauncherState();
 }
-
 class _LocationLauncherState extends State<LocationLauncher> {
   @override
   Widget build(BuildContext context) {
@@ -54,5 +52,4 @@ class _LocationLauncherState extends State<LocationLauncher> {
       ),
     );
   }
-
 }*/

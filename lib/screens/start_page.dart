@@ -3,9 +3,21 @@ import 'package:flutter/widgets.dart';
 import 'package:afad_app/screens/login.dart';
 import 'package:afad_app/screens/signup.dart';
 
+import '../services/locaiton/get_loc.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    Loc lat_lon = Loc();
+    //get locaiton from gps
+    List loc = lat_lon.get_location();
+    print("***");
+    print(loc);
+
+
+
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,

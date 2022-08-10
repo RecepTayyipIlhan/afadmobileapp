@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/login.dart';
 import 'package:afad_app/screens/start_page.dart';
-
+import 'dart:math';
+Random random = new Random();
+int randomNumber = random.nextInt(100);
 
 class SignupPage extends StatelessWidget {
 
@@ -21,10 +23,15 @@ class SignupPage extends StatelessWidget {
   }*/
 
   void login_(String username, String surname, String password, String email, String phone ){
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference users_ref = FirebaseFirestore.instance.collection('user');
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    CollectionReference users_ref = FirebaseFirestore.instance.collection('People');
     //CollectionReference users_ref= firestore_test();
-    users_ref.add({'username':username, 'surname':surname,'phone':password, 'password':email,'email':phone});
+    Random random = new Random();
+
+    int id = random.nextInt(999999)+100000;
+    String id_s= id.toString();
+    db.collection('People').doc(id_s).set({"id":id_s,'name':username, 'surname':surname,'phone':phone, 'password':password,'email':email,'address':"",'people_with':"","blood_group":"","tc_id_number":"","relative_phone":"","diseases":"","medicines":""});
+    //users_ref.add({"id":id_s,'name':username, 'surname':surname,'phone':phone, 'password':password,'email':email,'address':"",'people_with':"","blood_group":"","tc_id_number":"","relative_phone":"","diseases":"","medicines":""});
   }
 
 
@@ -79,7 +86,7 @@ class SignupPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     makeInput(label: "Name",controller_name: name_c),
-                    makeInput(label: "Surname",controller_name: surname_c),
+                    makeInput(label: "Surname",controller_name: surname_c,),
                     makeInput(label: "Email",controller_name: email_c),
                     makeInput(label: "Telefon Numarası",controller_name: phone_c),
                     makeInput(label: "Şifre", obscureText: true,controller_name: password_c),

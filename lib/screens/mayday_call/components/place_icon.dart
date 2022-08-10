@@ -38,10 +38,10 @@ class _PlaceIconState extends State<PlaceIcon> {
                   offset: Offset(0, 3), // changes position of shadow
                 ),
               ],
-              
-              //color: Colors.redAccent[200],
-              color: _initialValue ? Colors.redAccent[200] : Colors.red,
-              
+
+              color: Colors.white,
+              //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
               borderRadius: BorderRadius.circular(8.0),
             ),
 
@@ -49,8 +49,8 @@ class _PlaceIconState extends State<PlaceIcon> {
               duration: const Duration(milliseconds: 700),
               decoration: BoxDecoration(
 
-                //color: Colors.redAccent[200],
-                color: _initialValue ? Colors.redAccent[200] : Colors.red,
+                color: Colors.white,
+                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 
                 image: DecorationImage(
                   scale: 0.2,

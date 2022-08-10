@@ -121,12 +121,13 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
         .toList();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFE63946),
+        backgroundColor: Color(0xFF003399).withOpacity(0.9),
         title: Text('Lora Cihazınızı Seçiniz'),
         leading: BackButton(
         color: Colors.white,
         onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
+          Navigator.pop(context);
         },),
         actions: <Widget>[
           _isDiscovering
