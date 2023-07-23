@@ -4,15 +4,14 @@ import 'package:afad_app/screens/add_user_info.dart';
 import 'package:flutter/material.dart';
 
 class SideBar extends StatelessWidget {
-
-  String email ="ilhanreceptayyip@gmail.com";
-  String username="Recep Tayyip İlhan";
-  List allData ;
-  SideBar(this.email, this.username,this.allData);
+  String email = "ilhanreceptayyip@gmail.com";
+  String username = "Recep Tayyip İlhan";
+  List? allData;
+  SideBar(this.email, this.username, this.allData);
 
   @override
   Widget build(BuildContext context) {
-   // print(allData);
+    // print(allData);
     //LoginPage log = LoginPage();
     //print(log.get_person());
     return Drawer(
@@ -20,36 +19,62 @@ class SideBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text(username,style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),),
-              accountEmail: Text(email,style: TextStyle(color: Colors.white,fontSize: 15,),),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white70,
-                child: ClipOval(
-                  child: Image.asset("assets/images/tc.png",),
+            accountName: Text(
+              username,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
+            ),
+            accountEmail: Text(
+              email,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white70,
+              child: ClipOval(
+                child: Image.asset(
+                  "assets/images/tc.png",
                 ),
               ),
+            ),
             decoration: BoxDecoration(
               color: Color(0xFFE63946),
               image: DecorationImage(
                 image: AssetImage("assets/images/sidebar.jpg"),
-                colorFilter: ColorFilter.mode(Color(0xFFE63946), BlendMode.modulate),
-                fit:BoxFit.cover,
+                colorFilter:
+                    ColorFilter.mode(Color(0xFFE63946), BlendMode.modulate),
+                fit: BoxFit.cover,
               ),
-
             ),
           ),
           ListTile(
             leading: Icon(Icons.person),
             title: Text("Afet Bilgilerimi Güncelle"),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage(allData)));
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserPage(
+                    allData,
+                  ),
+                ),
+              );
             },
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text("Çıkış Yap"),
-            onTap: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
             },
           ),
         ],

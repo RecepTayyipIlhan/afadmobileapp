@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'request_button.dart';
 
-
 class AllRequests extends StatelessWidget {
-  const AllRequests({Key key}) : super(key: key);
+  const AllRequests({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +14,7 @@ class AllRequests extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Yardım Talepleri',
@@ -34,23 +32,22 @@ class AllRequests extends StatelessWidget {
           RequestButton(
               title: "Ambulans",
               subtitle: "Şuanki konumunuza ambulans gönderir",
-              icon_data: Icons.emergency
-          ),RequestButton(
+              icon_data: Icons.emergency),
+          RequestButton(
               title: "Gıda Talebi",
               subtitle: "Şuanki konumunuza gıda yardımı gönderir",
-              icon_data: Icons.food_bank_rounded
-          ),RequestButton(
+              icon_data: Icons.food_bank_rounded),
+          RequestButton(
               title: "İlaç Talebi",
               subtitle: "Şuanki konumunuza ilaç yardımı gönderir",
-              icon_data: Icons.local_hospital
-          ),RequestButton(
+              icon_data: Icons.local_hospital),
+          RequestButton(
               title: "Barınma Talebi",
-              subtitle: "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır",
-              icon_data: Icons.local_hotel_rounded
-          ),
+              subtitle:
+                  "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır",
+              icon_data: Icons.local_hotel_rounded),
           Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'İhbarlar',
@@ -65,11 +62,10 @@ class AllRequests extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-
           RequestButton(
             title: "Gaz Kaçağı",
             subtitle:
-            "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır",
+                "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır",
             icon_data: Icons.dangerous_outlined,
           ),
           RequestButton(
@@ -79,11 +75,10 @@ class AllRequests extends StatelessWidget {
           RequestButton(
               title: "Enkaz",
               subtitle:
-              "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var",
+                  "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var",
               icon_data: Icons.house_siding_rounded),
         ],
       ),
-
     );
   }
 }

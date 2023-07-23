@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:afad_app/screens/login.dart';
 import 'package:afad_app/screens/signup.dart';
 
@@ -8,21 +7,17 @@ import '../services/locaiton/get_loc.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     Loc lat_lon = Loc();
     //get locaiton from gps
     List loc = lat_lon.get_location();
     print("***");
     print(loc);
 
-
-
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30,vertical: 70),
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: Wrap(
@@ -35,9 +30,10 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                Text("Acil Durum Haberleşme Uygulaması",
+                Text(
+                  "Acil Durum Haberleşme Uygulaması",
                   textAlign: TextAlign.center,
-                  style:TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 27,
                   ),
@@ -45,8 +41,9 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Text("Afet Anında Kesintisiz Ve Hızlı İlteşim ",
-                  style:TextStyle(
+                Text(
+                  "Afet Anında Kesintisiz Ve Hızlı İlteşim ",
+                  style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 15,
                   ),
@@ -56,7 +53,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 30),
             Container(
-              height: MediaQuery.of(context).size.height/3,
+              height: MediaQuery.of(context).size.height / 3,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/afad.jpg'),
@@ -67,55 +64,59 @@ class HomePage extends StatelessWidget {
             Column(
               children: <Widget>[
                 MaterialButton(
-
-                  onPressed: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   minWidth: double.infinity,
-                  height:60,
+                  height: 60,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
                       color: Colors.black,
                     ),
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text("Giriş",style:TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
+                  child: Text(
+                    "Giriş",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
-                  padding: EdgeInsets.only(top:3,left:3),
+                  padding: EdgeInsets.only(top: 3, left: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     border: Border(
-
                       bottom: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
                       top: BorderSide(color: Colors.black),
                       right: BorderSide(color: Colors.black),
-
                     ),
-
                   ),
                   child: MaterialButton(
-                    color: Color.fromARGB(150,234,117,38).withOpacity(0.8),
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupPage()));
+                    color: Color.fromARGB(150, 234, 117, 38).withOpacity(0.8),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignupPage()));
                     },
                     minWidth: double.infinity,
-                    height:60,
+                    height: 60,
                     shape: RoundedRectangleBorder(
-
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Text("Kayıt Ol",style:TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
+                    child: Text(
+                      "Kayıt Ol",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -123,9 +124,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-
       ),
     );
   }
 }
-

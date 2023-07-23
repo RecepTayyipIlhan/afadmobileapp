@@ -1,5 +1,4 @@
 import 'package:afad_app/screens/home/components/side_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/constants.dart';
 import 'package:afad_app/services/locaiton/location_louncher.dart';
@@ -24,58 +23,49 @@ import 'package:afad_app/person.dart';
 }*/
 
 class MenuScreen extends StatefulWidget {
+  final List? allData;
+  final List? lat_lon;
 
-  List allData;
-  List lat_lon;
-
-
-  MenuScreen({Key key,this.allData,this.lat_lon}): super(key: key);
+  MenuScreen({
+    super.key,
+    this.allData,
+    this.lat_lon,
+  });
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
-  List emptyList;
-
   Requests r = Requests();
 
-
-
-
-  GlobalKey<ScaffoldState>_scafflodKey=GlobalKey<ScaffoldState>();
+  final _scafflodKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
-
     //get locaiton from gps
     /*List loc = lat_lon.get_location();
     print("***");
     print(loc);*/
-    person_list = widget.allData;
+    personList = widget.allData;
     print("alahukeber");
-    print(person_list);
+    print(personList);
 
-    String username=widget.allData[0]["name"]+" "+widget.allData[0]["surname"];
-    String email=widget.allData[0]["email"];
+    String username =
+        widget.allData?[0]["name"] + " " + widget.allData?[0]["surname"];
+    String email = widget.allData?[0]["email"];
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
       key: _scafflodKey,
-      drawer: SideBar(username,email,widget.allData),
-
+      drawer: SideBar(username, email, widget.allData),
       backgroundColor: background_color_1,
       body: Container(
-
         child: Stack(
           children: <Widget>[
             Container(
-
               height: size.height * .45,
               width: size.width,
-
               decoration: BoxDecoration(
                 color: Color(0xFF003399).withOpacity(0.9),
                 //color : Colors.blue,
@@ -89,7 +79,7 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14,vertical: 14),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                 child: Column(
                   children: <Widget>[
                     Align(
@@ -100,31 +90,36 @@ class _MenuScreenState extends State<MenuScreen> {
                         child: button(_scafflodKey),
                       ),
                     ),
-                    SizedBox(height: size.height/7,),
+                    SizedBox(
+                      height: size.height / 7,
+                    ),
                     Container(
-                      height: size.height/15,
+                      height: size.height / 15,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(29),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 1),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 1),
                       child: TextField(
                         decoration: InputDecoration(
                           prefixIcon: Container(
                             padding: EdgeInsets.all(8),
-                            child: Image.asset("assets/icons/search.png",
+                            child: Image.asset(
+                              "assets/icons/search.png",
                               width: 5,
                               height: 5,
                               fit: BoxFit.fill,
                             ),
-                          ) ,
+                          ),
                           border: InputBorder.none,
                           hintText: "Arama",
                         ),
-
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Flexible(
                       child: GridView.count(
                         crossAxisCount: 2,
@@ -132,8 +127,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 25,
                         children: <Widget>[
-                          MenuCard(title:"Eğitim Videoları", path:"assets/icons/2.png"),
-                          MenuCard(title: "Cihazlarım",path: "assets/icons/1.png"),
+                          MenuCard(
+                              title: "Eğitim Videoları",
+                              path: "assets/icons/2.png"),
+                          MenuCard(
+                              title: "Cihazlarım", path: "assets/icons/1.png"),
                           //koyu yeşil 3ea69b
                           //açık yeşil 44c4a1
                           //kırmızı ec7d83
@@ -150,12 +148,16 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  Widget button(GlobalKey<ScaffoldState>_scafflodKey){
+  Widget button(GlobalKey<ScaffoldState> _scafflodKey) {
     return IconButton(
-      onPressed: (){
+      onPressed: () {
         _scafflodKey.currentState?.openDrawer();
       },
-      icon: Icon(Icons.menu,color: Colors.white,size: 30,),
+      icon: Icon(
+        Icons.menu,
+        color: Colors.white,
+        size: 30,
+      ),
     );
   }
 }

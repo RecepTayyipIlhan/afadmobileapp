@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:afad_app/screens/home/menu_page.dart';
 import './BluetoothDeviceListEntry.dart';
-
 
 class SelectBondedDevicePage extends StatefulWidget {
   /// If true, on page start there is performed discovery upon the bonded devices.
@@ -13,7 +11,7 @@ class SelectBondedDevicePage extends StatefulWidget {
   const SelectBondedDevicePage({this.checkAvailability = true});
 
   @override
-  _SelectBondedDevicePage createState() => new _SelectBondedDevicePage();
+  _SelectBondedDevicePage createState() => _SelectBondedDevicePage();
 }
 
 enum _DeviceAvailability {
@@ -23,11 +21,20 @@ enum _DeviceAvailability {
 }
 
 class _DeviceWithAvailability extends BluetoothDevice {
-  BluetoothDevice device;
   _DeviceAvailability availability;
-  int rssi;
+  int? rssi;
 
-  _DeviceWithAvailability(this.device, this.availability, [this.rssi]);
+  _DeviceWithAvailability(
+    BluetoothDevice device,
+    this.availability, {
+    this.rssi,
+  }) : super(
+          address: device.address,
+          name: device.name,
+          type: device.type,
+          isConnected: device.isConnected,
+          bondState: device.bondState,
+        );
 }
 
 class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
@@ -35,8 +42,8 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
   List<_DeviceWithAvailability> devices = <_DeviceWithAvailability>[];
 
   // Availability
-  StreamSubscription<BluetoothDiscoveryResult> _discoveryStreamSubscription;
-  bool _isDiscovering;
+  StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
+  bool _isDiscovering = false;
 
   _SelectBondedDevicePage();
 
@@ -81,10 +88,10 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
     _discoveryStreamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
       setState(() {
-        Iterator i = devices.iterator;
+        final i = devices.iterator;
         while (i.moveNext()) {
           var _device = i.current;
-          if (_device.device == r.device) {
+          if (_device == r.device) {
             _device.availability = _DeviceAvailability.yes;
             _device.rssi = r.rssi;
           }
@@ -92,7 +99,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
       });
     });
 
-    _discoveryStreamSubscription.onDone(() {
+    _discoveryStreamSubscription?.onDone(() {
       setState(() {
         _isDiscovering = false;
       });
@@ -111,11 +118,11 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
   Widget build(BuildContext context) {
     List<BluetoothDeviceListEntry> list = devices
         .map((_device) => BluetoothDeviceListEntry(
-              device: _device.device,
+              device: _device,
               rssi: _device.rssi,
               enabled: _device.availability == _DeviceAvailability.yes,
               onTap: () {
-                Navigator.of(context).pop(_device.device);
+                Navigator.of(context).pop(_device);
               },
             ))
         .toList();
@@ -124,16 +131,17 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
         backgroundColor: Color(0xFF003399).withOpacity(0.9),
         title: Text('Lora Cihazınızı Seçiniz'),
         leading: BackButton(
-        color: Colors.white,
-        onPressed: (){
-          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
-          Navigator.pop(context);
-        },),
+          color: Colors.white,
+          onPressed: () {
+            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
+            Navigator.pop(context);
+          },
+        ),
         actions: <Widget>[
           _isDiscovering
               ? FittedBox(
                   child: Container(
-                    margin: new EdgeInsets.all(16.0),
+                    margin: EdgeInsets.all(16.0),
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
                         Colors.white,

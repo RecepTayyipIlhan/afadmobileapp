@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/login.dart';
-import 'package:afad_app/screens/start_page.dart';
 import 'dart:math';
-Random random = new Random();
+
+Random random = Random();
 int randomNumber = random.nextInt(100);
 
 class SignupPage extends StatelessWidget {
-
-
   TextEditingController name_c = TextEditingController();
   TextEditingController surname_c = TextEditingController();
   TextEditingController email_c = TextEditingController();
@@ -22,18 +19,33 @@ class SignupPage extends StatelessWidget {
     return users_ref;
   }*/
 
-  void login_(String username, String surname, String password, String email, String phone ){
+  void login_(String username, String surname, String password, String email,
+      String phone) {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    CollectionReference users_ref = FirebaseFirestore.instance.collection('People');
+    CollectionReference users_ref =
+        FirebaseFirestore.instance.collection('People');
     //CollectionReference users_ref= firestore_test();
-    Random random = new Random();
+    Random random = Random();
 
-    int id = random.nextInt(999999)+100000;
-    String id_s= id.toString();
-    db.collection('People').doc(id_s).set({"id":id_s,'name':username, 'surname':surname,'phone':phone, 'password':password,'email':email,'address':"",'people_with':"","blood_group":"","tc_id_number":"","relative_phone":"","diseases":"","medicines":""});
+    int id = random.nextInt(999999) + 100000;
+    String id_s = id.toString();
+    db.collection('People').doc(id_s).set({
+      "id": id_s,
+      'name': username,
+      'surname': surname,
+      'phone': phone,
+      'password': password,
+      'email': email,
+      'address': "",
+      'people_with': "",
+      "blood_group": "",
+      "tc_id_number": "",
+      "relative_phone": "",
+      "diseases": "",
+      "medicines": ""
+    });
     //users_ref.add({"id":id_s,'name':username, 'surname':surname,'phone':phone, 'password':password,'email':email,'address':"",'people_with':"","blood_group":"","tc_id_number":"","relative_phone":"","diseases":"","medicines":""});
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +57,6 @@ class SignupPage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
-
           },
           icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
@@ -82,15 +93,25 @@ class SignupPage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40,vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: Column(
                   children: <Widget>[
-                    makeInput(label: "Name",controller_name: name_c),
-                    makeInput(label: "Surname",controller_name: surname_c,),
-                    makeInput(label: "Email",controller_name: email_c),
-                    makeInput(label: "Telefon Numarası",controller_name: phone_c),
-                    makeInput(label: "Şifre", obscureText: true,controller_name: password_c),
-                    makeInput(label: "Şifreyi Doğrula", obscureText: true,controller_name: password_c),
+                    makeInput(label: "Name", controller_name: name_c),
+                    makeInput(
+                      label: "Surname",
+                      controller_name: surname_c,
+                    ),
+                    makeInput(label: "Email", controller_name: email_c),
+                    makeInput(
+                        label: "Telefon Numarası", controller_name: phone_c),
+                    makeInput(
+                        label: "Şifre",
+                        obscureText: true,
+                        controller_name: password_c),
+                    makeInput(
+                        label: "Şifreyi Doğrula",
+                        obscureText: true,
+                        controller_name: password_c),
                   ],
                 ),
               ),
@@ -111,7 +132,8 @@ class SignupPage extends StatelessWidget {
                     color: Colors.blueAccent.withOpacity(0.8),
                     onPressed: () {
                       print(name_c.text);
-                      login_(name_c.text, surname_c.text, password_c.text, email_c.text, phone_c.text);
+                      login_(name_c.text, surname_c.text, password_c.text,
+                          email_c.text, phone_c.text);
                     },
                     minWidth: double.infinity,
                     height: 60,
@@ -134,7 +156,11 @@ class SignupPage extends StatelessWidget {
                   Text("Eğer hesabınız varsa giriş yapınız."),
                   TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => LoginPage(),));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ));
                       },
                       child: Text(
                         "Giriş",
@@ -156,7 +182,7 @@ class SignupPage extends StatelessWidget {
   }
 }
 
-Widget makeInput({label, obscureText = false,controller_name}) {
+Widget makeInput({label, obscureText = false, controller_name}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[

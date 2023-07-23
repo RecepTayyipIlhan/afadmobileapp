@@ -7,26 +7,26 @@ class RequestButton extends StatelessWidget {
   final String subtitle;
   final IconData icon_data;
 
+  const RequestButton({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon_data,
+  });
 
-
-  const RequestButton({Key key, @required this.title, @required this.subtitle, @required this.icon_data}) : super(key: key);
-
-
-  static ChatPage chat = ChatPage();
+  static ChatPage chat = ChatPage(
+    server: null,
+  );
   @override
   Widget build(BuildContext context) {
-   // const ChatPage c = ChatPage();
+    // const ChatPage c = ChatPage();
     return Column(
       children: [
-
         MaterialButton(
-          minWidth:double.infinity,
+          minWidth: double.infinity,
           padding: EdgeInsets.symmetric(vertical: 0),
-          onPressed: (){
-          },
-
+          onPressed: () {},
           child: Container(
-
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -44,17 +44,18 @@ class RequestButton extends StatelessWidget {
               leading: Icon(
                 icon_data,
                 color: Color(0xFF003399),
-
               ),
               title: Text(
                 title,
-                style: TextStyle(color:Color(0xFF003399)),
+                style: TextStyle(color: Color(0xFF003399)),
               ),
               subtitle: Text(subtitle),
             ),
           ),
         ),
-        SizedBox(height: 25,)
+        SizedBox(
+          height: 25,
+        )
       ],
     );
   }

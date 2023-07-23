@@ -1,62 +1,53 @@
 //import 'package:afad_application/services/auth.dart';
 import 'package:afad_app/screens/home/menu_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:afad_app/screens/start_page.dart';
 import 'package:afad_app/screens/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:afad_app/services/locaiton/location_louncher.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
-
 class LoginPage extends StatelessWidget {
   Requests req = Requests();
-  List lat_lon;
-  //LoginPage(this.lat_lon);
 
   //var allData = {};
 
-  void login_(context)async{
+  void login_(context) async {
     //final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     //sharedPreferences.setString('email', email_c.text);
 
-
-    QuerySnapshot querySnapshot = await users_ref.where("email",isEqualTo: email_c.text).where("password",isEqualTo: password_c.text).get();
+    QuerySnapshot querySnapshot = await users_ref
+        .where("email", isEqualTo: email_c.text)
+        .where("password", isEqualTo: password_c.text)
+        .get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     print(allData);
 
-    if(allData.length == 0){
-        print("User can not found");
-    }else if(allData.length==1){
-      Navigator.of(context).pushReplacement(
-
-          MaterialPageRoute(
-            builder: (context) => MenuScreen(allData : allData),
-          ));
+    if (allData.length == 0) {
+      print("User can not found");
+    } else if (allData.length == 1) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => MenuScreen(allData: allData),
+      ));
 
       req.request_service();
       req.request_permission();
-
-    }else{
+    } else {
       print("Unexpected error occured");
     }
-
   }
 
   /*Map get_person(){
     return allData;
   }*/
 
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  CollectionReference users_ref = FirebaseFirestore.instance.collection('People');
-  final TextEditingController email_c= TextEditingController();
-  final TextEditingController password_c= TextEditingController();
-
+  CollectionReference users_ref =
+      FirebaseFirestore.instance.collection('People');
+  final TextEditingController email_c = TextEditingController();
+  final TextEditingController password_c = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -66,7 +57,7 @@ class LoginPage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
-           /* Navigator.push(
+            /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()));*/
           },
@@ -102,12 +93,15 @@ class LoginPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 35),
               child: Column(
                 children: <Widget>[
-                  makeInput(label: "Email", hint_text: "e.g ornek@mail.com",controller_name: email_c),
                   makeInput(
-                      label: "Şifre",
-                      obscureText: true,
-                      hint_text: "*********",
-                      controller_name: password_c,
+                      label: "Email",
+                      hint_text: "e.g ornek@mail.com",
+                      controller_name: email_c),
+                  makeInput(
+                    label: "Şifre",
+                    obscureText: true,
+                    hint_text: "*********",
+                    controller_name: password_c,
                   ),
                 ],
               ),
@@ -127,7 +121,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   color: Colors.blueAccent.withOpacity(0.8),
-                  onPressed: (){
+                  onPressed: () {
                     login_(context);
                   },
                   minWidth: double.infinity,
@@ -183,8 +177,7 @@ class LoginPage extends StatelessWidget {
 }
 
 Widget makeInput(
-    {label, obscureText = false, hint_text = "", controller_name})
-   {
+    {label, obscureText = false, hint_text = "", controller_name}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[

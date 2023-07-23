@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PlaceIcon extends StatefulWidget {
   String path;
   String title;
-  PlaceIcon({@required this.path, @required this.title});
+  PlaceIcon({required this.path, required this.title});
 
   @override
   State<PlaceIcon> createState() => _PlaceIconState();
@@ -48,7 +48,6 @@ class _PlaceIconState extends State<PlaceIcon> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               decoration: BoxDecoration(
-
                 color: Colors.white,
                 //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 

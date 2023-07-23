@@ -1,5 +1,4 @@
 import 'package:afad_app/screens/home/menu_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageForm extends StatelessWidget {
@@ -11,9 +10,7 @@ class MessageForm extends StatelessWidget {
       body: Container(
         //alignment: Alignment.center,
         child: Stack(
-
           children: <Widget>[
-
             Container(
               width: size.width,
               height: size.height * .25,
@@ -49,7 +46,7 @@ class MessageForm extends StatelessWidget {
               children: <Widget>[
                 Container(
                   alignment: Alignment.bottomRight,
-                  width: size.width*0.4,
+                  width: size.width * 0.4,
                   child: Column(
                     children: <Widget>[
                       ListTile(
@@ -71,9 +68,9 @@ class MessageForm extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width:size.width*0.20),
+                SizedBox(width: size.width * 0.20),
                 Container(
-                  width: size.width*0.38,
+                  width: size.width * 0.38,
                   child: ListView(
                     children: <Widget>[
                       ListTile(
@@ -97,7 +94,6 @@ class MessageForm extends StatelessWidget {
                 ),
               ],
             ),
-
           ],
         ),
       ),
