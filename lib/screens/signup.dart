@@ -6,28 +6,36 @@ import 'dart:math';
 Random random = Random();
 int randomNumber = random.nextInt(100);
 
-class SignupPage extends StatelessWidget {
-  TextEditingController name_c = TextEditingController();
-  TextEditingController surname_c = TextEditingController();
-  TextEditingController email_c = TextEditingController();
-  TextEditingController phone_c = TextEditingController();
-  TextEditingController password_c = TextEditingController();
-
-  SignupPage({
+class SignupPage extends StatefulWidget {
+  const SignupPage({
     super.key,
   });
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  TextEditingController nameC = TextEditingController();
+
+  TextEditingController surnameC = TextEditingController();
+
+  TextEditingController emailC = TextEditingController();
+
+  TextEditingController phoneC = TextEditingController();
+
+  TextEditingController passwordC = TextEditingController();
 
   /*CollectionReference<Object?> firestore_test(){
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users_ref = FirebaseFirestore.instance.collection('user');
     return users_ref;
   }*/
-
   void login_(String username, String surname, String password, String email,
       String phone) {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    CollectionReference usersRef =
-        FirebaseFirestore.instance.collection('People');
+    // CollectionReference usersRef =
+    //     FirebaseFirestore.instance.collection('People');
     //CollectionReference users_ref= firestore_test();
     Random random = Random();
 
@@ -101,22 +109,22 @@ class SignupPage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: Column(
                   children: <Widget>[
-                    makeInput(label: "Name", controller_name: name_c),
+                    makeInput(label: "Name", controllerName: nameC),
                     makeInput(
                       label: "Surname",
-                      controller_name: surname_c,
+                      controllerName: surnameC,
                     ),
-                    makeInput(label: "Email", controller_name: email_c),
+                    makeInput(label: "Email", controllerName: emailC),
                     makeInput(
-                        label: "Telefon Numarası", controller_name: phone_c),
+                        label: "Telefon Numarası", controllerName: phoneC),
                     makeInput(
                         label: "Şifre",
                         obscureText: true,
-                        controller_name: password_c),
+                        controllerName: passwordC),
                     makeInput(
                         label: "Şifreyi Doğrula",
                         obscureText: true,
-                        controller_name: password_c),
+                        controllerName: passwordC),
                   ],
                 ),
               ),
@@ -136,9 +144,9 @@ class SignupPage extends StatelessWidget {
                   child: MaterialButton(
                     color: Colors.blueAccent.withOpacity(0.8),
                     onPressed: () {
-                      debugPrint(name_c.text);
-                      login_(name_c.text, surname_c.text, password_c.text,
-                          email_c.text, phone_c.text);
+                      debugPrint(nameC.text);
+                      login_(nameC.text, surnameC.text, passwordC.text,
+                          emailC.text, phoneC.text);
                     },
                     minWidth: double.infinity,
                     height: 60,
@@ -164,7 +172,7 @@ class SignupPage extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+                              builder: (context) => const LoginPage(),
                             ));
                       },
                       child: const Text(
@@ -187,7 +195,7 @@ class SignupPage extends StatelessWidget {
   }
 }
 
-Widget makeInput({label, obscureText = false, controller_name}) {
+Widget makeInput({label, obscureText = false, controllerName}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -202,7 +210,7 @@ Widget makeInput({label, obscureText = false, controller_name}) {
         height: 5,
       ),
       TextField(
-        controller: controller_name,
+        controller: controllerName,
         obscureText: obscureText,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),

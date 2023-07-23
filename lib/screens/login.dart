@@ -6,22 +6,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:afad_app/services/location/location_louncher.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatelessWidget {
-  Requests req = Requests();
-
-  LoginPage({
+class LoginPage extends StatefulWidget {
+  const LoginPage({
     super.key,
   });
 
-  //var allData = {};
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
+  Requests req = Requests();
+
+  //var allData = {};
   void login_(context) async {
     //final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     //sharedPreferences.setString('email', email_c.text);
 
-    QuerySnapshot querySnapshot = await users_ref
-        .where("email", isEqualTo: email_c.text)
-        .where("password", isEqualTo: password_c.text)
+    QuerySnapshot querySnapshot = await usersRef
+        .where("email", isEqualTo: emailC.text)
+        .where("password", isEqualTo: passwordC.text)
         .get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     debugPrint((allData).toString());
@@ -33,8 +37,8 @@ class LoginPage extends StatelessWidget {
         builder: (context) => MenuScreen(allData: allData),
       ));
 
-      req.request_service();
-      req.request_permission();
+      req.requestService();
+      req.requestPermission();
     } else {
       debugPrint("Unexpected error occured");
     }
@@ -43,12 +47,14 @@ class LoginPage extends StatelessWidget {
   /*Map get_person(){
     return allData;
   }*/
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  CollectionReference users_ref =
+
+  CollectionReference usersRef =
       FirebaseFirestore.instance.collection('People');
-  final TextEditingController email_c = TextEditingController();
-  final TextEditingController password_c = TextEditingController();
+
+  final TextEditingController emailC = TextEditingController();
+
+  final TextEditingController passwordC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +105,13 @@ class LoginPage extends StatelessWidget {
                 children: <Widget>[
                   makeInput(
                       label: "Email",
-                      hint_text: "e.g ornek@mail.com",
-                      controller_name: email_c),
+                      hintText: "e.g ornek@mail.com",
+                      controllerName: emailC),
                   makeInput(
                     label: "Şifre",
                     obscureText: true,
-                    hint_text: "*********",
-                    controller_name: password_c,
+                    hintText: "*********",
+                    controllerName: passwordC,
                   ),
                 ],
               ),
@@ -151,10 +157,11 @@ class LoginPage extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignupPage(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignupPage(),
+                        ),
+                      );
                     },
                     child: const Text(
                       "Kayıt",
@@ -180,8 +187,12 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-Widget makeInput(
-    {label, obscureText = false, hint_text = "", controller_name}) {
+Widget makeInput({
+  label,
+  obscureText = false,
+  hintText = "",
+  controllerName,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -196,10 +207,10 @@ Widget makeInput(
         height: 5,
       ),
       TextField(
-        controller: controller_name,
+        controller: controllerName,
         obscureText: obscureText,
         decoration: InputDecoration(
-          hintText: hint_text,
+          hintText: hintText,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: const OutlineInputBorder(

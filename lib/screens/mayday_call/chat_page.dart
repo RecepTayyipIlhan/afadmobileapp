@@ -21,7 +21,7 @@ class ChatPage extends StatefulWidget {
   });
 
   @override
-  _ChatPage createState() => _ChatPage();
+  State<ChatPage> createState() => _ChatPage();
 }
 
 class Person {
@@ -42,7 +42,7 @@ class _Message {
 }
 
 class _ChatPage extends State<ChatPage> {
-  Loc lat_lon = Loc();
+  Loc latLon = Loc();
   MenuScreen ms = const MenuScreen();
   //get location from gps
 
@@ -124,9 +124,13 @@ class _ChatPage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    bool initialValue = true;
 
-    List loc = lat_lon.get_location();
+    // to avoid dead code warnings
+    bool initialValue = () {
+      return true;
+    }();
+
+    List loc = latLon.getLocation();
     debugPrint("-------------------------");
     debugPrint((loc).toString());
     debugPrint("------------");
@@ -136,29 +140,29 @@ class _ChatPage extends State<ChatPage> {
     String lon = loc[1].toString();
     String id = personList?[0]["id"];
 
-    final List<Row> list = messages.map((message) {
-      return Row(
-        mainAxisAlignment: message.whom == clientID
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(12.0),
-            margin: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
-            width: 222.0,
-            decoration: BoxDecoration(
-                color:
-                    message.whom == clientID ? Colors.blueAccent : Colors.grey,
-                borderRadius: BorderRadius.circular(7.0)),
-            child: Text(
-                (text) {
-                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-                }(message.text.trim()),
-                style: const TextStyle(color: Colors.white)),
-          ),
-        ],
-      );
-    }).toList();
+    // final List<Row> list = messages.map((message) {
+    //   return Row(
+    //     mainAxisAlignment: message.whom == clientID
+    //         ? MainAxisAlignment.end
+    //         : MainAxisAlignment.start,
+    //     children: <Widget>[
+    //       Container(
+    //         padding: const EdgeInsets.all(12.0),
+    //         margin: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+    //         width: 222.0,
+    //         decoration: BoxDecoration(
+    //             color:
+    //                 message.whom == clientID ? Colors.blueAccent : Colors.grey,
+    //             borderRadius: BorderRadius.circular(7.0)),
+    //         child: Text(
+    //             (text) {
+    //               return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
+    //             }(message.text.trim()),
+    //             style: const TextStyle(color: Colors.white)),
+    //       ),
+    //     ],
+    //   );
+    // }).toList();
 
     return Scaffold(
       backgroundColor: const Color(0xFF003399),
@@ -1045,7 +1049,7 @@ class HelpCard extends StatelessWidget {
     required this.path,
   });
 
-  void card_pressed(var title, BuildContext context) {
+  void cardPressed(var title, BuildContext context) {
     switch (title) {
       case "Ev":
         debugPrint("Evdeyim");
@@ -1065,7 +1069,7 @@ class HelpCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(18),
       ),
-      onPressed: () => card_pressed(title, context),
+      onPressed: () => cardPressed(title, context),
       child: Container(
         padding: const EdgeInsets.all(20),
         child: Column(

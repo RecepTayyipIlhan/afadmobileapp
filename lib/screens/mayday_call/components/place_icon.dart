@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PlaceIcon extends StatefulWidget {
-  String path;
-  String title;
-  PlaceIcon({super.key, required this.path, required this.title});
+  final String path;
+  final String title;
+  const PlaceIcon({super.key, required this.path, required this.title});
 
   @override
   State<PlaceIcon> createState() => _PlaceIconState();

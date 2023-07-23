@@ -68,7 +68,9 @@ class Communication {
           ),
         );
         await connection?.output.allSent;
-      } catch (e) {}
+      } catch (e) {
+        debugPrint(e.toString());
+      }
     }
   }
 

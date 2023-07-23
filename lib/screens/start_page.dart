@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Loc latLon = Loc();
     //get location from gps
-    List loc = latLon.get_location();
+    List loc = latLon.getLocation();
     debugPrint("***");
     debugPrint((loc).toString());
 
@@ -69,8 +69,12 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 MaterialButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
                   },
                   minWidth: double.infinity,
                   height: 60,
@@ -107,9 +111,11 @@ class HomePage extends StatelessWidget {
                         .withOpacity(0.8),
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignupPage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignupPage(),
+                        ),
+                      );
                     },
                     minWidth: double.infinity,
                     height: 60,

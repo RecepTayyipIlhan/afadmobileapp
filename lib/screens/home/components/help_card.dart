@@ -11,7 +11,7 @@ class MenuCard extends StatelessWidget {
     required this.path,
   });
 
-  void card_pressed(var title, BuildContext context) {
+  void cardPressed(var title, BuildContext context) {
     switch (title) {
       /*case  "Destek Talebi":
         Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(),));
@@ -36,7 +36,7 @@ class MenuCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(18),
       ),
-      onPressed: () => card_pressed(title, context),
+      onPressed: () => cardPressed(title, context),
       child: Container(
         padding: const EdgeInsets.all(12),
         child: Column(

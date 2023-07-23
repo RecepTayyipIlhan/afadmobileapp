@@ -11,13 +11,14 @@ class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
   @override
-  _MainPage createState() => _MainPage();
+  State<MainPage> createState() => _MainPage();
 }
 
 class _MainPage extends State<MainPage> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
   String _address = "00:19:07:34:C2:BA"; //B8:27:EB:F6:81:D1
+  // ignore: unused_field
   String _name = "HC-06"; //raspberrypi
 
   @override
@@ -98,6 +99,7 @@ class _MainPage extends State<MainPage> {
         const BluetoothDevice(name: "HC-06", address: "00:19:07:34:C2:BA");
     final BluetoothDevice selectedDevice = b;
 
+    // ignore: unnecessary_null_comparison
     if (selectedDevice != null) {
       debugPrint('Connect -> selected ${selectedDevice.address}');
       //Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
@@ -129,7 +131,10 @@ class _MainPage extends State<MainPage> {
                 onPressed: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice selectedDevice = b;
-                        await Navigator.of(context).push(
+
+                        final navigator = Navigator.of(context);
+
+                        await navigator.push(
                           MaterialPageRoute(
                             builder: (context) {
                               return const SelectBondedDevicePage(
@@ -138,10 +143,11 @@ class _MainPage extends State<MainPage> {
                           ),
                         );
                         //debugPrint(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
+                        // ignore: unnecessary_null_comparison
                         if (selectedDevice != null) {
                           debugPrint(
                               'Connect -> selected ${selectedDevice.address}');
-                          _startChat(context, selectedDevice);
+                          _startChat(navigator, selectedDevice);
                         } else {
                           debugPrint('----Connect -> no device selected');
                         }
@@ -265,8 +271,8 @@ class _MainPage extends State<MainPage> {
     );
   }
 
-  void _startChat(BuildContext context, BluetoothDevice server) {
-    Navigator.of(context).push(
+  void _startChat(NavigatorState navigator, BluetoothDevice server) {
+    navigator.push(
       MaterialPageRoute(
         builder: (context) {
           return ChatPage(server: server);

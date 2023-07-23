@@ -2,26 +2,40 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/home/menu_page.dart';
 
-class UserPage extends StatelessWidget {
-  List? allData;
-  TextEditingController blood_group_c = TextEditingController();
-  TextEditingController tc_id_number_c = TextEditingController();
-  TextEditingController phone_c = TextEditingController();
-  TextEditingController relative_phone_c = TextEditingController();
-  TextEditingController diseases_c = TextEditingController();
-  TextEditingController medicines_c = TextEditingController();
-  TextEditingController people_with_c = TextEditingController();
+class UserPage extends StatefulWidget {
+  final List? allData;
 
-  TextEditingController address_c = TextEditingController();
-  TextEditingController building_age_c = TextEditingController();
-  TextEditingController building_durability_c = TextEditingController();
-
-  UserPage(
+  const UserPage(
     this.allData, {
     super.key,
   });
 
-  void add_info(
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  TextEditingController bloodGroupC = TextEditingController();
+
+  TextEditingController tcIdNumberC = TextEditingController();
+
+  TextEditingController phoneC = TextEditingController();
+
+  TextEditingController relativePhoneC = TextEditingController();
+
+  TextEditingController diseasesC = TextEditingController();
+
+  TextEditingController medicinesC = TextEditingController();
+
+  TextEditingController peopleWithC = TextEditingController();
+
+  TextEditingController addressC = TextEditingController();
+
+  TextEditingController buildingAgeC = TextEditingController();
+
+  TextEditingController buildingDurabilityC = TextEditingController();
+
+  void addInfo(
     String bloodGroup,
     String phone,
     String tcIdNumber,
@@ -40,8 +54,8 @@ class UserPage extends StatelessWidget {
 
     FirebaseFirestore db = FirebaseFirestore.instance;
 
-    CollectionReference usersRef =
-        FirebaseFirestore.instance.collection('People');
+    // CollectionReference usersRef =
+    //     FirebaseFirestore.instance.collection('People');
 
     /*QuerySnapshot querySnapshot2  = await db.collection("People").where("id", isEqualTo: id).get();/*.update({"blood_group": blood_group})*/
     final allDatam = querySnapshot2.docs.map((doc) => doc.data()).toList();
@@ -66,7 +80,7 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint("*******");
-    debugPrint((allData).toString());
+    debugPrint((widget.allData).toString());
     debugPrint("*******");
     return Scaffold(
       backgroundColor: Colors.white,
@@ -122,53 +136,53 @@ class UserPage extends StatelessWidget {
                   children: <Widget>[
                     makeInput(
                       label: "Kan Grubunuz",
-                      controller_name: blood_group_c,
-                      hintText: allData?[0]["blood_group"],
+                      controllerName: bloodGroupC,
+                      hintText: widget.allData?[0]["blood_group"],
                     ),
                     makeInput(
                       label: "Telefon Numaranız",
-                      controller_name: phone_c,
-                      hintText: allData?[0]["phone"],
+                      controllerName: phoneC,
+                      hintText: widget.allData?[0]["phone"],
                     ),
                     makeInput(
                       label: "Tc Kimlik Numaranız",
-                      controller_name: tc_id_number_c,
-                      hintText: allData?[0]["tc_id_number"],
+                      controllerName: tcIdNumberC,
+                      hintText: widget.allData?[0]["tc_id_number"],
                     ),
                     makeInput(
                       label: "Yakınınızın Numarası",
-                      controller_name: relative_phone_c,
-                      hintText: allData?[0]["relative_phone"],
+                      controllerName: relativePhoneC,
+                      hintText: widget.allData?[0]["relative_phone"],
                     ),
                     makeInput(
                       label: "Sahip Olduğunuz Hastalıklar",
-                      controller_name: diseases_c,
-                      hintText: allData?[0]["diseases"],
+                      controllerName: diseasesC,
+                      hintText: widget.allData?[0]["diseases"],
                     ),
                     makeInput(
                       label: "Düzenli Kullandığınız İlaçlar",
-                      controller_name: medicines_c,
-                      hintText: allData?[0]["medicines"],
+                      controllerName: medicinesC,
+                      hintText: widget.allData?[0]["medicines"],
                     ),
                     makeInput(
                       label: "Evinizde Yaşayan Kişi Sayısı",
-                      controller_name: people_with_c,
-                      hintText: allData?[0]["people_with"],
+                      controllerName: peopleWithC,
+                      hintText: widget.allData?[0]["people_with"],
                     ),
                     makeInput(
                       label: "Adresiniz",
-                      controller_name: address_c,
-                      hintText: allData?[0]["address"],
+                      controllerName: addressC,
+                      hintText: widget.allData?[0]["address"],
                     ),
                     makeInput(
                       label: "Oturduğunuz binanın yaşı",
-                      controller_name: building_age_c,
-                      hintText: allData?[0]["building_age"],
+                      controllerName: buildingAgeC,
+                      hintText: widget.allData?[0]["building_age"],
                     ),
                     makeInput(
                       label: "Binanızın Tahmini Depreme Dayanaıklığı",
-                      controller_name: building_durability_c,
-                      hintText: allData?[0]["building_durability"],
+                      controllerName: buildingDurabilityC,
+                      hintText: widget.allData?[0]["building_durability"],
                     ),
                   ],
                 ),
@@ -190,18 +204,18 @@ class UserPage extends StatelessWidget {
                     //color: Colors.blueAccent.withOpacity(0.8),
                     color: const Color(0xFFE63946),
                     onPressed: () {
-                      add_info(
-                        blood_group_c.text,
-                        phone_c.text,
-                        tc_id_number_c.text,
-                        relative_phone_c.text,
-                        diseases_c.text,
-                        medicines_c.text,
-                        people_with_c.text,
-                        address_c.text,
-                        building_age_c.text,
-                        building_durability_c.text,
-                        allData,
+                      addInfo(
+                        bloodGroupC.text,
+                        phoneC.text,
+                        tcIdNumberC.text,
+                        relativePhoneC.text,
+                        diseasesC.text,
+                        medicinesC.text,
+                        peopleWithC.text,
+                        addressC.text,
+                        buildingAgeC.text,
+                        buildingDurabilityC.text,
+                        widget.allData,
                       );
                     },
                     minWidth: double.infinity,
@@ -230,7 +244,12 @@ class UserPage extends StatelessWidget {
   }
 }
 
-Widget makeInput({label, obscureText = false, controller_name, hintText}) {
+Widget makeInput({
+  label,
+  obscureText = false,
+  controllerName,
+  hintText,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -245,7 +264,7 @@ Widget makeInput({label, obscureText = false, controller_name, hintText}) {
         height: 5,
       ),
       TextField(
-        controller: controller_name,
+        controller: controllerName,
         obscureText: obscureText,
         decoration: InputDecoration(
           hintText: hintText,

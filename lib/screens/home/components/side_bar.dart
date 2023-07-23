@@ -3,12 +3,19 @@ import 'package:afad_app/screens/add_user_info.dart';
 //import 'package:afad_app/screens/login.dart';
 import 'package:flutter/material.dart';
 
-class SideBar extends StatelessWidget {
-  String email = "ilhanreceptayyip@gmail.com";
-  String username = "Recep Tayyip İlhan";
-  List? allData;
-  SideBar(this.email, this.username, this.allData, {super.key});
+class SideBar extends StatefulWidget {
+  // "ilhanreceptayyip@gmail.com"
+  final String email;
+  // "Recep Tayyip İlhan"
+  final String username;
+  final List? allData;
+  const SideBar(this.email, this.username, this.allData, {super.key});
 
+  @override
+  State<SideBar> createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
   @override
   Widget build(BuildContext context) {
     // debugPrint(allData);
@@ -20,14 +27,14 @@ class SideBar extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              username,
+              widget.username,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
             accountEmail: Text(
-              email,
+              widget.email,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
@@ -59,7 +66,7 @@ class SideBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => UserPage(
-                    allData,
+                    widget.allData,
                   ),
                 ),
               );
@@ -72,7 +79,7 @@ class SideBar extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LoginPage(),
+                  builder: (context) => const LoginPage(),
                 ),
               );
             },

@@ -4,8 +4,9 @@ import 'package:location/location.dart';
 class Requests {
   Location location = Location();
 
-  void request_service() {
-    if (location.serviceEnabled() != true) {
+  void requestService() async {
+    final enabled = await location.serviceEnabled();
+    if (enabled != true) {
       location.requestService().then((value) {
         debugPrint((value).toString());
       });
@@ -14,7 +15,7 @@ class Requests {
     }
   }
 
-  void request_permission() async {
+  void requestPermission() async {
     if (await location.hasPermission() != PermissionStatus.granted) {
       location.requestService().then((value) {
         debugPrint((value).toString());

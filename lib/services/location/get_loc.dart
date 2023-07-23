@@ -6,7 +6,7 @@ import '../../locat.dart';
 class Loc {
   Location location = Location();
 
-  List get_location() {
+  List getLocation() {
     location.getLocation().then((value) {
       listloc.add(value.latitude);
       listloc.add(value.longitude);

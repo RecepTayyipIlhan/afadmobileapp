@@ -4,13 +4,13 @@ import 'package:afad_app/screens/mayday_call/chat_page.dart';
 class RequestButton extends StatelessWidget {
   final String title;
   final String subtitle;
-  final IconData icon_data;
+  final IconData iconData;
 
   const RequestButton({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.icon_data,
+    required this.iconData,
   });
 
   static ChatPage chat = const ChatPage(
@@ -41,7 +41,7 @@ class RequestButton extends StatelessWidget {
             ),
             child: ListTile(
               leading: Icon(
-                icon_data,
+                iconData,
                 color: const Color(0xFF003399),
               ),
               title: Text(
