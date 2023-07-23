@@ -76,7 +76,7 @@ class _ChatPage extends State<ChatPage> {
       widget.server?.address,
     ).then(
       (_connection) {
-        print('Connected to the device');
+        debugPrint('Connected to the device');
         connection = _connection;
         setState(() {
           isConnecting = false;
@@ -92,9 +92,9 @@ class _ChatPage extends State<ChatPage> {
             // If we except the disconnection, `onDone` should be fired as result.
             // If we didn't except this (no flag set), it means closing by remote.
             if (isDisconnecting) {
-              print('Disconnecting locally!');
+              debugPrint('Disconnecting locally!');
             } else {
-              print('Disconnected remotely!');
+              debugPrint('Disconnected remotely!');
             }
             if (this.mounted) {
               setState(() {});
@@ -104,8 +104,8 @@ class _ChatPage extends State<ChatPage> {
       },
     ).catchError(
       (error) {
-        print('Cannot connect, exception occured');
-        print(error);
+        debugPrint('Cannot connect, exception occured');
+        debugPrint(error);
       },
     );
   }
@@ -127,10 +127,10 @@ class _ChatPage extends State<ChatPage> {
     bool _initialValue = true;
 
     List loc = lat_lon.get_location();
-    print("-------------------------");
-    print(loc);
-    print("------------");
-    print(personList);
+    debugPrint("-------------------------");
+    debugPrint((loc).toString());
+    debugPrint("------------");
+    debugPrint((personList).toString());
 
     String lat = loc[0].toString();
     String lon = loc[1].toString();
@@ -1034,7 +1034,7 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void printt(String text) {
-    print(text);
+    debugPrint(text);
   }
 
   void sendMessage(String text) async {
@@ -1087,10 +1087,10 @@ class HelpCard extends StatelessWidget {
   void card_pressed(var title, BuildContext context) {
     switch (title) {
       case "Ev":
-        print("Evdeyim");
+        debugPrint("Evdeyim");
         break;
       case "Toplanma Alanaı":
-        print("Toplanma Alanındayım");
+        debugPrint("Toplanma Alanındayım");
     }
   }
 

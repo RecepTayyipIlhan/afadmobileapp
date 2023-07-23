@@ -5,7 +5,7 @@ class MessageForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print(size.height * .25);
+    debugPrint((size.height * .25).toString());
     return Scaffold(
       body: Container(
         //alignment: Alignment.center,

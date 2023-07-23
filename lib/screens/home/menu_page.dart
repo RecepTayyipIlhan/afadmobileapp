@@ -45,11 +45,11 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     //get locaiton from gps
     /*List loc = lat_lon.get_location();
-    print("***");
-    print(loc);*/
+    debugPrint("***");
+    debugPrint(loc);*/
     personList = widget.allData;
-    print("alahukeber");
-    print(personList);
+    debugPrint("alahukeber");
+    debugPrint((personList).toString());
 
     String username =
         widget.allData?[0]["name"] + " " + widget.allData?[0]["surname"];

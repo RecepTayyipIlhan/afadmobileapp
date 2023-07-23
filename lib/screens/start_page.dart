@@ -10,8 +10,8 @@ class HomePage extends StatelessWidget {
     Loc lat_lon = Loc();
     //get locaiton from gps
     List loc = lat_lon.get_location();
-    print("***");
-    print(loc);
+    debugPrint("***");
+    debugPrint((loc).toString());
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

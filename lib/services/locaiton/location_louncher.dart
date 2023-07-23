@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:location/location.dart';
 
 class Requests {
@@ -6,20 +7,20 @@ class Requests {
   void request_service() {
     if (location.serviceEnabled() != true) {
       location.requestService().then((value) {
-        print(value);
+        debugPrint((value).toString());
       });
     } else {
-      print("already service enabled");
+      debugPrint("already service enabled");
     }
   }
 
   void request_permission() async {
     if (await location.hasPermission() != PermissionStatus.granted) {
       location.requestService().then((value) {
-        print(value);
+        debugPrint((value).toString());
       });
     } else {
-      print("Already has permission");
+      debugPrint("Already has permission");
     }
   }
 
@@ -28,8 +29,8 @@ class Requests {
     location.getLocation().then((value) {
       loc.add(value.latitude);
       loc.add(value.longitude);
-      print(value.latitude);
-      print(value.longitude);
+      debugPrint(value.latitude);
+      debugPrint(value.longitude);
     });
     return loc;
   }*/

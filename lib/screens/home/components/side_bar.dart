@@ -11,9 +11,9 @@ class SideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(allData);
+    // debugPrint(allData);
     //LoginPage log = LoginPage();
-    //print(log.get_person());
+    //debugPrint(log.get_person());
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,

@@ -131,7 +131,7 @@ class SignupPage extends StatelessWidget {
                   child: MaterialButton(
                     color: Colors.blueAccent.withOpacity(0.8),
                     onPressed: () {
-                      print(name_c.text);
+                      debugPrint(name_c.text);
                       login_(name_c.text, surname_c.text, password_c.text,
                           email_c.text, phone_c.text);
                     },

@@ -33,7 +33,7 @@ class UserPage extends StatelessWidget {
   ) async {
     final id = allData?[0]["id"];
 
-    print(id);
+    debugPrint(id);
 
     FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -42,7 +42,7 @@ class UserPage extends StatelessWidget {
 
     /*QuerySnapshot querySnapshot2  = await db.collection("People").where("id", isEqualTo: id).get();/*.update({"blood_group": blood_group})*/
     final allDatam = querySnapshot2.docs.map((doc) => doc.data()).toList();
-    print(allDatam);*/
+    debugPrint(allDatam);*/
 
     db.collection("People").doc(id).update({
       "blood_group": blood_group,
@@ -62,9 +62,9 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("*******");
-    print(allData);
-    print("*******");
+    debugPrint("*******");
+    debugPrint((allData).toString());
+    debugPrint("*******");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

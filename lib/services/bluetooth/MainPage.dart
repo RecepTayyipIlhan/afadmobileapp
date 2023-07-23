@@ -56,7 +56,7 @@ class _MainPage extends State<MainPage> {
         setState(
           () {
             _name = name;
-            print("**********" + name);
+            debugPrint("**********" + name);
           },
         );
       },
@@ -78,7 +78,7 @@ class _MainPage extends State<MainPage> {
   void init() async {
     Communication com = Communication();
     await com.connectBl(_address);
-    print(_address);
+    debugPrint(_address);
     com.sendMessage("Hello");
     setState(() {});
   }
@@ -97,7 +97,7 @@ class _MainPage extends State<MainPage> {
     final BluetoothDevice selectedDevice = b;
 
     if (selectedDevice != null) {
-      print('Connect -> selected ' + selectedDevice.address);
+      debugPrint('Connect -> selected ' + selectedDevice.address);
       //Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
       /*Future.delayed(Duration.zero, () {
         Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
@@ -105,7 +105,7 @@ class _MainPage extends State<MainPage> {
 
       //_startChat(context, selectedDevice);
     } else {
-      print('------------------Connect -> no device selected');
+      debugPrint('------------------Connect -> no device selected');
       return Container();
     }
     return Scaffold(
@@ -142,13 +142,13 @@ class _MainPage extends State<MainPage> {
                             },
                           ),
                         );
-                        //print(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
+                        //debugPrint(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
                         if (selectedDevice != null) {
-                          print(
+                          debugPrint(
                               'Connect -> selected ' + selectedDevice.address);
                           _startChat(context, selectedDevice);
                         } else {
-                          print('----Connect -> no device selected');
+                          debugPrint('----Connect -> no device selected');
                         }
                       }
                     : null,
@@ -245,12 +245,12 @@ class _MainPage extends State<MainPage> {
                           },
                         ),
                       );
-                      //print(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
+                      //debugPrint(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
                       if (selectedDevice != null) {
-                        print('Connect -> selected ' + selectedDevice.address);
+                        debugPrint('Connect -> selected ' + selectedDevice.address);
                         _startChat(context, selectedDevice);
                       } else {
-                        print('------------------Connect -> no device selected');
+                        debugPrint('------------------Connect -> no device selected');
                       }
                     },
                   ),

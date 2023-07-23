@@ -20,10 +20,10 @@ class LoginPage extends StatelessWidget {
         .where("password", isEqualTo: password_c.text)
         .get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
+    debugPrint((allData).toString());
 
     if (allData.length == 0) {
-      print("User can not found");
+      debugPrint("User can not found");
     } else if (allData.length == 1) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => MenuScreen(allData: allData),
@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
       req.request_service();
       req.request_permission();
     } else {
-      print("Unexpected error occured");
+      debugPrint("Unexpected error occured");
     }
   }
 
