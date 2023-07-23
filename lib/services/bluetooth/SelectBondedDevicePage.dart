@@ -8,7 +8,7 @@ class SelectBondedDevicePage extends StatefulWidget {
   /// Then, if they are not avaliable, they would be disabled from the selection.
   final bool checkAvailability;
 
-  const SelectBondedDevicePage({this.checkAvailability = true});
+  const SelectBondedDevicePage({super.key, this.checkAvailability = true});
 
   @override
   _SelectBondedDevicePage createState() => _SelectBondedDevicePage();
@@ -26,9 +26,7 @@ class _DeviceWithAvailability extends BluetoothDevice {
 
   _DeviceWithAvailability(
     BluetoothDevice device,
-    this.availability, {
-    this.rssi,
-  }) : super(
+    this.availability) : super(
           address: device.address,
           name: device.name,
           type: device.type,
@@ -90,10 +88,10 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
       setState(() {
         final i = devices.iterator;
         while (i.moveNext()) {
-          var _device = i.current;
-          if (_device == r.device) {
-            _device.availability = _DeviceAvailability.yes;
-            _device.rssi = r.rssi;
+          var device = i.current;
+          if (device == r.device) {
+            device.availability = _DeviceAvailability.yes;
+            device.rssi = r.rssi;
           }
         }
       });
@@ -117,19 +115,19 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
   @override
   Widget build(BuildContext context) {
     List<BluetoothDeviceListEntry> list = devices
-        .map((_device) => BluetoothDeviceListEntry(
-              device: _device,
-              rssi: _device.rssi,
-              enabled: _device.availability == _DeviceAvailability.yes,
+        .map((device) => BluetoothDeviceListEntry(
+              device: device,
+              rssi: device.rssi,
+              enabled: device.availability == _DeviceAvailability.yes,
               onTap: () {
-                Navigator.of(context).pop(_device);
+                Navigator.of(context).pop(device);
               },
             ))
         .toList();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF003399).withOpacity(0.9),
-        title: Text('Lora Cihazınızı Seçiniz'),
+        backgroundColor: const Color(0xFF003399).withOpacity(0.9),
+        title: const Text('Lora Cihazınızı Seçiniz'),
         leading: BackButton(
           color: Colors.white,
           onPressed: () {
@@ -141,8 +139,8 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
           _isDiscovering
               ? FittedBox(
                   child: Container(
-                    margin: EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(
+                    margin: const EdgeInsets.all(16.0),
+                    child: const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
                         Colors.white,
                       ),
@@ -150,7 +148,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
                   ),
                 )
               : IconButton(
-                  icon: Icon(Icons.replay),
+                  icon: const Icon(Icons.replay),
                   onPressed: _restartDiscovery,
                 )
         ],

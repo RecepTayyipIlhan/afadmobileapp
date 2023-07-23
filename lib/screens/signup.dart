@@ -13,6 +13,10 @@ class SignupPage extends StatelessWidget {
   TextEditingController phone_c = TextEditingController();
   TextEditingController password_c = TextEditingController();
 
+  SignupPage({
+    super.key,
+  });
+
   /*CollectionReference<Object?> firestore_test(){
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users_ref = FirebaseFirestore.instance.collection('user');
@@ -22,15 +26,15 @@ class SignupPage extends StatelessWidget {
   void login_(String username, String surname, String password, String email,
       String phone) {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    CollectionReference users_ref =
+    CollectionReference usersRef =
         FirebaseFirestore.instance.collection('People');
     //CollectionReference users_ref= firestore_test();
     Random random = Random();
 
     int id = random.nextInt(999999) + 100000;
-    String id_s = id.toString();
-    db.collection('People').doc(id_s).set({
-      "id": id_s,
+    String idS = id.toString();
+    db.collection('People').doc(idS).set({
+      "id": idS,
       'name': username,
       'surname': surname,
       'phone': phone,
@@ -58,12 +62,12 @@ class SignupPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
         //reverse: true,
-        child: Container(
+        child: SizedBox(
           //height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Column(
@@ -72,19 +76,19 @@ class SignupPage extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "Kayıt",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         "Yeni Bir Afet Koordinasyon Uygulaması Hesabı Oluşturun",
                         style: TextStyle(fontSize: 15, color: Colors.grey[700]),
@@ -93,7 +97,8 @@ class SignupPage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: Column(
                   children: <Widget>[
                     makeInput(label: "Name", controller_name: name_c),
@@ -116,12 +121,12 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Container(
-                  padding: EdgeInsets.only(top: 3, left: 3),
+                  padding: const EdgeInsets.only(top: 3, left: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    border: Border(
+                    border: const Border(
                       bottom: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
                       top: BorderSide(color: Colors.black),
@@ -140,7 +145,7 @@ class SignupPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Kayıt Ol",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -153,7 +158,7 @@ class SignupPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Eğer hesabınız varsa giriş yapınız."),
+                  const Text("Eğer hesabınız varsa giriş yapınız."),
                   TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -162,7 +167,7 @@ class SignupPage extends StatelessWidget {
                               builder: (context) => LoginPage(),
                             ));
                       },
-                      child: Text(
+                      child: const Text(
                         "Giriş",
                         style: TextStyle(
                             color: Colors.black,
@@ -171,7 +176,7 @@ class SignupPage extends StatelessWidget {
                       )),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],
@@ -188,18 +193,18 @@ Widget makeInput({label, obscureText = false, controller_name}) {
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.w400,
           color: Colors.black87,
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
         controller: controller_name,
         obscureText: obscureText,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
@@ -209,7 +214,7 @@ Widget makeInput({label, obscureText = false, controller_name}) {
           ),
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
     ],

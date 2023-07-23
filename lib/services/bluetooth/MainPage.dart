@@ -8,6 +8,8 @@ import '../../screens/mayday_call/ChatPage.dart';
 //import './ChatPage2.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPage createState() => _MainPage();
 }
@@ -34,7 +36,7 @@ class _MainPage extends State<MainPage> {
       if ((await FlutterBluetoothSerial.instance.isEnabled) == true) {
         return false;
       }
-      await Future.delayed(Duration(milliseconds: 0xDD));
+      await Future.delayed(const Duration(milliseconds: 0xDD));
       return true;
     }).then((_) {
       // Update the address field
@@ -56,7 +58,7 @@ class _MainPage extends State<MainPage> {
         setState(
           () {
             _name = name;
-            debugPrint("**********" + name);
+            debugPrint("**********$name");
           },
         );
       },
@@ -93,11 +95,11 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     BluetoothDevice b =
-        BluetoothDevice(name: "HC-06", address: "00:19:07:34:C2:BA");
+        const BluetoothDevice(name: "HC-06", address: "00:19:07:34:C2:BA");
     final BluetoothDevice selectedDevice = b;
 
     if (selectedDevice != null) {
-      debugPrint('Connect -> selected ' + selectedDevice.address);
+      debugPrint('Connect -> selected ${selectedDevice.address}');
       //Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
       /*Future.delayed(Duration.zero, () {
         Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
@@ -112,7 +114,7 @@ class _MainPage extends State<MainPage> {
       resizeToAvoidBottomInset: false,
       //backgroundColor: Color(0xFFE63946),
       appBar: AppBar(
-        backgroundColor: Color(0xFF003399).withOpacity(0.9),
+        backgroundColor: const Color(0xFF003399).withOpacity(0.9),
         title: const Text('Lora Sensörüne Bağlanın'),
       ),
       body: Column(
@@ -124,20 +126,13 @@ class _MainPage extends State<MainPage> {
           Column(
             children: [
               ElevatedButton(
-                child: Icon(
-                  Icons.bluetooth_audio_rounded,
-                  size: 45,
-                  color: _bluetoothState.isEnabled
-                      ? Colors.white
-                      : Colors.red.withOpacity(0.6),
-                ),
                 onPressed: _bluetoothState.isEnabled
                     ? () async {
                         final BluetoothDevice selectedDevice = b;
                         await Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
-                              return SelectBondedDevicePage(
+                              return const SelectBondedDevicePage(
                                   checkAvailability: false);
                             },
                           ),
@@ -145,7 +140,7 @@ class _MainPage extends State<MainPage> {
                         //debugPrint(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
                         if (selectedDevice != null) {
                           debugPrint(
-                              'Connect -> selected ' + selectedDevice.address);
+                              'Connect -> selected ${selectedDevice.address}');
                           _startChat(context, selectedDevice);
                         } else {
                           debugPrint('----Connect -> no device selected');
@@ -153,33 +148,40 @@ class _MainPage extends State<MainPage> {
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
-                  primary: _bluetoothState.isEnabled
-                      ? Color(0xFF003399).withOpacity(0.7)
+                  backgroundColor: _bluetoothState.isEnabled
+                      ? const Color(0xFF003399).withOpacity(0.7)
                       : Colors.white70,
                   shadowColor: Colors.blueAccent,
                   fixedSize: const Size(140, 140),
                   shape: const CircleBorder(),
                 ),
+                child: Icon(
+                  Icons.bluetooth_audio_rounded,
+                  size: 45,
+                  color: _bluetoothState.isEnabled
+                      ? Colors.white
+                      : Colors.red.withOpacity(0.6),
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 _bluetoothState.isEnabled
                     ? "Lora Sensörü Ara "
                     : "Önce Blutoothu Aktif Edin",
-                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+                style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
               ),
             ],
           ),
           Container(
-            color: Color(0xFF003399).withOpacity(0.9),
+            color: const Color(0xFF003399).withOpacity(0.9),
             height: size.height / 3,
             width: size.width,
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: ListView(
               children: <Widget>[
-                Divider(color: Colors.white, thickness: 2),
+                const Divider(color: Colors.white, thickness: 2),
                 //ListTile(title: const Text('General')),
                 SwitchListTile(
                   activeColor: Colors.white,
@@ -192,25 +194,25 @@ class _MainPage extends State<MainPage> {
                     // Do the request and update with the true value then
                     future() async {
                       // async lambda seems to not working
-                      if (value)
+                      if (value) {
                         await FlutterBluetoothSerial.instance.requestEnable();
-                      else
+                      } else {
                         await FlutterBluetoothSerial.instance.requestDisable();
+                      }
                     }
 
-                    ;
 
                     future().then((_) {
                       setState(() {});
                     });
                   },
                 ),
-                Divider(color: Colors.white, thickness: 2),
+                const Divider(color: Colors.white, thickness: 2),
                 ListTile(
                   title: const Text('Bluetooth Durumu',
                       style: TextStyle(color: Colors.white)),
                   subtitle: Text(_bluetoothState.isEnabled ? "Açık" : "Kapalı",
-                      style: TextStyle(color: Colors.white)),
+                      style: const TextStyle(color: Colors.white)),
                   //subtitle: Text(returnStatus(_bluetoothState)),
                   trailing: MaterialButton(
                     color: Colors.white,
@@ -220,7 +222,7 @@ class _MainPage extends State<MainPage> {
                     },
                   ),
                 ),
-                Divider(color: Colors.white, thickness: 2),
+                const Divider(color: Colors.white, thickness: 2),
 
                 /*ListTile(
                   title: const Text('Local adapter address'),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PlaceIcon extends StatefulWidget {
   String path;
   String title;
-  PlaceIcon({required this.path, required this.title});
+  PlaceIcon({super.key, required this.path, required this.title});
 
   @override
   State<PlaceIcon> createState() => _PlaceIconState();
@@ -28,14 +28,14 @@ class _PlaceIconState extends State<PlaceIcon> {
             height: _initialValue ? 50 : 60,
             width: _initialValue ? 50 : 60,
 
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
                   color: Colors.white.withOpacity(0.5),
                   spreadRadius: 0.5,
                   blurRadius: 5,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
 
@@ -61,7 +61,7 @@ class _PlaceIconState extends State<PlaceIcon> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Text(

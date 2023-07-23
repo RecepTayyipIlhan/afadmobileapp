@@ -7,7 +7,7 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(
-    MaterialApp(
+    const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     ),

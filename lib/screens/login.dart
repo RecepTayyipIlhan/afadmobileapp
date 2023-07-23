@@ -9,6 +9,10 @@ import 'package:afad_app/services/locaiton/location_louncher.dart';
 class LoginPage extends StatelessWidget {
   Requests req = Requests();
 
+  LoginPage({
+    super.key,
+  });
+
   //var allData = {};
 
   void login_(context) async {
@@ -22,7 +26,7 @@ class LoginPage extends StatelessWidget {
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     debugPrint((allData).toString());
 
-    if (allData.length == 0) {
+    if (allData.isEmpty) {
       debugPrint("User can not found");
     } else if (allData.length == 1) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -61,10 +65,10 @@ class LoginPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()));*/
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -74,7 +78,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Giriş",
                     style: TextStyle(
                       fontSize: 25,
@@ -90,7 +94,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 35),
+              padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Column(
                 children: <Widget>[
                   makeInput(
@@ -107,12 +111,12 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Container(
-                padding: EdgeInsets.only(top: 3, left: 3),
+                padding: const EdgeInsets.only(top: 3, left: 3),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  border: Border(
+                  border: const Border(
                     bottom: BorderSide(color: Colors.black),
                     left: BorderSide(color: Colors.black),
                     top: BorderSide(color: Colors.black),
@@ -129,7 +133,7 @@ class LoginPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Giriş",
                     style: TextStyle(
                       color: Colors.white,
@@ -143,7 +147,7 @@ class LoginPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Eğer hesabınız yoksa kayıt olunuz."),
+                const Text("Eğer hesabınız yoksa kayıt olunuz."),
                 TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -152,7 +156,7 @@ class LoginPage extends StatelessWidget {
                             builder: (context) => SignupPage(),
                           ));
                     },
-                    child: Text(
+                    child: const Text(
                       "Kayıt",
                       style: TextStyle(
                           color: Colors.black,
@@ -163,7 +167,7 @@ class LoginPage extends StatelessWidget {
             ),
             Container(
               height: MediaQuery.of(context).size.height / 3.5,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/afad.jpg'),
                 ),
@@ -183,12 +187,12 @@ Widget makeInput(
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.w400,
           color: Colors.black87,
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
@@ -196,16 +200,17 @@ Widget makeInput(
         obscureText: obscureText,
         decoration: InputDecoration(
           hintText: hint_text,
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          enabledBorder: OutlineInputBorder(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 30,
       ),
     ],

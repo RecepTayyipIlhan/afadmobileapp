@@ -15,7 +15,7 @@ class ChatPage extends StatefulWidget {
   final BluetoothDevice? server;
   //final Function() foo;
 
-  ChatPage({
+  const ChatPage({
     super.key,
     required this.server,
   });
@@ -43,17 +43,17 @@ class _Message {
 
 class _ChatPage extends State<ChatPage> {
   Loc lat_lon = Loc();
-  MenuScreen ms = MenuScreen();
+  MenuScreen ms = const MenuScreen();
   //get locaiton from gps
 
-  static final clientID = 0;
+  static const clientID = 0;
   BluetoothConnection? connection;
 
   List<_Message> messages = <_Message>[];
   //List<_Message> messages = List<_Message>();
 
   String _messageBuffer = '';
-  Person p = Person("186", "41.208277°K 28.957777°D");
+  Person p = const Person("186", "41.208277°K 28.957777°D");
 
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController listScrollController = ScrollController();
@@ -75,15 +75,15 @@ class _ChatPage extends State<ChatPage> {
     BluetoothConnection.toAddress(
       widget.server?.address,
     ).then(
-      (_connection) {
+      (connection) {
         debugPrint('Connected to the device');
-        connection = _connection;
+        connection = connection;
         setState(() {
           isConnecting = false;
           isDisconnecting = false;
         });
 
-        connection?.input?.listen(_onDataReceived).onDone(
+        connection.input?.listen(_onDataReceived).onDone(
           () {
             // Example: Detect which side closed the connection
             // There should be `isDisconnecting` flag to show are we are (locally)
@@ -96,7 +96,7 @@ class _ChatPage extends State<ChatPage> {
             } else {
               debugPrint('Disconnected remotely!');
             }
-            if (this.mounted) {
+            if (mounted) {
               setState(() {});
             }
           },
@@ -124,7 +124,7 @@ class _ChatPage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    bool _initialValue = true;
+    bool initialValue = true;
 
     List loc = lat_lon.get_location();
     debugPrint("-------------------------");
@@ -136,32 +136,32 @@ class _ChatPage extends State<ChatPage> {
     String lon = loc[1].toString();
     String id = personList?[0]["id"];
 
-    final List<Row> list = messages.map((_message) {
+    final List<Row> list = messages.map((message) {
       return Row(
+        mainAxisAlignment: message.whom == clientID
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            child: Text(
-                (text) {
-                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-                }(_message.text.trim()),
-                style: TextStyle(color: Colors.white)),
-            padding: EdgeInsets.all(12.0),
-            margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+            padding: const EdgeInsets.all(12.0),
+            margin: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
             width: 222.0,
             decoration: BoxDecoration(
                 color:
-                    _message.whom == clientID ? Colors.blueAccent : Colors.grey,
+                    message.whom == clientID ? Colors.blueAccent : Colors.grey,
                 borderRadius: BorderRadius.circular(7.0)),
+            child: Text(
+                (text) {
+                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
+                }(message.text.trim()),
+                style: const TextStyle(color: Colors.white)),
           ),
         ],
-        mainAxisAlignment: _message.whom == clientID
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
       );
     }).toList();
 
     return Scaffold(
-      backgroundColor: Color(0xFF003399),
+      backgroundColor: const Color(0xFF003399),
       /*appBar: AppBar(
           backgroundColor: Color(0xFFE63946),
           title: (isConnecting
@@ -173,13 +173,13 @@ class _ChatPage extends State<ChatPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
               child: Column(
                 children: <Widget>[
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Afad Destek ",
                           style: TextStyle(
                               color: Colors.white,
@@ -194,12 +194,12 @@ class _ChatPage extends State<ChatPage> {
                                       builder: (context) => MenuScreen()));*/
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.white,
                             )),
                       ]),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(children: <Widget>[
@@ -211,7 +211,7 @@ class _ChatPage extends State<ChatPage> {
                           fontWeight: FontWeight.normal),
                     ),
                   ]),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   //Search Bar
@@ -221,8 +221,8 @@ class _ChatPage extends State<ChatPage> {
                       color: Colors.grey.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    padding: EdgeInsets.all(12.0),
-                    child: Row(
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Row(
                       children: <Widget>[
                         Icon(
                           Icons.search,
@@ -238,11 +238,11 @@ class _ChatPage extends State<ChatPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   //Where are u
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -258,7 +258,7 @@ class _ChatPage extends State<ChatPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -269,7 +269,7 @@ class _ChatPage extends State<ChatPage> {
                           GestureDetector(
                             onTap: isConnected
                                 ? () => sendMessage(
-                                    id + "," + "0" + "," + lat + "," + lon)
+                                    "$id,0,$lat,$lon")
                                 : null,
 
                             /*onTap: () {
@@ -288,14 +288,14 @@ class _ChatPage extends State<ChatPage> {
                               height: zoom0 ? 50 : 60,
                               width: zoom0 ? 50 : 60,
 
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.white.withOpacity(0.5),
                                     spreadRadius: 0.5,
                                     blurRadius: 5,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ],
@@ -308,7 +308,7 @@ class _ChatPage extends State<ChatPage> {
 
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 700),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 
@@ -322,7 +322,7 @@ class _ChatPage extends State<ChatPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -330,8 +330,8 @@ class _ChatPage extends State<ChatPage> {
                             style: TextStyle(
                               color: Colors.white,
                               //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: _initialValue ? 12 : 13,
-                              fontWeight: _initialValue
+                              fontSize: initialValue ? 12 : 13,
+                              fontWeight: initialValue
                                   ? FontWeight.normal
                                   : FontWeight.bold,
                             ),
@@ -343,7 +343,7 @@ class _ChatPage extends State<ChatPage> {
                           GestureDetector(
                             onTap: isConnected
                                 ? () => sendMessage(
-                                    id + "," + "8" + "," + lat + "," + lon)
+                                    "$id,8,$lat,$lon")
                                 : null,
                             /*onTap: () {
                               isConnected
@@ -360,14 +360,14 @@ class _ChatPage extends State<ChatPage> {
                               height: zoom1 ? 50 : 60,
                               width: zoom1 ? 50 : 60,
 
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.white.withOpacity(0.5),
                                     spreadRadius: 0.5,
                                     blurRadius: 5,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ],
@@ -380,7 +380,7 @@ class _ChatPage extends State<ChatPage> {
 
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 700),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 
@@ -394,7 +394,7 @@ class _ChatPage extends State<ChatPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -402,8 +402,8 @@ class _ChatPage extends State<ChatPage> {
                             style: TextStyle(
                               color: Colors.white,
                               //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: _initialValue ? 12 : 13,
-                              fontWeight: _initialValue
+                              fontSize: initialValue ? 12 : 13,
+                              fontWeight: initialValue
                                   ? FontWeight.normal
                                   : FontWeight.bold,
                             ),
@@ -415,7 +415,7 @@ class _ChatPage extends State<ChatPage> {
                           GestureDetector(
                             onTap: isConnected
                                 ? () => sendMessage(
-                                    id + "," + "9" + "," + lat + "," + lon)
+                                    "$id,9,$lat,$lon")
                                 : null,
                             /*onTap: () {
 
@@ -433,14 +433,14 @@ class _ChatPage extends State<ChatPage> {
                               height: zoom2 ? 50 : 60,
                               width: zoom2 ? 50 : 60,
 
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.white.withOpacity(0.5),
                                     spreadRadius: 0.5,
                                     blurRadius: 5,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ],
@@ -453,7 +453,7 @@ class _ChatPage extends State<ChatPage> {
 
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 700),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 
@@ -468,7 +468,7 @@ class _ChatPage extends State<ChatPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -476,8 +476,8 @@ class _ChatPage extends State<ChatPage> {
                             style: TextStyle(
                               color: Colors.white,
                               //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: _initialValue ? 12 : 13,
-                              fontWeight: _initialValue
+                              fontSize: initialValue ? 12 : 13,
+                              fontWeight: initialValue
                                   ? FontWeight.normal
                                   : FontWeight.bold,
                             ),
@@ -489,7 +489,7 @@ class _ChatPage extends State<ChatPage> {
                           GestureDetector(
                             onTap: isConnected
                                 ? () => sendMessage(
-                                    id + "," + "10" + "," + lat + "," + lon)
+                                    "$id,10,$lat,$lon")
                                 : null,
                             /*onTap: () {
                               isConnected
@@ -506,14 +506,14 @@ class _ChatPage extends State<ChatPage> {
                               height: zoom3 ? 50 : 60,
                               width: zoom3 ? 50 : 60,
 
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.white.withOpacity(0.5),
                                     spreadRadius: 0.5,
                                     blurRadius: 5,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ],
@@ -526,7 +526,7 @@ class _ChatPage extends State<ChatPage> {
 
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 700),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 
@@ -540,7 +540,7 @@ class _ChatPage extends State<ChatPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -548,8 +548,8 @@ class _ChatPage extends State<ChatPage> {
                             style: TextStyle(
                               color: Colors.white,
                               //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: _initialValue ? 12 : 13,
-                              fontWeight: _initialValue
+                              fontSize: initialValue ? 12 : 13,
+                              fontWeight: initialValue
                                   ? FontWeight.normal
                                   : FontWeight.bold,
                             ),
@@ -579,7 +579,7 @@ class _ChatPage extends State<ChatPage> {
               duration: const Duration(milliseconds: 700),
               child: Flexible(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),
                   ),
@@ -589,10 +589,10 @@ class _ChatPage extends State<ChatPage> {
                         Container(
                           color: Colors.grey[200],
                           width: size.width,
-                          padding: EdgeInsets.all(25),
+                          padding: const EdgeInsets.all(25),
                           child: Column(
                             children: <Widget>[
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -606,22 +606,16 @@ class _ChatPage extends State<ChatPage> {
                                   Icon(Icons.more_horiz)
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Column(
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "1" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,1,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -630,7 +624,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -638,7 +632,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.emergency,
                                           color: Color(0xFF003399),
@@ -653,7 +647,7 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
@@ -662,15 +656,9 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "2" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,2,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -679,7 +667,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -687,7 +675,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.food_bank_rounded,
                                           color: Color(0xFF003399),
@@ -702,7 +690,7 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
@@ -711,15 +699,9 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "3" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,3,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -728,7 +710,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -736,7 +718,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.local_hospital,
                                           color: Color(0xFF003399),
@@ -751,7 +733,7 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
@@ -760,15 +742,9 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "4" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,4,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -777,7 +753,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -785,7 +761,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.local_hotel_rounded,
                                           color: Color(0xFF003399),
@@ -800,12 +776,12 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
                               ),
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -819,22 +795,16 @@ class _ChatPage extends State<ChatPage> {
                                   Icon(Icons.more_horiz)
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Column(
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "5" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,5,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -843,7 +813,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -851,7 +821,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.dangerous_outlined,
                                           color: Color(0xFF003399),
@@ -866,7 +836,7 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
@@ -875,15 +845,9 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "6" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,6,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -892,7 +856,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -900,7 +864,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.fireplace_rounded,
                                           color: Color(0xFF003399),
@@ -915,7 +879,7 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
@@ -924,15 +888,9 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: EdgeInsets.symmetric(vertical: 0),
+                                    padding: const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
-                                        ? () => sendMessage(id +
-                                            "," +
-                                            "7" +
-                                            "," +
-                                            lat +
-                                            "," +
-                                            lon)
+                                        ? () => sendMessage("$id,7,$lat,$lon")
                                         : null,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -941,7 +899,7 @@ class _ChatPage extends State<ChatPage> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: Offset(0,
+                                            offset: const Offset(0,
                                                 3), // changes position of shadow
                                           ),
                                         ],
@@ -949,7 +907,7 @@ class _ChatPage extends State<ChatPage> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: ListTile(
+                                      child: const ListTile(
                                         leading: Icon(
                                           Icons.house_siding_rounded,
                                           color: Color(0xFF003399),
@@ -964,7 +922,7 @@ class _ChatPage extends State<ChatPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   )
                                 ],
@@ -987,11 +945,11 @@ class _ChatPage extends State<ChatPage> {
   void _onDataReceived(Uint8List data) {
     // Allocate buffer for parsed data
     int backspacesCounter = 0;
-    data.forEach((byte) {
+    for (var byte in data) {
       if (byte == 8 || byte == 127) {
         backspacesCounter++;
       }
-    });
+    }
     Uint8List buffer = Uint8List(data.length - backspacesCounter);
     int bufferIndex = buffer.length;
 
@@ -1041,11 +999,11 @@ class _ChatPage extends State<ChatPage> {
     text = text.trim();
     textEditingController.clear();
 
-    if (text.length > 0) {
+    if (text.isNotEmpty) {
       try {
         connection?.output.add(
           Uint8List.fromList(
-            utf8.encode(text + "\r\n"),
+            utf8.encode("$text\r\n"),
           ),
         );
         await connection?.output.allSent;
@@ -1099,20 +1057,20 @@ class HelpCard extends StatelessWidget {
     return MaterialButton(
       color: Colors.white,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
+        side: const BorderSide(
           color: Colors.black,
         ),
         borderRadius: BorderRadius.circular(18),
       ),
       onPressed: () => card_pressed(title, context),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
             Text(
               title,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 12),
+              style: const TextStyle(color: Colors.black, fontSize: 12),
             ),
           ],
         ),

@@ -10,8 +10,8 @@ class AllRequests extends StatelessWidget {
     return Container(
       color: Colors.grey[200],
       width: size.width,
-      padding: EdgeInsets.all(25),
-      child: Column(
+      padding: const EdgeInsets.all(25),
+      child: const Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

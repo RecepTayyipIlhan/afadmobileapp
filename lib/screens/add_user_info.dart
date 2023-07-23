@@ -16,19 +16,22 @@ class UserPage extends StatelessWidget {
   TextEditingController building_age_c = TextEditingController();
   TextEditingController building_durability_c = TextEditingController();
 
-  UserPage(this.allData);
+  UserPage(
+    this.allData, {
+    super.key,
+  });
 
   void add_info(
-    String blood_group,
+    String bloodGroup,
     String phone,
-    String tc_id_number,
-    String relative_phone,
+    String tcIdNumber,
+    String relativePhone,
     String diseases,
     String medicines,
-    String people_with,
+    String peopleWith,
     String address,
-    String building_age,
-    String building_durability,
+    String buildingAge,
+    String buildingDurability,
     List? allData,
   ) async {
     final id = allData?[0]["id"];
@@ -37,7 +40,7 @@ class UserPage extends StatelessWidget {
 
     FirebaseFirestore db = FirebaseFirestore.instance;
 
-    CollectionReference users_ref =
+    CollectionReference usersRef =
         FirebaseFirestore.instance.collection('People');
 
     /*QuerySnapshot querySnapshot2  = await db.collection("People").where("id", isEqualTo: id).get();/*.update({"blood_group": blood_group})*/
@@ -45,16 +48,16 @@ class UserPage extends StatelessWidget {
     debugPrint(allDatam);*/
 
     db.collection("People").doc(id).update({
-      "blood_group": blood_group,
+      "blood_group": bloodGroup,
       "phone": phone,
-      "tc_id_number": tc_id_number,
-      "relative_phone": relative_phone,
+      "tc_id_number": tcIdNumber,
+      "relative_phone": relativePhone,
       'diseases': diseases,
       'medicines': medicines,
-      'people_with': people_with,
+      'people_with': peopleWith,
       "address": address,
-      'building_age': building_age,
-      'building_durability': building_durability
+      'building_age': buildingAge,
+      'building_durability': buildingDurability
     });
 
     //users_ref.add({'blood_group':blood_group, 'diseases':diseases,'medicines':medicines, 'people_with':people_with,'building_age':building_age,'building_durability':building_durability});
@@ -75,15 +78,15 @@ class UserPage extends StatelessWidget {
             Navigator.pop(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MenuScreen(),
+                  builder: (context) => const MenuScreen(),
                 ));
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
         //reverse: true,
-        child: Container(
+        child: SizedBox(
           //height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Column(
@@ -92,19 +95,19 @@ class UserPage extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "Afet Bilgilerini Ekle",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         "Afet anında AFAD'ın size daha faydalı destek sunabilmesi için aşağıdaki bilgileri doğru giriniz",
                         style: TextStyle(fontSize: 15, color: Colors.grey[700]),
@@ -113,7 +116,8 @@ class UserPage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: Column(
                   children: <Widget>[
                     makeInput(
@@ -170,12 +174,12 @@ class UserPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Container(
-                  padding: EdgeInsets.only(top: 3, left: 3),
+                  padding: const EdgeInsets.only(top: 3, left: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    border: Border(
+                    border: const Border(
                       bottom: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
                       top: BorderSide(color: Colors.black),
@@ -184,7 +188,7 @@ class UserPage extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     //color: Colors.blueAccent.withOpacity(0.8),
-                    color: Color(0xFFE63946),
+                    color: const Color(0xFFE63946),
                     onPressed: () {
                       add_info(
                         blood_group_c.text,
@@ -205,7 +209,7 @@ class UserPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Afet Bilgilerini Ekle",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -215,7 +219,7 @@ class UserPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ],
@@ -232,12 +236,12 @@ Widget makeInput({label, obscureText = false, controller_name, hintText}) {
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.w400,
           color: Colors.black87,
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
@@ -245,16 +249,17 @@ Widget makeInput({label, obscureText = false, controller_name, hintText}) {
         obscureText: obscureText,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          enabledBorder: OutlineInputBorder(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
     ],

@@ -2,6 +2,10 @@ import 'package:afad_app/screens/home/menu_page.dart';
 import 'package:flutter/material.dart';
 
 class MessageForm extends StatelessWidget {
+  const MessageForm({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -14,7 +18,7 @@ class MessageForm extends StatelessWidget {
             Container(
               width: size.width,
               height: size.height * .25,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40.0),
                   bottomRight: Radius.circular(40.0),
@@ -23,9 +27,10 @@ class MessageForm extends StatelessWidget {
               ),
               child: SafeArea(
                 child: IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                   alignment: Alignment.topLeft,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Colors.white,
                   ),
@@ -33,7 +38,7 @@ class MessageForm extends StatelessWidget {
                     Navigator.pop(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MenuScreen(),
+                          builder: (context) => const MenuScreen(),
                         ));
                   },
                 ),
@@ -49,45 +54,45 @@ class MessageForm extends StatelessWidget {
                   width: size.width * 0.4,
                   child: Column(
                     children: <Widget>[
-                      ListTile(
+                      const ListTile(
+                        tileColor: Color(0xFF212F3C),
+                        title: Text("Deneme"),
+                      ),
+                      const ListTile(
                         tileColor: Color(0xFF212F3C),
                         title: Text("Deneme"),
                       ),
                       ListTile(
-                        tileColor: Color(0xFF212F3C),
-                        title: Text("Deneme"),
+                        tileColor: const Color(0xFF212F3C).withOpacity(0.5),
+                        title: const Text("Deneme"),
                       ),
                       ListTile(
-                        tileColor: Color(0xFF212F3C).withOpacity(0.5),
-                        title: Text("Deneme"),
-                      ),
-                      ListTile(
-                        tileColor: Color(0xFF212F3C).withOpacity(0.5),
-                        title: Text("Deneme"),
+                        tileColor: const Color(0xFF212F3C).withOpacity(0.5),
+                        title: const Text("Deneme"),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(width: size.width * 0.20),
-                Container(
+                SizedBox(
                   width: size.width * 0.38,
                   child: ListView(
                     children: <Widget>[
                       ListTile(
-                        tileColor: Color(0xFFECF0F1).withOpacity(0.5),
-                        title: Text("Deneme"),
+                        tileColor: const Color(0xFFECF0F1).withOpacity(0.5),
+                        title: const Text("Deneme"),
                       ),
                       ListTile(
-                        tileColor: Color(0xFFECF0F1).withOpacity(0.5),
-                        title: Text("Deneme"),
+                        tileColor: const Color(0xFFECF0F1).withOpacity(0.5),
+                        title: const Text("Deneme"),
                       ),
                       ListTile(
-                        tileColor: Color(0xFF212F3C).withOpacity(0.5),
-                        title: Text("Deneme"),
+                        tileColor: const Color(0xFF212F3C).withOpacity(0.5),
+                        title: const Text("Deneme"),
                       ),
                       ListTile(
-                        tileColor: Color(0xFF212F3C).withOpacity(0.5),
-                        title: Text("Deneme"),
+                        tileColor: const Color(0xFF212F3C).withOpacity(0.5),
+                        title: const Text("Deneme"),
                       ),
                     ],
                   ),

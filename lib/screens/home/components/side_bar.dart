@@ -7,7 +7,7 @@ class SideBar extends StatelessWidget {
   String email = "ilhanreceptayyip@gmail.com";
   String username = "Recep Tayyip İlhan";
   List? allData;
-  SideBar(this.email, this.username, this.allData);
+  SideBar(this.email, this.username, this.allData, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class SideBar extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountName: Text(
               username,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
             accountEmail: Text(
               email,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
               ),
@@ -41,7 +41,7 @@ class SideBar extends StatelessWidget {
                 ),
               ),
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFFE63946),
               image: DecorationImage(
                 image: AssetImage("assets/images/sidebar.jpg"),
@@ -52,8 +52,8 @@ class SideBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text("Afet Bilgilerimi Güncelle"),
+            leading: const Icon(Icons.person),
+            title: const Text("Afet Bilgilerimi Güncelle"),
             onTap: () {
               Navigator.push(
                 context,
@@ -66,8 +66,8 @@ class SideBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text("Çıkış Yap"),
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text("Çıkış Yap"),
             onTap: () {
               Navigator.pushReplacement(
                 context,

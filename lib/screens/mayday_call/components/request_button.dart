@@ -14,7 +14,7 @@ class RequestButton extends StatelessWidget {
     required this.icon_data,
   });
 
-  static ChatPage chat = ChatPage(
+  static ChatPage chat = const ChatPage(
     server: null,
   );
   @override
@@ -24,7 +24,7 @@ class RequestButton extends StatelessWidget {
       children: [
         MaterialButton(
           minWidth: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 0),
+          padding: const EdgeInsets.symmetric(vertical: 0),
           onPressed: () {},
           child: Container(
             decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class RequestButton extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
               //border: Border.all(color: Colors.black),
@@ -43,17 +43,17 @@ class RequestButton extends StatelessWidget {
             child: ListTile(
               leading: Icon(
                 icon_data,
-                color: Color(0xFF003399),
+                color: const Color(0xFF003399),
               ),
               title: Text(
                 title,
-                style: TextStyle(color: Color(0xFF003399)),
+                style: const TextStyle(color: Color(0xFF003399)),
               ),
               subtitle: Text(subtitle),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 25,
         )
       ],

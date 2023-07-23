@@ -26,7 +26,7 @@ class MenuScreen extends StatefulWidget {
   final List? allData;
   final List? lat_lon;
 
-  MenuScreen({
+  const MenuScreen({
     super.key,
     this.allData,
     this.lat_lon,
@@ -67,9 +67,9 @@ class _MenuScreenState extends State<MenuScreen> {
               height: size.height * .45,
               width: size.width,
               decoration: BoxDecoration(
-                color: Color(0xFF003399).withOpacity(0.9),
+                color: const Color(0xFF003399).withOpacity(0.9),
                 //color : Colors.blue,
-                image: DecorationImage(
+                image: const DecorationImage(
                   scale: 0.8,
                   alignment: Alignment.topCenter,
                   image: AssetImage("assets/images/white_logo.png"),
@@ -79,12 +79,12 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                 child: Column(
                   children: <Widget>[
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Container(
+                      child: SizedBox(
                         width: 45,
                         height: 45,
                         child: button(_scafflodKey),
@@ -100,11 +100,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         borderRadius: BorderRadius.circular(29),
                       ),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 1),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 1),
                       child: TextField(
                         decoration: InputDecoration(
                           prefixIcon: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             child: Image.asset(
                               "assets/icons/search.png",
                               width: 5,
@@ -117,7 +117,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Flexible(
@@ -126,7 +126,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         childAspectRatio: .65,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 25,
-                        children: <Widget>[
+                        children: const <Widget>[
                           MenuCard(
                               title: "Eğitim Videoları",
                               path: "assets/icons/2.png"),
@@ -148,12 +148,12 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  Widget button(GlobalKey<ScaffoldState> _scafflodKey) {
+  Widget button(GlobalKey<ScaffoldState> scafflodKey) {
     return IconButton(
       onPressed: () {
-        _scafflodKey.currentState?.openDrawer();
+        scafflodKey.currentState?.openDrawer();
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.menu,
         color: Colors.white,
         size: 30,

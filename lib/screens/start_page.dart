@@ -5,11 +5,15 @@ import 'package:afad_app/screens/signup.dart';
 import '../services/locaiton/get_loc.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
-    Loc lat_lon = Loc();
+    Loc latLon = Loc();
     //get locaiton from gps
-    List loc = lat_lon.get_location();
+    List loc = latLon.get_location();
     debugPrint("***");
     debugPrint((loc).toString());
 
@@ -17,7 +21,7 @@ class HomePage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: Wrap(
@@ -27,10 +31,10 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Text(
+                const Text(
                   "Acil Durum Haberleşme Uygulaması",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -38,7 +42,7 @@ class HomePage extends StatelessWidget {
                     fontSize: 27,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -51,10 +55,10 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Container(
               height: MediaQuery.of(context).size.height / 3,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/afad.jpg'),
                 ),
@@ -71,12 +75,12 @@ class HomePage extends StatelessWidget {
                   minWidth: double.infinity,
                   height: 60,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.black,
                     ),
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Giriş",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -84,14 +88,14 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 3, left: 3),
+                  padding: const EdgeInsets.only(top: 3, left: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    border: Border(
+                    border: const Border(
                       bottom: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
                       top: BorderSide(color: Colors.black),
@@ -99,7 +103,8 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   child: MaterialButton(
-                    color: Color.fromARGB(150, 234, 117, 38).withOpacity(0.8),
+                    color: const Color.fromARGB(150, 234, 117, 38)
+                        .withOpacity(0.8),
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -111,7 +116,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Kayıt Ol",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,

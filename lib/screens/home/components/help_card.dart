@@ -21,7 +21,7 @@ class MenuCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MainPage(),
+              builder: (context) => const MainPage(),
             ));
         break;
     }
@@ -32,31 +32,31 @@ class MenuCard extends StatelessWidget {
     return MaterialButton(
       color: Colors.white,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
+        side: const BorderSide(
           color: Colors.black,
         ),
         borderRadius: BorderRadius.circular(18),
       ),
       onPressed: () => card_pressed(title, context),
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: Image.asset(path),
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
               thickness: 1,
             ),
             Text(
               title,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 14),
+              style: const TextStyle(color: Colors.black, fontSize: 14),
             ),
           ],
         ),
