@@ -3,7 +3,7 @@ import 'package:afad_app/screens/home/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:afad_app/services/locaiton/location_louncher.dart';
+import 'package:afad_app/services/location/location_louncher.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {

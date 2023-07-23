@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:afad_app/services/bluetooth/MainPage.dart';
+import 'package:afad_app/services/bluetooth/main_page.dart';
 
-//import 'package:afad_app/screens/mayday_call/ChatPage.dart';
 class MenuCard extends StatelessWidget {
   final String title;
   final String path;

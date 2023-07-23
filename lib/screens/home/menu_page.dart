@@ -1,10 +1,10 @@
 import 'package:afad_app/screens/home/components/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/constants.dart';
-import 'package:afad_app/services/locaiton/location_louncher.dart';
+import 'package:afad_app/services/location/location_louncher.dart';
 import 'package:afad_app/screens/home/components/help_card.dart';
 import 'package:afad_app/person.dart';
-//import '../../services/locaiton/get_loc.dart';
+//import '../../services/location/get_loc.dart';
 
 /*class MenuPage extends StatelessWidget {
   @override
@@ -43,7 +43,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //get locaiton from gps
+    //get location from gps
     /*List loc = lat_lon.get_location();
     debugPrint("***");
     debugPrint(loc);*/
@@ -79,7 +79,8 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
             SafeArea(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                 child: Column(
                   children: <Widget>[
                     Align(
@@ -99,8 +100,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(29),
                       ),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 1),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 1),
                       child: TextField(
                         decoration: InputDecoration(
                           prefixIcon: Container(

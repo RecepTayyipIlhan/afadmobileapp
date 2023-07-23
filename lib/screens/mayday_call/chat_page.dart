@@ -5,8 +5,8 @@ import 'package:afad_app/screens/home/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 //import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
-//import '../../services/locaiton/get_loc.dart';
-import '../../services/locaiton/get_loc.dart';
+//import '../../services/location/get_loc.dart';
+import '../../services/location/get_loc.dart';
 //import 'components/all_requests.dart';
 import 'package:afad_app/person.dart';
 //import '../home/menu_page.dart';
@@ -44,7 +44,7 @@ class _Message {
 class _ChatPage extends State<ChatPage> {
   Loc lat_lon = Loc();
   MenuScreen ms = const MenuScreen();
-  //get locaiton from gps
+  //get location from gps
 
   static const clientID = 0;
   BluetoothConnection? connection;
@@ -268,8 +268,7 @@ class _ChatPage extends State<ChatPage> {
                         children: [
                           GestureDetector(
                             onTap: isConnected
-                                ? () => sendMessage(
-                                    "$id,0,$lat,$lon")
+                                ? () => sendMessage("$id,0,$lat,$lon")
                                 : null,
 
                             /*onTap: () {
@@ -342,8 +341,7 @@ class _ChatPage extends State<ChatPage> {
                         children: [
                           GestureDetector(
                             onTap: isConnected
-                                ? () => sendMessage(
-                                    "$id,8,$lat,$lon")
+                                ? () => sendMessage("$id,8,$lat,$lon")
                                 : null,
                             /*onTap: () {
                               isConnected
@@ -414,8 +412,7 @@ class _ChatPage extends State<ChatPage> {
                         children: [
                           GestureDetector(
                             onTap: isConnected
-                                ? () => sendMessage(
-                                    "$id,9,$lat,$lon")
+                                ? () => sendMessage("$id,9,$lat,$lon")
                                 : null,
                             /*onTap: () {
 
@@ -488,8 +485,7 @@ class _ChatPage extends State<ChatPage> {
                         children: [
                           GestureDetector(
                             onTap: isConnected
-                                ? () => sendMessage(
-                                    "$id,10,$lat,$lon")
+                                ? () => sendMessage("$id,10,$lat,$lon")
                                 : null,
                             /*onTap: () {
                               isConnected
@@ -613,7 +609,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,1,$lat,$lon")
                                         : null,
@@ -656,7 +653,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,2,$lat,$lon")
                                         : null,
@@ -699,7 +697,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,3,$lat,$lon")
                                         : null,
@@ -742,7 +741,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,4,$lat,$lon")
                                         : null,
@@ -802,7 +802,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,5,$lat,$lon")
                                         : null,
@@ -845,7 +846,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,6,$lat,$lon")
                                         : null,
@@ -888,7 +890,8 @@ class _ChatPage extends State<ChatPage> {
                                 children: [
                                   MaterialButton(
                                     minWidth: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 0),
                                     onPressed: isConnected
                                         ? () => sendMessage("$id,7,$lat,$lon")
                                         : null,

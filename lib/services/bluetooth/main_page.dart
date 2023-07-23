@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:afad_app/services/bluetooth/communication.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import './SelectBondedDevicePage.dart';
-import '../../screens/mayday_call/ChatPage.dart';
+import 'select_bonded_device_page.dart';
+import '../../screens/mayday_call/chat_page.dart';
 
 //import './ChatPage2.dart';
 
@@ -170,7 +170,8 @@ class _MainPage extends State<MainPage> {
                 _bluetoothState.isEnabled
                     ? "Lora Sensörü Ara "
                     : "Önce Blutoothu Aktif Edin",
-                style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
+                style: const TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 17),
               ),
             ],
           ),
@@ -200,7 +201,6 @@ class _MainPage extends State<MainPage> {
                         await FlutterBluetoothSerial.instance.requestDisable();
                       }
                     }
-
 
                     future().then((_) {
                       setState(() {});

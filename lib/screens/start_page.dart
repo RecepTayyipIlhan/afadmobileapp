@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:afad_app/screens/login.dart';
 import 'package:afad_app/screens/signup.dart';
 
-import '../services/locaiton/get_loc.dart';
+import '../services/location/get_loc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Loc latLon = Loc();
-    //get locaiton from gps
+    //get location from gps
     List loc = latLon.get_location();
     debugPrint("***");
     debugPrint((loc).toString());
