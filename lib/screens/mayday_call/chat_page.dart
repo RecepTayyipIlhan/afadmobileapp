@@ -184,33 +184,41 @@ class _ChatPage extends State<ChatPage> {
           return Column(
             children: <Widget>[
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                padding: const EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        /* Navigator.pop(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MenuScreen()));*/
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Text(
+                      "Afad Destek ",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 25,
+                  end: 25,
+                  bottom: 25,
+                ),
                 child: Column(
                   children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          const Text(
-                            "Afad Destek ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                /* Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MenuScreen()));*/
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios_new,
-                                color: Colors.white,
-                              )),
-                        ]),
                     const SizedBox(
                       height: 8,
                     ),
