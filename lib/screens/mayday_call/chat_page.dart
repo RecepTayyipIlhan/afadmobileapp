@@ -105,7 +105,7 @@ class _ChatPage extends State<ChatPage> {
     ).catchError(
       (error) {
         debugPrint('Cannot connect, exception occured');
-        debugPrint(error);
+        debugPrint(error.toString());
       },
     );
   }
@@ -999,7 +999,7 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void printt(String text) {
-    debugPrint(text);
+    debugPrint(text.toString());
   }
 
   void sendMessage(String text) async {

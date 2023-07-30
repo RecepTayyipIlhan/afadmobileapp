@@ -47,7 +47,7 @@ class _MenuScreenState extends State<MenuScreen> {
     //get location from gps
     /*List loc = lat_lon.get_location();
     debugPrint("***");
-    debugPrint(loc);*/
+    debugPrint(loc.toString());*/
     personList = widget.allData;
     debugPrint("alahukeber");
     debugPrint((personList).toString());

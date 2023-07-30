@@ -30,8 +30,8 @@ class Requests {
     location.getLocation().then((value) {
       loc.add(value.latitude);
       loc.add(value.longitude);
-      debugPrint(value.latitude);
-      debugPrint(value.longitude);
+      debugPrint(value.latitude.toString());
+      debugPrint(value.longitude.toString());
     });
     return loc;
   }*/
