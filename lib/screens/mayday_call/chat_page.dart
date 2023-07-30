@@ -140,7 +140,9 @@ class _ChatPage extends State<ChatPage> {
 
     String lat = loc[0].toString();
     String lon = loc[1].toString();
-    String id = personList?[0]["id"];
+    // String id = personList?[0]["id"];
+    // TODO(adnanjpg)
+    String id = "111";
 
     // final List<Row> list = messages.map((message) {
     //   return Row(
