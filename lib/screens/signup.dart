@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/screens/login.dart';
@@ -25,38 +26,129 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController phoneC = TextEditingController();
 
   TextEditingController passwordC = TextEditingController();
+  TextEditingController passwordConfirmC = TextEditingController();
+
+  void showError({
+    required String errorTitle,
+    required String errorMessage,
+  }) {
+    final snackBar = SnackBar(
+      /// need to set following properties for best effect of awesome_snackbar_content
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: errorTitle,
+        message: errorMessage,
+        contentType: ContentType.failure,
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
 
   /*CollectionReference<Object?> firestore_test(){
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users_ref = FirebaseFirestore.instance.collection('user');
     return users_ref;
   }*/
-  void login_(String username, String surname, String password, String email,
-      String phone) {
+  void signup({
+    required String username,
+    required String surname,
+    required String password,
+    required String passwordConfirm,
+    required String email,
+    required String phone,
+  }) async {
+    if (username.isEmpty) {
+      showError(
+        errorTitle: "İsim Boş Bırakılamaz",
+        errorMessage: "Lütfen isminizi giriniz",
+      );
+      return;
+    }
+
+    if (surname.isEmpty) {
+      showError(
+        errorTitle: "Soyisim Boş Bırakılamaz",
+        errorMessage: "Lütfen soyisminizi giriniz",
+      );
+      return;
+    }
+
+    if (email.isEmpty) {
+      showError(
+        errorTitle: "Email Boş Bırakılamaz",
+        errorMessage: "Lütfen emailinizi giriniz",
+      );
+      return;
+    }
+
+    if (phone.isEmpty) {
+      showError(
+        errorTitle: "Telefon Numarası Boş Bırakılamaz",
+        errorMessage: "Lütfen telefon numaranızı giriniz",
+      );
+      return;
+    }
+
+    if (password.isEmpty) {
+      showError(
+        errorTitle: "Şifre Boş Bırakılamaz",
+        errorMessage: "Lütfen şifrenizi giriniz",
+      );
+      return;
+    }
+    if (passwordConfirm.isEmpty) {
+      showError(
+        errorTitle: "Şifre Tekrarı Boş Bırakılamaz",
+        errorMessage: "Lütfen şifre tekrarını giriniz",
+      );
+      return;
+    }
+
+    if (password != passwordConfirm) {
+      showError(
+        errorTitle: "Şifreler Eşleşmiyor",
+        errorMessage: "Lütfen şifreleri kontrol edin",
+      );
+      return;
+    }
+
     FirebaseFirestore db = FirebaseFirestore.instance;
-    // CollectionReference usersRef =
-    //     FirebaseFirestore.instance.collection('People');
-    //CollectionReference users_ref= firestore_test();
+
     Random random = Random();
 
     int id = random.nextInt(999999) + 100000;
     String idS = id.toString();
-    db.collection('People').doc(idS).set({
-      "id": idS,
-      'name': username,
-      'surname': surname,
-      'phone': phone,
-      'password': password,
-      'email': email,
-      'address': "",
-      'people_with': "",
-      "blood_group": "",
-      "tc_id_number": "",
-      "relative_phone": "",
-      "diseases": "",
-      "medicines": ""
-    });
-    //users_ref.add({"id":id_s,'name':username, 'surname':surname,'phone':phone, 'password':password,'email':email,'address':"",'people_with':"","blood_group":"","tc_id_number":"","relative_phone":"","diseases":"","medicines":""});
+
+    try {
+      await db.collection('People').doc(idS).set(
+        {
+          "id": idS,
+          'name': username,
+          'surname': surname,
+          'phone': phone,
+          'password': password,
+          'email': email,
+          'address': "",
+          'people_with': "",
+          "blood_group": "",
+          "tc_id_number": "",
+          "relative_phone": "",
+          "diseases": "",
+          "medicines": ""
+        },
+      );
+    } catch (e) {
+      showError(
+        errorTitle: "Kayıt Başarısız",
+        errorMessage:
+            "Kayıt işlemi başarısız oldu. Lütfen daha sonra tekrar deneyin.",
+      );
+    }
   }
 
   @override
@@ -124,7 +216,7 @@ class _SignupPageState extends State<SignupPage> {
                     makeInput(
                         label: "Şifreyi Doğrula",
                         obscureText: true,
-                        controllerName: passwordC),
+                        controllerName: passwordConfirmC),
                   ],
                 ),
               ),
@@ -145,8 +237,14 @@ class _SignupPageState extends State<SignupPage> {
                     color: Colors.blueAccent.withOpacity(0.8),
                     onPressed: () {
                       debugPrint(nameC.text);
-                      login_(nameC.text, surnameC.text, passwordC.text,
-                          emailC.text, phoneC.text);
+                      signup(
+                        username: nameC.text,
+                        surname: surnameC.text,
+                        password: passwordC.text,
+                        passwordConfirm: passwordConfirmC.text,
+                        email: emailC.text,
+                        phone: phoneC.text,
+                      );
                     },
                     minWidth: double.infinity,
                     height: 60,
