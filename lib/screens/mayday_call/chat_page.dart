@@ -56,7 +56,6 @@ class _ChatPage extends State<ChatPage> {
   Person p = const Person("186", "41.208277°K 28.957777°D");
 
   final TextEditingController textEditingController = TextEditingController();
-  final ScrollController listScrollController = ScrollController();
 
   bool isConnecting = true;
   bool get isConnected => connection != null && connection?.isConnected == true;
@@ -1047,19 +1046,6 @@ class _ChatPage extends State<ChatPage> {
 
         setState(() {
           messages.add(_Message(clientID, text));
-        });
-
-        Future.delayed(
-          const Duration(
-            milliseconds: 333,
-          ),
-        ).then((_) {
-          listScrollController.animateTo(
-              listScrollController.position.maxScrollExtent,
-              duration: const Duration(
-                milliseconds: 333,
-              ),
-              curve: Curves.easeOut);
         });
       } catch (e) {
         // Ignore error, but notify state
