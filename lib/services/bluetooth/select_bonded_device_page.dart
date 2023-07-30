@@ -83,7 +83,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
   }
 
   void _startDiscovery() {
-    debugPrint("startDiscovery()");
+    print("startDiscovery()");
     _discoveryStreamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
       setState(() {

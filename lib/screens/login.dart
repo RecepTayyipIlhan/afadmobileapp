@@ -48,10 +48,10 @@ class _LoginPageState extends State<LoginPage> {
         .where("password", isEqualTo: passwordC.text)
         .get();
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    debugPrint((allData).toString());
+    print((allData).toString());
 
     if (allData.isEmpty) {
-      debugPrint("User can not found");
+      print("User can not found");
     } else if (allData.length == 1) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => MenuScreen(allData: allData),
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
       req.requestService();
       req.requestPermission();
     } else {
-      debugPrint("Unexpected error occured");
+      print("Unexpected error occured");
     }
   }
 

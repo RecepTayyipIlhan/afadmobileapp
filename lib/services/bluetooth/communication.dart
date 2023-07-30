@@ -22,16 +22,16 @@ class Communication {
       Permission.bluetoothScan,
     ].request();
 
-    debugPrint("statuses are $statuses");
+    print("statuses are $statuses");
 
     await BluetoothConnection.toAddress(address).then((connection) {
-      debugPrint('Connected to the device');
+      print('Connected to the device');
       connection = connection;
 
       // Creates a listener to receive data
       connection.input?.listen(_onDataReceived).onDone(() {});
     }).catchError((error) {
-      debugPrint('Cannot connect, exception occured');
+      print('Cannot connect, exception occured');
     });
   }
 
@@ -80,7 +80,7 @@ class Communication {
         );
         await connection?.output.allSent;
       } catch (e) {
-        debugPrint(e.toString());
+        print(e.toString());
       }
     }
   }

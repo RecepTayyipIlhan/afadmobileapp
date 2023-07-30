@@ -10,8 +10,8 @@ class Loc {
     location.getLocation().then((value) {
       listloc.add(value.latitude);
       listloc.add(value.longitude);
-      debugPrint((value.latitude).toString());
-      debugPrint((value.longitude).toString());
+      print((value.latitude).toString());
+      print((value.longitude).toString());
     });
     return listloc;
   }

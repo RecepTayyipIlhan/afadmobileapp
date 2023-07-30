@@ -9,7 +9,7 @@ class MessageForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    debugPrint((size.height * .25).toString());
+    print((size.height * .25).toString());
     return Scaffold(
       body: Stack(
         children: <Widget>[

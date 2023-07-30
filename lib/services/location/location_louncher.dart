@@ -8,20 +8,20 @@ class Requests {
     final enabled = await location.serviceEnabled();
     if (enabled != true) {
       location.requestService().then((value) {
-        debugPrint((value).toString());
+        print((value).toString());
       });
     } else {
-      debugPrint("already service enabled");
+      print("already service enabled");
     }
   }
 
   void requestPermission() async {
     if (await location.hasPermission() != PermissionStatus.granted) {
       location.requestService().then((value) {
-        debugPrint((value).toString());
+        print((value).toString());
       });
     } else {
-      debugPrint("Already has permission");
+      print("Already has permission");
     }
   }
 
@@ -30,8 +30,8 @@ class Requests {
     location.getLocation().then((value) {
       loc.add(value.latitude);
       loc.add(value.longitude);
-      debugPrint(value.latitude.toString());
-      debugPrint(value.longitude.toString());
+      print(value.latitude.toString());
+      print(value.longitude.toString());
     });
     return loc;
   }*/

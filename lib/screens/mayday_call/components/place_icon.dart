@@ -17,7 +17,7 @@ class _PlaceIconState extends State<PlaceIcon> {
       children: [
         GestureDetector(
           onTap: () {
-            debugPrint("Konumunuz Gönderildi");
+            print("Konumunuz Gönderildi");
             setState(() {
               _initialValue = !_initialValue;
             });

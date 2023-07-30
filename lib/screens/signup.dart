@@ -236,7 +236,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: MaterialButton(
                     color: Colors.blueAccent.withOpacity(0.8),
                     onPressed: () {
-                      debugPrint(nameC.text);
+                      print(nameC.text);
                       signup(
                         username: nameC.text,
                         surname: surnameC.text,

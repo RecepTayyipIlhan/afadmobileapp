@@ -50,7 +50,7 @@ class _UserPageState extends State<UserPage> {
   ) async {
     final id = allData?[0]["id"];
 
-    debugPrint(id.toString());
+    print(id.toString());
 
     FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -59,7 +59,7 @@ class _UserPageState extends State<UserPage> {
 
     /*QuerySnapshot querySnapshot2  = await db.collection("People").where("id", isEqualTo: id).get();/*.update({"blood_group": blood_group})*/
     final allDatam = querySnapshot2.docs.map((doc) => doc.data()).toList();
-    debugPrint(allDatam.toString());*/
+    print(allDatam.toString());*/
 
     db.collection("People").doc(id).update({
       "blood_group": bloodGroup,
@@ -79,9 +79,9 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("*******");
-    debugPrint((widget.allData).toString());
-    debugPrint("*******");
+    print("*******");
+    print((widget.allData).toString());
+    print("*******");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

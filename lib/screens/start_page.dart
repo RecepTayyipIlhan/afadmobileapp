@@ -14,8 +14,8 @@ class HomePage extends StatelessWidget {
     Loc latLon = Loc();
     //get location from gps
     List loc = latLon.getLocation();
-    debugPrint("***");
-    debugPrint((loc).toString());
+    print("***");
+    print((loc).toString());
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

@@ -72,11 +72,13 @@ class _ChatPage extends State<ChatPage> {
   void initState() {
     super.initState();
 
+    print("addressss is ${widget.server?.address}");
+
     BluetoothConnection.toAddress(
       widget.server?.address,
     ).then(
       (connection) {
-        debugPrint('Connected to the device');
+        print('Connected to the device');
         connection = connection;
         setState(() {
           isConnecting = false;
@@ -92,9 +94,9 @@ class _ChatPage extends State<ChatPage> {
             // If we except the disconnection, `onDone` should be fired as result.
             // If we didn't except this (no flag set), it means closing by remote.
             if (isDisconnecting) {
-              debugPrint('Disconnecting locally!');
+              print('Disconnecting locally!');
             } else {
-              debugPrint('Disconnected remotely!');
+              print('Disconnected remotely!');
             }
             if (mounted) {
               setState(() {});
@@ -104,8 +106,8 @@ class _ChatPage extends State<ChatPage> {
       },
     ).catchError(
       (error) {
-        debugPrint('Cannot connect, exception occured');
-        debugPrint(error.toString());
+        print('Cannot connect, exception occured');
+        print(error.toString());
       },
     );
   }
@@ -131,10 +133,10 @@ class _ChatPage extends State<ChatPage> {
     }();
 
     List loc = latLon.getLocation();
-    debugPrint("-------------------------");
-    debugPrint((loc).toString());
-    debugPrint("------------");
-    debugPrint((personList).toString());
+    print("-------------------------");
+    print((loc).toString());
+    print("------------");
+    print((personList).toString());
 
     String lat = loc[0].toString();
     String lon = loc[1].toString();
@@ -999,7 +1001,7 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void printt(String text) {
-    debugPrint(text.toString());
+    print(text.toString());
   }
 
   void sendMessage(String text) async {
@@ -1052,10 +1054,10 @@ class HelpCard extends StatelessWidget {
   void cardPressed(var title, BuildContext context) {
     switch (title) {
       case "Ev":
-        debugPrint("Evdeyim");
+        print("Evdeyim");
         break;
       case "Toplanma Alanaı":
-        debugPrint("Toplanma Alanındayım");
+        print("Toplanma Alanındayım");
     }
   }
 
