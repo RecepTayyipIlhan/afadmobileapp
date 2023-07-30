@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:afad_app/constants.dart';
 import 'package:afad_app/services/location/location_louncher.dart';
 import 'package:afad_app/screens/home/components/help_card.dart';
-import 'package:afad_app/person.dart';
+
+import '../../global_data.dart';
 //import '../../services/location/get_loc.dart';
 
 /*class MenuPage extends StatelessWidget {

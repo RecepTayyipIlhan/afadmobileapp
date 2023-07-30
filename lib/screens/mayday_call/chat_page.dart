@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 //import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
 //import '../../services/location/get_loc.dart';
+import '../../global_data.dart';
 import '../../services/location/get_loc.dart';
 //import 'components/all_requests.dart';
-import 'package:afad_app/person.dart';
 //import '../home/menu_page.dart';
 
 class ChatPage extends StatefulWidget {

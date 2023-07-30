@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:location/location.dart';
 
-import '../../locat.dart';
+import '../../global_data.dart';
 
 class Loc {
   Location location = Location();
