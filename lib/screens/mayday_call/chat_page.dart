@@ -77,15 +77,15 @@ class _ChatPage extends State<ChatPage> {
     BluetoothConnection.toAddress(
       widget.server?.address,
     ).then(
-      (connection) {
+      (con) {
         print('Connected to the device');
-        connection = connection;
-        setState(() {
-          isConnecting = false;
-          isDisconnecting = false;
-        });
+        connection = con;
+        print("connection is connected: ${connection?.isConnected}");
+        isConnecting = false;
+        isDisconnecting = false;
+        setState(() {});
 
-        connection.input?.listen(_onDataReceived).onDone(
+        connection!.input?.listen(_onDataReceived).onDone(
           () {
             // Example: Detect which side closed the connection
             // There should be `isDisconnecting` flag to show are we are (locally)
@@ -178,777 +178,801 @@ class _ChatPage extends State<ChatPage> {
                   ? Text('Afad Serverına Bağlandı ' + widget.server.name)
                   : Text('Afad Serverına Bağlandı ' + widget.server.name))),*/
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-              child: Column(
-                children: <Widget>[
-                  Row(
+        child: Builder(builder: (context) {
+          if (!isConnected || isConnecting) {
+            return Text('connecting');
+          }
+          return Column(
+            children: <Widget>[
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          const Text(
+                            "Afad Destek ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                /* Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MenuScreen()));*/
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Colors.white,
+                              )),
+                        ]),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(children: <Widget>[
+                      Text(
+                        "10 Ağustos, 2021",
+                        style: TextStyle(
+                            color: Colors.grey[300],
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ]),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    //Search Bar
+                    AnimatedContainer(
+                      duration: const Duration(seconds: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.35),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      padding: const EdgeInsets.all(12.0),
+                      child: const Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 6),
+                          Text(
+                            'Arama',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    //Where are u
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        const Text(
-                          "Afad Destek ",
+                      children: [
+                        Text(
+                          "Şuanda Nerdesin ? ",
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 24,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         ),
-                        IconButton(
-                            onPressed: () {
-                              /* Navigator.pop(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MenuScreen()));*/
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Colors.white,
-                            )),
-                      ]),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(children: <Widget>[
-                    Text(
-                      "10 Ağustos, 2021",
-                      style: TextStyle(
-                          color: Colors.grey[300],
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ]),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  //Search Bar
-                  AnimatedContainer(
-                    duration: const Duration(seconds: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.35),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    padding: const EdgeInsets.all(12.0),
-                    child: const Row(
-                      children: <Widget>[
                         Icon(
-                          Icons.search,
+                          Icons.more_horiz,
                           color: Colors.white,
                         ),
-                        SizedBox(width: 6),
-                        Text(
-                          'Arama',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  //Where are u
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Şuanda Nerdesin ? ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Icon(
-                        Icons.more_horiz,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
-                        children: [
-                          GestureDetector(
-                            onTap: isConnected
-                                ? () => sendMessage("$id,0,$lat,$lon")
-                                : null,
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                return isConnected
+                                    ? () => sendMessage("$id,0,$lat,$lon")
+                                    : null;
+                              }(),
 
-                            /*onTap: () {
-                              isConnected
-                                  ? () =>
-                                  sendMessage(id + "," + "0" + "," +lat+ ","+lon)
-                                  : null;
+                              /*onTap: () {
+                                  isConnected
+                                      ? () =>
+                                      sendMessage(id + "," + "0" + "," +lat+ ","+lon)
+                                      : null;§
 
-                              setState(() {
-                                zoom0 = !zoom0;
-                              });
-                            },*/
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 700),
-                              //color: Colors.amber,
-                              height: zoom0 ? 50 : 60,
-                              width: zoom0 ? 50 : 60,
-
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0.5),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 5,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-
-                                color: Colors.white,
-                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-
+                                  setState(() {
+                                    zoom0 = !zoom0;
+                                  });
+                                },*/
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 700),
-                                decoration: const BoxDecoration(
+                                //color: Colors.amber,
+                                height: zoom0 ? 50 : 60,
+                                width: zoom0 ? 50 : 60,
+
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0.5),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 5,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+
                                   color: Colors.white,
                                   //color: _initialValue ? Colors.redAccent[200] : Colors.red,
 
-                                  image: DecorationImage(
-                                    scale: 0.2,
-                                    alignment: Alignment.topCenter,
-                                    image: AssetImage("assets/icons/sos.png"),
-                                    // opacity: 0.8,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 700),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                    image: DecorationImage(
+                                      scale: 0.2,
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage("assets/icons/sos.png"),
+                                      // opacity: 0.8,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Enkaz Altındayım",
-                            style: TextStyle(
-                              color: Colors.white,
-                              //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: initialValue ? 12 : 13,
-                              fontWeight: initialValue
-                                  ? FontWeight.normal
-                                  : FontWeight.bold,
+                            const SizedBox(
+                              height: 8,
                             ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          GestureDetector(
-                            onTap: isConnected
-                                ? () => sendMessage("$id,8,$lat,$lon")
-                                : null,
-                            /*onTap: () {
-                              isConnected
-                                  ? () =>
-                                  sendMessage(id + "," + "8" + "," +lat+ ","+lon)
-                                  : null;
-                              setState(() {
-                                zoom1 = !zoom1;
-                              });
-                            },*/
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 700),
-                              //color: Colors.amber,
-                              height: zoom1 ? 50 : 60,
-                              width: zoom1 ? 50 : 60,
-
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0.5),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 5,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-
+                            Text(
+                              "Enkaz Altındayım",
+                              style: TextStyle(
                                 color: Colors.white,
-                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                borderRadius: BorderRadius.circular(8.0),
+                                //color: _initialValue ? Colors.white : Colors.black,
+                                fontSize: initialValue ? 12 : 13,
+                                fontWeight: initialValue
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
                               ),
-
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 700),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                  image: DecorationImage(
-                                    scale: 0.2,
-                                    alignment: Alignment.topCenter,
-                                    image: AssetImage("assets/icons/home.png"),
-                                    // opacity: 0.8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Evdeyim",
-                            style: TextStyle(
-                              color: Colors.white,
-                              //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: initialValue ? 12 : 13,
-                              fontWeight: initialValue
-                                  ? FontWeight.normal
-                                  : FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          GestureDetector(
-                            onTap: isConnected
-                                ? () => sendMessage("$id,9,$lat,$lon")
-                                : null,
-                            /*onTap: () {
-
-                              isConnected
-                                  ? () =>
-                                  sendMessage(id + "," + "9" + "," +lat+ ","+lon)
-                                  : null;
-                              setState(() {
-                                zoom2 = !zoom2;
-                              });
-                            },*/
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 700),
-                              //color: Colors.amber,
-                              height: zoom2 ? 50 : 60,
-                              width: zoom2 ? 50 : 60,
-
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0.5),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 5,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-
-                                color: Colors.white,
-                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 700),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                  image: DecorationImage(
-                                    scale: 0.2,
-                                    alignment: Alignment.topCenter,
-                                    image:
-                                        AssetImage("assets/icons/meeting.png"),
-                                    // opacity: 0.8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Toplanma Alanı",
-                            style: TextStyle(
-                              color: Colors.white,
-                              //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: initialValue ? 12 : 13,
-                              fontWeight: initialValue
-                                  ? FontWeight.normal
-                                  : FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          GestureDetector(
-                            onTap: isConnected
-                                ? () => sendMessage("$id,10,$lat,$lon")
-                                : null,
-                            /*onTap: () {
-                              isConnected
-                                  ? () =>
-                                  sendMessage(id + "," + "10" + "," +lat+ ","+lon)
-                                  : null;
-                              setState(() {
-                                zoom3 = !zoom3;
-                              });
-                            },*/
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 700),
-                              //color: Colors.amber,
-                              height: zoom3 ? 50 : 60,
-                              width: zoom3 ? 50 : 60,
-
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0.5),
-                                    spreadRadius: 0.5,
-                                    blurRadius: 5,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-
-                                color: Colors.white,
-                                //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 700),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                  image: DecorationImage(
-                                    scale: 0.2,
-                                    alignment: Alignment.topCenter,
-                                    image: AssetImage("assets/icons/lost.png"),
-                                    // opacity: 0.8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Kayboldum",
-                            style: TextStyle(
-                              color: Colors.white,
-                              //color: _initialValue ? Colors.white : Colors.black,
-                              fontSize: initialValue ? 12 : 13,
-                              fontWeight: initialValue
-                                  ? FontWeight.normal
-                                  : FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-
-                      /*PlaceIcon(
-                        path: "assets/icons/home.png",
-                        title: "Evdeyim",
-                        //value: x,
-                      ),
-                      PlaceIcon(
-                        path: "assets/icons/meeting.png",
-                        title: "Toplanma Alanı",
-                      ),
-                      PlaceIcon(
-                        path: "assets/icons/lost.png",
-                        title: "Kayboldum",
-                      ),*/
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 700),
-              child: Flexible(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          color: Colors.grey[200],
-                          width: size.width,
-                          padding: const EdgeInsets.all(25),
-                          child: Column(
-                            children: <Widget>[
-                              const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Yardım Talepleri',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Icon(Icons.more_horiz)
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,1,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.emergency,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "Ambulans",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Şuanki konumunuza ambulans gönderir"),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,2,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.food_bank_rounded,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "Gıda Talebi",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Şuanki konumunuza gıda yardımı gönderir"),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,3,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.local_hospital,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "İlaç Talebi",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Şuanki konumunuza ilaç yardımı gönderir"),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,4,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.local_hotel_rounded,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "Barınma Talebi",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır"),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                              const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'İhbarlar',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  Icon(Icons.more_horiz)
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,5,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.dangerous_outlined,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "Gaz Kaçağı",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır"),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,6,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.fireplace_rounded,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "Yangın",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Konumunun Yakınında yangın varsa basınız."),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  MaterialButton(
-                                    minWidth: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 0),
-                                    onPressed: isConnected
-                                        ? () => sendMessage("$id,7,$lat,$lon")
-                                        : null,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                        //border: Border.all(color: Colors.black),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: const ListTile(
-                                        leading: Icon(
-                                          Icons.house_siding_rounded,
-                                          color: Color(0xFF003399),
-                                        ),
-                                        title: Text(
-                                          "Enkaz",
-                                          style: TextStyle(
-                                              color: Color(0xFF003399)),
-                                        ),
-                                        subtitle: Text(
-                                            "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var"),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 25,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,8,$lat,$lon")
+                                  : null,
+                              /*onTap: () {
+                                  isConnected
+                                      ? () =>
+                                      sendMessage(id + "," + "8" + "," +lat+ ","+lon)
+                                      : null;
+                                  setState(() {
+                                    zoom1 = !zoom1;
+                                  });
+                                },*/
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                //color: Colors.amber,
+                                height: zoom1 ? 50 : 60,
+                                width: zoom1 ? 50 : 60,
+
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0.5),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 5,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 700),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                    image: DecorationImage(
+                                      scale: 0.2,
+                                      alignment: Alignment.topCenter,
+                                      image:
+                                          AssetImage("assets/icons/home.png"),
+                                      // opacity: 0.8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Evdeyim",
+                              style: TextStyle(
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.white : Colors.black,
+                                fontSize: initialValue ? 12 : 13,
+                                fontWeight: initialValue
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,9,$lat,$lon")
+                                  : null,
+                              /*onTap: () {
+
+                                  isConnected
+                                      ? () =>
+                                      sendMessage(id + "," + "9" + "," +lat+ ","+lon)
+                                      : null;
+                                  setState(() {
+                                    zoom2 = !zoom2;
+                                  });
+                                },*/
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                //color: Colors.amber,
+                                height: zoom2 ? 50 : 60,
+                                width: zoom2 ? 50 : 60,
+
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0.5),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 5,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 700),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                    image: DecorationImage(
+                                      scale: 0.2,
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                          "assets/icons/meeting.png"),
+                                      // opacity: 0.8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Toplanma Alanı",
+                              style: TextStyle(
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.white : Colors.black,
+                                fontSize: initialValue ? 12 : 13,
+                                fontWeight: initialValue
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,10,$lat,$lon")
+                                  : null,
+                              /*onTap: () {
+                                  isConnected
+                                      ? () =>
+                                      sendMessage(id + "," + "10" + "," +lat+ ","+lon)
+                                      : null;
+                                  setState(() {
+                                    zoom3 = !zoom3;
+                                  });
+                                },*/
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 700),
+                                //color: Colors.amber,
+                                height: zoom3 ? 50 : 60,
+                                width: zoom3 ? 50 : 60,
+
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0.5),
+                                      spreadRadius: 0.5,
+                                      blurRadius: 5,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+
+                                  color: Colors.white,
+                                  //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 700),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
+
+                                    image: DecorationImage(
+                                      scale: 0.2,
+                                      alignment: Alignment.topCenter,
+                                      image:
+                                          AssetImage("assets/icons/lost.png"),
+                                      // opacity: 0.8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Kayboldum",
+                              style: TextStyle(
+                                color: Colors.white,
+                                //color: _initialValue ? Colors.white : Colors.black,
+                                fontSize: initialValue ? 12 : 13,
+                                fontWeight: initialValue
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+
+                        /*PlaceIcon(
+                            path: "assets/icons/home.png",
+                            title: "Evdeyim",
+                            //value: x,
+                          ),
+                          PlaceIcon(
+                            path: "assets/icons/meeting.png",
+                            title: "Toplanma Alanı",
+                          ),
+                          PlaceIcon(
+                            path: "assets/icons/lost.png",
+                            title: "Kayboldum",
+                          ),*/
                       ],
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 700),
+                child: Flexible(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            color: Colors.grey[200],
+                            width: size.width,
+                            padding: const EdgeInsets.all(25),
+                            child: Column(
+                              children: <Widget>[
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Yardım Talepleri',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Icon(Icons.more_horiz)
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,1,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.emergency,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "Ambulans",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Şuanki konumunuza ambulans gönderir"),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,2,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.food_bank_rounded,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "Gıda Talebi",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Şuanki konumunuza gıda yardımı gönderir"),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,3,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.local_hospital,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "İlaç Talebi",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Şuanki konumunuza ilaç yardımı gönderir"),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,4,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.local_hotel_rounded,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "Barınma Talebi",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır"),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'İhbarlar',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Icon(Icons.more_horiz)
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,5,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.dangerous_outlined,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "Gaz Kaçağı",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır"),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,6,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.fireplace_rounded,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "Yangın",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Konumunun Yakınında yangın varsa basınız."),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    MaterialButton(
+                                      minWidth: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0),
+                                      onPressed: isConnected
+                                          ? () => sendMessage("$id,7,$lat,$lon")
+                                          : null,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                          //border: Border.all(color: Colors.black),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: const ListTile(
+                                          leading: Icon(
+                                            Icons.house_siding_rounded,
+                                            color: Color(0xFF003399),
+                                          ),
+                                          title: Text(
+                                            "Enkaz",
+                                            style: TextStyle(
+                                                color: Color(0xFF003399)),
+                                          ),
+                                          subtitle: Text(
+                                              "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var"),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -1007,6 +1031,8 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void sendMessage(String text) async {
+    print("sendinggggg $text");
+
     text = text.trim();
     textEditingController.clear();
 
@@ -1037,6 +1063,7 @@ class _ChatPage extends State<ChatPage> {
         });
       } catch (e) {
         // Ignore error, but notify state
+        print("SEND MESSAGEE EROORRR $e");
         setState(() {});
       }
     }
