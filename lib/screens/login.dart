@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:afad_app/screens/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:afad_app/services/location/location_louncher.dart';
+
+import '../global_data.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,6 +22,24 @@ class _LoginPageState extends State<LoginPage> {
 
   //var allData = {};
   void login_(context) async {
+    if (isDebugging) {
+      final allData = [
+        {
+          "name": "Mehmet",
+          "surname": "Kaya",
+          "email": "mehmet.kaya@gmail.com",
+        },
+      ];
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => MenuScreen(allData: allData),
+        ),
+      );
+
+      return;
+    }
+
     //final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     //sharedPreferences.setString('email', email_c.text);
 
