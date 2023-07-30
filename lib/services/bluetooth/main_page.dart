@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:afad_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/services/bluetooth/communication.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -17,13 +18,15 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
-  String _address = "00:19:07:34:C2:BA"; //B8:27:EB:F6:81:D1
+  String _address = deviceAddress;
   // ignore: unused_field
-  String _name = "HC-06"; //raspberrypi
+  String _name = deviceName;
 
   @override
   void initState() {
     super.initState();
+
+    init();
 
     // Get current state
     FlutterBluetoothSerial.instance.state.then((state) {
@@ -96,8 +99,10 @@ class _MainPage extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    BluetoothDevice b =
-        const BluetoothDevice(name: "HC-06", address: "00:19:07:34:C2:BA");
+    BluetoothDevice b = const BluetoothDevice(
+      name: deviceName,
+      address: deviceAddress,
+    );
     final BluetoothDevice selectedDevice = b;
 
     // ignore: unnecessary_null_comparison

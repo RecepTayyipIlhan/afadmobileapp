@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Communication {
   //Bluetooth
@@ -13,6 +14,16 @@ class Communication {
 
   // Connect to the device via Bluetooth
   Future<void> connectToBluetooth(address) async {
+    // You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.bluetooth,
+      Permission.location,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan,
+    ].request();
+
+    debugPrint("statuses are $statuses");
+
     await BluetoothConnection.toAddress(address).then((connection) {
       debugPrint('Connected to the device');
       connection = connection;
