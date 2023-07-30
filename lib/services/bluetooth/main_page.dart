@@ -78,9 +78,9 @@ class _MainPage extends State<MainPage> {
   }
 
   // This code is just a example if you need to change page and you need to communicate to the raspberry again
+  Communication com = Communication();
   void init() async {
-    Communication com = Communication();
-    await com.connectBl(_address);
+    await com.connectToBluetooth(_address);
     debugPrint(_address);
     com.sendMessage("Hello");
     setState(() {});
@@ -89,6 +89,7 @@ class _MainPage extends State<MainPage> {
   @override
   void dispose() {
     FlutterBluetoothSerial.instance.setPairingRequestHandler(null);
+    com.dispose();
     super.dispose();
   }
 

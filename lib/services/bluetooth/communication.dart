@@ -12,20 +12,20 @@ class Communication {
   String result = '';
 
   // Connect to the device via Bluetooth
-  Future<void> connectBl(address) async {
+  Future<void> connectToBluetooth(address) async {
     await BluetoothConnection.toAddress(address).then((connection) {
       debugPrint('Connected to the device');
       connection = connection;
 
       // Creates a listener to receive data
-      connection.input?.listen(onDataReceived).onDone(() {});
+      connection.input?.listen(_onDataReceived).onDone(() {});
     }).catchError((error) {
       debugPrint('Cannot connect, exception occured');
     });
   }
 
   // When receive information
-  void onDataReceived(Uint8List data) {
+  void _onDataReceived(Uint8List data) {
     // Allocate buffer for parsed data
     int backspacesCounter = 0;
     for (var byte in data) {

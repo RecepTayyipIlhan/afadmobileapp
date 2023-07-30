@@ -3,17 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'bluetooth_device_list_entry.dart';
 
-class SelectBondedDevicePage extends StatefulWidget {
-  /// If true, on page start there is performed discovery upon the bonded devices.
-  /// Then, if they are not avaliable, they would be disabled from the selection.
-  final bool checkAvailability;
-
-  const SelectBondedDevicePage({super.key, this.checkAvailability = true});
-
-  @override
-  State<SelectBondedDevicePage> createState() => _SelectBondedDevicePage();
-}
-
 enum _DeviceAvailability {
   // ignore: unused_field
   no,
@@ -33,6 +22,17 @@ class _DeviceWithAvailability extends BluetoothDevice {
           isConnected: device.isConnected,
           bondState: device.bondState,
         );
+}
+
+class SelectBondedDevicePage extends StatefulWidget {
+  /// If true, on page start there is performed discovery upon the bonded devices.
+  /// Then, if they are not avaliable, they would be disabled from the selection.
+  final bool checkAvailability;
+
+  const SelectBondedDevicePage({super.key, this.checkAvailability = true});
+
+  @override
+  State<SelectBondedDevicePage> createState() => _SelectBondedDevicePage();
 }
 
 class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {

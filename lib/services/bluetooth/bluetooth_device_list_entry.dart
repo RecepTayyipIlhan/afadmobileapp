@@ -1,51 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-class BluetoothDeviceListEntry extends ListTile {
-  BluetoothDeviceListEntry({super.key, 
-    required BluetoothDevice device,
-    int? rssi,
-    GestureTapCallback? onTap,
-    GestureLongPressCallback? onLongPress,
-    bool enabled = true,
-  }) : super(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          enabled: enabled,
-          leading: const Icon(
-            Icons.devices,
-          ), // @TODO . !BluetoothClass! class aware icon
-          title: Text(device.name ?? "Unknown device"),
-          subtitle: Text(device.address.toString()),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              rssi != null
-                  ? Container(
-                      margin: const EdgeInsets.all(8.0),
-                      child: DefaultTextStyle(
-                        style: _computeTextStyle(rssi),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(rssi.toString()),
-                            const Text('dBm'),
-                          ],
-                        ),
-                      ),
-                    )
-                  : const SizedBox(width: 0, height: 0),
-              device.isConnected
-                  ? const Icon(Icons.import_export)
-                  : const SizedBox(width: 0, height: 0),
-              device.isBonded
-                  ? const Icon(Icons.link)
-                  : const SizedBox(width: 0, height: 0),
-            ],
-          ),
-        );
+class BluetoothDeviceListEntry extends StatelessWidget {
+  final BluetoothDevice device;
+  final int? rssi;
+  final GestureTapCallback? onTap;
+  final GestureLongPressCallback? onLongPress;
+  final bool enabled;
+  const BluetoothDeviceListEntry({
+    super.key,
+    required this.device,
+    this.rssi,
+    this.onTap,
+    this.onLongPress,
+    this.enabled = true,
+  });
 
-  static TextStyle _computeTextStyle(int rssi) {
+  TextStyle _computeTextStyle(int rssi) {
     /**/ if (rssi >= -35) {
       return TextStyle(color: Colors.greenAccent[700]);
     } else if (rssi >= -45) {
@@ -71,5 +42,45 @@ class BluetoothDeviceListEntry extends ListTile {
       /*code symetry*/
       return const TextStyle(color: Colors.redAccent);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      enabled: enabled,
+      leading: const Icon(
+        Icons.devices,
+      ), // @TODO . !BluetoothClass! class aware icon
+      title: Text(device.name ?? "Unknown device"),
+      subtitle: Text(device.address.toString()),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          rssi != null
+              ? Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: DefaultTextStyle(
+                    style: _computeTextStyle(rssi!),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(rssi.toString()),
+                        const Text('dBm'),
+                      ],
+                    ),
+                  ),
+                )
+              : const SizedBox(width: 0, height: 0),
+          device.isConnected
+              ? const Icon(Icons.import_export)
+              : const SizedBox(width: 0, height: 0),
+          device.isBonded
+              ? const Icon(Icons.link)
+              : const SizedBox(width: 0, height: 0),
+        ],
+      ),
+    );
   }
 }
