@@ -53,14 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
     print("alahukeber");
     print((personList).toString());
 
-    String username =
-        widget.allData?[0]["name"] + " " + widget.allData?[0]["surname"];
-    String email = widget.allData?[0]["email"];
+    final firstPerson = personList?.elementAtOrNull(0);
+
+    String? username = [
+      firstPerson?["name"] ?? '',
+      firstPerson?["surname"] ?? '',
+    ].join(" ");
+    String? email = firstPerson?["email"];
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
       key: _scafflodKey,
-      drawer: SideBar(username, email, widget.allData),
+      drawer: SideBar(username, email, personList),
       backgroundColor: backgroundColor1,
       body: Stack(
         children: <Widget>[

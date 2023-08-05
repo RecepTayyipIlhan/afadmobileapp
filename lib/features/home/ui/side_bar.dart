@@ -6,9 +6,9 @@ import 'add_user_info.dart';
 
 class SideBar extends StatefulWidget {
   // "ilhanreceptayyip@gmail.com"
-  final String email;
+  final String? email;
   // "Recep Tayyip İlhan"
-  final String username;
+  final String? username;
   final List? allData;
   const SideBar(this.email, this.username, this.allData, {super.key});
 
@@ -28,14 +28,14 @@ class _SideBarState extends State<SideBar> {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              widget.username,
+              widget.username ?? "",
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
             accountEmail: Text(
-              widget.email,
+              widget.email ?? "",
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
