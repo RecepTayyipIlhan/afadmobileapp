@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../features/auth/models/app_user.dart';
 import '../../features/auth/models/app_user_role.dart';
 
-import '../../features/auth/models/auth_mode.dart';
 import '../../utils/prov/auth_prov.dart';
 
 part 'auth_state.freezed.dart';
@@ -21,12 +20,6 @@ class AuthState with _$AuthState {
     DateTime? lastLoginAt,
     required Ref ref,
   }) = _AuthState;
-
-  AuthMode? get mode {
-    return firebaseUser?.providerData.first.providerId == 'password'
-        ? AuthMode.emailPass
-        : AuthMode.emailLink;
-  }
 
   bool get isAccountBeingDeleted =>
       ref.watch(isAccountBeingDeletedProv) && firebaseUser != null;

@@ -57,7 +57,6 @@ class EditProfileState with _$EditProfileState {
       countryLetterCode: countryLetterCode,
       phone: phone,
       id: user.id,
-      authMode: user.authMode,
       profilePicUrl: profileImageUrl,
       role: user.role,
     );

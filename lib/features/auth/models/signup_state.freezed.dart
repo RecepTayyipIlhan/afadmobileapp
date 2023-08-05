@@ -28,8 +28,6 @@ mixin _$SignupState {
   bool get isEmailLinkRequested => throw _privateConstructorUsedError;
   Ref<Object?> get ref => throw _privateConstructorUsedError;
   GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
-  @protected
-  AuthMode? get mode => throw _privateConstructorUsedError;
   int? get emailLinkResendSecondsLeft => throw _privateConstructorUsedError;
   bool get confirmedEmailMarketing => throw _privateConstructorUsedError;
 
@@ -57,7 +55,6 @@ abstract class $SignupStateCopyWith<$Res> {
       bool isEmailLinkRequested,
       Ref<Object?> ref,
       GlobalKey<FormState> formKey,
-      @protected AuthMode? mode,
       int? emailLinkResendSecondsLeft,
       bool confirmedEmailMarketing});
 }
@@ -87,7 +84,6 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? isEmailLinkRequested = null,
     Object? ref = null,
     Object? formKey = null,
-    Object? mode = freezed,
     Object? emailLinkResendSecondsLeft = freezed,
     Object? confirmedEmailMarketing = null,
   }) {
@@ -140,10 +136,6 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
           ? _value.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormState>,
-      mode: freezed == mode
-          ? _value.mode
-          : mode // ignore: cast_nullable_to_non_nullable
-              as AuthMode?,
       emailLinkResendSecondsLeft: freezed == emailLinkResendSecondsLeft
           ? _value.emailLinkResendSecondsLeft
           : emailLinkResendSecondsLeft // ignore: cast_nullable_to_non_nullable
@@ -177,7 +169,6 @@ abstract class _$$_SignupStateCopyWith<$Res>
       bool isEmailLinkRequested,
       Ref<Object?> ref,
       GlobalKey<FormState> formKey,
-      @protected AuthMode? mode,
       int? emailLinkResendSecondsLeft,
       bool confirmedEmailMarketing});
 }
@@ -205,7 +196,6 @@ class __$$_SignupStateCopyWithImpl<$Res>
     Object? isEmailLinkRequested = null,
     Object? ref = null,
     Object? formKey = null,
-    Object? mode = freezed,
     Object? emailLinkResendSecondsLeft = freezed,
     Object? confirmedEmailMarketing = null,
   }) {
@@ -258,10 +248,6 @@ class __$$_SignupStateCopyWithImpl<$Res>
           ? _value.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormState>,
-      mode: freezed == mode
-          ? _value.mode
-          : mode // ignore: cast_nullable_to_non_nullable
-              as AuthMode?,
       emailLinkResendSecondsLeft: freezed == emailLinkResendSecondsLeft
           ? _value.emailLinkResendSecondsLeft
           : emailLinkResendSecondsLeft // ignore: cast_nullable_to_non_nullable
@@ -290,7 +276,6 @@ class _$_SignupState extends _SignupState {
       this.isEmailLinkRequested = true,
       required this.ref,
       required this.formKey,
-      @protected required this.mode,
       this.emailLinkResendSecondsLeft,
       this.confirmedEmailMarketing = true})
       : super._();
@@ -321,9 +306,6 @@ class _$_SignupState extends _SignupState {
   @override
   final GlobalKey<FormState> formKey;
   @override
-  @protected
-  final AuthMode? mode;
-  @override
   final int? emailLinkResendSecondsLeft;
   @override
   @JsonKey()
@@ -331,7 +313,7 @@ class _$_SignupState extends _SignupState {
 
   @override
   String toString() {
-    return 'SignupState(email: $email, pass: $pass, userName: $userName, fullName: $fullName, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, mode: $mode, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft, confirmedEmailMarketing: $confirmedEmailMarketing)';
+    return 'SignupState(email: $email, pass: $pass, userName: $userName, fullName: $fullName, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft, confirmedEmailMarketing: $confirmedEmailMarketing)';
   }
 
   @override
@@ -358,7 +340,6 @@ class _$_SignupState extends _SignupState {
                 other.isEmailLinkRequested == isEmailLinkRequested) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.formKey, formKey) || other.formKey == formKey) &&
-            (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.emailLinkResendSecondsLeft,
                     emailLinkResendSecondsLeft) ||
                 other.emailLinkResendSecondsLeft ==
@@ -383,7 +364,6 @@ class _$_SignupState extends _SignupState {
       isEmailLinkRequested,
       ref,
       formKey,
-      mode,
       emailLinkResendSecondsLeft,
       confirmedEmailMarketing);
 
@@ -408,7 +388,6 @@ abstract class _SignupState extends SignupState {
       final bool isEmailLinkRequested,
       required final Ref<Object?> ref,
       required final GlobalKey<FormState> formKey,
-      @protected required final AuthMode? mode,
       final int? emailLinkResendSecondsLeft,
       final bool confirmedEmailMarketing}) = _$_SignupState;
   const _SignupState._() : super._();
@@ -437,9 +416,6 @@ abstract class _SignupState extends SignupState {
   Ref<Object?> get ref;
   @override
   GlobalKey<FormState> get formKey;
-  @override
-  @protected
-  AuthMode? get mode;
   @override
   int? get emailLinkResendSecondsLeft;
   @override

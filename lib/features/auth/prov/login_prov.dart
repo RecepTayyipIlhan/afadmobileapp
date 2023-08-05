@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading/loading.dart';
-import '../../../ui/widgets/snackbars.dart';
 import '../../../utils/extensions/auth_extensions.dart';
 
 import '../../../utils/prov/auth_prov.dart';
@@ -25,14 +24,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     }
 
     return true;
-  }
-
-  void switchModeToLink() {
-    state = state.copyWith(mode: AuthMode.emailLink);
-  }
-
-  void switchModeToPass() {
-    state = state.copyWith(mode: AuthMode.emailPass);
   }
 
   Future<bool> loginWithGoogle(BuildContext context) async {
@@ -78,15 +69,7 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       return false;
     }
 
-    if (state.isModePass) {
-      return _handlePassLogin(context);
-    }
-
-    if (state.isModeLink) {
-      return _handleLinkLogin(context);
-    }
-
-    return false;
+    return _handlePassLogin(context);
   }
 
   Future<bool> _handlePassLogin(BuildContext context) async {
@@ -97,64 +80,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
         );
 
     return res;
-  }
-
-  Timer? _emailLinkResendTimer;
-
-  Future<bool> _handleLinkLogin(BuildContext context) async {
-    try {
-      Loading.load(context);
-
-      final res = await ref.read(authProvider.notifier).sendEmailLoginLink(
-            context: context,
-            email: state.email!,
-          );
-
-      if (!res) {
-        Loading.unload(context);
-
-        return false;
-      }
-
-      state = state.copyWith(
-        emailLinkResendSecondsLeft: state.emailLinkResendDuration.inSeconds,
-      );
-
-      if (_emailLinkResendTimer != null) {
-        _emailLinkResendTimer!.cancel();
-      }
-
-      _emailLinkResendTimer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) {
-          state = state.copyWith(
-            emailLinkResendSecondsLeft: state.emailLinkResendSecondsLeft! - 1,
-          );
-
-          if (state.emailLinkResendSecondsLeft == 0) {
-            _emailLinkResendTimer!.cancel();
-            timer.cancel();
-          }
-        },
-      );
-
-      Snackbars.showSuccessSnackBar(
-        context,
-        message: getStrArgs(
-          'auth:login:email_link_sent',
-          args: [state.email!],
-        ),
-      );
-
-      Loading.unload(context);
-
-      return res;
-    } catch (e) {
-      logger.e(e);
-
-      Loading.unload(context);
-      return false;
-    }
   }
 
   void loginWithLink(BuildContext context) async {}
@@ -189,14 +114,5 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     }
 
     return null;
-  }
-
-  @override
-  void dispose() {
-    if (_emailLinkResendTimer != null) {
-      _emailLinkResendTimer!.cancel();
-    }
-
-    super.dispose();
   }
 }

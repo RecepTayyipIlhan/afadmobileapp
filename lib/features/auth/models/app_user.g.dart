@@ -12,7 +12,6 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       userName: json['userName'] as String,
       fullName: json['fullName'] as String,
       role: $enumDecode(_$AppUserRoleEnumMap, json['role']),
-      authMode: $enumDecode(_$AuthModeEnumMap, json['authMode']),
       confirmedEmailMarketing:
           json['confirmedEmailMarketing'] as bool? ?? false,
       profilePicUrl: json['profilePicUrl'] as String?,
@@ -34,7 +33,6 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
       'userName': instance.userName,
       'fullName': instance.fullName,
       'role': _$AppUserRoleEnumMap[instance.role]!,
-      'authMode': _$AuthModeEnumMap[instance.authMode]!,
       'confirmedEmailMarketing': instance.confirmedEmailMarketing,
       'profilePicUrl': instance.profilePicUrl,
       'birthDate': instance.birthDate?.toIso8601String(),
@@ -47,9 +45,4 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
 const _$AppUserRoleEnumMap = {
   AppUserRole.admin: 'admin',
   AppUserRole.user: 'user',
-};
-
-const _$AuthModeEnumMap = {
-  AuthMode.emailPass: 'emailPass',
-  AuthMode.emailLink: 'emailLink',
 };

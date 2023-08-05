@@ -3,7 +3,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'app_user_role.dart';
-import 'auth_mode.dart';
 
 part 'app_user.g.dart';
 part 'app_user.freezed.dart';
@@ -18,7 +17,6 @@ class AppUser with _$AppUser {
     required String userName,
     required String fullName,
     required AppUserRole role,
-    required AuthMode authMode,
     @JsonKey(defaultValue: false) required bool confirmedEmailMarketing,
     String? profilePicUrl,
     DateTime? birthDate,
@@ -35,7 +33,6 @@ class AppUser with _$AppUser {
     required String email,
     required String userName,
     required String fullName,
-    required AuthMode authMode,
     required bool confirmedEmailMarketing,
     DateTime? birthDate,
     String? countryPhoneCode,
@@ -49,7 +46,6 @@ class AppUser with _$AppUser {
         fullName: fullName,
         role: AppUserRole.user,
         isLoading: true,
-        authMode: authMode,
         confirmedEmailMarketing: confirmedEmailMarketing,
         birthDate: birthDate,
         countryPhoneCode: countryPhoneCode,
@@ -63,7 +59,6 @@ class AppUser with _$AppUser {
     required String userName,
     required String fullName,
     required AppUserRole role,
-    required AuthMode authMode,
     required bool confirmedEmailMarketing,
     required String? profilePicUrl,
     required DateTime? birthDate,
@@ -78,7 +73,6 @@ class AppUser with _$AppUser {
         fullName: fullName,
         role: role,
         isLoading: true,
-        authMode: authMode,
         confirmedEmailMarketing: confirmedEmailMarketing,
         birthDate: birthDate,
         countryPhoneCode: countryPhoneCode,

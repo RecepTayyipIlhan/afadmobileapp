@@ -9,7 +9,6 @@ import '../../../ui/widgets/btns/primary_btn.dart';
 import '../../../ui/widgets/primary_field.dart';
 import '../../../utils/utils.dart';
 
-import '../../../ui/widgets/btns/secondary_btn.dart';
 import '../../../ui/widgets/primary_image_picker.dart';
 import '../prov/signup_prov.dart';
 
@@ -159,7 +158,7 @@ class _Btns extends ConsumerWidget {
           ),
         ],
         ...[
-          if (formState.isModePass || formState.isInfoStep) ...[
+          if (formState.isInfoStep) ...[
             PrimaryBtn(
               isExpanded: true,
               onPressed: () => notifier.submit(context),
@@ -167,50 +166,17 @@ class _Btns extends ConsumerWidget {
               eventName: 'auth:signup:signup_btn',
             ),
           ],
-          if (formState.isModeLink && formState.isEmailStep) ...[
-            PrimaryBtn(
-              isExpanded: true,
-              onPressed: formState.isEmailLinkResendAllowed
-                  ? () {
-                      notifier.submit(context);
-                    }
-                  : null,
-              text: formState.isEmailLinkResendAllowed
-                  ? getStr('auth:signup:send_link_btn')
-                  : getStrArgs(
-                      'auth:signup:send_link_btn:unsendable_seconds',
-                      args: [
-                        formState.emailLinkResendSecondsLeft.toString(),
-                      ],
-                    ),
-              eventName: 'auth:signup:send_link_btn',
-            ),
-          ],
-          if (formState.isModePass && formState.isEmailStep)
-            SecondaryBtn(
-              isExpanded: true,
-              onPressed: notifier.switchModeToLink,
-              text: getStr('auth:signup:signup_use_link_btn'),
-              eventName: 'auth:signup:signup_use_link_btn',
-            ),
-          if (formState.isModeLink && formState.isEmailStep)
-            SecondaryBtn(
-              isExpanded: true,
-              onPressed: notifier.switchModeToPass,
-              text: getStr('auth:signup:signup_use_pass_btn'),
-              eventName: 'auth:signup:signup_use_pass_btn',
-            ),
           if (formState.isEmailStep)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AuthIconBtn(
-                  eventName: 'apple log in',
-                  icon: FontAwesomeIcons.apple,
-                  onPressed: () {
-                    notifier.loginWithApple(context);
-                  },
-                ),
+                // AuthIconBtn(
+                //   eventName: 'apple log in',
+                //   icon: FontAwesomeIcons.apple,
+                //   onPressed: () {
+                //     notifier.loginWithApple(context);
+                //   },
+                // ),
                 AuthIconBtn(
                   eventName: 'google log in',
                   icon: FontAwesomeIcons.google,

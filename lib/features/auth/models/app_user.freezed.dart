@@ -25,7 +25,6 @@ mixin _$AppUser {
   String get userName => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   AppUserRole get role => throw _privateConstructorUsedError;
-  AuthMode get authMode => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get confirmedEmailMarketing => throw _privateConstructorUsedError;
   String? get profilePicUrl => throw _privateConstructorUsedError;
@@ -53,7 +52,6 @@ abstract class $AppUserCopyWith<$Res> {
       String userName,
       String fullName,
       AppUserRole role,
-      AuthMode authMode,
       @JsonKey(defaultValue: false) bool confirmedEmailMarketing,
       String? profilePicUrl,
       DateTime? birthDate,
@@ -82,7 +80,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? userName = null,
     Object? fullName = null,
     Object? role = null,
-    Object? authMode = null,
     Object? confirmedEmailMarketing = null,
     Object? profilePicUrl = freezed,
     Object? birthDate = freezed,
@@ -113,10 +110,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as AppUserRole,
-      authMode: null == authMode
-          ? _value.authMode
-          : authMode // ignore: cast_nullable_to_non_nullable
-              as AuthMode,
       confirmedEmailMarketing: null == confirmedEmailMarketing
           ? _value.confirmedEmailMarketing
           : confirmedEmailMarketing // ignore: cast_nullable_to_non_nullable
@@ -166,7 +159,6 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String userName,
       String fullName,
       AppUserRole role,
-      AuthMode authMode,
       @JsonKey(defaultValue: false) bool confirmedEmailMarketing,
       String? profilePicUrl,
       DateTime? birthDate,
@@ -192,7 +184,6 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? userName = null,
     Object? fullName = null,
     Object? role = null,
-    Object? authMode = null,
     Object? confirmedEmailMarketing = null,
     Object? profilePicUrl = freezed,
     Object? birthDate = freezed,
@@ -223,10 +214,6 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as AppUserRole,
-      authMode: null == authMode
-          ? _value.authMode
-          : authMode // ignore: cast_nullable_to_non_nullable
-              as AuthMode,
       confirmedEmailMarketing: null == confirmedEmailMarketing
           ? _value.confirmedEmailMarketing
           : confirmedEmailMarketing // ignore: cast_nullable_to_non_nullable
@@ -272,16 +259,14 @@ class _$_AppUser extends _AppUser {
       required this.userName,
       required this.fullName,
       required this.role,
-      required this.authMode,
-      @JsonKey(defaultValue: false)
-          required this.confirmedEmailMarketing,
+      @JsonKey(defaultValue: false) required this.confirmedEmailMarketing,
       this.profilePicUrl,
       this.birthDate,
       this.countryPhoneCode,
       this.countryLetterCode,
       this.phone,
       @JsonKey(includeFromJson: false, includeToJson: false)
-          this.isLoading = false,
+      this.isLoading = false,
       this.lastUpdated})
       : super._();
 
@@ -298,8 +283,6 @@ class _$_AppUser extends _AppUser {
   final String fullName;
   @override
   final AppUserRole role;
-  @override
-  final AuthMode authMode;
   @override
   @JsonKey(defaultValue: false)
   final bool confirmedEmailMarketing;
@@ -321,7 +304,7 @@ class _$_AppUser extends _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, userName: $userName, fullName: $fullName, role: $role, authMode: $authMode, confirmedEmailMarketing: $confirmedEmailMarketing, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
+    return 'AppUser(id: $id, email: $email, userName: $userName, fullName: $fullName, role: $role, confirmedEmailMarketing: $confirmedEmailMarketing, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -336,8 +319,6 @@ class _$_AppUser extends _AppUser {
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.role, role) || other.role == role) &&
-            (identical(other.authMode, authMode) ||
-                other.authMode == authMode) &&
             (identical(
                     other.confirmedEmailMarketing, confirmedEmailMarketing) ||
                 other.confirmedEmailMarketing == confirmedEmailMarketing) &&
@@ -365,7 +346,6 @@ class _$_AppUser extends _AppUser {
       userName,
       fullName,
       role,
-      authMode,
       confirmedEmailMarketing,
       profilePicUrl,
       birthDate,
@@ -396,16 +376,14 @@ abstract class _AppUser extends AppUser {
       required final String userName,
       required final String fullName,
       required final AppUserRole role,
-      required final AuthMode authMode,
-      @JsonKey(defaultValue: false)
-          required final bool confirmedEmailMarketing,
+      @JsonKey(defaultValue: false) required final bool confirmedEmailMarketing,
       final String? profilePicUrl,
       final DateTime? birthDate,
       final String? countryPhoneCode,
       final String? countryLetterCode,
       final String? phone,
       @JsonKey(includeFromJson: false, includeToJson: false)
-          final bool isLoading,
+      final bool isLoading,
       final DateTime? lastUpdated}) = _$_AppUser;
   _AppUser._() : super._();
 
@@ -421,8 +399,6 @@ abstract class _AppUser extends AppUser {
   String get fullName;
   @override
   AppUserRole get role;
-  @override
-  AuthMode get authMode;
   @override
   @JsonKey(defaultValue: false)
   bool get confirmedEmailMarketing;

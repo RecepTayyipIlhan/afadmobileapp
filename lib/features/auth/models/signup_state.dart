@@ -8,10 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../utils/prov/auth_prov.dart';
 import 'app_user.dart';
-import 'auth_mode.dart';
 import 'signup_step.dart';
-
-export 'auth_mode.dart';
 
 part 'signup_state.freezed.dart';
 
@@ -32,20 +29,14 @@ class SignupState with _$SignupState {
     @Default(true) bool isEmailLinkRequested,
     required Ref ref,
     required GlobalKey<FormState> formKey,
-    @protected required AuthMode? mode,
     int? emailLinkResendSecondsLeft,
     @Default(true) bool confirmedEmailMarketing,
   }) = _SignupState;
 
   factory SignupState.initial({required Ref ref}) {
-    final mode = AuthMode.emailLink;
-
-    staticMode ??= mode;
-
     return SignupState(
       formKey: GlobalKey<FormState>(),
       ref: ref,
-      mode: mode,
     );
   }
 
@@ -53,7 +44,6 @@ class SignupState with _$SignupState {
         email: fbUser.email!,
         userName: userName!.toLowerCase(),
         fullName: fullName!,
-        authMode: authMode ?? AuthMode.values[0],
         birthDate: birthDate,
         countryPhoneCode: countryPhoneCode,
         countryLetterCode: countryLetterCode,
@@ -104,20 +94,6 @@ class SignupState with _$SignupState {
     return '+$countryPhoneCode';
   }
 
-  // this is a terrible hack, but it's the only way to get the mode
-  // else way, on each navigation the state is being reset.
-  // this problem is caused by the gorouter's navigation.
-  // https://github.com/flutter/flutter/issues/99124
-  static AuthMode? staticMode;
-
-  // due to a problem in gorouter, when the redirect kicks in this
-  // state will be reset, so the mode will reset to AuthMode.emailLink.
-  // but at this step, as the fb auth is already done, we can use the
-  // info from that as the reliable source of truth.
-  AuthMode? get authMode {
-    return staticMode ?? mode;
-  }
-
   bool get _isEmailVerified => ref.watch(authProvider).isEmailVerified;
 
   SignupStep get step => _isEmailVerified ? SignupStep.info : SignupStep.email;
@@ -125,7 +101,7 @@ class SignupState with _$SignupState {
   bool get isEmailStep => step == SignupStep.email;
   bool get isInfoStep => step == SignupStep.info;
 
-  bool get showPassField => isEmailStep && isModePass;
+  bool get showPassField => isEmailStep;
   bool get showEmailField => isEmailStep;
 
   bool get showUserNameField => isInfoStep;
@@ -133,7 +109,4 @@ class SignupState with _$SignupState {
   bool get showProfileImageField => isInfoStep;
   bool get showBirthDateField => isInfoStep;
   bool get showPhoneField => isInfoStep;
-
-  bool get isModeLink => mode == AuthMode.emailLink;
-  bool get isModePass => mode == AuthMode.emailPass;
 }

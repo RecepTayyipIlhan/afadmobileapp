@@ -19,8 +19,6 @@ mixin _$LoginState {
   String? get email => throw _privateConstructorUsedError;
   String? get pass => throw _privateConstructorUsedError;
   GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
-  AuthMode get mode => throw _privateConstructorUsedError;
-  int? get emailLinkResendSecondsLeft => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -33,12 +31,7 @@ abstract class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call(
-      {String? email,
-      String? pass,
-      GlobalKey<FormState> formKey,
-      AuthMode mode,
-      int? emailLinkResendSecondsLeft});
+  $Res call({String? email, String? pass, GlobalKey<FormState> formKey});
 }
 
 /// @nodoc
@@ -57,8 +50,6 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? email = freezed,
     Object? pass = freezed,
     Object? formKey = null,
-    Object? mode = null,
-    Object? emailLinkResendSecondsLeft = freezed,
   }) {
     return _then(_value.copyWith(
       email: freezed == email
@@ -73,14 +64,6 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormState>,
-      mode: null == mode
-          ? _value.mode
-          : mode // ignore: cast_nullable_to_non_nullable
-              as AuthMode,
-      emailLinkResendSecondsLeft: freezed == emailLinkResendSecondsLeft
-          ? _value.emailLinkResendSecondsLeft
-          : emailLinkResendSecondsLeft // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -93,12 +76,7 @@ abstract class _$$_LoginStateCopyWith<$Res>
       __$$_LoginStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? email,
-      String? pass,
-      GlobalKey<FormState> formKey,
-      AuthMode mode,
-      int? emailLinkResendSecondsLeft});
+  $Res call({String? email, String? pass, GlobalKey<FormState> formKey});
 }
 
 /// @nodoc
@@ -115,8 +93,6 @@ class __$$_LoginStateCopyWithImpl<$Res>
     Object? email = freezed,
     Object? pass = freezed,
     Object? formKey = null,
-    Object? mode = null,
-    Object? emailLinkResendSecondsLeft = freezed,
   }) {
     return _then(_$_LoginState(
       email: freezed == email
@@ -131,14 +107,6 @@ class __$$_LoginStateCopyWithImpl<$Res>
           ? _value.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormState>,
-      mode: null == mode
-          ? _value.mode
-          : mode // ignore: cast_nullable_to_non_nullable
-              as AuthMode,
-      emailLinkResendSecondsLeft: freezed == emailLinkResendSecondsLeft
-          ? _value.emailLinkResendSecondsLeft
-          : emailLinkResendSecondsLeft // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -146,12 +114,7 @@ class __$$_LoginStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginState extends _LoginState {
-  const _$_LoginState(
-      {this.email,
-      this.pass,
-      required this.formKey,
-      required this.mode,
-      this.emailLinkResendSecondsLeft})
+  const _$_LoginState({this.email, this.pass, required this.formKey})
       : super._();
 
   @override
@@ -160,14 +123,10 @@ class _$_LoginState extends _LoginState {
   final String? pass;
   @override
   final GlobalKey<FormState> formKey;
-  @override
-  final AuthMode mode;
-  @override
-  final int? emailLinkResendSecondsLeft;
 
   @override
   String toString() {
-    return 'LoginState(email: $email, pass: $pass, formKey: $formKey, mode: $mode, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft)';
+    return 'LoginState(email: $email, pass: $pass, formKey: $formKey)';
   }
 
   @override
@@ -177,17 +136,11 @@ class _$_LoginState extends _LoginState {
             other is _$_LoginState &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.pass, pass) || other.pass == pass) &&
-            (identical(other.formKey, formKey) || other.formKey == formKey) &&
-            (identical(other.mode, mode) || other.mode == mode) &&
-            (identical(other.emailLinkResendSecondsLeft,
-                    emailLinkResendSecondsLeft) ||
-                other.emailLinkResendSecondsLeft ==
-                    emailLinkResendSecondsLeft));
+            (identical(other.formKey, formKey) || other.formKey == formKey));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, email, pass, formKey, mode, emailLinkResendSecondsLeft);
+  int get hashCode => Object.hash(runtimeType, email, pass, formKey);
 
   @JsonKey(ignore: true)
   @override
@@ -200,9 +153,7 @@ abstract class _LoginState extends LoginState {
   const factory _LoginState(
       {final String? email,
       final String? pass,
-      required final GlobalKey<FormState> formKey,
-      required final AuthMode mode,
-      final int? emailLinkResendSecondsLeft}) = _$_LoginState;
+      required final GlobalKey<FormState> formKey}) = _$_LoginState;
   const _LoginState._() : super._();
 
   @override
@@ -211,10 +162,6 @@ abstract class _LoginState extends LoginState {
   String? get pass;
   @override
   GlobalKey<FormState> get formKey;
-  @override
-  AuthMode get mode;
-  @override
-  int? get emailLinkResendSecondsLeft;
   @override
   @JsonKey(ignore: true)
   _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>

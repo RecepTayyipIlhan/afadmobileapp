@@ -105,14 +105,13 @@ class _Fields extends ConsumerWidget {
             maxLines: 1,
             keyboardType: TextInputType.emailAddress,
           ),
-          if (formState.showPassField)
-            PrimaryField(
-              labelText: getStr('auth:login:fields:password:title'),
-              onChanged: notifier.passOnChanged,
-              validator: notifier.passValidator,
-              isPassword: true,
-              maxLines: 1,
-            ),
+          PrimaryField(
+            labelText: getStr('auth:login:fields:password:title'),
+            onChanged: notifier.passOnChanged,
+            validator: notifier.passValidator,
+            isPassword: true,
+            maxLines: 1,
+          ),
         ].joinWidgetList(
           (index) => const SizedBox(
             height: defPaddingSize,
@@ -150,60 +149,22 @@ class _Btns extends ConsumerWidget {
     return Column(
       children: [
         // submit btns
-        ...[
-          if (formState.isModeLink)
-            PrimaryBtn(
-              isExpanded: true,
-              onPressed: formState.isEmailLinkResendAllowed
-                  ? () {
-                      notifier.submit(context);
-                    }
-                  : null,
-              text: formState.isEmailLinkResendAllowed
-                  ? getStr('auth:login:send_link_btn')
-                  : getStrArgs(
-                      'auth:login:send_link_btn:unsendable_seconds',
-                      args: [
-                        formState.emailLinkResendSecondsLeft.toString(),
-                      ],
-                    ),
-              eventName: 'auth:login:send_link_btn',
-            ),
-          if (formState.isModePass)
-            PrimaryBtn(
-              isExpanded: true,
-              onPressed: () => notifier.submit(context),
-              text: getStr('auth:login:login_btn'),
-              eventName: 'auth:login:login_btn',
-            ),
-        ],
-        // mode switchers
-        ...[
-          if (formState.isModePass)
-            SecondaryBtn(
-              isExpanded: true,
-              onPressed: notifier.switchModeToLink,
-              text: getStr('auth:login:login_use_link_btn'),
-              eventName: 'auth:login:login_use_link_btn',
-            ),
-          if (formState.isModeLink)
-            SecondaryBtn(
-              isExpanded: true,
-              onPressed: notifier.switchModeToPass,
-              text: getStr('auth:login:login_use_pass_btn'),
-              eventName: 'auth:login:login_use_pass_btn',
-            ),
-        ],
+        PrimaryBtn(
+          isExpanded: true,
+          onPressed: () => notifier.submit(context),
+          text: getStr('auth:login:login_btn'),
+          eventName: 'auth:login:login_btn',
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AuthIconBtn(
-              eventName: 'apple log in',
-              icon: FontAwesomeIcons.apple,
-              onPressed: () {
-                notifier.loginWithApple(context);
-              },
-            ),
+            // AuthIconBtn(
+            //   eventName: 'apple log in',
+            //   icon: FontAwesomeIcons.apple,
+            //   onPressed: () {
+            //     notifier.loginWithApple(context);
+            //   },
+            // ),
             AuthIconBtn(
               eventName: 'google log in',
               icon: FontAwesomeIcons.google,

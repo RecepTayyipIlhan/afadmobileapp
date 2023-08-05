@@ -7,7 +7,6 @@ import '../../../utils/prov/auth_prov.dart';
 import '../../../utils/utils.dart';
 import '../models/profile_item.dart';
 import '../models/profile_state.dart';
-import '../../auth/prov/delete_account_prov.dart';
 
 final profileStateProvider =
     StateNotifierProvider<ProfileStateNotifier, ProfileState>(
@@ -44,14 +43,6 @@ class ProfileStateNotifier extends StateNotifier<ProfileState> {
     return true;
   }
 
-  Future<bool> deleteAccountOnPressed(BuildContext context) async {
-    ref.watch(deleteAccountProv.notifier).handleInitial(context);
-
-    GoRouter.of(context).pushNamed(RouteTable.rDeleteAccountScreen);
-
-    return true;
-  }
-
   List<ProfileItem> items() {
     return [
       ProfileItem(
@@ -65,11 +56,6 @@ class ProfileStateNotifier extends StateNotifier<ProfileState> {
       ProfileItem(
         title: getStr('profile_items:logout'),
         onTap: logOutOnPressed,
-        isDangerous: true,
-      ),
-      ProfileItem(
-        title: getStr('profile_items:delete_account'),
-        onTap: deleteAccountOnPressed,
         isDangerous: true,
       ),
     ];

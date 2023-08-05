@@ -22,16 +22,6 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
   final Ref ref;
   SignupStateNotifier(this.ref) : super(SignupState.initial(ref: ref));
 
-  void switchModeToLink() {
-    SignupState.staticMode = AuthMode.emailLink;
-    state = state.copyWith(mode: AuthMode.emailLink);
-  }
-
-  void switchModeToPass() {
-    SignupState.staticMode = AuthMode.emailPass;
-    state = state.copyWith(mode: AuthMode.emailPass);
-  }
-
   Future<bool> loginWithGoogle(BuildContext context) async {
     try {
       Loading.load(context);
@@ -84,8 +74,6 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     return isSignedUp;
   }
 
-  Timer? _emailLinkResendTimer;
-
   Future<bool> submitEmailStepLink(BuildContext context) async {
     if (state.isValidEmailStep == false) {
       return false;
@@ -107,24 +95,6 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
       state = state.copyWith(
         emailLinkResendSecondsLeft: state.emailLinkResendDuration.inSeconds,
-      );
-
-      if (_emailLinkResendTimer != null) {
-        _emailLinkResendTimer!.cancel();
-      }
-
-      _emailLinkResendTimer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) {
-          state = state.copyWith(
-            emailLinkResendSecondsLeft: state.emailLinkResendSecondsLeft! - 1,
-          );
-
-          if (state.emailLinkResendSecondsLeft == 0) {
-            _emailLinkResendTimer!.cancel();
-            timer.cancel();
-          }
-        },
       );
 
       state = state.copyWith(
@@ -181,17 +151,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
   Future<bool> submit(BuildContext context) async {
     if (state.isEmailStep) {
-      if (state.isModeLink) {
-        return submitEmailStepLink(context);
-      }
-
-      if (state.isModePass) {
-        return submitEmailStepPass(context);
-      }
-
-      logger.e('Invalid mode');
-
-      return false;
+      return submitEmailStepPass(context);
     }
 
     if (state.isInfoStep) {
@@ -330,14 +290,5 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     }
 
     return null;
-  }
-
-  @override
-  void dispose() {
-    if (_emailLinkResendTimer != null) {
-      _emailLinkResendTimer!.cancel();
-    }
-
-    super.dispose();
   }
 }
