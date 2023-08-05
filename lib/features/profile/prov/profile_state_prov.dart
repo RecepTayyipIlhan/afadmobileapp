@@ -50,10 +50,6 @@ class ProfileStateNotifier extends StateNotifier<ProfileState> {
         onTap: editProfileOnPressed,
       ),
       ProfileItem(
-        title: getStr('profile_items:privacy_policy'),
-        onTap: privacyPolicyOnPressed,
-      ),
-      ProfileItem(
         title: getStr('profile_items:logout'),
         onTap: logOutOnPressed,
         isDangerous: true,
