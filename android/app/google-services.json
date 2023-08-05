@@ -29,6 +29,13 @@
             {
               "client_id": "64197882688-g5e132sh94lpn71ucu2k5r7so1j4boio.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "64197882688-0mct73v0gfag4jejrro8787l2vu8mdrd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.afadApp"
+              }
             }
           ]
         }
