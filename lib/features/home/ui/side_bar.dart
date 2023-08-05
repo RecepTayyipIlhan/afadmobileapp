@@ -1,7 +1,8 @@
-import 'package:afad_app/screens/login.dart';
-import 'package:afad_app/screens/add_user_info.dart';
 //import 'package:afad_app/screens/login.dart';
+import 'package:afad_app/features/auth/ui/login_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'add_user_info.dart';
 
 class SideBar extends StatefulWidget {
   // "ilhanreceptayyip@gmail.com"
@@ -79,7 +80,7 @@ class _SideBarState extends State<SideBar> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
+                  builder: (context) => const LoginScreen(),
                 ),
               );
             },

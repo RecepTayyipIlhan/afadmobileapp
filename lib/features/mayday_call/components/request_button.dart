@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:afad_app/screens/mayday_call/chat_page.dart';
+import 'package:afad_app/features/mayday_call/chat_page.dart';
 
 class RequestButton extends StatelessWidget {
   final String title;

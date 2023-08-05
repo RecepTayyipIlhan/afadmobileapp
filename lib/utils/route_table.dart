@@ -17,7 +17,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/auth/ui/forgot_pass_screen.dart';
 import '../features/auth/ui/login_screen.dart';
 import '../features/auth/ui/signup_screen.dart';
 import '../ui/widgets/error_screen.dart';
@@ -92,11 +91,6 @@ class RouteTable {
             name: rSignupScreen,
             path: 'signup',
             builder: (context, state) => const SignupScreen(),
-          ),
-          GoRoute(
-            name: rForgotPassScreen,
-            path: 'forgot_pass',
-            builder: (context, state) => const ForgotPassScreen(),
           ),
         ],
       );

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:afad_app/screens/home/menu_page.dart';
+import 'package:afad_app/features/home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 //import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
@@ -43,7 +43,7 @@ class _Message {
 
 class _ChatPage extends State<ChatPage> {
   Loc latLon = Loc();
-  MenuScreen ms = const MenuScreen();
+  HomeScreen ms = const HomeScreen();
   //get location from gps
 
   static const clientID = 0;
@@ -193,7 +193,7 @@ class _ChatPage extends State<ChatPage> {
                         /* Navigator.pop(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MenuScreen()));*/
+                                            builder: (context) => HomeScreen()));*/
                         Navigator.pop(context);
                       },
                       icon: const Icon(

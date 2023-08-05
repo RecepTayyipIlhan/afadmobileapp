@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:afad_app/services/bluetooth/communication.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'select_bonded_device_page.dart';
-import '../../screens/mayday_call/chat_page.dart';
+import '../../features/mayday_call/chat_page.dart';
 
 //import './ChatPage2.dart';
 

@@ -1,6 +1,6 @@
+import 'package:afad_app/features/home/ui/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:afad_app/screens/home/menu_page.dart';
 
 class UserPage extends StatefulWidget {
   final List? allData;
@@ -92,7 +92,7 @@ class _UserPageState extends State<UserPage> {
             Navigator.pop(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MenuScreen(),
+                  builder: (context) => const HomeScreen(),
                 ));
           },
           icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),

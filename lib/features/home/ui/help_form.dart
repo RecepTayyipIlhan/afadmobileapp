@@ -1,4 +1,4 @@
-import 'package:afad_app/screens/home/menu_page.dart';
+import 'package:afad_app/features/home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MessageForm extends StatelessWidget {
@@ -36,7 +36,7 @@ class MessageForm extends StatelessWidget {
                   Navigator.pop(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MenuScreen(),
+                        builder: (context) => const HomeScreen(),
                       ));
                 },
               ),
