@@ -56,7 +56,15 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/translations/
+    - assets/images/intro/
+    - assets/images/home/
+    - assets/images/home/quizzes/
+    - assets/fonts/
   fonts:
+    - family: AppIcons
+      fonts:
+        - asset: assets/fonts/AppIcons.ttf
     - family: Cairo
       fonts:
         - asset: assets/fonts/Cairo/Cairo-Regular.ttf

@@ -53,7 +53,6 @@ class RouteTable {
   static const String
       //
       rSplashScreen = 'splash_screen',
-      rIntroScreen = 'intro_screen',
       rHome = 'home_screen',
       rPrivacyPolicyScreen = 'privacy_policy_screen',
       rProfileScreen = 'profile_screen',
@@ -176,13 +175,6 @@ class RouteTable {
         redirect: (context, state) {
           if (state.location == '/no_connection') {
             return null;
-          }
-
-          final isOpenedBefore =
-              ref.watch(appInitStateProv).settings?.isOpenedBefore;
-
-          if (isOpenedBefore == false) {
-            return state.namedLocation(rIntroScreen);
           }
 
           const splashLoc = '/';
