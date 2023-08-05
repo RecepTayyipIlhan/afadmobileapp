@@ -1,0 +1,4 @@
+enum SignupStep {
+  email,
+  info,
+}

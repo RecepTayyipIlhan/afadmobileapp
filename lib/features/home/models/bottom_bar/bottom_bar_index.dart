@@ -1,0 +1,4 @@
+enum BottomBarIndex {
+  home,
+  profile,
+}
