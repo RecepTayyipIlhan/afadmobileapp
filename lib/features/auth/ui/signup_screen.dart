@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading/loading.dart';
 import '../../../ui/widgets/btns/auth_icon_btn.dart';
 import '../../../ui/widgets/btns/primary_btn.dart';
+import '../../../ui/widgets/btns/secondary_btn.dart';
 import '../../../ui/widgets/primary_field.dart';
 import '../../../utils/utils.dart';
 
@@ -157,15 +158,13 @@ class _Btns extends ConsumerWidget {
             controlAffinity: ListTileControlAffinity.leading,
           ),
         ],
+        PrimaryBtn(
+          isExpanded: true,
+          onPressed: () => notifier.submit(context),
+          text: getStr('auth:signup:signup_btn'),
+          eventName: 'auth:signup:signup_btn',
+        ),
         ...[
-          if (formState.isInfoStep) ...[
-            PrimaryBtn(
-              isExpanded: true,
-              onPressed: () => notifier.submit(context),
-              text: getStr('auth:signup:signup_btn'),
-              eventName: 'auth:signup:signup_btn',
-            ),
-          ],
           if (formState.isEmailStep)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
