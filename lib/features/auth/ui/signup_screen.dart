@@ -148,16 +148,6 @@ class _Btns extends ConsumerWidget {
 
     return Column(
       children: [
-        if (formState.isInfoStep) ...[
-          CheckboxListTile(
-            value: formState.confirmedEmailMarketing,
-            onChanged: notifier.confirmedEmailMarketingOnChanged,
-            title: Text(
-              getStr('auth:signup:confirm_email_marketing'),
-            ),
-            controlAffinity: ListTileControlAffinity.leading,
-          ),
-        ],
         PrimaryBtn(
           isExpanded: true,
           onPressed: () => notifier.submit(context),

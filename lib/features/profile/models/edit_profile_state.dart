@@ -15,7 +15,6 @@ class EditProfileState with _$EditProfileState {
   const factory EditProfileState({
     required String userName,
     required String fullName,
-    required bool confirmedEmailMarketing,
     File? profileImage,
     String? profileImageUrl,
     DateTime? birthDate,
@@ -35,7 +34,6 @@ class EditProfileState with _$EditProfileState {
       formKey: GlobalKey<FormState>(),
       ref: ref,
       fullName: user.fullName,
-      confirmedEmailMarketing: user.confirmedEmailMarketing,
       userName: user.userName,
       birthDate: user.birthDate,
       countryLetterCode: user.countryLetterCode,
@@ -51,7 +49,6 @@ class EditProfileState with _$EditProfileState {
       email: user.email,
       userName: userName,
       fullName: fullName,
-      confirmedEmailMarketing: confirmedEmailMarketing,
       birthDate: birthDate,
       countryPhoneCode: countryPhoneCode,
       countryLetterCode: countryLetterCode,

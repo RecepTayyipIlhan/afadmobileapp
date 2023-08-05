@@ -30,7 +30,6 @@ class SignupState with _$SignupState {
     required Ref ref,
     required GlobalKey<FormState> formKey,
     int? emailLinkResendSecondsLeft,
-    @Default(true) bool confirmedEmailMarketing,
   }) = _SignupState;
 
   factory SignupState.initial({required Ref ref}) {
@@ -48,7 +47,6 @@ class SignupState with _$SignupState {
         countryPhoneCode: countryPhoneCode,
         countryLetterCode: countryLetterCode,
         phone: phone,
-        confirmedEmailMarketing: confirmedEmailMarketing,
       );
 
   Duration get emailLinkResendDuration => const Duration(seconds: 30);

@@ -165,12 +165,6 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
   DateTime get _defaultBirthDate => DateTime(2000);
 
-  void confirmedEmailMarketingOnChanged(bool? value) {
-    state = state.copyWith(
-      confirmedEmailMarketing: value == true,
-    );
-  }
-
   void birthDateOnPressed(BuildContext context) async {
     final date = await showDatePicker(
       context: context,

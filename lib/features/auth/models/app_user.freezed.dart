@@ -25,8 +25,6 @@ mixin _$AppUser {
   String get userName => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   AppUserRole get role => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: false)
-  bool get confirmedEmailMarketing => throw _privateConstructorUsedError;
   String? get profilePicUrl => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
   String? get countryPhoneCode => throw _privateConstructorUsedError;
@@ -52,7 +50,6 @@ abstract class $AppUserCopyWith<$Res> {
       String userName,
       String fullName,
       AppUserRole role,
-      @JsonKey(defaultValue: false) bool confirmedEmailMarketing,
       String? profilePicUrl,
       DateTime? birthDate,
       String? countryPhoneCode,
@@ -80,7 +77,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? userName = null,
     Object? fullName = null,
     Object? role = null,
-    Object? confirmedEmailMarketing = null,
     Object? profilePicUrl = freezed,
     Object? birthDate = freezed,
     Object? countryPhoneCode = freezed,
@@ -110,10 +106,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as AppUserRole,
-      confirmedEmailMarketing: null == confirmedEmailMarketing
-          ? _value.confirmedEmailMarketing
-          : confirmedEmailMarketing // ignore: cast_nullable_to_non_nullable
-              as bool,
       profilePicUrl: freezed == profilePicUrl
           ? _value.profilePicUrl
           : profilePicUrl // ignore: cast_nullable_to_non_nullable
@@ -159,7 +151,6 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String userName,
       String fullName,
       AppUserRole role,
-      @JsonKey(defaultValue: false) bool confirmedEmailMarketing,
       String? profilePicUrl,
       DateTime? birthDate,
       String? countryPhoneCode,
@@ -184,7 +175,6 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? userName = null,
     Object? fullName = null,
     Object? role = null,
-    Object? confirmedEmailMarketing = null,
     Object? profilePicUrl = freezed,
     Object? birthDate = freezed,
     Object? countryPhoneCode = freezed,
@@ -214,10 +204,6 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as AppUserRole,
-      confirmedEmailMarketing: null == confirmedEmailMarketing
-          ? _value.confirmedEmailMarketing
-          : confirmedEmailMarketing // ignore: cast_nullable_to_non_nullable
-              as bool,
       profilePicUrl: freezed == profilePicUrl
           ? _value.profilePicUrl
           : profilePicUrl // ignore: cast_nullable_to_non_nullable
@@ -259,7 +245,6 @@ class _$_AppUser extends _AppUser {
       required this.userName,
       required this.fullName,
       required this.role,
-      @JsonKey(defaultValue: false) required this.confirmedEmailMarketing,
       this.profilePicUrl,
       this.birthDate,
       this.countryPhoneCode,
@@ -284,9 +269,6 @@ class _$_AppUser extends _AppUser {
   @override
   final AppUserRole role;
   @override
-  @JsonKey(defaultValue: false)
-  final bool confirmedEmailMarketing;
-  @override
   final String? profilePicUrl;
   @override
   final DateTime? birthDate;
@@ -304,7 +286,7 @@ class _$_AppUser extends _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, userName: $userName, fullName: $fullName, role: $role, confirmedEmailMarketing: $confirmedEmailMarketing, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
+    return 'AppUser(id: $id, email: $email, userName: $userName, fullName: $fullName, role: $role, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -319,9 +301,6 @@ class _$_AppUser extends _AppUser {
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.role, role) || other.role == role) &&
-            (identical(
-                    other.confirmedEmailMarketing, confirmedEmailMarketing) ||
-                other.confirmedEmailMarketing == confirmedEmailMarketing) &&
             (identical(other.profilePicUrl, profilePicUrl) ||
                 other.profilePicUrl == profilePicUrl) &&
             (identical(other.birthDate, birthDate) ||
@@ -346,7 +325,6 @@ class _$_AppUser extends _AppUser {
       userName,
       fullName,
       role,
-      confirmedEmailMarketing,
       profilePicUrl,
       birthDate,
       countryPhoneCode,
@@ -376,7 +354,6 @@ abstract class _AppUser extends AppUser {
       required final String userName,
       required final String fullName,
       required final AppUserRole role,
-      @JsonKey(defaultValue: false) required final bool confirmedEmailMarketing,
       final String? profilePicUrl,
       final DateTime? birthDate,
       final String? countryPhoneCode,
@@ -399,9 +376,6 @@ abstract class _AppUser extends AppUser {
   String get fullName;
   @override
   AppUserRole get role;
-  @override
-  @JsonKey(defaultValue: false)
-  bool get confirmedEmailMarketing;
   @override
   String? get profilePicUrl;
   @override

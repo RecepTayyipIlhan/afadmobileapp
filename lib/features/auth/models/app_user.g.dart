@@ -12,8 +12,6 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       userName: json['userName'] as String,
       fullName: json['fullName'] as String,
       role: $enumDecode(_$AppUserRoleEnumMap, json['role']),
-      confirmedEmailMarketing:
-          json['confirmedEmailMarketing'] as bool? ?? false,
       profilePicUrl: json['profilePicUrl'] as String?,
       birthDate: json['birthDate'] == null
           ? null
@@ -33,7 +31,6 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
       'userName': instance.userName,
       'fullName': instance.fullName,
       'role': _$AppUserRoleEnumMap[instance.role]!,
-      'confirmedEmailMarketing': instance.confirmedEmailMarketing,
       'profilePicUrl': instance.profilePicUrl,
       'birthDate': instance.birthDate?.toIso8601String(),
       'countryPhoneCode': instance.countryPhoneCode,

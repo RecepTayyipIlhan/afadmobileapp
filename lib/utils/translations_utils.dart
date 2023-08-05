@@ -2,7 +2,8 @@ part of 'utils.dart';
 
 // FUTURETODO
 String getLanguageCode() {
-  return 'en-US';
+  // return 'en-US';
+  return 'tr-TR';
 }
 
 String getStr(String? inp) {

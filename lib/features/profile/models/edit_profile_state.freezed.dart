@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EditProfileState {
   String get userName => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
-  bool get confirmedEmailMarketing => throw _privateConstructorUsedError;
   File? get profileImage => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
@@ -43,7 +42,6 @@ abstract class $EditProfileStateCopyWith<$Res> {
   $Res call(
       {String userName,
       String fullName,
-      bool confirmedEmailMarketing,
       File? profileImage,
       String? profileImageUrl,
       DateTime? birthDate,
@@ -72,7 +70,6 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   $Res call({
     Object? userName = null,
     Object? fullName = null,
-    Object? confirmedEmailMarketing = null,
     Object? profileImage = freezed,
     Object? profileImageUrl = freezed,
     Object? birthDate = freezed,
@@ -92,10 +89,6 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      confirmedEmailMarketing: null == confirmedEmailMarketing
-          ? _value.confirmedEmailMarketing
-          : confirmedEmailMarketing // ignore: cast_nullable_to_non_nullable
-              as bool,
       profileImage: freezed == profileImage
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
@@ -155,7 +148,6 @@ abstract class _$$_EditProfileStateCopyWith<$Res>
   $Res call(
       {String userName,
       String fullName,
-      bool confirmedEmailMarketing,
       File? profileImage,
       String? profileImageUrl,
       DateTime? birthDate,
@@ -183,7 +175,6 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
   $Res call({
     Object? userName = null,
     Object? fullName = null,
-    Object? confirmedEmailMarketing = null,
     Object? profileImage = freezed,
     Object? profileImageUrl = freezed,
     Object? birthDate = freezed,
@@ -203,10 +194,6 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      confirmedEmailMarketing: null == confirmedEmailMarketing
-          ? _value.confirmedEmailMarketing
-          : confirmedEmailMarketing // ignore: cast_nullable_to_non_nullable
-              as bool,
       profileImage: freezed == profileImage
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
@@ -253,7 +240,6 @@ class _$_EditProfileState extends _EditProfileState {
   const _$_EditProfileState(
       {required this.userName,
       required this.fullName,
-      required this.confirmedEmailMarketing,
       this.profileImage,
       this.profileImageUrl,
       this.birthDate,
@@ -269,8 +255,6 @@ class _$_EditProfileState extends _EditProfileState {
   final String userName;
   @override
   final String fullName;
-  @override
-  final bool confirmedEmailMarketing;
   @override
   final File? profileImage;
   @override
@@ -292,7 +276,7 @@ class _$_EditProfileState extends _EditProfileState {
 
   @override
   String toString() {
-    return 'EditProfileState(userName: $userName, fullName: $fullName, confirmedEmailMarketing: $confirmedEmailMarketing, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
+    return 'EditProfileState(userName: $userName, fullName: $fullName, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
   }
 
   @override
@@ -304,9 +288,6 @@ class _$_EditProfileState extends _EditProfileState {
                 other.userName == userName) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
-            (identical(
-                    other.confirmedEmailMarketing, confirmedEmailMarketing) ||
-                other.confirmedEmailMarketing == confirmedEmailMarketing) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
@@ -328,7 +309,6 @@ class _$_EditProfileState extends _EditProfileState {
       runtimeType,
       userName,
       fullName,
-      confirmedEmailMarketing,
       profileImage,
       profileImageUrl,
       birthDate,
@@ -350,7 +330,6 @@ abstract class _EditProfileState extends EditProfileState {
   const factory _EditProfileState(
       {required final String userName,
       required final String fullName,
-      required final bool confirmedEmailMarketing,
       final File? profileImage,
       final String? profileImageUrl,
       final DateTime? birthDate,
@@ -366,8 +345,6 @@ abstract class _EditProfileState extends EditProfileState {
   String get userName;
   @override
   String get fullName;
-  @override
-  bool get confirmedEmailMarketing;
   @override
   File? get profileImage;
   @override
