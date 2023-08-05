@@ -235,6 +235,7 @@ class AppInitProv {
     );
     logger.i('Firebase initializeApp done');
 
+    if (!kIsWeb)
     // fcm
     {
       final fcmToken = await FirebaseMessaging.instance.getToken();
