@@ -117,22 +117,6 @@ class _Fields extends ConsumerWidget {
             height: defPaddingSize,
           ),
         ),
-        // forgot pass
-        ...[
-          Row(
-            children: [
-              TextBtn(
-                text: getStr('auth:login:forgot_password'),
-                onPressed: () {
-                  GoRouter.of(context).pushNamed(
-                    RouteTable.rForgotPassScreen,
-                  );
-                },
-                eventName: 'auth:login:forgot_password',
-              ),
-            ],
-          ),
-        ],
       ],
     );
   }
