@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../features/auth/models/app_user.dart';
@@ -41,6 +42,8 @@ class AuthState with _$AuthState {
       firebaseUser != null && appUser == null && isLoading == false;
   bool get isHalfSignedUp => isEmailVerified;
 
-  bool get isAdmin => appUser?.role == AppUserRole.admin;
-  bool get isUser => appUser?.role == AppUserRole.user;
+  // bool get isAdmin => appUser?.role == AppUserRole.admin;
+  bool get isAdmin => kIsWeb;
+  // bool get isUser => appUser?.role == AppUserRole.user;
+  bool get isUser => !kIsWeb;
 }
