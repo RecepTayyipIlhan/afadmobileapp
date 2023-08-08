@@ -5,7 +5,6 @@
 // ignore_for_file: deprecated_member_use
 
 import '../features/admin/admin_home_screen.dart';
-import '../features/app_init/app_init_prov.dart';
 import '../features/home/prov/network_detector_prov.dart';
 import '../features/home/ui/bottom_nav_screen.dart';
 import '../features/home/ui/no_connection_screen.dart';
@@ -66,14 +65,7 @@ class RouteTable {
 // admin
   static const String
       //
-      rAdminHome = 'admin_home_screen',
-      rAdminCreateEstimationQuizScreen = 'create_estimation_quiz_screen',
-      rAdminCreateMultiQuizScreen = 'create_multi_quiz_screen',
-      rAdminUpdateEstimationQuizScreen = 'update_estimation_quiz_screen',
-      rAdminUpdateMultiQuizScreen = 'update_multi_quiz_screen',
-      rAdminMultiQuizScreen = 'admin_multi_quiz_screen',
-      rAdminEstimationQuizScreen = 'admin_estimation_quiz_screen',
-      rAdminStatisticsScreen = 'admin_statistics_screen'
+      rAdminHome = 'admin_home_screen'
       //
       ;
 
