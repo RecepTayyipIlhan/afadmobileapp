@@ -1,3 +1,4 @@
+import 'package:afad_app/ui/widgets/btns/secondary_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -63,6 +64,8 @@ class _MyAppState extends State<AdminMapPage> {
     }
   }
 
+  var show = true;
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData screen = MediaQuery.of(context);
@@ -72,16 +75,11 @@ class _MyAppState extends State<AdminMapPage> {
         body: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 50, horizontal: 100),
-              height: screen.size.height * 0.5,
-              width: screen.size.width,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Stack(
                 children: [
                   Container(
-                    height: screen.size.width * 0.4,
-                    width: screen.size.width * 0.4,
+                    height: screen.size.width,
+                    width: screen.size.width,
                     child: GoogleMap(
                       initialCameraPosition: CameraPosition(
                         target: LatLng(39.88204347624524, 31.56168212399377),
@@ -92,56 +90,92 @@ class _MyAppState extends State<AdminMapPage> {
                       onMapCreated: _onMapCreated,
                     ),
                   ),
-                  Container(
-                    height: screen.size.width * 0.4,
-                    width: screen.size.width * 0.4,
-                    child: SingleChildScrollView(
-                      child: DataTable(
-                        columns: <DataColumn>[
-                          DataColumn(label: Text("Id")),
-                          DataColumn(label: Text("İsim")),
-                          DataColumn(label: Text("Tür")),
-                          DataColumn(label: Text("Mesaj")),
-                          DataColumn(label: Text("Konum")),
-                        ],
-                        rows: List<DataRow>.generate(
-                          konumDataList.length,
-                          (index) => DataRow(
-                            cells: [
-                              DataCell(Text("142")),
-                              DataCell(Text("Recep Tayyip")),
-                              DataCell(Text("İhbar")),
-                              DataCell(Text("Enkaz Altı")),
-                              DataCell(Text(konumDataList[index])),
-                            ],
-                            onSelectChanged: (selected) {
-                              _onRowSelect(selected! ? index : -1);
-                              if (selected) {
-                                var location = konumDataList[index].split(', ');
-                                print("deneme :" +
-                                    location[0] +
-                                    " ---- " +
-                                    location[1]);
+                  Builder(
+                    builder: (context) {
+                      if (!show) {
+                        return SecondaryBtn(
+                          onPressed: () {
+                            setState(() {
+                              show = true;
+                            });
+                          },
+                          eventName: '',
+                          text: 'Gizle',
+                        );
+                      }
+                      return PositionedDirectional(
+                        end: 50,
+                        top: 50,
+                        child: Column(
+                          children: [
+                            SecondaryBtn(
+                              onPressed: () {
+                                setState(() {
+                                  show = false;
+                                });
+                              },
+                              eventName: '',
+                              text: 'Göster',
+                            ),
+                            Container(
+                              color: Colors.white,
+                              height: screen.size.width * 0.4,
+                              width: screen.size.width * 0.4,
+                              child: SingleChildScrollView(
+                                child: DataTable(
+                                  columns: <DataColumn>[
+                                    DataColumn(label: Text("Id")),
+                                    DataColumn(label: Text("İsim")),
+                                    DataColumn(label: Text("Tür")),
+                                    DataColumn(label: Text("Mesaj")),
+                                    DataColumn(label: Text("Konum")),
+                                  ],
+                                  rows: List<DataRow>.generate(
+                                    konumDataList.length,
+                                    (index) => DataRow(
+                                      cells: [
+                                        DataCell(Text("142")),
+                                        DataCell(Text("Recep Tayyip")),
+                                        DataCell(Text("İhbar")),
+                                        DataCell(Text("Enkaz Altı")),
+                                        DataCell(Text(konumDataList[index])),
+                                      ],
+                                      onSelectChanged: (selected) {
+                                        _onRowSelect(selected! ? index : -1);
+                                        if (selected) {
+                                          var location =
+                                              konumDataList[index].split(', ');
+                                          print("deneme :" +
+                                              location[0] +
+                                              " ---- " +
+                                              location[1]);
 
-                                CameraPosition cameraPosition = CameraPosition(
-                                  target: LatLng(double.parse(location[0]),
-                                      double.parse(location[1])),
-                                  zoom: 15.0,
-                                );
+                                          CameraPosition cameraPosition =
+                                              CameraPosition(
+                                            target: LatLng(
+                                                double.parse(location[0]),
+                                                double.parse(location[1])),
+                                            zoom: 15.0,
+                                          );
 
-                                mapController?.animateCamera(
-                                    CameraUpdate.newCameraPosition(
-                                        cameraPosition));
-                                _addMarker(location[0], location[1]);
+                                          mapController?.animateCamera(
+                                              CameraUpdate.newCameraPosition(
+                                                  cameraPosition));
+                                          _addMarker(location[0], location[1]);
 
-                                setState(() {});
-                              }
-                            },
-                            selected: index == _selectedRowIndex,
-                          ),
+                                          setState(() {});
+                                        }
+                                      },
+                                      selected: index == _selectedRowIndex,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
