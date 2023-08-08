@@ -173,7 +173,7 @@ class __$$_AuthStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AuthState extends _AuthState {
+class _$_AuthState extends _AuthState with DiagnosticableTreeMixin {
   const _$_AuthState(
       {this.firebaseUser,
       this.appUser,
@@ -198,8 +198,21 @@ class _$_AuthState extends _AuthState {
   final Ref<Object?> ref;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AuthState(firebaseUser: $firebaseUser, appUser: $appUser, isLoading: $isLoading, errorMessage: $errorMessage, lastLoginAt: $lastLoginAt, ref: $ref)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthState'))
+      ..add(DiagnosticsProperty('firebaseUser', firebaseUser))
+      ..add(DiagnosticsProperty('appUser', appUser))
+      ..add(DiagnosticsProperty('isLoading', isLoading))
+      ..add(DiagnosticsProperty('errorMessage', errorMessage))
+      ..add(DiagnosticsProperty('lastLoginAt', lastLoginAt))
+      ..add(DiagnosticsProperty('ref', ref));
   }
 
   @override
