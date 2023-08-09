@@ -149,19 +149,102 @@ class _MyAppState extends State<AdminMapPage> {
               onMapCreated: _onMapCreated,
             ),
           ),
-          Builder(
-            builder: (context) {
-              if (!show) {
-                return PositionedDirectional(
-                  child: SecondaryBtn(
+
+          PositionedDirectional(
+            end: 0,
+            top: 20,
+            child: Column(
+
+              children: [
+                Container(
+                  margin: EdgeInsetsDirectional.symmetric(horizontal: 50),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
                     onPressed: () {
                       setState(() {
-                        show = true;
+                        show = !show;
                       });
                     },
-                    eventName: '',
-                    text: 'Gizle',
+                    child: Text(show ? 'Gizle' : 'Göster'),
                   ),
+                ),
+                SizedBox(height: 20,),
+                if (show)
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ),
+                    child: Container(
+                      color: Colors.white.withOpacity(0.9),
+                      height: screen.size.width * 0.4,
+                      width: screen.size.width * 0.4,
+                      child: SingleChildScrollView(
+                        child: DataTable(
+                          columns: <DataColumn>[
+                            DataColumn(label: Text("Id")),
+                            DataColumn(label: Text("İsim")),
+                            DataColumn(label: Text("Tür")),
+                            DataColumn(label: Text("Mesaj")),
+                            DataColumn(label: Text("Konum")),
+                          ],
+                          rows: List<DataRow>.generate(
+                            konumDataList.length,
+                                (index) => DataRow(
+                              cells: [
+                                DataCell(Text("142")),
+                                DataCell(Text("Recep Tayyip")),
+                                DataCell(Text("İhbar")),
+                                DataCell(Text("Enkaz Altı")),
+                                DataCell(Text(konumDataList[index])),
+                              ],
+                              onSelectChanged: (selected) {
+                                _onRowSelect(selected! ? index : -1);
+                                if (selected) {
+                                  var location = konumDataList[index].split(', ');
+                                  print("deneme :" +
+                                      location[0] +
+                                      " ---- " +
+                                      location[1]);
+
+                                  CameraPosition cameraPosition = CameraPosition(
+                                    target: LatLng(
+                                        double.parse(location[0]), double.parse(location[1])),
+                                    zoom: 15.0,
+                                  );
+
+                                  mapController?.animateCamera(
+                                      CameraUpdate.newCameraPosition(cameraPosition));
+                                  _addMarker(location[0], location[1]);
+
+                                  setState(() {});
+                                }
+                              },
+                              selected: index == _selectedRowIndex,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+         /* Builder(
+            builder: (context) {
+              if (!show) {
+                return SecondaryBtn(
+                  onPressed: () {
+                    setState(() {
+                      show = true;
+                    });
+                  },
+                  eventName: '',
+                  text: 'Gizle',
                 );
               }
               return PositionedDirectional(
@@ -179,7 +262,7 @@ class _MyAppState extends State<AdminMapPage> {
                       text: 'Göster',
                     ),
                     Container(
-                      
+
                       color: Colors.white.withOpacity(0.9),
                       height: screen.size.width * 0.4,
                       width: screen.size.width * 0.4,
@@ -236,7 +319,7 @@ class _MyAppState extends State<AdminMapPage> {
                 ),
               );
             },
-          ),
+          ),*/
         ],
       ),
     );
