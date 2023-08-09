@@ -8,6 +8,7 @@ class AdminHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdminMapPage();
+    print("deneme");
     // return const Scaffold(
     //   body: Text('Admin Home Screen'),
     // );

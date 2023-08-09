@@ -11,28 +11,28 @@ class AdminMapPage extends StatefulWidget {
 
 class _MyAppState extends State<AdminMapPage> {
   GoogleMapController? mapController;
+  LatLng? selectedLocation;
+  Set<Marker> _mapMarkers = {};
+  int _selectedRowIndex = -1;
+  var show = true;
+
+  List<String> konumDataList = [
+    "41.086058, 28.918416",
+    "40.97395773143526, 29.0648756708183",
+    "40.984714124858435, 29.13525683248053",
+    "41.0101078007604, 28.92720324561098",
+    "40.98730576471651, 28.85235888907946",
+    "41.08183089187888, 29.02161699811633",
+    "41.01347561463252, 28.80189044683114",
+    "41.08778272358708, 29.038783134935485",
+  ];
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
-  Set<Marker> _mapMarkers = {};
-
-  LatLng? selectedLocation;
-  List<String> konumDataList = [
-    "41.086058, 28.918416",
-    "41.087155418099776, 28.916931295935033",
-    "39.75510570639219, 37.02975100383928",
-    "37.381427550791805, 37.298054480432",
-    "38.65255938228235, 39.43972522579789",
-    "40.94337306283641, 39.96710905032397",
-    "39.81118967341674, 42.09262566087216",
-    "39.17365417753253, 34.16638597509952",
-  ];
-
-  int _selectedRowIndex = -1;
-
   void _onRowSelect(int index) {
+
     setState(() {
       _selectedRowIndex = index;
 
@@ -41,8 +41,10 @@ class _MyAppState extends State<AdminMapPage> {
         selectedLocation =
             LatLng(double.parse(location[0]), double.parse(location[1]));
         print("Seçilen Konum: $selectedLocation");
+        _addMarker(location[0], location[1]);
       } else {
         selectedLocation = null;
+        _loadAllMarkers();
       }
     });
   }
@@ -64,7 +66,53 @@ class _MyAppState extends State<AdminMapPage> {
     }
   }
 
-  var show = true;
+  void _loadAllMarkers() {
+    _mapMarkers.clear();
+
+    for (var i = 0; i < konumDataList.length; i++) {
+      var loc = konumDataList[i].split(", ");
+      _mapMarkers.add(
+        Marker(
+          markerId: MarkerId(i.toString()),
+          position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
+          infoWindow: const InfoWindow(
+            title: 'Enkaz Altındayım',
+          ),
+        ),
+      );
+    }
+  }
+
+
+  /*void loadAllMarkers(List<String> markers){
+    _mapMarkers.clear();
+    setState(() {
+
+      for (var i= 0; i<konumDataList.length; i++){
+        var loc = markers[i].split(", ");
+        _mapMarkers.add(
+            Marker(markerId: MarkerId(DateTime.now().toString()),
+              position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
+              infoWindow: const InfoWindow(
+                title: 'Enkaz Altındayım',
+              ),)
+        );
+      }
+
+    });
+  }*/
+
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadAllMarkers();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +125,9 @@ class _MyAppState extends State<AdminMapPage> {
             width: screen.size.width,
             child: GoogleMap(
               initialCameraPosition: const CameraPosition(
-                target: LatLng(39.88204347624524, 31.56168212399377),
-                zoom: 12.0,
+                target: LatLng(41.0122, 28.976 ),
+                zoom: 10.0,
               ),
-              //markers: Set<Marker>.of(markers),
               markers: _mapMarkers,
               onMapCreated: _onMapCreated,
             ),
@@ -138,8 +185,7 @@ class _MyAppState extends State<AdminMapPage> {
                               onSelectChanged: (selected) {
                                 _onRowSelect(selected! ? index : -1);
                                 if (selected) {
-                                  var location =
-                                      konumDataList[index].split(', ');
+                                  var location = konumDataList[index].split(', ');
                                   print("deneme :" +
                                       location[0] +
                                       " ---- " +
