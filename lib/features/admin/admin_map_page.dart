@@ -2,6 +2,8 @@ import 'package:afad_app/ui/widgets/btns/secondary_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'detailed_person_page.dart';
+
 class AdminMapPage extends StatefulWidget {
   const AdminMapPage({Key? key}) : super(key: key);
 
@@ -16,6 +18,11 @@ class _MyAppState extends State<AdminMapPage> {
   int _selectedRowIndex = -1;
   var show = true;
 
+  CameraPosition  cameraPosition = const CameraPosition(
+    target: LatLng(41.086058, 28.918416),
+    zoom: 10.0,
+  );
+
   List<String> konumDataList = [
     "41.086058, 28.918416",
     "40.97395773143526, 29.0648756708183",
@@ -29,6 +36,13 @@ class _MyAppState extends State<AdminMapPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  void _routeDetailedPersonPage(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailedPersonPage()),
+    );
   }
 
   void _onRowSelect(int index) {
@@ -57,8 +71,9 @@ class _MyAppState extends State<AdminMapPage> {
           Marker(
             markerId: MarkerId(DateTime.now().toString()),
             position: LatLng(double.parse(lat), double.parse(loc)),
-            infoWindow: const InfoWindow(
+            infoWindow:  InfoWindow(
               title: 'Enkaz Altındayım',
+              onTap: _routeDetailedPersonPage,
             ),
           ),
         );
@@ -68,15 +83,17 @@ class _MyAppState extends State<AdminMapPage> {
 
   void _loadAllMarkers() {
     _mapMarkers.clear();
-
+    mapController?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     for (var i = 0; i < konumDataList.length; i++) {
       var loc = konumDataList[i].split(", ");
       _mapMarkers.add(
         Marker(
+
           markerId: MarkerId(i.toString()),
           position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
-          infoWindow: const InfoWindow(
+          infoWindow:  InfoWindow(
             title: 'Enkaz Altındayım',
+            onTap: _routeDetailedPersonPage,
           ),
         ),
       );
@@ -135,14 +152,16 @@ class _MyAppState extends State<AdminMapPage> {
           Builder(
             builder: (context) {
               if (!show) {
-                return SecondaryBtn(
-                  onPressed: () {
-                    setState(() {
-                      show = true;
-                    });
-                  },
-                  eventName: '',
-                  text: 'Gizle',
+                return PositionedDirectional(
+                  child: SecondaryBtn(
+                    onPressed: () {
+                      setState(() {
+                        show = true;
+                      });
+                    },
+                    eventName: '',
+                    text: 'Gizle',
+                  ),
                 );
               }
               return PositionedDirectional(
@@ -160,7 +179,8 @@ class _MyAppState extends State<AdminMapPage> {
                       text: 'Göster',
                     ),
                     Container(
-                      color: Colors.white,
+                      
+                      color: Colors.white.withOpacity(0.9),
                       height: screen.size.width * 0.4,
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(
