@@ -41,35 +41,6 @@ extension UserFunctions on CloudFirestoreService {
     }
   }
 
-  /// userId will be used while updating the profile,
-  /// if the user tries to submit without changing the username,
-  /// we will have a result that this is taken so we have to check
-  /// if the username is taken by the same user or not.
-  Future<bool> isUsernameAvailable({
-    required String userName,
-    String? userId,
-  }) async {
-    try {
-      final query = await _db
-          .collection(_FirestoreNames._users)
-          .where('userName', isEqualTo: userName)
-          .get();
-
-      if (query.docs.isEmpty) return true;
-
-      final doc = query.docs.first;
-      final user = AppUser.fromJson(doc.data());
-
-      if (user.id == userId) return true;
-
-      return false;
-    } catch (e) {
-      logger.e(e);
-
-      return false;
-    }
-  }
-
   Future<void> createUser(AppUser user) async {
     try {
       user = user.copyWith(
@@ -87,7 +58,7 @@ extension UserFunctions on CloudFirestoreService {
 
       final query = await _db
           .collection(_FirestoreNames._users)
-          .where('userName', isEqualTo: user.userName)
+          .where('email', isEqualTo: user.email)
           .get();
 
       if (query.docs.isNotEmpty) {

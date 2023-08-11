@@ -14,7 +14,6 @@ class AppUser with _$AppUser {
   factory AppUser({
     required String id,
     required String email,
-    required String userName,
     required String fullName,
     required AppUserRole role,
     String? profilePicUrl,
@@ -30,7 +29,6 @@ class AppUser with _$AppUser {
 
   factory AppUser.fromFormState({
     required String email,
-    required String userName,
     required String fullName,
     DateTime? birthDate,
     String? countryPhoneCode,
@@ -40,7 +38,6 @@ class AppUser with _$AppUser {
       AppUser(
         id: '',
         email: email,
-        userName: userName,
         fullName: fullName,
         role: AppUserRole.user,
         isLoading: true,
@@ -53,7 +50,6 @@ class AppUser with _$AppUser {
   factory AppUser.fromEditProfileFormState({
     required String id,
     required String email,
-    required String userName,
     required String fullName,
     required AppUserRole role,
     required String? profilePicUrl,
@@ -65,7 +61,6 @@ class AppUser with _$AppUser {
       AppUser(
         id: id,
         email: email,
-        userName: userName,
         fullName: fullName,
         role: role,
         isLoading: true,

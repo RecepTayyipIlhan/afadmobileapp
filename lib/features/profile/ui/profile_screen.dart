@@ -49,11 +49,6 @@ class _UserInfo extends ConsumerWidget {
               state.fullName!,
               style: Theme.of(context).textTheme.titleLarge,
             ),
-          if (state.userName != null)
-            Text(
-              state.userName!,
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
         ].joinWidgetList(
           (e) => const SizedBox(
             height: quartDefPaddingSize,

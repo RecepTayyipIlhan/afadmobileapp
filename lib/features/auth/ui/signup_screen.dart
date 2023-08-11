@@ -136,19 +136,12 @@ class _Fields extends ConsumerWidget {
         // info step
         ...[
           if (formState.showProfileImageField)
-            Container(
+            SizedBox(
               height: 120,
               child: PrimaryImagePicker.ProfileImage(
                 pickedImage: formState.profileImage,
                 onImagePicked: notifier.profileImageOnChanged,
               ),
-            ),
-          if (formState.showUserNameField)
-            PrimaryField(
-              labelText: getStr('auth:signup:fields:username:title'),
-              onChanged: notifier.usernameOnChanged,
-              validator: notifier.usernameValidator,
-              maxLines: 1,
             ),
           if (formState.showFullNameField)
             PrimaryField(

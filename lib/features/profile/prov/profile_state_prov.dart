@@ -1,4 +1,3 @@
-import 'package:afad_app/utils/extensions/pretty_extensions.dart';
 import 'package:afad_app/utils/route_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +19,6 @@ class ProfileStateNotifier extends StateNotifier<ProfileState> {
           ProfileState(
             ref: ref,
             fullName: ref.watch(authProvider).appUser?.fullName,
-            userName: ref.watch(authProvider).appUser?.userName.userNameDisplay,
             photoUrl: ref.watch(authProvider).appUser?.profilePicUrl,
           ),
         );

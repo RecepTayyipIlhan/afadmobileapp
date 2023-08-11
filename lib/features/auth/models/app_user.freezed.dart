@@ -22,7 +22,6 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 mixin _$AppUser {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get userName => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   AppUserRole get role => throw _privateConstructorUsedError;
   String? get profilePicUrl => throw _privateConstructorUsedError;
@@ -47,7 +46,6 @@ abstract class $AppUserCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
-      String userName,
       String fullName,
       AppUserRole role,
       String? profilePicUrl,
@@ -74,7 +72,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? userName = null,
     Object? fullName = null,
     Object? role = null,
     Object? profilePicUrl = freezed,
@@ -93,10 +90,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
               as String,
       fullName: null == fullName
           ? _value.fullName
@@ -148,7 +141,6 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
-      String userName,
       String fullName,
       AppUserRole role,
       String? profilePicUrl,
@@ -172,7 +164,6 @@ class __$$_AppUserCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? userName = null,
     Object? fullName = null,
     Object? role = null,
     Object? profilePicUrl = freezed,
@@ -191,10 +182,6 @@ class __$$_AppUserCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
               as String,
       fullName: null == fullName
           ? _value.fullName
@@ -242,7 +229,6 @@ class _$_AppUser extends _AppUser {
   _$_AppUser(
       {required this.id,
       required this.email,
-      required this.userName,
       required this.fullName,
       required this.role,
       this.profilePicUrl,
@@ -262,8 +248,6 @@ class _$_AppUser extends _AppUser {
   final String id;
   @override
   final String email;
-  @override
-  final String userName;
   @override
   final String fullName;
   @override
@@ -286,7 +270,7 @@ class _$_AppUser extends _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, userName: $userName, fullName: $fullName, role: $role, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
+    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -296,8 +280,6 @@ class _$_AppUser extends _AppUser {
             other is _$_AppUser &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.userName, userName) ||
-                other.userName == userName) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.role, role) || other.role == role) &&
@@ -322,7 +304,6 @@ class _$_AppUser extends _AppUser {
       runtimeType,
       id,
       email,
-      userName,
       fullName,
       role,
       profilePicUrl,
@@ -351,7 +332,6 @@ abstract class _AppUser extends AppUser {
   factory _AppUser(
       {required final String id,
       required final String email,
-      required final String userName,
       required final String fullName,
       required final AppUserRole role,
       final String? profilePicUrl,
@@ -370,8 +350,6 @@ abstract class _AppUser extends AppUser {
   String get id;
   @override
   String get email;
-  @override
-  String get userName;
   @override
   String get fullName;
   @override

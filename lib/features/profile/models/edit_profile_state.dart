@@ -13,7 +13,6 @@ class EditProfileState with _$EditProfileState {
   const EditProfileState._();
 
   const factory EditProfileState({
-    required String userName,
     required String fullName,
     File? profileImage,
     String? profileImageUrl,
@@ -34,7 +33,6 @@ class EditProfileState with _$EditProfileState {
       formKey: GlobalKey<FormState>(),
       ref: ref,
       fullName: user.fullName,
-      userName: user.userName,
       birthDate: user.birthDate,
       countryLetterCode: user.countryLetterCode,
       countryPhoneCode: user.countryPhoneCode,
@@ -47,7 +45,6 @@ class EditProfileState with _$EditProfileState {
   AppUser toAppUser() {
     return AppUser.fromEditProfileFormState(
       email: user.email,
-      userName: userName,
       fullName: fullName,
       birthDate: birthDate,
       countryPhoneCode: countryPhoneCode,

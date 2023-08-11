@@ -185,18 +185,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     try {
       final db = ref.read(fbDbProv);
 
-      final isUsernameAvailable = await db.isUsernameAvailable(
-        userName: appUser.userName,
-      );
-
-      if (!isUsernameAvailable) {
-        Snackbars.showErrorSnackBar(
-          context,
-          message: getStr('auth:signup:validator:username-already-in-use'),
-        );
-        return false;
-      }
-
       appUser = appUser.copyWith(id: fbUser.uid);
       try {
         await db.createUser(appUser);
@@ -226,19 +214,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     required User fbUser,
   }) async {
     final db = ref.read(fbDbProv);
-
-    final isUsernameAvailable = await db.isUsernameAvailable(
-      userName: appUser.userName,
-      userId: appUser.id,
-    );
-
-    if (!isUsernameAvailable) {
-      Snackbars.showErrorSnackBar(
-        context,
-        message: getStr('edit_profile:validator:username-already-in-use'),
-      );
-      return false;
-    }
 
     try {
       await db.updateUser(appUser);

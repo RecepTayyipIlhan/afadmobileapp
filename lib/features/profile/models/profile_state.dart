@@ -10,7 +10,6 @@ class ProfileState with _$ProfileState {
   const factory ProfileState({
     required Ref ref,
     required String? fullName,
-    required String? userName,
     required String? photoUrl,
   }) = _ProfileState;
 }

@@ -9,7 +9,6 @@ part of 'app_user.dart';
 _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       id: json['id'] as String,
       email: json['email'] as String,
-      userName: json['userName'] as String,
       fullName: json['fullName'] as String,
       role: $enumDecode(_$AppUserRoleEnumMap, json['role']),
       profilePicUrl: json['profilePicUrl'] as String?,
@@ -28,7 +27,6 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'userName': instance.userName,
       'fullName': instance.fullName,
       'role': _$AppUserRoleEnumMap[instance.role]!,
       'profilePicUrl': instance.profilePicUrl,

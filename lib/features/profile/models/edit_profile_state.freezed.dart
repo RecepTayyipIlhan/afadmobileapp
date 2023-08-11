@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$EditProfileState {
-  String get userName => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   File? get profileImage => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
@@ -40,8 +39,7 @@ abstract class $EditProfileStateCopyWith<$Res> {
       _$EditProfileStateCopyWithImpl<$Res, EditProfileState>;
   @useResult
   $Res call(
-      {String userName,
-      String fullName,
+      {String fullName,
       File? profileImage,
       String? profileImageUrl,
       DateTime? birthDate,
@@ -68,7 +66,6 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userName = null,
     Object? fullName = null,
     Object? profileImage = freezed,
     Object? profileImageUrl = freezed,
@@ -81,10 +78,6 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? user = null,
   }) {
     return _then(_value.copyWith(
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -146,8 +139,7 @@ abstract class _$$_EditProfileStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userName,
-      String fullName,
+      {String fullName,
       File? profileImage,
       String? profileImageUrl,
       DateTime? birthDate,
@@ -173,7 +165,6 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userName = null,
     Object? fullName = null,
     Object? profileImage = freezed,
     Object? profileImageUrl = freezed,
@@ -186,10 +177,6 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
     Object? user = null,
   }) {
     return _then(_$_EditProfileState(
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -238,8 +225,7 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
 
 class _$_EditProfileState extends _EditProfileState {
   const _$_EditProfileState(
-      {required this.userName,
-      required this.fullName,
+      {required this.fullName,
       this.profileImage,
       this.profileImageUrl,
       this.birthDate,
@@ -251,8 +237,6 @@ class _$_EditProfileState extends _EditProfileState {
       required this.user})
       : super._();
 
-  @override
-  final String userName;
   @override
   final String fullName;
   @override
@@ -276,7 +260,7 @@ class _$_EditProfileState extends _EditProfileState {
 
   @override
   String toString() {
-    return 'EditProfileState(userName: $userName, fullName: $fullName, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
+    return 'EditProfileState(fullName: $fullName, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
   }
 
   @override
@@ -284,8 +268,6 @@ class _$_EditProfileState extends _EditProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_EditProfileState &&
-            (identical(other.userName, userName) ||
-                other.userName == userName) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.profileImage, profileImage) ||
@@ -307,7 +289,6 @@ class _$_EditProfileState extends _EditProfileState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      userName,
       fullName,
       profileImage,
       profileImageUrl,
@@ -328,8 +309,7 @@ class _$_EditProfileState extends _EditProfileState {
 
 abstract class _EditProfileState extends EditProfileState {
   const factory _EditProfileState(
-      {required final String userName,
-      required final String fullName,
+      {required final String fullName,
       final File? profileImage,
       final String? profileImageUrl,
       final DateTime? birthDate,
@@ -341,8 +321,6 @@ abstract class _EditProfileState extends EditProfileState {
       required final AppUser user}) = _$_EditProfileState;
   const _EditProfileState._() : super._();
 
-  @override
-  String get userName;
   @override
   String get fullName;
   @override

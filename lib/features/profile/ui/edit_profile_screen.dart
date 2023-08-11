@@ -82,19 +82,13 @@ class _Fields extends ConsumerWidget {
 
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: 120,
           child: PrimaryImagePicker.ProfileImage(
             pickedImage: formState.profileImage,
             pickedImageUrl: formState.profileImageUrl,
             onImagePicked: notifier.profileImageOnChanged,
           ),
-        ),
-        PrimaryField(
-          initialValue: formState.userName,
-          labelText: getStr('edit_profile:fields:username:title'),
-          onChanged: notifier.usernameOnChanged,
-          validator: notifier.usernameValidator,
         ),
         PrimaryField(
           initialValue: formState.fullName,

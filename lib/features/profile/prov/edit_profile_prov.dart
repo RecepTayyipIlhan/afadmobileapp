@@ -74,10 +74,6 @@ class EditProfileStateNotifier extends StateNotifier<EditProfileState> {
     birthDateOnChanged(date);
   }
 
-  void usernameOnChanged(String value) {
-    state = state.copyWith(userName: value);
-  }
-
   void fullnameOnChanged(String value) {
     state = state.copyWith(fullName: value);
   }
@@ -100,18 +96,6 @@ class EditProfileStateNotifier extends StateNotifier<EditProfileState> {
 
   void phoneNumberOnChanged(String value) {
     state = state.copyWith(phone: value);
-  }
-
-  String? usernameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return getStr('edit_profile:invalid:username');
-    }
-
-    if (value.isUsernameValid != true) {
-      return getStr('edit_profile:invalid:username');
-    }
-
-    return null;
   }
 
   String? fullnameValidator(String? value) {

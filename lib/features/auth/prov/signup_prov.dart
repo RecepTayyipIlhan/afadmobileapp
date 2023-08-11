@@ -188,10 +188,6 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     state = state.copyWith(pass: value);
   }
 
-  void usernameOnChanged(String value) {
-    state = state.copyWith(userName: value);
-  }
-
   void fullnameOnChanged(String value) {
     state = state.copyWith(fullName: value);
   }
@@ -235,18 +231,6 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
     if (value.isPasswordValid != true) {
       return getStr('auth:signup:validator:invalid:password');
-    }
-
-    return null;
-  }
-
-  String? usernameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return getStr('auth:signup:validator:invalid:username');
-    }
-
-    if (value.isUsernameValid != true) {
-      return getStr('auth:signup:validator:invalid:username');
     }
 
     return null;

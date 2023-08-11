@@ -19,7 +19,6 @@ class SignupState with _$SignupState {
   const factory SignupState({
     String? email,
     String? pass,
-    String? userName,
     String? fullName,
     File? profileImage,
     DateTime? birthDate,
@@ -41,7 +40,6 @@ class SignupState with _$SignupState {
 
   AppUser toAppUser(User fbUser) => AppUser.fromFormState(
         email: fbUser.email!,
-        userName: userName!.toLowerCase(),
         fullName: fullName!,
         birthDate: birthDate,
         countryPhoneCode: countryPhoneCode,
@@ -102,7 +100,6 @@ class SignupState with _$SignupState {
   bool get showPassField => isEmailStep;
   bool get showEmailField => isEmailStep;
 
-  bool get showUserNameField => isInfoStep;
   bool get showFullNameField => isInfoStep;
   bool get showProfileImageField => isInfoStep;
   bool get showBirthDateField => isInfoStep;

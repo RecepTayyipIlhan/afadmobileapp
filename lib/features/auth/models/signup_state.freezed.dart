@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SignupState {
   String? get email => throw _privateConstructorUsedError;
   String? get pass => throw _privateConstructorUsedError;
-  String? get userName => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
   File? get profileImage => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
@@ -44,7 +43,6 @@ abstract class $SignupStateCopyWith<$Res> {
   $Res call(
       {String? email,
       String? pass,
-      String? userName,
       String? fullName,
       File? profileImage,
       DateTime? birthDate,
@@ -72,7 +70,6 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
   $Res call({
     Object? email = freezed,
     Object? pass = freezed,
-    Object? userName = freezed,
     Object? fullName = freezed,
     Object? profileImage = freezed,
     Object? birthDate = freezed,
@@ -92,10 +89,6 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
       pass: freezed == pass
           ? _value.pass
           : pass // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userName: freezed == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       fullName: freezed == fullName
           ? _value.fullName
@@ -152,7 +145,6 @@ abstract class _$$_SignupStateCopyWith<$Res>
   $Res call(
       {String? email,
       String? pass,
-      String? userName,
       String? fullName,
       File? profileImage,
       DateTime? birthDate,
@@ -178,7 +170,6 @@ class __$$_SignupStateCopyWithImpl<$Res>
   $Res call({
     Object? email = freezed,
     Object? pass = freezed,
-    Object? userName = freezed,
     Object? fullName = freezed,
     Object? profileImage = freezed,
     Object? birthDate = freezed,
@@ -198,10 +189,6 @@ class __$$_SignupStateCopyWithImpl<$Res>
       pass: freezed == pass
           ? _value.pass
           : pass // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userName: freezed == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       fullName: freezed == fullName
           ? _value.fullName
@@ -253,7 +240,6 @@ class _$_SignupState extends _SignupState {
   const _$_SignupState(
       {this.email,
       this.pass,
-      this.userName,
       this.fullName,
       this.profileImage,
       this.birthDate,
@@ -270,8 +256,6 @@ class _$_SignupState extends _SignupState {
   final String? email;
   @override
   final String? pass;
-  @override
-  final String? userName;
   @override
   final String? fullName;
   @override
@@ -296,7 +280,7 @@ class _$_SignupState extends _SignupState {
 
   @override
   String toString() {
-    return 'SignupState(email: $email, pass: $pass, userName: $userName, fullName: $fullName, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft)';
+    return 'SignupState(email: $email, pass: $pass, fullName: $fullName, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft)';
   }
 
   @override
@@ -306,8 +290,6 @@ class _$_SignupState extends _SignupState {
             other is _$_SignupState &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.pass, pass) || other.pass == pass) &&
-            (identical(other.userName, userName) ||
-                other.userName == userName) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.profileImage, profileImage) ||
@@ -334,7 +316,6 @@ class _$_SignupState extends _SignupState {
       runtimeType,
       email,
       pass,
-      userName,
       fullName,
       profileImage,
       birthDate,
@@ -357,7 +338,6 @@ abstract class _SignupState extends SignupState {
   const factory _SignupState(
       {final String? email,
       final String? pass,
-      final String? userName,
       final String? fullName,
       final File? profileImage,
       final DateTime? birthDate,
@@ -374,8 +354,6 @@ abstract class _SignupState extends SignupState {
   String? get email;
   @override
   String? get pass;
-  @override
-  String? get userName;
   @override
   String? get fullName;
   @override

@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProfileState {
   Ref<Object?> get ref => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
-  String? get userName => throw _privateConstructorUsedError;
   String? get photoUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,8 +31,7 @@ abstract class $ProfileStateCopyWith<$Res> {
           ProfileState value, $Res Function(ProfileState) then) =
       _$ProfileStateCopyWithImpl<$Res, ProfileState>;
   @useResult
-  $Res call(
-      {Ref<Object?> ref, String? fullName, String? userName, String? photoUrl});
+  $Res call({Ref<Object?> ref, String? fullName, String? photoUrl});
 }
 
 /// @nodoc
@@ -51,7 +49,6 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   $Res call({
     Object? ref = null,
     Object? fullName = freezed,
-    Object? userName = freezed,
     Object? photoUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -62,10 +59,6 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
       fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userName: freezed == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       photoUrl: freezed == photoUrl
           ? _value.photoUrl
@@ -83,8 +76,7 @@ abstract class _$$_ProfileStateCopyWith<$Res>
       __$$_ProfileStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Ref<Object?> ref, String? fullName, String? userName, String? photoUrl});
+  $Res call({Ref<Object?> ref, String? fullName, String? photoUrl});
 }
 
 /// @nodoc
@@ -100,7 +92,6 @@ class __$$_ProfileStateCopyWithImpl<$Res>
   $Res call({
     Object? ref = null,
     Object? fullName = freezed,
-    Object? userName = freezed,
     Object? photoUrl = freezed,
   }) {
     return _then(_$_ProfileState(
@@ -111,10 +102,6 @@ class __$$_ProfileStateCopyWithImpl<$Res>
       fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userName: freezed == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       photoUrl: freezed == photoUrl
           ? _value.photoUrl
@@ -128,10 +115,7 @@ class __$$_ProfileStateCopyWithImpl<$Res>
 
 class _$_ProfileState extends _ProfileState {
   const _$_ProfileState(
-      {required this.ref,
-      required this.fullName,
-      required this.userName,
-      required this.photoUrl})
+      {required this.ref, required this.fullName, required this.photoUrl})
       : super._();
 
   @override
@@ -139,13 +123,11 @@ class _$_ProfileState extends _ProfileState {
   @override
   final String? fullName;
   @override
-  final String? userName;
-  @override
   final String? photoUrl;
 
   @override
   String toString() {
-    return 'ProfileState(ref: $ref, fullName: $fullName, userName: $userName, photoUrl: $photoUrl)';
+    return 'ProfileState(ref: $ref, fullName: $fullName, photoUrl: $photoUrl)';
   }
 
   @override
@@ -156,15 +138,12 @@ class _$_ProfileState extends _ProfileState {
             (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
-            (identical(other.userName, userName) ||
-                other.userName == userName) &&
             (identical(other.photoUrl, photoUrl) ||
                 other.photoUrl == photoUrl));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, ref, fullName, userName, photoUrl);
+  int get hashCode => Object.hash(runtimeType, ref, fullName, photoUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -177,7 +156,6 @@ abstract class _ProfileState extends ProfileState {
   const factory _ProfileState(
       {required final Ref<Object?> ref,
       required final String? fullName,
-      required final String? userName,
       required final String? photoUrl}) = _$_ProfileState;
   const _ProfileState._() : super._();
 
@@ -185,8 +163,6 @@ abstract class _ProfileState extends ProfileState {
   Ref<Object?> get ref;
   @override
   String? get fullName;
-  @override
-  String? get userName;
   @override
   String? get photoUrl;
   @override
