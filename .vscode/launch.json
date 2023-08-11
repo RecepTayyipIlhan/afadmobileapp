@@ -8,21 +8,33 @@
             "name": "Afad-Mobile-App",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart"
+            "program": "lib/main.dart",
+            "args": [
+                "--web-port",
+                "65133"
+            ]
         },
         {
             "name": "Afad-Mobile-App (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "program": "lib/main.dart"
+            "program": "lib/main.dart",
+            "args": [
+                "--web-port",
+                "65133"
+            ]
         },
         {
             "name": "Afad-Mobile-App (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "program": "lib/main.dart"
+            "program": "lib/main.dart",
+            "args": [
+                "--web-port",
+                "65133"
+            ]
         }
     ]
 }
