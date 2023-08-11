@@ -31,21 +31,43 @@ class LoginScreen extends ConsumerWidget {
                   minHeight: MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.vertical,
                 ),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: 500,
-                      ),
-                      child: const _Bod(),
-                    ),
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                  ],
+                child: Builder(
+                  builder: (context) {
+                    // this is a disgusting thing. flutter is breaking
+                    // when giving a maxwidth of 500 to screens that
+                    // are smaller than 500. so we have to do this
+                    // disgusting thing.
+                    final w = MediaQuery.of(context).size.width;
+                    if (w < 500) {
+                      return const _Bod();
+                    }
+
+                    return Row(
+                      children: [
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        Builder(
+                          builder: (context) {
+                            final w = MediaQuery.of(context).size.width;
+                            if (w < 500) {
+                              return const _Bod();
+                            }
+
+                            return ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxWidth: 500,
+                              ),
+                              child: const _Bod(),
+                            );
+                          },
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -61,47 +83,49 @@ class _Bod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: defPaddingAll,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              Text(
-                getStr('auth:login:title'),
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              const _Fields(),
-              const _Btns(),
-            ].joinWidgetList(
-              (index) => const SizedBox(
-                height: defPaddingSize * 2,
+    return Center(
+      child: Container(
+        margin: defPaddingAll,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Text(
+                  getStr('auth:login:title'),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const _Fields(),
+                const _Btns(),
+              ].joinWidgetList(
+                (index) => const SizedBox(
+                  height: defPaddingSize * 2,
+                ),
               ),
             ),
-          ),
-          // makes sense when keyboard is open
-          const SizedBox(
-            height: defPaddingSize,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                getStr('auth:login:dont_have_an_account:text_part'),
-              ),
-              TextBtn(
-                text: getStr('auth:login:dont_have_an_account:button_part'),
-                onPressed: () {
-                  GoRouter.of(context).pushNamed(
-                    RouteTable.rSignupScreen,
-                  );
-                },
-                eventName: 'auth:login:dont_have_an_account:button_part',
-              ),
-            ],
-          ),
-        ],
+            // makes sense when keyboard is open
+            const SizedBox(
+              height: defPaddingSize,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  getStr('auth:login:dont_have_an_account:text_part'),
+                ),
+                TextBtn(
+                  text: getStr('auth:login:dont_have_an_account:button_part'),
+                  onPressed: () {
+                    GoRouter.of(context).pushNamed(
+                      RouteTable.rSignupScreen,
+                    );
+                  },
+                  eventName: 'auth:login:dont_have_an_account:button_part',
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

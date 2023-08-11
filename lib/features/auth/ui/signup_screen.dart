@@ -46,37 +46,57 @@ class SignupScreen extends ConsumerWidget {
                     minHeight: MediaQuery.of(context).size.height -
                         MediaQuery.of(context).padding.vertical,
                   ),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: SizedBox(),
-                      ),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth: 500,
+                  child: Builder(builder: (context) {
+                    // this is a disgusting thing. flutter is breaking
+                    // when giving a maxwidth of 500 to screens that
+                    // are smaller than 500. so we have to do this
+                    // disgusting thing.
+                    final w = MediaQuery.of(context).size.width;
+                    if (w < 500) {
+                      return const _Bod();
+                    }
+
+                    return Row(
+                      children: [
+                        const Expanded(
+                          child: SizedBox(),
                         ),
-                        child: Container(
-                          margin: defPaddingAll,
-                          child: Column(
-                            children: [
-                              const _Fields(),
-                              const _Btns(),
-                            ].joinWidgetList(
-                              (index) => const SizedBox(
-                                height: defPaddingSize * 2,
-                              ),
-                            ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 500,
                           ),
+                          child: const _Bod(),
                         ),
-                      ),
-                      const Expanded(
-                        child: SizedBox(),
-                      ),
-                    ],
-                  ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                      ],
+                    );
+                  }),
                 ),
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Bod extends StatelessWidget {
+  const _Bod();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: defPaddingAll,
+      child: Column(
+        children: [
+          const _Fields(),
+          const _Btns(),
+        ].joinWidgetList(
+          (index) => const SizedBox(
+            height: defPaddingSize * 2,
           ),
         ),
       ),
