@@ -8,8 +8,6 @@ class AdminHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdminMapPage();
-    // return const Scaffold(
-    //   body: Text('Admin Home Screen'),
-    // );
+
   }
 }

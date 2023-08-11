@@ -2,6 +2,8 @@ import 'package:afad_app/ui/widgets/btns/secondary_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'detailed_person_page.dart';
+
 class AdminMapPage extends StatefulWidget {
   const AdminMapPage({Key? key}) : super(key: key);
 
@@ -11,28 +13,40 @@ class AdminMapPage extends StatefulWidget {
 
 class _MyAppState extends State<AdminMapPage> {
   GoogleMapController? mapController;
+  LatLng? selectedLocation;
+  Set<Marker> _mapMarkers = {};
+  int _selectedRowIndex = -1;
+  var show = true;
+
+  CameraPosition  cameraPosition = const CameraPosition(
+    target: LatLng(41.086058, 28.918416),
+    zoom: 10.0,
+  );
+
+  List<String> konumDataList = [
+    "41.086058, 28.918416",
+    "40.97395773143526, 29.0648756708183",
+    "40.984714124858435, 29.13525683248053",
+    "41.0101078007604, 28.92720324561098",
+    "40.98730576471651, 28.85235888907946",
+    "41.08183089187888, 29.02161699811633",
+    "41.01347561463252, 28.80189044683114",
+    "41.08778272358708, 29.038783134935485",
+  ];
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
-  Set<Marker> _mapMarkers = {};
-
-  LatLng? selectedLocation;
-  List<String> konumDataList = [
-    "41.086058, 28.918416",
-    "41.087155418099776, 28.916931295935033",
-    "39.75510570639219, 37.02975100383928",
-    "37.381427550791805, 37.298054480432",
-    "38.65255938228235, 39.43972522579789",
-    "40.94337306283641, 39.96710905032397",
-    "39.81118967341674, 42.09262566087216",
-    "39.17365417753253, 34.16638597509952",
-  ];
-
-  int _selectedRowIndex = -1;
+  void _routeDetailedPersonPage(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailedPersonPage()),
+    );
+  }
 
   void _onRowSelect(int index) {
+
     setState(() {
       _selectedRowIndex = index;
 
@@ -41,8 +55,10 @@ class _MyAppState extends State<AdminMapPage> {
         selectedLocation =
             LatLng(double.parse(location[0]), double.parse(location[1]));
         print("Seçilen Konum: $selectedLocation");
+        _addMarker(location[0], location[1]);
       } else {
         selectedLocation = null;
+        _loadAllMarkers();
       }
     });
   }
@@ -55,8 +71,9 @@ class _MyAppState extends State<AdminMapPage> {
           Marker(
             markerId: MarkerId(DateTime.now().toString()),
             position: LatLng(double.parse(lat), double.parse(loc)),
-            infoWindow: const InfoWindow(
+            infoWindow:  InfoWindow(
               title: 'Enkaz Altındayım',
+              onTap: _routeDetailedPersonPage,
             ),
           ),
         );
@@ -64,7 +81,55 @@ class _MyAppState extends State<AdminMapPage> {
     }
   }
 
-  var show = true;
+  void _loadAllMarkers() {
+    _mapMarkers.clear();
+    mapController?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    for (var i = 0; i < konumDataList.length; i++) {
+      var loc = konumDataList[i].split(", ");
+      _mapMarkers.add(
+        Marker(
+
+          markerId: MarkerId(i.toString()),
+          position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
+          infoWindow:  InfoWindow(
+            title: 'Enkaz Altındayım',
+            onTap: _routeDetailedPersonPage,
+          ),
+        ),
+      );
+    }
+  }
+
+
+  /*void loadAllMarkers(List<String> markers){
+    _mapMarkers.clear();
+    setState(() {
+
+      for (var i= 0; i<konumDataList.length; i++){
+        var loc = markers[i].split(", ");
+        _mapMarkers.add(
+            Marker(markerId: MarkerId(DateTime.now().toString()),
+              position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
+              infoWindow: const InfoWindow(
+                title: 'Enkaz Altındayım',
+              ),)
+        );
+      }
+
+    });
+  }*/
+
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadAllMarkers();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,15 +142,99 @@ class _MyAppState extends State<AdminMapPage> {
             width: screen.size.width,
             child: GoogleMap(
               initialCameraPosition: const CameraPosition(
-                target: LatLng(39.88204347624524, 31.56168212399377),
-                zoom: 12.0,
+                target: LatLng(41.0122, 28.976 ),
+                zoom: 10.0,
               ),
-              //markers: Set<Marker>.of(markers),
               markers: _mapMarkers,
               onMapCreated: _onMapCreated,
             ),
           ),
-          Builder(
+
+          PositionedDirectional(
+            end: 0,
+            top: 20,
+            child: Column(
+
+              children: [
+                Container(
+                  margin: EdgeInsetsDirectional.symmetric(horizontal: 50),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        show = !show;
+                      });
+                    },
+                    child: Text(show ? 'Gizle' : 'Göster'),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                if (show)
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ),
+                    child: Container(
+                      color: Colors.white.withOpacity(0.9),
+                      height: screen.size.width * 0.4,
+                      width: screen.size.width * 0.4,
+                      child: SingleChildScrollView(
+                        child: DataTable(
+                          columns: <DataColumn>[
+                            DataColumn(label: Text("Id")),
+                            DataColumn(label: Text("İsim")),
+                            DataColumn(label: Text("Tür")),
+                            DataColumn(label: Text("Mesaj")),
+                            DataColumn(label: Text("Konum")),
+                          ],
+                          rows: List<DataRow>.generate(
+                            konumDataList.length,
+                                (index) => DataRow(
+                              cells: [
+                                DataCell(Text("142")),
+                                DataCell(Text("Recep Tayyip")),
+                                DataCell(Text("İhbar")),
+                                DataCell(Text("Enkaz Altı")),
+                                DataCell(Text(konumDataList[index])),
+                              ],
+                              onSelectChanged: (selected) {
+                                _onRowSelect(selected! ? index : -1);
+                                if (selected) {
+                                  var location = konumDataList[index].split(', ');
+                                  print("deneme :" +
+                                      location[0] +
+                                      " ---- " +
+                                      location[1]);
+
+                                  CameraPosition cameraPosition = CameraPosition(
+                                    target: LatLng(
+                                        double.parse(location[0]), double.parse(location[1])),
+                                    zoom: 15.0,
+                                  );
+
+                                  mapController?.animateCamera(
+                                      CameraUpdate.newCameraPosition(cameraPosition));
+                                  _addMarker(location[0], location[1]);
+
+                                  setState(() {});
+                                }
+                              },
+                              selected: index == _selectedRowIndex,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+         /* Builder(
             builder: (context) {
               if (!show) {
                 return SecondaryBtn(
@@ -113,7 +262,8 @@ class _MyAppState extends State<AdminMapPage> {
                       text: 'Göster',
                     ),
                     Container(
-                      color: Colors.white,
+
+                      color: Colors.white.withOpacity(0.9),
                       height: screen.size.width * 0.4,
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(
@@ -138,8 +288,7 @@ class _MyAppState extends State<AdminMapPage> {
                               onSelectChanged: (selected) {
                                 _onRowSelect(selected! ? index : -1);
                                 if (selected) {
-                                  var location =
-                                      konumDataList[index].split(', ');
+                                  var location = konumDataList[index].split(', ');
                                   print("deneme :" +
                                       location[0] +
                                       " ---- " +
@@ -170,7 +319,7 @@ class _MyAppState extends State<AdminMapPage> {
                 ),
               );
             },
-          ),
+          ),*/
         ],
       ),
     );
