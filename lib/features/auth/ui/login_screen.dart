@@ -8,7 +8,6 @@ import '../../../ui/widgets/primary_field.dart';
 import '../../../utils/utils.dart';
 
 import '../../../ui/widgets/btns/primary_btn.dart';
-import '../../../ui/widgets/btns/secondary_btn.dart';
 import '../../../utils/route_table.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,55 +31,77 @@ class LoginScreen extends ConsumerWidget {
                   minHeight: MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.vertical,
                 ),
-                child: Container(
-                  margin: defPaddingAll,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            getStr('auth:login:title'),
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                          const _Fields(),
-                          const _Btns(),
-                        ].joinWidgetList(
-                          (index) => const SizedBox(
-                            height: defPaddingSize * 2,
-                          ),
-                        ),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: 500,
                       ),
-                      // makes sense when keyboard is open
-                      const SizedBox(
-                        height: defPaddingSize,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            getStr('auth:login:dont_have_an_account:text_part'),
-                          ),
-                          TextBtn(
-                            text: getStr(
-                                'auth:login:dont_have_an_account:button_part'),
-                            onPressed: () {
-                              GoRouter.of(context).pushNamed(
-                                RouteTable.rSignupScreen,
-                              );
-                            },
-                            eventName:
-                                'auth:login:dont_have_an_account:button_part',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      child: const _Bod(),
+                    ),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _Bod extends StatelessWidget {
+  const _Bod();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: defPaddingAll,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              Text(
+                getStr('auth:login:title'),
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const _Fields(),
+              const _Btns(),
+            ].joinWidgetList(
+              (index) => const SizedBox(
+                height: defPaddingSize * 2,
+              ),
+            ),
+          ),
+          // makes sense when keyboard is open
+          const SizedBox(
+            height: defPaddingSize,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                getStr('auth:login:dont_have_an_account:text_part'),
+              ),
+              TextBtn(
+                text: getStr('auth:login:dont_have_an_account:button_part'),
+                onPressed: () {
+                  GoRouter.of(context).pushNamed(
+                    RouteTable.rSignupScreen,
+                  );
+                },
+                eventName: 'auth:login:dont_have_an_account:button_part',
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

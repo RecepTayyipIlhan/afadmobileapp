@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading/loading.dart';
 import '../../../ui/widgets/btns/auth_icon_btn.dart';
 import '../../../ui/widgets/btns/primary_btn.dart';
-import '../../../ui/widgets/btns/secondary_btn.dart';
 import '../../../ui/widgets/primary_field.dart';
 import '../../../utils/utils.dart';
 
@@ -41,17 +40,39 @@ class SignupScreen extends ConsumerWidget {
             child: Form(
               key: formState.formKey,
               child: SingleChildScrollView(
-                child: Container(
-                  margin: defPaddingAll,
-                  child: Column(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    // the height of the screen - safearea - keyboard
+                    minHeight: MediaQuery.of(context).size.height -
+                        MediaQuery.of(context).padding.vertical,
+                  ),
+                  child: Row(
                     children: [
-                      const _Fields(),
-                      const _Btns(),
-                    ].joinWidgetList(
-                      (index) => const SizedBox(
-                        height: defPaddingSize * 2,
+                      const Expanded(
+                        child: SizedBox(),
                       ),
-                    ),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 500,
+                        ),
+                        child: Container(
+                          margin: defPaddingAll,
+                          child: Column(
+                            children: [
+                              const _Fields(),
+                              const _Btns(),
+                            ].joinWidgetList(
+                              (index) => const SizedBox(
+                                height: defPaddingSize * 2,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Expanded(
+                        child: SizedBox(),
+                      ),
+                    ],
                   ),
                 ),
               ),
