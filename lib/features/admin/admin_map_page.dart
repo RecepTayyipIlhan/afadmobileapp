@@ -1,24 +1,28 @@
-import 'package:afad_app/ui/widgets/btns/secondary_btn.dart';
+import 'package:afad_app/utils/app_theme.dart';
+import 'package:afad_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../utils/prov/auth_prov.dart';
 import 'detailed_person_page.dart';
 
-class AdminMapPage extends StatefulWidget {
+class AdminMapPage extends ConsumerStatefulWidget {
   const AdminMapPage({Key? key}) : super(key: key);
 
   @override
-  State<AdminMapPage> createState() => _MyAppState();
+  ConsumerState<AdminMapPage> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<AdminMapPage> {
+class _MyAppState extends ConsumerState<AdminMapPage> {
   GoogleMapController? mapController;
   LatLng? selectedLocation;
+  // ignore: prefer_final_fields
   Set<Marker> _mapMarkers = {};
   int _selectedRowIndex = -1;
   var show = true;
 
-  CameraPosition  cameraPosition = const CameraPosition(
+  CameraPosition cameraPosition = const CameraPosition(
     target: LatLng(41.086058, 28.918416),
     zoom: 10.0,
   );
@@ -38,7 +42,7 @@ class _MyAppState extends State<AdminMapPage> {
     mapController = controller;
   }
 
-  void _routeDetailedPersonPage(){
+  void _routeDetailedPersonPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => DetailedPersonPage()),
@@ -46,7 +50,6 @@ class _MyAppState extends State<AdminMapPage> {
   }
 
   void _onRowSelect(int index) {
-
     setState(() {
       _selectedRowIndex = index;
 
@@ -71,7 +74,7 @@ class _MyAppState extends State<AdminMapPage> {
           Marker(
             markerId: MarkerId(DateTime.now().toString()),
             position: LatLng(double.parse(lat), double.parse(loc)),
-            infoWindow:  InfoWindow(
+            infoWindow: InfoWindow(
               title: 'Enkaz Altındayım',
               onTap: _routeDetailedPersonPage,
             ),
@@ -83,15 +86,15 @@ class _MyAppState extends State<AdminMapPage> {
 
   void _loadAllMarkers() {
     _mapMarkers.clear();
-    mapController?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    mapController
+        ?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     for (var i = 0; i < konumDataList.length; i++) {
       var loc = konumDataList[i].split(", ");
       _mapMarkers.add(
         Marker(
-
           markerId: MarkerId(i.toString()),
           position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
-          infoWindow:  InfoWindow(
+          infoWindow: InfoWindow(
             title: 'Enkaz Altındayım',
             onTap: _routeDetailedPersonPage,
           ),
@@ -99,7 +102,6 @@ class _MyAppState extends State<AdminMapPage> {
       );
     }
   }
-
 
   /*void loadAllMarkers(List<String> markers){
     _mapMarkers.clear();
@@ -119,17 +121,47 @@ class _MyAppState extends State<AdminMapPage> {
     });
   }*/
 
+  void logout() async {
+    final res = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            'Çıkış Yap',
+          ),
+          content: const Text('Çıkış yapmak istediğinize emin misiniz?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('İptal'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              style: ButtonStyle(
+                foregroundColor:
+                    MaterialStateProperty.all(Theme.of(context).error),
+              ),
+              child: const Text('Çıkış Yap'),
+            ),
+          ],
+        );
+      },
+    );
 
+    if (res == true) {
+      ref.read(authProvider.notifier).logout();
+    }
+  }
 
-@override
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadAllMarkers();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -142,39 +174,52 @@ class _MyAppState extends State<AdminMapPage> {
             width: screen.size.width,
             child: GoogleMap(
               initialCameraPosition: const CameraPosition(
-                target: LatLng(41.0122, 28.976 ),
+                target: LatLng(41.0122, 28.976),
                 zoom: 10.0,
               ),
               markers: _mapMarkers,
               onMapCreated: _onMapCreated,
             ),
           ),
-
           PositionedDirectional(
-            end: 0,
+            end: 20,
             top: 20,
             child: Column(
-
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  margin: EdgeInsetsDirectional.symmetric(horizontal: 50),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          show = !show;
+                        });
+                      },
+                      child: Text(show ? 'Gizle' : 'Göster'),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        show = !show;
-                      });
-                    },
-                    child: Text(show ? 'Gizle' : 'Göster'),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all(Theme.of(context).error),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                      ),
+                      onPressed: logout,
+                      child: const Text('Çıkış Yap'),
+                    ),
+                  ].joinWidgetList(
+                    (index) => const SizedBox(width: 10),
                   ),
                 ),
-                SizedBox(height: 20,),
-                if (show)
+                if (show) ...[
                   ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
                     ),
@@ -193,7 +238,7 @@ class _MyAppState extends State<AdminMapPage> {
                           ],
                           rows: List<DataRow>.generate(
                             konumDataList.length,
-                                (index) => DataRow(
+                            (index) => DataRow(
                               cells: [
                                 DataCell(Text("142")),
                                 DataCell(Text("Recep Tayyip")),
@@ -204,20 +249,23 @@ class _MyAppState extends State<AdminMapPage> {
                               onSelectChanged: (selected) {
                                 _onRowSelect(selected! ? index : -1);
                                 if (selected) {
-                                  var location = konumDataList[index].split(', ');
+                                  var location =
+                                      konumDataList[index].split(', ');
                                   print("deneme :" +
                                       location[0] +
                                       " ---- " +
                                       location[1]);
 
-                                  CameraPosition cameraPosition = CameraPosition(
-                                    target: LatLng(
-                                        double.parse(location[0]), double.parse(location[1])),
+                                  CameraPosition cameraPosition =
+                                      CameraPosition(
+                                    target: LatLng(double.parse(location[0]),
+                                        double.parse(location[1])),
                                     zoom: 15.0,
                                   );
 
                                   mapController?.animateCamera(
-                                      CameraUpdate.newCameraPosition(cameraPosition));
+                                      CameraUpdate.newCameraPosition(
+                                          cameraPosition));
                                   _addMarker(location[0], location[1]);
 
                                   setState(() {});
@@ -230,11 +278,16 @@ class _MyAppState extends State<AdminMapPage> {
                       ),
                     ),
                   ),
-              ],
+                ],
+              ].joinWidgetList(
+                (index) => const SizedBox(
+                  height: 20,
+                ),
+              ),
             ),
           ),
 
-         /* Builder(
+          /* Builder(
             builder: (context) {
               if (!show) {
                 return SecondaryBtn(
