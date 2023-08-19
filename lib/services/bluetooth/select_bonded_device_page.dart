@@ -115,46 +115,42 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<BluetoothDeviceListEntry> list = devices
-        .map((device) => BluetoothDeviceListEntry(
-              device: device,
-              rssi: device.rssi,
-              enabled: device.availability == _DeviceAvailability.yes,
-              onTap: () {
-                Navigator.of(context).pop(device);
-              },
-            ))
-        .toList();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF003399).withOpacity(0.9),
         title: const Text('Lora Cihazınızı Seçiniz'),
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () {
-            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
-            Navigator.pop(context);
-          },
-        ),
         actions: <Widget>[
-          _isDiscovering
-              ? FittedBox(
-                  child: Container(
-                    margin: const EdgeInsets.all(16.0),
-                    child: const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Colors.white,
-                      ),
-                    ),
+          if (_isDiscovering)
+            FittedBox(
+              child: Container(
+                margin: const EdgeInsets.all(16.0),
+                child: const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.white,
                   ),
-                )
-              : IconButton(
-                  icon: const Icon(Icons.replay),
-                  onPressed: _restartDiscovery,
-                )
+                ),
+              ),
+            )
+          else
+            IconButton(
+              icon: const Icon(Icons.replay),
+              onPressed: _restartDiscovery,
+            )
         ],
       ),
-      body: ListView(children: list),
+      body: ListView(
+        children: devices
+            .map(
+              (device) => BluetoothDeviceListEntry(
+                device: device,
+                rssi: device.rssi,
+                enabled: device.availability == _DeviceAvailability.yes,
+                onTap: () {
+                  Navigator.of(context).pop(device);
+                },
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }

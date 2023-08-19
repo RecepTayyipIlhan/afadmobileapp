@@ -111,6 +111,8 @@ extension MyTheme on ThemeData {
   Color get success => const Color(0xFF5cb85c);
   Color get error => const Color(0xFFB00020);
 
+  Color get bgColorAfad => const Color(0xFF003399);
+
   Color get _danger => AppTheme._lightSecondary;
 
   Color get _disabled => const Color(0xFFBDBDBD);

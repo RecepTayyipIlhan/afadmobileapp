@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:afad_app/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 //import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
@@ -140,44 +141,16 @@ class _ChatPage extends State<ChatPage> {
     // TODO(adnanjpg)
     String id = "111";
 
-    // final List<Row> list = messages.map((message) {
-    //   return Row(
-    //     mainAxisAlignment: message.whom == clientID
-    //         ? MainAxisAlignment.end
-    //         : MainAxisAlignment.start,
-    //     children: <Widget>[
-    //       Container(
-    //         padding: const EdgeInsets.all(12.0),
-    //         margin: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
-    //         width: 222.0,
-    //         decoration: BoxDecoration(
-    //             color:
-    //                 message.whom == clientID ? Colors.blueAccent : Colors.grey,
-    //             borderRadius: BorderRadius.circular(7.0)),
-    //         child: Text(
-    //             (text) {
-    //               return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-    //             }(message.text.trim()),
-    //             style: const TextStyle(color: Colors.white)),
-    //       ),
-    //     ],
-    //   );
-    // }).toList();
-
     return Scaffold(
-      backgroundColor: const Color(0xFF003399),
-      /*appBar: AppBar(
-          backgroundColor: Color(0xFFE63946),
-          title: (isConnecting
-              ? Text('Connecting chat to ' + widget.server.name + '...')
-              : isConnected
-                  ? Text('Afad Serverına Bağlandı ' + widget.server.name)
-                  : Text('Afad Serverına Bağlandı ' + widget.server.name))),*/
+      backgroundColor: Theme.of(context).bgColorAfad,
       body: SafeArea(
         child: Builder(builder: (context) {
-          if (!isConnected || isConnecting) {
-            return Text('connecting');
-          }
+          // TODO(adnanjpg): uncomment
+          // if (!isConnected || isConnecting) {
+          //   return const Center(
+          //     child: Text('Bağlanıyor...'),
+          //   );
+          // }
           return Column(
             children: <Widget>[
               Padding(
@@ -652,15 +625,17 @@ class _ChatPage extends State<ChatPage> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.emergency,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "Ambulans",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Şuanki konumunuza ambulans gönderir"),
@@ -698,15 +673,17 @@ class _ChatPage extends State<ChatPage> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.food_bank_rounded,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "Gıda Talebi",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Şuanki konumunuza gıda yardımı gönderir"),
@@ -739,20 +716,21 @@ class _ChatPage extends State<ChatPage> {
                                                   3), // changes position of shadow
                                             ),
                                           ],
-                                          //border: Border.all(color: Colors.black),
                                           color: Colors.white,
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.local_hospital,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "İlaç Talebi",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Şuanki konumunuza ilaç yardımı gönderir"),
@@ -790,15 +768,17 @@ class _ChatPage extends State<ChatPage> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.local_hotel_rounded,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "Barınma Talebi",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Bu bilgiyi Afad size en uygun barınma yerlerine Yönlendirmek için kullanıcaktır"),
@@ -853,15 +833,17 @@ class _ChatPage extends State<ChatPage> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.dangerous_outlined,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "Gaz Kaçağı",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Bu bilgi Afadın gaz kaçaklarını tespit edebilmesi için kullanılıcaktır"),
@@ -899,15 +881,17 @@ class _ChatPage extends State<ChatPage> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.fireplace_rounded,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "Yangın",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Konumunun Yakınında yangın varsa basınız."),
@@ -945,15 +929,17 @@ class _ChatPage extends State<ChatPage> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: const ListTile(
+                                        child: ListTile(
                                           leading: Icon(
                                             Icons.house_siding_rounded,
-                                            color: Color(0xFF003399),
+                                            color:
+                                                Theme.of(context).bgColorAfad,
                                           ),
                                           title: Text(
                                             "Enkaz",
                                             style: TextStyle(
-                                                color: Color(0xFF003399)),
+                                                color: Theme.of(context)
+                                                    .bgColorAfad),
                                           ),
                                           subtitle: Text(
                                               "Yakınımda enkaz altında kurtarılmayı bekleyen insanlar var"),
