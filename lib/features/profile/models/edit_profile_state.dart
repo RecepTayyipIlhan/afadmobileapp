@@ -14,6 +14,18 @@ class EditProfileState with _$EditProfileState {
 
   const factory EditProfileState({
     required String fullName,
+    BloodGroup? bloodGroup,
+    String? idNumber,
+    String? relativePhone,
+    String? relativeCountryPhoneCode,
+    String? relativeCountryLetterCode,
+    RelativeType? relativeType,
+    String? diseases,
+    String? medicines,
+    String? peopleAtSameAddress,
+    String? address,
+    String? buildingAge,
+    String? buildingDurability,
     File? profileImage,
     String? profileImageUrl,
     DateTime? birthDate,
@@ -33,6 +45,18 @@ class EditProfileState with _$EditProfileState {
       formKey: GlobalKey<FormState>(),
       ref: ref,
       fullName: user.fullName,
+      bloodGroup: user.bloodGroup,
+      idNumber: user.idNumber,
+      relativePhone: user.relativePhone,
+      relativeCountryPhoneCode: user.relativeCountryPhoneCode,
+      relativeCountryLetterCode: user.relativeCountryLetterCode,
+      relativeType: user.relativeType,
+      diseases: user.diseases,
+      medicines: user.medicines,
+      peopleAtSameAddress: user.peopleAtSameAddress,
+      address: user.address,
+      buildingAge: user.buildingAge,
+      buildingDurability: user.buildingDurability,
       birthDate: user.birthDate,
       countryLetterCode: user.countryLetterCode,
       countryPhoneCode: user.countryPhoneCode,
@@ -46,10 +70,22 @@ class EditProfileState with _$EditProfileState {
     return AppUser.fromEditProfileFormState(
       email: user.email,
       fullName: fullName,
+      bloodGroup: bloodGroup!,
+      idNumber: idNumber!,
+      relativePhone: relativePhone!,
+      relativeCountryPhoneCode: relativeCountryPhoneCode!,
+      relativeCountryLetterCode: relativeCountryLetterCode!,
+      relativeType: relativeType!,
+      diseases: diseases,
+      medicines: medicines,
+      peopleAtSameAddress: peopleAtSameAddress,
+      address: address,
+      buildingAge: buildingAge,
+      buildingDurability: buildingDurability,
       birthDate: birthDate,
-      countryPhoneCode: countryPhoneCode,
-      countryLetterCode: countryLetterCode,
-      phone: phone,
+      countryPhoneCode: countryPhoneCode!,
+      countryLetterCode: countryLetterCode!,
+      phone: phone!,
       id: user.id,
       profilePicUrl: profileImageUrl,
       role: user.role,
@@ -80,5 +116,13 @@ class EditProfileState with _$EditProfileState {
     }
 
     return '+$countryPhoneCode';
+  }
+
+  String? relativeCountryCodeFormatted(BuildContext context) {
+    if (relativeCountryPhoneCode == null) {
+      return null;
+    }
+
+    return '+$relativeCountryPhoneCode';
   }
 }

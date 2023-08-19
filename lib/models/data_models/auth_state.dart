@@ -42,8 +42,6 @@ class AuthState with _$AuthState {
       firebaseUser != null && appUser == null && isLoading == false;
   bool get isHalfSignedUp => isEmailVerified;
 
-  // bool get isAdmin => appUser?.role == AppUserRole.admin;
-  bool get isAdmin => kIsWeb;
-  // bool get isUser => appUser?.role == AppUserRole.user;
-  bool get isUser => !kIsWeb;
+  bool get isAdmin => appUser?.role == AppUserRole.admin;
+  bool get isUser => appUser?.role == AppUserRole.user;
 }

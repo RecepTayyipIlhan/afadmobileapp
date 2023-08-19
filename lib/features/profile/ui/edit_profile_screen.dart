@@ -1,8 +1,11 @@
+import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/features/profile/prov/edit_profile_prov.dart';
 import 'package:afad_app/ui/widgets/error_widget.dart';
+import 'package:afad_app/ui/widgets/primary_dropdown.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/icons/app_icons_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading/loading.dart';
 import '../../../ui/widgets/btns/primary_btn.dart';
@@ -106,6 +109,134 @@ class _Fields extends ConsumerWidget {
             AppIcons.profile_edit_calendar,
             color: Theme.of(context).editProfileFieldsSuffixIconColor,
           ),
+        ),
+        PrimaryDropdown<BloodGroup>(
+          initialValue: formState.bloodGroup,
+          labelText: getStr('edit_profile:fields:bloodgroup:title'),
+          onChanged: notifier.bloodGroupOnChanged,
+          validator: notifier.bloodGroupValidator,
+          items: BloodGroup.values
+              .map(
+                (e) => DropdownMenuItem(
+                  value: e,
+                  child: Text(
+                    getStr(
+                      e.toString(),
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        PrimaryField(
+          initialValue: formState.idNumber,
+          labelText: getStr('edit_profile:fields:idnumber:title'),
+          onChanged: notifier.idNumberOnChanged,
+          validator: notifier.idNumberValidator,
+          maxLines: 1,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        ),
+        PrimaryField(
+          initialValue: formState.phone,
+          icon: SizedBox(
+            width: 80,
+            child: PrimaryField(
+              initialValue: formState.countryPhoneCode,
+              onTap: () => notifier.countryCodeOnPressed(context),
+              value: formState.countryCodeFormatted(context),
+              enabled: false,
+              enabledStyle: true,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          onChanged: notifier.phoneNumberOnChanged,
+          labelText: getStr('edit_profile:fields:phone:title'),
+          validator: notifier.phoneNumberValidator,
+          keyboardType: TextInputType.phone,
+        ),
+        PrimaryField(
+          initialValue: formState.relativePhone,
+          icon: SizedBox(
+            width: 80,
+            child: PrimaryField(
+              initialValue: formState.relativeCountryPhoneCode,
+              onTap: () => notifier.relativeCountryCodeOnPressed(context),
+              value: formState.relativeCountryCodeFormatted(context),
+              enabled: false,
+              enabledStyle: true,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          onChanged: notifier.relativePhoneNumberOnChanged,
+          labelText: getStr('edit_profile:fields:relativephone:title'),
+          validator: notifier.relativePhoneNumberValidator,
+          keyboardType: TextInputType.phone,
+        ),
+        PrimaryDropdown<RelativeType>(
+          initialValue: formState.relativeType,
+          labelText: getStr('edit_profile:fields:relativetype:title'),
+          onChanged: notifier.relativeTypeOnChanged,
+          validator: notifier.relativeTypeValidator,
+          items: RelativeType.values
+              .map(
+                (e) => DropdownMenuItem(
+                  value: e,
+                  child: Text(
+                    getStr(
+                      e.toString(),
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        PrimaryField(
+          initialValue: formState.peopleAtSameAddress,
+          labelText: getStr('edit_profile:fields:peopleatsameaddress:title'),
+          onChanged: notifier.peopleAtSameAddressOnChanged,
+          validator: notifier.peopleAtSameAddressValidator,
+          maxLines: 1,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        ),
+        PrimaryField(
+          initialValue: formState.address,
+          labelText: getStr('edit_profile:fields:address:title'),
+          onChanged: notifier.addressOnChanged,
+          validator: notifier.addressValidator,
+          maxLines: 3,
+        ),
+        // optional
+        PrimaryField(
+          initialValue: formState.diseases,
+          labelText: getStr('edit_profile:fields:diseases:title'),
+          onChanged: notifier.diseasesOnChanged,
+          maxLines: 1,
+        ),
+        // optional
+        PrimaryField(
+          initialValue: formState.medicines,
+          labelText: getStr('edit_profile:fields:medicines:title'),
+          onChanged: notifier.medicinesOnChanged,
+          maxLines: 1,
+        ),
+        // optional
+        PrimaryField(
+          initialValue: formState.buildingAge,
+          labelText: getStr('edit_profile:fields:buildingage:title'),
+          onChanged: notifier.buildingAgeOnChanged,
+          validator: notifier.buildingAgeValidator,
+          maxLines: 1,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        ),
+        // optional
+        PrimaryField(
+          initialValue: formState.buildingDurability,
+          labelText: getStr('edit_profile:fields:buildingdurability:title'),
+          onChanged: notifier.buildingDurabilityOnChanged,
+          maxLines: 1,
         ),
       ].joinWidgetList(
         (index) => const SizedBox(

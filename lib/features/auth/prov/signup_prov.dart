@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:country_picker/country_picker.dart';
+import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading/loading.dart';
@@ -128,7 +130,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
     final fbUser = ref.read(authProvider).firebaseUser!;
 
-    final appUser = state.toAppUser(fbUser);
+    var appUser = state.toAppUser(fbUser);
 
     // the .signup will wreck the current state
     // so we need to save the storage service
@@ -136,15 +138,20 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     // final storage = ref.read(fbStorageService);
     final profileImg = state.profileImage;
 
+    if (profileImg != null) {
+      final imageUrl =
+          await ref.read(fbStorageService).uploadUserProfileImage(profileImg);
+
+      appUser = appUser.copyWith(
+        profilePicUrl: imageUrl,
+      );
+    }
+
     final created = await ref.read(authProvider.notifier).signup(
           context: context,
           appUser: appUser,
           fbUser: fbUser,
         );
-
-    if (profileImg != null) {
-      await ref.read(fbStorageService).uploadUserProfileImage(profileImg);
-    }
 
     return created;
   }
@@ -180,6 +187,42 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     birthDateOnChanged(date);
   }
 
+  void _openCountryPickerDialog({
+    required BuildContext context,
+    required void Function(Country) onSelect,
+  }) {
+    showCountryPicker(
+      context: context,
+      showPhoneCode: true,
+      useSafeArea: true,
+      countryListTheme: const CountryListThemeData(
+        margin: EdgeInsets.only(top: 10),
+      ),
+      favorite: const ['TR'],
+      onSelect: onSelect,
+    );
+  }
+
+  void countryCodeOnPressed(BuildContext context) async {
+    _openCountryPickerDialog(
+      context: context,
+      onSelect: (Country value) {
+        countryPhoneCodeOnChanged(value.phoneCode);
+        countryLetterCodeOnChanged(value.countryCode);
+      },
+    );
+  }
+
+  void relativeCountryCodeOnPressed(BuildContext context) async {
+    _openCountryPickerDialog(
+      context: context,
+      onSelect: (Country value) {
+        relativeCountryPhoneCodeOnChanged(value.phoneCode);
+        relativeCountryLetterCodeOnChanged(value.countryCode);
+      },
+    );
+  }
+
   void emailOnChanged(String value) {
     state = state.copyWith(email: value);
   }
@@ -190,6 +233,54 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
   void fullnameOnChanged(String value) {
     state = state.copyWith(fullName: value);
+  }
+
+  void bloodGroupOnChanged(BloodGroup? value) {
+    state = state.copyWith(bloodGroup: value);
+  }
+
+  void idNumberOnChanged(String value) {
+    state = state.copyWith(idNumber: value);
+  }
+
+  void relativePhoneNumberOnChanged(String value) {
+    state = state.copyWith(relativePhone: value);
+  }
+
+  void relativeCountryPhoneCodeOnChanged(String value) {
+    state = state.copyWith(relativeCountryPhoneCode: value);
+  }
+
+  void relativeCountryLetterCodeOnChanged(String value) {
+    state = state.copyWith(relativeCountryLetterCode: value);
+  }
+
+  void relativeTypeOnChanged(RelativeType? value) {
+    state = state.copyWith(relativeType: value);
+  }
+
+  void diseasesOnChanged(String value) {
+    state = state.copyWith(diseases: value);
+  }
+
+  void medicinesOnChanged(String value) {
+    state = state.copyWith(medicines: value);
+  }
+
+  void peopleAtSameAddressOnChanged(String value) {
+    state = state.copyWith(peopleAtSameAddress: value);
+  }
+
+  void addressOnChanged(String value) {
+    state = state.copyWith(address: value);
+  }
+
+  void buildingAgeOnChanged(String value) {
+    state = state.copyWith(buildingAge: value);
+  }
+
+  void buildingDurabilityOnChanged(String value) {
+    state = state.copyWith(buildingDurability: value);
   }
 
   void profileImageOnChanged(File value) {
@@ -248,11 +339,94 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     return null;
   }
 
-  // optional field, just validate it contains numbers
-  // and it is
-  String? phoneNumberValidator(String? value) {
+  String? birthDateValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:birth_date');
+    }
+
+    return null;
+  }
+
+  String? bloodGroupValidator(BloodGroup? value) {
+    if (value == null) {
+      return getStr('auth:signup:validator:invalid:blood_group');
+    }
+
+    return null;
+  }
+
+  String? idNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:id_number');
+    }
+
+    if (value.isIdNumberValid != true) {
+      return getStr('auth:signup:validator:invalid:id_number');
+    }
+
+    return null;
+  }
+
+  String? relativeTypeValidator(RelativeType? value) {
+    if (value == null) {
+      return getStr('auth:signup:validator:invalid:relative_type');
+    }
+
+    return null;
+  }
+
+  String? relativePhoneValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:phone');
+    }
+
+    if (value.isPhoneNumberValid != true) {
+      return getStr('auth:signup:validator:invalid:phone');
+    }
+
+    if ((state.relativeCountryPhoneCode == null ||
+        state.relativeCountryPhoneCode!.isEmpty)) {
+      return getStr('auth:signup:validator:empty:country_code');
+    }
+
+    return null;
+  }
+
+  String? peopleAtSameAddressValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:people_at_same_address');
+    }
+
+    if (int.tryParse(value) == null) {
+      return getStr('auth:signup:validator:invalid:people_at_same_address');
+    }
+
+    return null;
+  }
+
+  String? addressValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:address');
+    }
+
+    return null;
+  }
+
+  String? buildingAgeValidator(String? value) {
     if (value == null || value.isEmpty) {
       return null;
+    }
+
+    if (int.tryParse(value) == null) {
+      return getStr('auth:signup:validator:invalid:building_age');
+    }
+
+    return null;
+  }
+
+  String? phoneNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:phone');
     }
 
     if (value.isPhoneNumberValid != true) {
@@ -264,6 +438,27 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     // we don't wanna put this under the country code picker
     // as it does not fit
     if ((state.countryPhoneCode == null || state.countryPhoneCode!.isEmpty)) {
+      return getStr('auth:signup:validator:empty:country_code');
+    }
+
+    return null;
+  }
+
+  String? relativePhoneNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('auth:signup:validator:invalid:phone');
+    }
+
+    if (value.isPhoneNumberValid != true) {
+      return getStr('auth:signup:validator:invalid:phone');
+    }
+
+    // if the phone number is not null, then the country code
+    // must be valid
+    // we don't wanna put this under the country code picker
+    // as it does not fit
+    if ((state.relativeCountryPhoneCode == null ||
+        state.relativeCountryPhoneCode!.isEmpty)) {
       return getStr('auth:signup:validator:empty:country_code');
     }
 

@@ -1,4 +1,3 @@
-import 'package:afad_app/features/home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MessageForm extends StatelessWidget {
@@ -23,23 +22,8 @@ class MessageForm extends StatelessWidget {
               ),
               color: Color(0xFFE63946),
             ),
-            child: SafeArea(
-              child: IconButton(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-                alignment: Alignment.topLeft,
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ));
-                },
-              ),
+            child: const SafeArea(
+              child: BackButton(),
             ),
           ),
           Row(

@@ -32,6 +32,16 @@ extension MyTheme on ThemeData {
       AppTheme._lightPrimary.withOpacity(.05);
   Color get primaryFieldTextColor => AppTheme._lightOnBgTextColor;
 
+  Color get primaryDropdownTitleColor => AppTheme._lightPrimary;
+  Color get primaryDropdownEnabledBorderColor => AppTheme._lightPrimary;
+  Color get primaryDropdownDisabledBorderColor => _disabled;
+  Color get primaryDropdownFocusedBorderColor =>
+      AppTheme._lightSecondary.withOpacity(.3);
+  Color get primaryDropdownIconColor => AppTheme._lightPrimary;
+  Color get primaryDropdownTapOverlayColor =>
+      AppTheme._lightPrimary.withOpacity(.05);
+  Color get primaryDropdownTextColor => AppTheme._lightOnBgTextColor;
+
   Color get primaryImagePickerBorder => AppTheme._lightPrimary;
 
   Color get bottomBarBgColor => AppTheme._lightPrimary;
@@ -39,7 +49,7 @@ extension MyTheme on ThemeData {
   Color get bottomBarUnSelectedIconColor =>
       AppTheme._lightOnDarkTextColor.withOpacity(.5);
   BorderRadiusGeometry get bottomBarBorderRadius => const BorderRadius.vertical(
-        top: Radius.circular(20),
+        top: Radius.circular(0),
       );
 
   Color get profileItemNoDangerTextColor => AppTheme._lightOnBgTextColor;

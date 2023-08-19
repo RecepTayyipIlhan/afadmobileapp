@@ -19,6 +19,18 @@ mixin _$SignupState {
   String? get email => throw _privateConstructorUsedError;
   String? get pass => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
+  BloodGroup? get bloodGroup => throw _privateConstructorUsedError;
+  String? get idNumber => throw _privateConstructorUsedError;
+  String? get relativePhone => throw _privateConstructorUsedError;
+  String? get relativeCountryPhoneCode => throw _privateConstructorUsedError;
+  String? get relativeCountryLetterCode => throw _privateConstructorUsedError;
+  RelativeType? get relativeType => throw _privateConstructorUsedError;
+  String? get diseases => throw _privateConstructorUsedError;
+  String? get medicines => throw _privateConstructorUsedError;
+  String? get peopleAtSameAddress => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String? get buildingAge => throw _privateConstructorUsedError;
+  String? get buildingDurability => throw _privateConstructorUsedError;
   File? get profileImage => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
   String? get countryPhoneCode => throw _privateConstructorUsedError;
@@ -44,6 +56,18 @@ abstract class $SignupStateCopyWith<$Res> {
       {String? email,
       String? pass,
       String? fullName,
+      BloodGroup? bloodGroup,
+      String? idNumber,
+      String? relativePhone,
+      String? relativeCountryPhoneCode,
+      String? relativeCountryLetterCode,
+      RelativeType? relativeType,
+      String? diseases,
+      String? medicines,
+      String? peopleAtSameAddress,
+      String? address,
+      String? buildingAge,
+      String? buildingDurability,
       File? profileImage,
       DateTime? birthDate,
       String? countryPhoneCode,
@@ -71,6 +95,18 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? email = freezed,
     Object? pass = freezed,
     Object? fullName = freezed,
+    Object? bloodGroup = freezed,
+    Object? idNumber = freezed,
+    Object? relativePhone = freezed,
+    Object? relativeCountryPhoneCode = freezed,
+    Object? relativeCountryLetterCode = freezed,
+    Object? relativeType = freezed,
+    Object? diseases = freezed,
+    Object? medicines = freezed,
+    Object? peopleAtSameAddress = freezed,
+    Object? address = freezed,
+    Object? buildingAge = freezed,
+    Object? buildingDurability = freezed,
     Object? profileImage = freezed,
     Object? birthDate = freezed,
     Object? countryPhoneCode = freezed,
@@ -93,6 +129,54 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
       fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bloodGroup: freezed == bloodGroup
+          ? _value.bloodGroup
+          : bloodGroup // ignore: cast_nullable_to_non_nullable
+              as BloodGroup?,
+      idNumber: freezed == idNumber
+          ? _value.idNumber
+          : idNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativePhone: freezed == relativePhone
+          ? _value.relativePhone
+          : relativePhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
+          ? _value.relativeCountryPhoneCode
+          : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryLetterCode: freezed == relativeCountryLetterCode
+          ? _value.relativeCountryLetterCode
+          : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeType: freezed == relativeType
+          ? _value.relativeType
+          : relativeType // ignore: cast_nullable_to_non_nullable
+              as RelativeType?,
+      diseases: freezed == diseases
+          ? _value.diseases
+          : diseases // ignore: cast_nullable_to_non_nullable
+              as String?,
+      medicines: freezed == medicines
+          ? _value.medicines
+          : medicines // ignore: cast_nullable_to_non_nullable
+              as String?,
+      peopleAtSameAddress: freezed == peopleAtSameAddress
+          ? _value.peopleAtSameAddress
+          : peopleAtSameAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingAge: freezed == buildingAge
+          ? _value.buildingAge
+          : buildingAge // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingDurability: freezed == buildingDurability
+          ? _value.buildingDurability
+          : buildingDurability // ignore: cast_nullable_to_non_nullable
               as String?,
       profileImage: freezed == profileImage
           ? _value.profileImage
@@ -146,6 +230,18 @@ abstract class _$$_SignupStateCopyWith<$Res>
       {String? email,
       String? pass,
       String? fullName,
+      BloodGroup? bloodGroup,
+      String? idNumber,
+      String? relativePhone,
+      String? relativeCountryPhoneCode,
+      String? relativeCountryLetterCode,
+      RelativeType? relativeType,
+      String? diseases,
+      String? medicines,
+      String? peopleAtSameAddress,
+      String? address,
+      String? buildingAge,
+      String? buildingDurability,
       File? profileImage,
       DateTime? birthDate,
       String? countryPhoneCode,
@@ -171,6 +267,18 @@ class __$$_SignupStateCopyWithImpl<$Res>
     Object? email = freezed,
     Object? pass = freezed,
     Object? fullName = freezed,
+    Object? bloodGroup = freezed,
+    Object? idNumber = freezed,
+    Object? relativePhone = freezed,
+    Object? relativeCountryPhoneCode = freezed,
+    Object? relativeCountryLetterCode = freezed,
+    Object? relativeType = freezed,
+    Object? diseases = freezed,
+    Object? medicines = freezed,
+    Object? peopleAtSameAddress = freezed,
+    Object? address = freezed,
+    Object? buildingAge = freezed,
+    Object? buildingDurability = freezed,
     Object? profileImage = freezed,
     Object? birthDate = freezed,
     Object? countryPhoneCode = freezed,
@@ -193,6 +301,54 @@ class __$$_SignupStateCopyWithImpl<$Res>
       fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bloodGroup: freezed == bloodGroup
+          ? _value.bloodGroup
+          : bloodGroup // ignore: cast_nullable_to_non_nullable
+              as BloodGroup?,
+      idNumber: freezed == idNumber
+          ? _value.idNumber
+          : idNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativePhone: freezed == relativePhone
+          ? _value.relativePhone
+          : relativePhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
+          ? _value.relativeCountryPhoneCode
+          : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryLetterCode: freezed == relativeCountryLetterCode
+          ? _value.relativeCountryLetterCode
+          : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeType: freezed == relativeType
+          ? _value.relativeType
+          : relativeType // ignore: cast_nullable_to_non_nullable
+              as RelativeType?,
+      diseases: freezed == diseases
+          ? _value.diseases
+          : diseases // ignore: cast_nullable_to_non_nullable
+              as String?,
+      medicines: freezed == medicines
+          ? _value.medicines
+          : medicines // ignore: cast_nullable_to_non_nullable
+              as String?,
+      peopleAtSameAddress: freezed == peopleAtSameAddress
+          ? _value.peopleAtSameAddress
+          : peopleAtSameAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingAge: freezed == buildingAge
+          ? _value.buildingAge
+          : buildingAge // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingDurability: freezed == buildingDurability
+          ? _value.buildingDurability
+          : buildingDurability // ignore: cast_nullable_to_non_nullable
               as String?,
       profileImage: freezed == profileImage
           ? _value.profileImage
@@ -241,6 +397,18 @@ class _$_SignupState extends _SignupState {
       {this.email,
       this.pass,
       this.fullName,
+      this.bloodGroup,
+      this.idNumber,
+      this.relativePhone,
+      this.relativeCountryPhoneCode,
+      this.relativeCountryLetterCode,
+      this.relativeType,
+      this.diseases,
+      this.medicines,
+      this.peopleAtSameAddress,
+      this.address,
+      this.buildingAge,
+      this.buildingDurability,
       this.profileImage,
       this.birthDate,
       this.countryPhoneCode,
@@ -258,6 +426,30 @@ class _$_SignupState extends _SignupState {
   final String? pass;
   @override
   final String? fullName;
+  @override
+  final BloodGroup? bloodGroup;
+  @override
+  final String? idNumber;
+  @override
+  final String? relativePhone;
+  @override
+  final String? relativeCountryPhoneCode;
+  @override
+  final String? relativeCountryLetterCode;
+  @override
+  final RelativeType? relativeType;
+  @override
+  final String? diseases;
+  @override
+  final String? medicines;
+  @override
+  final String? peopleAtSameAddress;
+  @override
+  final String? address;
+  @override
+  final String? buildingAge;
+  @override
+  final String? buildingDurability;
   @override
   final File? profileImage;
   @override
@@ -280,7 +472,7 @@ class _$_SignupState extends _SignupState {
 
   @override
   String toString() {
-    return 'SignupState(email: $email, pass: $pass, fullName: $fullName, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft)';
+    return 'SignupState(email: $email, pass: $pass, fullName: $fullName, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft)';
   }
 
   @override
@@ -292,6 +484,31 @@ class _$_SignupState extends _SignupState {
             (identical(other.pass, pass) || other.pass == pass) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
+            (identical(other.bloodGroup, bloodGroup) ||
+                other.bloodGroup == bloodGroup) &&
+            (identical(other.idNumber, idNumber) ||
+                other.idNumber == idNumber) &&
+            (identical(other.relativePhone, relativePhone) ||
+                other.relativePhone == relativePhone) &&
+            (identical(
+                    other.relativeCountryPhoneCode, relativeCountryPhoneCode) ||
+                other.relativeCountryPhoneCode == relativeCountryPhoneCode) &&
+            (identical(other.relativeCountryLetterCode,
+                    relativeCountryLetterCode) ||
+                other.relativeCountryLetterCode == relativeCountryLetterCode) &&
+            (identical(other.relativeType, relativeType) ||
+                other.relativeType == relativeType) &&
+            (identical(other.diseases, diseases) ||
+                other.diseases == diseases) &&
+            (identical(other.medicines, medicines) ||
+                other.medicines == medicines) &&
+            (identical(other.peopleAtSameAddress, peopleAtSameAddress) ||
+                other.peopleAtSameAddress == peopleAtSameAddress) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.buildingAge, buildingAge) ||
+                other.buildingAge == buildingAge) &&
+            (identical(other.buildingDurability, buildingDurability) ||
+                other.buildingDurability == buildingDurability) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
             (identical(other.birthDate, birthDate) ||
@@ -312,20 +529,33 @@ class _$_SignupState extends _SignupState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      email,
-      pass,
-      fullName,
-      profileImage,
-      birthDate,
-      countryPhoneCode,
-      countryLetterCode,
-      phone,
-      isEmailLinkRequested,
-      ref,
-      formKey,
-      emailLinkResendSecondsLeft);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        email,
+        pass,
+        fullName,
+        bloodGroup,
+        idNumber,
+        relativePhone,
+        relativeCountryPhoneCode,
+        relativeCountryLetterCode,
+        relativeType,
+        diseases,
+        medicines,
+        peopleAtSameAddress,
+        address,
+        buildingAge,
+        buildingDurability,
+        profileImage,
+        birthDate,
+        countryPhoneCode,
+        countryLetterCode,
+        phone,
+        isEmailLinkRequested,
+        ref,
+        formKey,
+        emailLinkResendSecondsLeft
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -339,6 +569,18 @@ abstract class _SignupState extends SignupState {
       {final String? email,
       final String? pass,
       final String? fullName,
+      final BloodGroup? bloodGroup,
+      final String? idNumber,
+      final String? relativePhone,
+      final String? relativeCountryPhoneCode,
+      final String? relativeCountryLetterCode,
+      final RelativeType? relativeType,
+      final String? diseases,
+      final String? medicines,
+      final String? peopleAtSameAddress,
+      final String? address,
+      final String? buildingAge,
+      final String? buildingDurability,
       final File? profileImage,
       final DateTime? birthDate,
       final String? countryPhoneCode,
@@ -356,6 +598,30 @@ abstract class _SignupState extends SignupState {
   String? get pass;
   @override
   String? get fullName;
+  @override
+  BloodGroup? get bloodGroup;
+  @override
+  String? get idNumber;
+  @override
+  String? get relativePhone;
+  @override
+  String? get relativeCountryPhoneCode;
+  @override
+  String? get relativeCountryLetterCode;
+  @override
+  RelativeType? get relativeType;
+  @override
+  String? get diseases;
+  @override
+  String? get medicines;
+  @override
+  String? get peopleAtSameAddress;
+  @override
+  String? get address;
+  @override
+  String? get buildingAge;
+  @override
+  String? get buildingDurability;
   @override
   File? get profileImage;
   @override

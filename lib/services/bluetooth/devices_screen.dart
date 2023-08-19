@@ -1,21 +1,23 @@
 import 'dart:async';
 import 'package:afad_app/constants.dart';
+import 'package:afad_app/ui/widgets/btns/primary_btn.dart';
+import 'package:afad_app/ui/widgets/btns/secondary_btn.dart';
+import 'package:afad_app/ui/widgets/btns/tertiary_btn.dart';
+import 'package:afad_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/services/bluetooth/communication.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'select_bonded_device_page.dart';
 import '../../features/mayday_call/chat_page.dart';
 
-//import './ChatPage2.dart';
-
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class DevicesScreen extends StatefulWidget {
+  const DevicesScreen({super.key});
 
   @override
-  State<MainPage> createState() => _MainPage();
+  State<DevicesScreen> createState() => _MainPage();
 }
 
-class _MainPage extends State<MainPage> {
+class _MainPage extends State<DevicesScreen> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
   String _address = deviceAddress;
@@ -84,7 +86,7 @@ class _MainPage extends State<MainPage> {
   Communication com = Communication();
   void init() async {
     await com.connectToBluetooth(_address);
-    print(_address);
+    print("address is " + _address);
     com.sendMessage("Hello");
     setState(() {});
   }
@@ -98,46 +100,26 @@ class _MainPage extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     BluetoothDevice b = const BluetoothDevice(
       name: deviceName,
       address: deviceAddress,
     );
-    final BluetoothDevice selectedDevice = b;
 
-    // ignore: unnecessary_null_comparison
-    if (selectedDevice != null) {
-      print('Connect -> selected ${selectedDevice.address}');
-      //Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
-      /*Future.delayed(Duration.zero, () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage(server: b,)));
-      });*/
-
-      //_startChat(context, selectedDevice);
-    } else {
-      print('------------------Connect -> no device selected');
-      return Container();
-    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       //backgroundColor: Color(0xFFE63946),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF003399).withOpacity(0.9),
-        title: const Text('Lora Sensörüne Bağlanın'),
+        title: const Text('Cihazlarım'),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: size.height / 50,
-          ),
           Column(
             children: [
               ElevatedButton(
                 onPressed: _bluetoothState.isEnabled
                     ? () async {
-                        final BluetoothDevice selectedDevice = b;
-
                         final navigator = Navigator.of(context);
 
                         await navigator.push(
@@ -148,15 +130,7 @@ class _MainPage extends State<MainPage> {
                             },
                           ),
                         );
-                        //print(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
-                        // ignore: unnecessary_null_comparison
-                        if (selectedDevice != null) {
-                          print(
-                              'Connect -> selected ${selectedDevice.address}');
-                          _startChat(navigator, selectedDevice);
-                        } else {
-                          print('----Connect -> no device selected');
-                        }
+                        _startChat(navigator, b);
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -175,9 +149,6 @@ class _MainPage extends State<MainPage> {
                       : Colors.red.withOpacity(0.6),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
               Text(
                 _bluetoothState.isEnabled
                     ? "Lora Sensörü Ara "
@@ -188,19 +159,15 @@ class _MainPage extends State<MainPage> {
             ],
           ),
           Container(
-            color: const Color(0xFF003399).withOpacity(0.9),
-            height: size.height / 3,
-            width: size.width,
             padding: const EdgeInsets.symmetric(vertical: 15),
-            child: ListView(
+            child: Column(
               children: <Widget>[
-                const Divider(color: Colors.white, thickness: 2),
-                //ListTile(title: const Text('General')),
                 SwitchListTile(
-                  activeColor: Colors.white,
                   title: const Text(
-                    "Bluetooth'u Aktif Edin",
-                    style: TextStyle(color: Colors.white),
+                    'Bluetooth Durumu',
+                  ),
+                  subtitle: Text(
+                    _bluetoothState.isEnabled ? "Açık" : "Kapalı",
                   ),
                   value: _bluetoothState.isEnabled,
                   onChanged: (bool value) {
@@ -214,65 +181,21 @@ class _MainPage extends State<MainPage> {
                       }
                     }
 
+                    // FlutterBluetoothSerial.instance.openSettings();
+
                     future().then((_) {
                       setState(() {});
                     });
                   },
                 ),
-                const Divider(color: Colors.white, thickness: 2),
-                ListTile(
-                  title: const Text('Bluetooth Durumu',
-                      style: TextStyle(color: Colors.white)),
-                  subtitle: Text(_bluetoothState.isEnabled ? "Açık" : "Kapalı",
-                      style: const TextStyle(color: Colors.white)),
-                  //subtitle: Text(returnStatus(_bluetoothState)),
-                  trailing: MaterialButton(
-                    color: Colors.white,
-                    child: const Text('Ayarlar'),
-                    onPressed: () {
-                      FlutterBluetoothSerial.instance.openSettings();
-                    },
-                  ),
-                ),
-                const Divider(color: Colors.white, thickness: 2),
-
-                /*ListTile(
-                  title: const Text('Local adapter address'),
-                  subtitle: Text(_address),
-                ),
-                ListTile(
-                  title: const Text('Local adapter name'),
-                  subtitle: Text(_name),
-                  onLongPress: null,
-                ),*/
-                /*Divider(),
-                ListTile(title: const Text('Devices discovery and connection')),
-                ListTile(
-                  title: RaisedButton(
-                    child: const Text('Connect to paired device to chat'),
-                    onPressed: () async {
-                      final BluetoothDevice selectedDevice = b;
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SelectBondedDevicePage(checkAvailability: false);
-                          },
-                        ),
-                      );
-                      //print(selectedDevice.name+","+selectedDevice.address+","+selectedDevice.bondState.toString()+","+selectedDevice.isConnected.toString()+","+selectedDevice.type.toString());
-                      if (selectedDevice != null) {
-                        print('Connect -> selected ' + selectedDevice.address);
-                        _startChat(context, selectedDevice);
-                      } else {
-                        print('------------------Connect -> no device selected');
-                      }
-                    },
-                  ),
-                ),*/
               ],
             ),
           ),
-        ],
+        ].joinWidgetList(
+          (index) => const SizedBox(
+            height: 20,
+          ),
+        ),
       ),
     );
   }

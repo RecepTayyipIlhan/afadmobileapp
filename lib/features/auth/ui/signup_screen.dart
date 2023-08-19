@@ -1,6 +1,9 @@
+import 'package:afad_app/features/auth/models/app_user.dart';
+import 'package:afad_app/ui/widgets/primary_dropdown.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/icons/app_icons_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading/loading.dart';
@@ -150,11 +153,39 @@ class _Fields extends ConsumerWidget {
               validator: notifier.fullnameValidator,
               maxLines: 1,
             ),
+          if (formState.showBloodGroupField)
+            PrimaryDropdown<BloodGroup>(
+              labelText: getStr('auth:signup:fields:bloodgroup:title'),
+              onChanged: notifier.bloodGroupOnChanged,
+              validator: notifier.bloodGroupValidator,
+              items: BloodGroup.values
+                  .map(
+                    (e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(
+                        getStr(
+                          e.toString(),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          if (formState.showIdNumberField)
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:idnumber:title'),
+              onChanged: notifier.idNumberOnChanged,
+              validator: notifier.idNumberValidator,
+              maxLines: 1,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
           if (formState.showBirthDateField)
             PrimaryField(
               labelText: getStr('auth:signup:fields:birthdate:title'),
               onTap: () => notifier.birthDateOnPressed(context),
               value: formState.birthDateFormatted(context),
+              validator: notifier.birthDateValidator,
               enabled: false,
               enabledStyle: true,
               suffixIcon: Icon(
@@ -162,6 +193,114 @@ class _Fields extends ConsumerWidget {
                 color: Theme.of(context).editProfileFieldsSuffixIconColor,
               ),
             ),
+          if (formState.showPhoneField) ...[
+            PrimaryField(
+              icon: SizedBox(
+                width: 80,
+                child: PrimaryField(
+                  onTap: () => notifier.countryCodeOnPressed(context),
+                  value: formState.countryCodeFormatted(context),
+                  enabled: false,
+                  enabledStyle: true,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              onChanged: notifier.phoneNumberOnChanged,
+              labelText: getStr('auth:signup:fields:phone:title'),
+              validator: notifier.phoneNumberValidator,
+              keyboardType: TextInputType.phone,
+            ),
+          ],
+          if (formState.showRelativePhoneField) ...[
+            PrimaryField(
+              icon: SizedBox(
+                width: 80,
+                child: PrimaryField(
+                  onTap: () => notifier.relativeCountryCodeOnPressed(context),
+                  value: formState.relativeCountryCodeFormatted(context),
+                  enabled: false,
+                  enabledStyle: true,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              onChanged: notifier.relativePhoneNumberOnChanged,
+              labelText: getStr('auth:signup:fields:relativephone:title'),
+              validator: notifier.relativePhoneNumberValidator,
+              keyboardType: TextInputType.phone,
+            ),
+          ],
+          if (formState.showRelativeTypeField) ...[
+            PrimaryDropdown<RelativeType>(
+              labelText: getStr('auth:signup:fields:relativetype:title'),
+              onChanged: notifier.relativeTypeOnChanged,
+              validator: notifier.relativeTypeValidator,
+              items: RelativeType.values
+                  .map(
+                    (e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(
+                        getStr(
+                          e.toString(),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+          if (formState.showPeopleAtSameAddressField) ...[
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:peopleatsameaddress:title'),
+              onChanged: notifier.peopleAtSameAddressOnChanged,
+              validator: notifier.peopleAtSameAddressValidator,
+              maxLines: 1,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+          ],
+          if (formState.showAddressField) ...[
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:address:title'),
+              onChanged: notifier.addressOnChanged,
+              validator: notifier.addressValidator,
+              maxLines: 3,
+            ),
+          ],
+          // optional
+          if (formState.showDiseasesField) ...[
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:diseases:title'),
+              onChanged: notifier.diseasesOnChanged,
+              maxLines: 1,
+            ),
+          ],
+          // optional
+          if (formState.showMedicinesField) ...[
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:medicines:title'),
+              onChanged: notifier.medicinesOnChanged,
+              maxLines: 1,
+            ),
+          ],
+          // optional
+          if (formState.showBuildingAgeField) ...[
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:buildingage:title'),
+              onChanged: notifier.buildingAgeOnChanged,
+              validator: notifier.buildingAgeValidator,
+              maxLines: 1,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+          ],
+          // optional
+          if (formState.showBuildingDurabilityField) ...[
+            PrimaryField(
+              labelText: getStr('auth:signup:fields:buildingdurability:title'),
+              onChanged: notifier.buildingDurabilityOnChanged,
+              maxLines: 1,
+            ),
+          ],
         ],
       ].joinWidgetList(
         (index) => const SizedBox(
