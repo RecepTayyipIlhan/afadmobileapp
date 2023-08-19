@@ -26,7 +26,6 @@ class _LoggerImpl extends Logger {
     try {
       stackTrace ??= StackTrace.current;
 
-      // TODO(adnanjpg): remove this after configuring flavoring
       if (kDebugMode) {
         super.log(level, message, error: error, stackTrace: stackTrace);
       } else {
