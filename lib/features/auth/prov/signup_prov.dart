@@ -130,7 +130,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
 
     final fbUser = ref.read(authProvider).firebaseUser!;
 
-    final appUser = state.toAppUser(fbUser);
+    var appUser = state.toAppUser(fbUser);
 
     // the .signup will wreck the current state
     // so we need to save the storage service
@@ -138,15 +138,20 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     // final storage = ref.read(fbStorageService);
     final profileImg = state.profileImage;
 
+    if (profileImg != null) {
+      final imageUrl =
+          await ref.read(fbStorageService).uploadUserProfileImage(profileImg);
+
+      appUser = appUser.copyWith(
+        profilePicUrl: imageUrl,
+      );
+    }
+
     final created = await ref.read(authProvider.notifier).signup(
           context: context,
           appUser: appUser,
           fbUser: fbUser,
         );
-
-    if (profileImg != null) {
-      await ref.read(fbStorageService).uploadUserProfileImage(profileImg);
-    }
 
     return created;
   }

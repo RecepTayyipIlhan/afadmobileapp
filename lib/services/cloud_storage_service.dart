@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:uuid/uuid.dart';
+
 import '../utils/utils.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,30 +21,17 @@ class CloudStorageService {
 
   FirebaseStorage get _storage => _ref.read(_storageProv);
 
-  Future<bool> uploadUserProfileImage(File file) async {
-    final user = _ref.read(authProvider).appUser;
-
-    if (user == null) {
-      logger.e('User is null');
-
-      return false;
-    }
-
-    final userId = user.id;
-
+  Future<String?> uploadUserProfileImage(File file) async {
     final ref = _storage
         .ref(_StorageNames._users)
         .child(_StorageNames._profilePics)
-        .child(userId)
+        .child(const Uuid().v4())
         .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
     final uploadTask = ref.putFile(file);
     final snapshot = await uploadTask.whenComplete(() {});
     final url = await snapshot.ref.getDownloadURL();
 
-    final db = _ref.read(fbDbProv);
-    final res = await db.setUserProfilePicUrl(userId, url);
-
-    return res;
+    return url;
   }
 }
 

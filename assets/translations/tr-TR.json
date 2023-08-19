@@ -48,6 +48,7 @@
     "auth:signup:validator:null:email": "E-posta zorunludur",
     "auth:signup:validator:invalid:email": "E-posta geçersiz",
     "auth:signup:validator:invalid:password": "Şifre en az 6 karakter uzunluğunda olmalıdır",
+    "auth:signup:validator:invalid:birth_date": "Doğum tarihi geçersiz",
     "auth:signup:validator:unknownerror": "Giriş yapılırken bir hata oluştu, lütfen daha sonra tekrar deneyin",
     "auth:signup:validator:weak-password": "Şifre en az 6 karakter uzunluğunda olmalıdır",
     "auth:signup:validator:email-already-in-use": "E-posta zaten kullanımda",

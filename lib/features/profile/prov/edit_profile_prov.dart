@@ -41,19 +41,24 @@ class EditProfileStateNotifier extends StateNotifier<EditProfileState> {
 
     final fbUser = ref.read(authProvider).firebaseUser!;
 
-    final appUser = state.toAppUser();
+    var appUser = state.toAppUser();
 
     final profileImg = state.profileImage;
 
-    final created = await ref.read(authProvider.notifier).editProfile(
-          context: context,
-          appUser: appUser,
-          fbUser: fbUser,
-        );
+    final auth = ref.read(authProvider.notifier);
+    final storage = ref.read(fbStorageService);
 
     if (profileImg != null) {
-      await ref.read(fbStorageService).uploadUserProfileImage(profileImg);
+      final imageUrl = await storage.uploadUserProfileImage(profileImg);
+
+      appUser = appUser.copyWith(profilePicUrl: imageUrl);
     }
+
+    final created = await auth.editProfile(
+      context: context,
+      appUser: appUser,
+      fbUser: fbUser,
+    );
 
     return created;
   }

@@ -77,7 +77,7 @@ class _ProfileImg extends StatelessWidget {
     // and it is not a big deal
     const borderSize = 21.0;
     const imageSize = size - borderSize;
-    return Container(
+    return SizedBox(
       height: size,
       child: CircleAvatar(
         radius: 50,
