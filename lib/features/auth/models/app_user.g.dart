@@ -78,7 +78,6 @@ const _$BloodGroupEnumMap = {
 };
 
 const _$RelativeTypeEnumMap = {
-  RelativeType.title: 'title',
   RelativeType.mother: 'mother',
   RelativeType.father: 'father',
   RelativeType.sibling: 'sibling',
