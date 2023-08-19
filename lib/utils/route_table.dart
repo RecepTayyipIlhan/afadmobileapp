@@ -164,7 +164,7 @@ class RouteTable {
         errorBuilder: (context, state) {
           return ErrorScreen.routeError();
         },
-        redirect: (context, state) {
+        redirect: (context, state) async {
           if (state.location == '/no_connection') {
             return null;
           }
