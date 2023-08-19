@@ -1,7 +1,9 @@
 import 'package:afad_app/utils/app_theme.dart';
+import 'package:afad_app/utils/route_table.dart';
 import 'package:afad_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/prov/auth_prov.dart';
@@ -43,9 +45,8 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
   }
 
   void _routeDetailedPersonPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DetailedPersonPage()),
+    GoRouter.of(context).pushNamed(
+      RouteTable.rAdminDetailedPersonPage,
     );
   }
 
@@ -102,8 +103,6 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
       );
     }
   }
-
-
 
   void logout() async {
     final res = await showDialog(
@@ -270,8 +269,6 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
               ),
             ),
           ),
-
-
         ],
       ),
     );
