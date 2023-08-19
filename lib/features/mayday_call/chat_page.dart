@@ -124,8 +124,6 @@ class _ChatPage extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     // to avoid dead code warnings
     bool initialValue = () {
       return true;
@@ -257,313 +255,42 @@ class _ChatPage extends State<ChatPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  return isConnected
-                                      ? () => sendMessage("$id,0,$lat,$lon")
-                                      : null;
-                                }(),
-
-                                /*onTap: () {
-                                  isConnected
-                                      ? () =>
-                                      sendMessage(id + "," + "0" + "," +lat+ ","+lon)
-                                      : null;§
-
-                                  setState(() {
-                                    zoom0 = !zoom0;
-                                  });
-                                },*/
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 700),
-                                  //color: Colors.amber,
-                                  height: zoom0 ? 50 : 60,
-                                  width: zoom0 ? 50 : 60,
-
-                                  padding: const EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.5),
-                                        spreadRadius: 0.5,
-                                        blurRadius: 5,
-                                        offset: const Offset(
-                                            0, 3), // changes position of shadow
-                                      ),
-                                    ],
-
-                                    color: Colors.white,
-                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 700),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                      image: DecorationImage(
-                                        scale: 0.2,
-                                        alignment: Alignment.topCenter,
-                                        image:
-                                            AssetImage("assets/icons/sos.png"),
-                                        // opacity: 0.8,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Enkaz Altındayım",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.white : Colors.black,
-                                  fontSize: initialValue ? 12 : 13,
-                                  fontWeight: initialValue
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
-                                ),
-                              )
-                            ],
+                          LocationNotifyItem(
+                            item: (
+                              title: "Enkaz Altındayım",
+                              imagePath: 'assets/icons/sos.png',
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,0,$lat,$lon")
+                                  : null,
+                            ),
                           ),
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: isConnected
-                                    ? () => sendMessage("$id,8,$lat,$lon")
-                                    : null,
-                                /*onTap: () {
-                                  isConnected
-                                      ? () =>
-                                      sendMessage(id + "," + "8" + "," +lat+ ","+lon)
-                                      : null;
-                                  setState(() {
-                                    zoom1 = !zoom1;
-                                  });
-                                },*/
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 700),
-                                  //color: Colors.amber,
-                                  height: zoom1 ? 50 : 60,
-                                  width: zoom1 ? 50 : 60,
-
-                                  padding: const EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.5),
-                                        spreadRadius: 0.5,
-                                        blurRadius: 5,
-                                        offset: const Offset(
-                                            0, 3), // changes position of shadow
-                                      ),
-                                    ],
-
-                                    color: Colors.white,
-                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 700),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                      image: DecorationImage(
-                                        scale: 0.2,
-                                        alignment: Alignment.topCenter,
-                                        image:
-                                            AssetImage("assets/icons/home.png"),
-                                        // opacity: 0.8,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Evdeyim",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.white : Colors.black,
-                                  fontSize: initialValue ? 12 : 13,
-                                  fontWeight: initialValue
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
-                                ),
-                              )
-                            ],
+                          LocationNotifyItem(
+                            item: (
+                              title: "Evdeyim",
+                              imagePath: 'assets/icons/home.png',
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,8,$lat,$lon")
+                                  : null,
+                            ),
                           ),
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: isConnected
-                                    ? () => sendMessage("$id,9,$lat,$lon")
-                                    : null,
-                                /*onTap: () {
-
-                                  isConnected
-                                      ? () =>
-                                      sendMessage(id + "," + "9" + "," +lat+ ","+lon)
-                                      : null;
-                                  setState(() {
-                                    zoom2 = !zoom2;
-                                  });
-                                },*/
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 700),
-                                  //color: Colors.amber,
-                                  height: zoom2 ? 50 : 60,
-                                  width: zoom2 ? 50 : 60,
-
-                                  padding: const EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.5),
-                                        spreadRadius: 0.5,
-                                        blurRadius: 5,
-                                        offset: const Offset(
-                                            0, 3), // changes position of shadow
-                                      ),
-                                    ],
-
-                                    color: Colors.white,
-                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 700),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                      image: DecorationImage(
-                                        scale: 0.2,
-                                        alignment: Alignment.topCenter,
-                                        image: AssetImage(
-                                            "assets/icons/meeting.png"),
-                                        // opacity: 0.8,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Toplanma Alanı",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.white : Colors.black,
-                                  fontSize: initialValue ? 12 : 13,
-                                  fontWeight: initialValue
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
-                                ),
-                              )
-                            ],
+                          LocationNotifyItem(
+                            item: (
+                              title: "Toplanma Alanı",
+                              imagePath: 'assets/icons/meeting.png',
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,9,$lat,$lon")
+                                  : null,
+                            ),
                           ),
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: isConnected
-                                    ? () => sendMessage("$id,10,$lat,$lon")
-                                    : null,
-                                /*onTap: () {
-                                  isConnected
-                                      ? () =>
-                                      sendMessage(id + "," + "10" + "," +lat+ ","+lon)
-                                      : null;
-                                  setState(() {
-                                    zoom3 = !zoom3;
-                                  });
-                                },*/
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 700),
-                                  //color: Colors.amber,
-                                  height: zoom3 ? 50 : 60,
-                                  width: zoom3 ? 50 : 60,
-
-                                  padding: const EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.5),
-                                        spreadRadius: 0.5,
-                                        blurRadius: 5,
-                                        offset: const Offset(
-                                            0, 3), // changes position of shadow
-                                      ),
-                                    ],
-
-                                    color: Colors.white,
-                                    //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 700),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      //color: _initialValue ? Colors.redAccent[200] : Colors.red,
-
-                                      image: DecorationImage(
-                                        scale: 0.2,
-                                        alignment: Alignment.topCenter,
-                                        image:
-                                            AssetImage("assets/icons/lost.png"),
-                                        // opacity: 0.8,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Kayboldum",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  //color: _initialValue ? Colors.white : Colors.black,
-                                  fontSize: initialValue ? 12 : 13,
-                                  fontWeight: initialValue
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
-                                ),
-                              )
-                            ],
+                          LocationNotifyItem(
+                            item: (
+                              title: "Kayboldum",
+                              imagePath: 'assets/icons/lost.png',
+                              onTap: isConnected
+                                  ? () => sendMessage("$id,10,$lat,$lon")
+                                  : null,
+                            ),
                           ),
-
-                          /*PlaceIcon(
-                            path: "assets/icons/home.png",
-                            title: "Evdeyim",
-                            //value: x,
-                          ),
-                          PlaceIcon(
-                            path: "assets/icons/meeting.png",
-                            title: "Toplanma Alanı",
-                          ),
-                          PlaceIcon(
-                            path: "assets/icons/lost.png",
-                            title: "Kayboldum",
-                          ),*/
                         ],
                       ),
                     ],
@@ -844,6 +571,67 @@ class HelpRequestItem extends StatelessWidget {
           subtitle: Text(item.subtitle),
         ),
       ),
+    );
+  }
+}
+
+class LocationNotifyItem extends StatelessWidget {
+  final ({
+    String title,
+    String imagePath,
+    VoidCallback? onTap,
+  }) item;
+  const LocationNotifyItem({
+    super.key,
+    required this.item,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: item.onTap,
+          child: Container(
+            height: 55,
+            width: 55,
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white.withOpacity(0.5),
+                  spreadRadius: 0.5,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  image: AssetImage(item.imagePath),
+                  scale: 0.2,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          item.title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+          ),
+        )
+      ],
     );
   }
 }
