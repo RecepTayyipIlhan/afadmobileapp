@@ -20,6 +20,18 @@ class SignupState with _$SignupState {
     String? email,
     String? pass,
     String? fullName,
+    BloodGroup? bloodGroup,
+    String? idNumber,
+    String? relativePhone,
+    String? relativeCountryPhoneCode,
+    String? relativeCountryLetterCode,
+    RelativeType? relativeType,
+    String? diseases,
+    String? medicines,
+    String? peopleAtSameAddress,
+    String? address,
+    String? buildingAge,
+    String? buildingDurability,
     File? profileImage,
     DateTime? birthDate,
     String? countryPhoneCode,
@@ -41,10 +53,22 @@ class SignupState with _$SignupState {
   AppUser toAppUser(User fbUser) => AppUser.fromFormState(
         email: fbUser.email!,
         fullName: fullName!,
+        bloodGroup: bloodGroup!,
+        idNumber: idNumber!,
+        relativePhone: relativePhone!,
+        relativeCountryPhoneCode: relativeCountryPhoneCode!,
+        relativeCountryLetterCode: relativeCountryLetterCode!,
+        relativeType: relativeType!,
+        diseases: diseases,
+        medicines: medicines,
+        peopleAtSameAddress: peopleAtSameAddress,
+        address: address,
+        buildingAge: buildingAge,
+        buildingDurability: buildingDurability,
         birthDate: birthDate,
-        countryPhoneCode: countryPhoneCode,
-        countryLetterCode: countryLetterCode,
-        phone: phone,
+        countryPhoneCode: countryPhoneCode!,
+        countryLetterCode: countryLetterCode!,
+        phone: phone!,
       );
 
   Duration get emailLinkResendDuration => const Duration(seconds: 30);
@@ -90,6 +114,14 @@ class SignupState with _$SignupState {
     return '+$countryPhoneCode';
   }
 
+  String? relativeCountryCodeFormatted(BuildContext context) {
+    if (relativeCountryPhoneCode == null) {
+      return null;
+    }
+
+    return '+$relativeCountryPhoneCode';
+  }
+
   bool get _isEmailVerified => ref.watch(authProvider).isEmailVerified;
 
   SignupStep get step => _isEmailVerified ? SignupStep.info : SignupStep.email;
@@ -101,6 +133,18 @@ class SignupState with _$SignupState {
   bool get showEmailField => isEmailStep;
 
   bool get showFullNameField => isInfoStep;
+  bool get showBloodGroupField => isInfoStep;
+  bool get showIdNumberField => isInfoStep;
+  bool get showRelativePhoneField => isInfoStep;
+  bool get showRelativeTypeField => isInfoStep;
+  bool get showRelativeCountryPhoneCodeField => isInfoStep;
+  bool get showRelativeCountryLetterCodeField => isInfoStep;
+  bool get showDiseasesField => isInfoStep;
+  bool get showMedicinesField => isInfoStep;
+  bool get showPeopleAtSameAddressField => isInfoStep;
+  bool get showAddressField => isInfoStep;
+  bool get showBuildingAgeField => isInfoStep;
+  bool get showBuildingDurabilityField => isInfoStep;
   bool get showProfileImageField => isInfoStep;
   bool get showBirthDateField => isInfoStep;
   bool get showPhoneField => isInfoStep;

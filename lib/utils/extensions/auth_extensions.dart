@@ -13,4 +13,6 @@ extension AuthString on String {
 
   // never assume anything about the user's name,
   bool get isFullNameValid => length >= 3;
+
+  bool get isIdNumberValid => int.tryParse(this) != null && length == 11;
 }

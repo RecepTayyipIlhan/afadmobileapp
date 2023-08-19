@@ -17,6 +17,18 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EditProfileState {
   String get fullName => throw _privateConstructorUsedError;
+  BloodGroup? get bloodGroup => throw _privateConstructorUsedError;
+  String? get idNumber => throw _privateConstructorUsedError;
+  String? get relativePhone => throw _privateConstructorUsedError;
+  String? get relativeCountryPhoneCode => throw _privateConstructorUsedError;
+  String? get relativeCountryLetterCode => throw _privateConstructorUsedError;
+  RelativeType? get relativeType => throw _privateConstructorUsedError;
+  String? get diseases => throw _privateConstructorUsedError;
+  String? get medicines => throw _privateConstructorUsedError;
+  String? get peopleAtSameAddress => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String? get buildingAge => throw _privateConstructorUsedError;
+  String? get buildingDurability => throw _privateConstructorUsedError;
   File? get profileImage => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
@@ -40,6 +52,18 @@ abstract class $EditProfileStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String fullName,
+      BloodGroup? bloodGroup,
+      String? idNumber,
+      String? relativePhone,
+      String? relativeCountryPhoneCode,
+      String? relativeCountryLetterCode,
+      RelativeType? relativeType,
+      String? diseases,
+      String? medicines,
+      String? peopleAtSameAddress,
+      String? address,
+      String? buildingAge,
+      String? buildingDurability,
       File? profileImage,
       String? profileImageUrl,
       DateTime? birthDate,
@@ -67,6 +91,18 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   @override
   $Res call({
     Object? fullName = null,
+    Object? bloodGroup = freezed,
+    Object? idNumber = freezed,
+    Object? relativePhone = freezed,
+    Object? relativeCountryPhoneCode = freezed,
+    Object? relativeCountryLetterCode = freezed,
+    Object? relativeType = freezed,
+    Object? diseases = freezed,
+    Object? medicines = freezed,
+    Object? peopleAtSameAddress = freezed,
+    Object? address = freezed,
+    Object? buildingAge = freezed,
+    Object? buildingDurability = freezed,
     Object? profileImage = freezed,
     Object? profileImageUrl = freezed,
     Object? birthDate = freezed,
@@ -82,6 +118,54 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
+      bloodGroup: freezed == bloodGroup
+          ? _value.bloodGroup
+          : bloodGroup // ignore: cast_nullable_to_non_nullable
+              as BloodGroup?,
+      idNumber: freezed == idNumber
+          ? _value.idNumber
+          : idNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativePhone: freezed == relativePhone
+          ? _value.relativePhone
+          : relativePhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
+          ? _value.relativeCountryPhoneCode
+          : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryLetterCode: freezed == relativeCountryLetterCode
+          ? _value.relativeCountryLetterCode
+          : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeType: freezed == relativeType
+          ? _value.relativeType
+          : relativeType // ignore: cast_nullable_to_non_nullable
+              as RelativeType?,
+      diseases: freezed == diseases
+          ? _value.diseases
+          : diseases // ignore: cast_nullable_to_non_nullable
+              as String?,
+      medicines: freezed == medicines
+          ? _value.medicines
+          : medicines // ignore: cast_nullable_to_non_nullable
+              as String?,
+      peopleAtSameAddress: freezed == peopleAtSameAddress
+          ? _value.peopleAtSameAddress
+          : peopleAtSameAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingAge: freezed == buildingAge
+          ? _value.buildingAge
+          : buildingAge // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingDurability: freezed == buildingDurability
+          ? _value.buildingDurability
+          : buildingDurability // ignore: cast_nullable_to_non_nullable
+              as String?,
       profileImage: freezed == profileImage
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
@@ -140,6 +224,18 @@ abstract class _$$_EditProfileStateCopyWith<$Res>
   @useResult
   $Res call(
       {String fullName,
+      BloodGroup? bloodGroup,
+      String? idNumber,
+      String? relativePhone,
+      String? relativeCountryPhoneCode,
+      String? relativeCountryLetterCode,
+      RelativeType? relativeType,
+      String? diseases,
+      String? medicines,
+      String? peopleAtSameAddress,
+      String? address,
+      String? buildingAge,
+      String? buildingDurability,
       File? profileImage,
       String? profileImageUrl,
       DateTime? birthDate,
@@ -166,6 +262,18 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fullName = null,
+    Object? bloodGroup = freezed,
+    Object? idNumber = freezed,
+    Object? relativePhone = freezed,
+    Object? relativeCountryPhoneCode = freezed,
+    Object? relativeCountryLetterCode = freezed,
+    Object? relativeType = freezed,
+    Object? diseases = freezed,
+    Object? medicines = freezed,
+    Object? peopleAtSameAddress = freezed,
+    Object? address = freezed,
+    Object? buildingAge = freezed,
+    Object? buildingDurability = freezed,
     Object? profileImage = freezed,
     Object? profileImageUrl = freezed,
     Object? birthDate = freezed,
@@ -181,6 +289,54 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
+      bloodGroup: freezed == bloodGroup
+          ? _value.bloodGroup
+          : bloodGroup // ignore: cast_nullable_to_non_nullable
+              as BloodGroup?,
+      idNumber: freezed == idNumber
+          ? _value.idNumber
+          : idNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativePhone: freezed == relativePhone
+          ? _value.relativePhone
+          : relativePhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
+          ? _value.relativeCountryPhoneCode
+          : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeCountryLetterCode: freezed == relativeCountryLetterCode
+          ? _value.relativeCountryLetterCode
+          : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      relativeType: freezed == relativeType
+          ? _value.relativeType
+          : relativeType // ignore: cast_nullable_to_non_nullable
+              as RelativeType?,
+      diseases: freezed == diseases
+          ? _value.diseases
+          : diseases // ignore: cast_nullable_to_non_nullable
+              as String?,
+      medicines: freezed == medicines
+          ? _value.medicines
+          : medicines // ignore: cast_nullable_to_non_nullable
+              as String?,
+      peopleAtSameAddress: freezed == peopleAtSameAddress
+          ? _value.peopleAtSameAddress
+          : peopleAtSameAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingAge: freezed == buildingAge
+          ? _value.buildingAge
+          : buildingAge // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingDurability: freezed == buildingDurability
+          ? _value.buildingDurability
+          : buildingDurability // ignore: cast_nullable_to_non_nullable
+              as String?,
       profileImage: freezed == profileImage
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
@@ -226,6 +382,18 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
 class _$_EditProfileState extends _EditProfileState {
   const _$_EditProfileState(
       {required this.fullName,
+      this.bloodGroup,
+      this.idNumber,
+      this.relativePhone,
+      this.relativeCountryPhoneCode,
+      this.relativeCountryLetterCode,
+      this.relativeType,
+      this.diseases,
+      this.medicines,
+      this.peopleAtSameAddress,
+      this.address,
+      this.buildingAge,
+      this.buildingDurability,
       this.profileImage,
       this.profileImageUrl,
       this.birthDate,
@@ -239,6 +407,30 @@ class _$_EditProfileState extends _EditProfileState {
 
   @override
   final String fullName;
+  @override
+  final BloodGroup? bloodGroup;
+  @override
+  final String? idNumber;
+  @override
+  final String? relativePhone;
+  @override
+  final String? relativeCountryPhoneCode;
+  @override
+  final String? relativeCountryLetterCode;
+  @override
+  final RelativeType? relativeType;
+  @override
+  final String? diseases;
+  @override
+  final String? medicines;
+  @override
+  final String? peopleAtSameAddress;
+  @override
+  final String? address;
+  @override
+  final String? buildingAge;
+  @override
+  final String? buildingDurability;
   @override
   final File? profileImage;
   @override
@@ -260,7 +452,7 @@ class _$_EditProfileState extends _EditProfileState {
 
   @override
   String toString() {
-    return 'EditProfileState(fullName: $fullName, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
+    return 'EditProfileState(fullName: $fullName, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
   }
 
   @override
@@ -270,6 +462,31 @@ class _$_EditProfileState extends _EditProfileState {
             other is _$_EditProfileState &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
+            (identical(other.bloodGroup, bloodGroup) ||
+                other.bloodGroup == bloodGroup) &&
+            (identical(other.idNumber, idNumber) ||
+                other.idNumber == idNumber) &&
+            (identical(other.relativePhone, relativePhone) ||
+                other.relativePhone == relativePhone) &&
+            (identical(
+                    other.relativeCountryPhoneCode, relativeCountryPhoneCode) ||
+                other.relativeCountryPhoneCode == relativeCountryPhoneCode) &&
+            (identical(other.relativeCountryLetterCode,
+                    relativeCountryLetterCode) ||
+                other.relativeCountryLetterCode == relativeCountryLetterCode) &&
+            (identical(other.relativeType, relativeType) ||
+                other.relativeType == relativeType) &&
+            (identical(other.diseases, diseases) ||
+                other.diseases == diseases) &&
+            (identical(other.medicines, medicines) ||
+                other.medicines == medicines) &&
+            (identical(other.peopleAtSameAddress, peopleAtSameAddress) ||
+                other.peopleAtSameAddress == peopleAtSameAddress) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.buildingAge, buildingAge) ||
+                other.buildingAge == buildingAge) &&
+            (identical(other.buildingDurability, buildingDurability) ||
+                other.buildingDurability == buildingDurability) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
@@ -287,18 +504,31 @@ class _$_EditProfileState extends _EditProfileState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      fullName,
-      profileImage,
-      profileImageUrl,
-      birthDate,
-      countryPhoneCode,
-      countryLetterCode,
-      phone,
-      ref,
-      formKey,
-      user);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        fullName,
+        bloodGroup,
+        idNumber,
+        relativePhone,
+        relativeCountryPhoneCode,
+        relativeCountryLetterCode,
+        relativeType,
+        diseases,
+        medicines,
+        peopleAtSameAddress,
+        address,
+        buildingAge,
+        buildingDurability,
+        profileImage,
+        profileImageUrl,
+        birthDate,
+        countryPhoneCode,
+        countryLetterCode,
+        phone,
+        ref,
+        formKey,
+        user
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -310,6 +540,18 @@ class _$_EditProfileState extends _EditProfileState {
 abstract class _EditProfileState extends EditProfileState {
   const factory _EditProfileState(
       {required final String fullName,
+      final BloodGroup? bloodGroup,
+      final String? idNumber,
+      final String? relativePhone,
+      final String? relativeCountryPhoneCode,
+      final String? relativeCountryLetterCode,
+      final RelativeType? relativeType,
+      final String? diseases,
+      final String? medicines,
+      final String? peopleAtSameAddress,
+      final String? address,
+      final String? buildingAge,
+      final String? buildingDurability,
       final File? profileImage,
       final String? profileImageUrl,
       final DateTime? birthDate,
@@ -323,6 +565,30 @@ abstract class _EditProfileState extends EditProfileState {
 
   @override
   String get fullName;
+  @override
+  BloodGroup? get bloodGroup;
+  @override
+  String? get idNumber;
+  @override
+  String? get relativePhone;
+  @override
+  String? get relativeCountryPhoneCode;
+  @override
+  String? get relativeCountryLetterCode;
+  @override
+  RelativeType? get relativeType;
+  @override
+  String? get diseases;
+  @override
+  String? get medicines;
+  @override
+  String? get peopleAtSameAddress;
+  @override
+  String? get address;
+  @override
+  String? get buildingAge;
+  @override
+  String? get buildingDurability;
   @override
   File? get profileImage;
   @override

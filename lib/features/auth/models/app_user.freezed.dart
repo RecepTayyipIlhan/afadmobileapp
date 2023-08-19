@@ -24,11 +24,23 @@ mixin _$AppUser {
   String get email => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   AppUserRole get role => throw _privateConstructorUsedError;
+  BloodGroup get bloodGroup => throw _privateConstructorUsedError;
+  String get idNumber => throw _privateConstructorUsedError;
+  String get relativePhone => throw _privateConstructorUsedError;
+  String get relativeCountryPhoneCode => throw _privateConstructorUsedError;
+  String get relativeCountryLetterCode => throw _privateConstructorUsedError;
+  RelativeType get relativeType => throw _privateConstructorUsedError;
+  String? get diseases => throw _privateConstructorUsedError;
+  String? get medicines => throw _privateConstructorUsedError;
+  String? get peopleAtSameAddress => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String? get buildingAge => throw _privateConstructorUsedError;
+  String? get buildingDurability => throw _privateConstructorUsedError;
   String? get profilePicUrl => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
-  String? get countryPhoneCode => throw _privateConstructorUsedError;
-  String? get countryLetterCode => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
+  String get countryPhoneCode => throw _privateConstructorUsedError;
+  String get countryLetterCode => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool get isLoading => throw _privateConstructorUsedError;
   DateTime? get lastUpdated => throw _privateConstructorUsedError;
@@ -48,11 +60,23 @@ abstract class $AppUserCopyWith<$Res> {
       String email,
       String fullName,
       AppUserRole role,
+      BloodGroup bloodGroup,
+      String idNumber,
+      String relativePhone,
+      String relativeCountryPhoneCode,
+      String relativeCountryLetterCode,
+      RelativeType relativeType,
+      String? diseases,
+      String? medicines,
+      String? peopleAtSameAddress,
+      String? address,
+      String? buildingAge,
+      String? buildingDurability,
       String? profilePicUrl,
       DateTime? birthDate,
-      String? countryPhoneCode,
-      String? countryLetterCode,
-      String? phone,
+      String countryPhoneCode,
+      String countryLetterCode,
+      String phone,
       @JsonKey(includeFromJson: false, includeToJson: false) bool isLoading,
       DateTime? lastUpdated});
 }
@@ -74,11 +98,23 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? email = null,
     Object? fullName = null,
     Object? role = null,
+    Object? bloodGroup = null,
+    Object? idNumber = null,
+    Object? relativePhone = null,
+    Object? relativeCountryPhoneCode = null,
+    Object? relativeCountryLetterCode = null,
+    Object? relativeType = null,
+    Object? diseases = freezed,
+    Object? medicines = freezed,
+    Object? peopleAtSameAddress = freezed,
+    Object? address = freezed,
+    Object? buildingAge = freezed,
+    Object? buildingDurability = freezed,
     Object? profilePicUrl = freezed,
     Object? birthDate = freezed,
-    Object? countryPhoneCode = freezed,
-    Object? countryLetterCode = freezed,
-    Object? phone = freezed,
+    Object? countryPhoneCode = null,
+    Object? countryLetterCode = null,
+    Object? phone = null,
     Object? isLoading = null,
     Object? lastUpdated = freezed,
   }) {
@@ -99,6 +135,54 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as AppUserRole,
+      bloodGroup: null == bloodGroup
+          ? _value.bloodGroup
+          : bloodGroup // ignore: cast_nullable_to_non_nullable
+              as BloodGroup,
+      idNumber: null == idNumber
+          ? _value.idNumber
+          : idNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativePhone: null == relativePhone
+          ? _value.relativePhone
+          : relativePhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativeCountryPhoneCode: null == relativeCountryPhoneCode
+          ? _value.relativeCountryPhoneCode
+          : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativeCountryLetterCode: null == relativeCountryLetterCode
+          ? _value.relativeCountryLetterCode
+          : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativeType: null == relativeType
+          ? _value.relativeType
+          : relativeType // ignore: cast_nullable_to_non_nullable
+              as RelativeType,
+      diseases: freezed == diseases
+          ? _value.diseases
+          : diseases // ignore: cast_nullable_to_non_nullable
+              as String?,
+      medicines: freezed == medicines
+          ? _value.medicines
+          : medicines // ignore: cast_nullable_to_non_nullable
+              as String?,
+      peopleAtSameAddress: freezed == peopleAtSameAddress
+          ? _value.peopleAtSameAddress
+          : peopleAtSameAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingAge: freezed == buildingAge
+          ? _value.buildingAge
+          : buildingAge // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingDurability: freezed == buildingDurability
+          ? _value.buildingDurability
+          : buildingDurability // ignore: cast_nullable_to_non_nullable
+              as String?,
       profilePicUrl: freezed == profilePicUrl
           ? _value.profilePicUrl
           : profilePicUrl // ignore: cast_nullable_to_non_nullable
@@ -107,18 +191,18 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      countryPhoneCode: freezed == countryPhoneCode
+      countryPhoneCode: null == countryPhoneCode
           ? _value.countryPhoneCode
           : countryPhoneCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      countryLetterCode: freezed == countryLetterCode
+              as String,
+      countryLetterCode: null == countryLetterCode
           ? _value.countryLetterCode
           : countryLetterCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
+              as String,
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -143,11 +227,23 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String email,
       String fullName,
       AppUserRole role,
+      BloodGroup bloodGroup,
+      String idNumber,
+      String relativePhone,
+      String relativeCountryPhoneCode,
+      String relativeCountryLetterCode,
+      RelativeType relativeType,
+      String? diseases,
+      String? medicines,
+      String? peopleAtSameAddress,
+      String? address,
+      String? buildingAge,
+      String? buildingDurability,
       String? profilePicUrl,
       DateTime? birthDate,
-      String? countryPhoneCode,
-      String? countryLetterCode,
-      String? phone,
+      String countryPhoneCode,
+      String countryLetterCode,
+      String phone,
       @JsonKey(includeFromJson: false, includeToJson: false) bool isLoading,
       DateTime? lastUpdated});
 }
@@ -166,11 +262,23 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? email = null,
     Object? fullName = null,
     Object? role = null,
+    Object? bloodGroup = null,
+    Object? idNumber = null,
+    Object? relativePhone = null,
+    Object? relativeCountryPhoneCode = null,
+    Object? relativeCountryLetterCode = null,
+    Object? relativeType = null,
+    Object? diseases = freezed,
+    Object? medicines = freezed,
+    Object? peopleAtSameAddress = freezed,
+    Object? address = freezed,
+    Object? buildingAge = freezed,
+    Object? buildingDurability = freezed,
     Object? profilePicUrl = freezed,
     Object? birthDate = freezed,
-    Object? countryPhoneCode = freezed,
-    Object? countryLetterCode = freezed,
-    Object? phone = freezed,
+    Object? countryPhoneCode = null,
+    Object? countryLetterCode = null,
+    Object? phone = null,
     Object? isLoading = null,
     Object? lastUpdated = freezed,
   }) {
@@ -191,6 +299,54 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as AppUserRole,
+      bloodGroup: null == bloodGroup
+          ? _value.bloodGroup
+          : bloodGroup // ignore: cast_nullable_to_non_nullable
+              as BloodGroup,
+      idNumber: null == idNumber
+          ? _value.idNumber
+          : idNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativePhone: null == relativePhone
+          ? _value.relativePhone
+          : relativePhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativeCountryPhoneCode: null == relativeCountryPhoneCode
+          ? _value.relativeCountryPhoneCode
+          : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativeCountryLetterCode: null == relativeCountryLetterCode
+          ? _value.relativeCountryLetterCode
+          : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      relativeType: null == relativeType
+          ? _value.relativeType
+          : relativeType // ignore: cast_nullable_to_non_nullable
+              as RelativeType,
+      diseases: freezed == diseases
+          ? _value.diseases
+          : diseases // ignore: cast_nullable_to_non_nullable
+              as String?,
+      medicines: freezed == medicines
+          ? _value.medicines
+          : medicines // ignore: cast_nullable_to_non_nullable
+              as String?,
+      peopleAtSameAddress: freezed == peopleAtSameAddress
+          ? _value.peopleAtSameAddress
+          : peopleAtSameAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingAge: freezed == buildingAge
+          ? _value.buildingAge
+          : buildingAge // ignore: cast_nullable_to_non_nullable
+              as String?,
+      buildingDurability: freezed == buildingDurability
+          ? _value.buildingDurability
+          : buildingDurability // ignore: cast_nullable_to_non_nullable
+              as String?,
       profilePicUrl: freezed == profilePicUrl
           ? _value.profilePicUrl
           : profilePicUrl // ignore: cast_nullable_to_non_nullable
@@ -199,18 +355,18 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      countryPhoneCode: freezed == countryPhoneCode
+      countryPhoneCode: null == countryPhoneCode
           ? _value.countryPhoneCode
           : countryPhoneCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      countryLetterCode: freezed == countryLetterCode
+              as String,
+      countryLetterCode: null == countryLetterCode
           ? _value.countryLetterCode
           : countryLetterCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
+              as String,
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -231,11 +387,23 @@ class _$_AppUser extends _AppUser {
       required this.email,
       required this.fullName,
       required this.role,
+      required this.bloodGroup,
+      required this.idNumber,
+      required this.relativePhone,
+      required this.relativeCountryPhoneCode,
+      required this.relativeCountryLetterCode,
+      required this.relativeType,
+      this.diseases,
+      this.medicines,
+      required this.peopleAtSameAddress,
+      required this.address,
+      this.buildingAge,
+      this.buildingDurability,
       this.profilePicUrl,
       this.birthDate,
-      this.countryPhoneCode,
-      this.countryLetterCode,
-      this.phone,
+      required this.countryPhoneCode,
+      required this.countryLetterCode,
+      required this.phone,
       @JsonKey(includeFromJson: false, includeToJson: false)
       this.isLoading = false,
       this.lastUpdated})
@@ -253,15 +421,39 @@ class _$_AppUser extends _AppUser {
   @override
   final AppUserRole role;
   @override
+  final BloodGroup bloodGroup;
+  @override
+  final String idNumber;
+  @override
+  final String relativePhone;
+  @override
+  final String relativeCountryPhoneCode;
+  @override
+  final String relativeCountryLetterCode;
+  @override
+  final RelativeType relativeType;
+  @override
+  final String? diseases;
+  @override
+  final String? medicines;
+  @override
+  final String? peopleAtSameAddress;
+  @override
+  final String? address;
+  @override
+  final String? buildingAge;
+  @override
+  final String? buildingDurability;
+  @override
   final String? profilePicUrl;
   @override
   final DateTime? birthDate;
   @override
-  final String? countryPhoneCode;
+  final String countryPhoneCode;
   @override
-  final String? countryLetterCode;
+  final String countryLetterCode;
   @override
-  final String? phone;
+  final String phone;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   final bool isLoading;
@@ -270,7 +462,7 @@ class _$_AppUser extends _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
+    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -283,6 +475,31 @@ class _$_AppUser extends _AppUser {
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.role, role) || other.role == role) &&
+            (identical(other.bloodGroup, bloodGroup) ||
+                other.bloodGroup == bloodGroup) &&
+            (identical(other.idNumber, idNumber) ||
+                other.idNumber == idNumber) &&
+            (identical(other.relativePhone, relativePhone) ||
+                other.relativePhone == relativePhone) &&
+            (identical(
+                    other.relativeCountryPhoneCode, relativeCountryPhoneCode) ||
+                other.relativeCountryPhoneCode == relativeCountryPhoneCode) &&
+            (identical(other.relativeCountryLetterCode,
+                    relativeCountryLetterCode) ||
+                other.relativeCountryLetterCode == relativeCountryLetterCode) &&
+            (identical(other.relativeType, relativeType) ||
+                other.relativeType == relativeType) &&
+            (identical(other.diseases, diseases) ||
+                other.diseases == diseases) &&
+            (identical(other.medicines, medicines) ||
+                other.medicines == medicines) &&
+            (identical(other.peopleAtSameAddress, peopleAtSameAddress) ||
+                other.peopleAtSameAddress == peopleAtSameAddress) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.buildingAge, buildingAge) ||
+                other.buildingAge == buildingAge) &&
+            (identical(other.buildingDurability, buildingDurability) ||
+                other.buildingDurability == buildingDurability) &&
             (identical(other.profilePicUrl, profilePicUrl) ||
                 other.profilePicUrl == profilePicUrl) &&
             (identical(other.birthDate, birthDate) ||
@@ -300,19 +517,32 @@ class _$_AppUser extends _AppUser {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      email,
-      fullName,
-      role,
-      profilePicUrl,
-      birthDate,
-      countryPhoneCode,
-      countryLetterCode,
-      phone,
-      isLoading,
-      lastUpdated);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        email,
+        fullName,
+        role,
+        bloodGroup,
+        idNumber,
+        relativePhone,
+        relativeCountryPhoneCode,
+        relativeCountryLetterCode,
+        relativeType,
+        diseases,
+        medicines,
+        peopleAtSameAddress,
+        address,
+        buildingAge,
+        buildingDurability,
+        profilePicUrl,
+        birthDate,
+        countryPhoneCode,
+        countryLetterCode,
+        phone,
+        isLoading,
+        lastUpdated
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -334,11 +564,23 @@ abstract class _AppUser extends AppUser {
       required final String email,
       required final String fullName,
       required final AppUserRole role,
+      required final BloodGroup bloodGroup,
+      required final String idNumber,
+      required final String relativePhone,
+      required final String relativeCountryPhoneCode,
+      required final String relativeCountryLetterCode,
+      required final RelativeType relativeType,
+      final String? diseases,
+      final String? medicines,
+      required final String? peopleAtSameAddress,
+      required final String? address,
+      final String? buildingAge,
+      final String? buildingDurability,
       final String? profilePicUrl,
       final DateTime? birthDate,
-      final String? countryPhoneCode,
-      final String? countryLetterCode,
-      final String? phone,
+      required final String countryPhoneCode,
+      required final String countryLetterCode,
+      required final String phone,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final bool isLoading,
       final DateTime? lastUpdated}) = _$_AppUser;
@@ -355,15 +597,39 @@ abstract class _AppUser extends AppUser {
   @override
   AppUserRole get role;
   @override
+  BloodGroup get bloodGroup;
+  @override
+  String get idNumber;
+  @override
+  String get relativePhone;
+  @override
+  String get relativeCountryPhoneCode;
+  @override
+  String get relativeCountryLetterCode;
+  @override
+  RelativeType get relativeType;
+  @override
+  String? get diseases;
+  @override
+  String? get medicines;
+  @override
+  String? get peopleAtSameAddress;
+  @override
+  String? get address;
+  @override
+  String? get buildingAge;
+  @override
+  String? get buildingDurability;
+  @override
   String? get profilePicUrl;
   @override
   DateTime? get birthDate;
   @override
-  String? get countryPhoneCode;
+  String get countryPhoneCode;
   @override
-  String? get countryLetterCode;
+  String get countryLetterCode;
   @override
-  String? get phone;
+  String get phone;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool get isLoading;

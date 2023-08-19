@@ -5,7 +5,7 @@ version: 1.0.0+1
 # flutter 3.10.4
 # dart 3.0.3
 environment:
-  sdk: "3.0.6"
+  sdk: "3.0.3"
 dependencies:
   flutter:
     sdk: flutter
@@ -43,6 +43,16 @@ dependencies:
   uuid: ^3.0.7
   device_info_plus: ^9.0.3
   app_tracking_transparency: ^2.0.4
+  # country_picker: ^2.0.19
+  country_picker:
+    # this package has a problem as it is filling the ui
+    # and not respecting the constraints.
+    # i've forked it and fixed it and submitted a PR.
+    # until it is merged, use this forked version.
+    # https://github.com/Daniel-Ioannou/flutter_country_picker/pull/108
+    git:
+      url: https://github.com/adnanjpg/flutter_country_picker.git
+      ref: ui-filling-fix
   connectivity_plus: ^4.0.2
   image_cropper: ^5.0.0
   image_picker: ^1.0.2

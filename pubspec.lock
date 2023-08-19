@@ -241,6 +241,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  country_picker:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: ui-filling-fix
+      resolved-ref: "54c92559039503f48c9eeab0f7e3743f08bdba6c"
+      url: "https://github.com/adnanjpg/flutter_country_picker.git"
+    source: git
+    version: "2.0.19"
   cross_file:
     dependency: transitive
     description:
@@ -1517,5 +1526,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: "3.0.6"
+  dart: "3.0.3"
   flutter: ">=3.10.0"
