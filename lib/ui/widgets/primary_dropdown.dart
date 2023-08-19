@@ -56,12 +56,26 @@ class PrimaryDropdown<T> extends StatefulWidget {
 }
 
 class _PrimaryDropdownState<T> extends State<PrimaryDropdown<T>> {
+  T? selectedValue;
+
+  void onChanged(T? value) {
+    setState(() {
+      selectedValue = value;
+    });
+    widget.onChanged?.call(value);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectedValue = widget.initialValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     final enabledStyle = widget.enabled || widget.enabledStyle;
 
     final suffix = widget.suffixIcon;
-    ;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,6 +136,7 @@ class _PrimaryDropdownState<T> extends State<PrimaryDropdown<T>> {
               ),
             ),
             onChanged: widget.onChanged,
+            value: selectedValue,
           ),
         ),
       ].joinWidgetList(

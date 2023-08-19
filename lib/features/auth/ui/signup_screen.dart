@@ -280,7 +280,6 @@ class _Fields extends ConsumerWidget {
               labelText: getStr('auth:signup:fields:medicines:title'),
               onChanged: notifier.medicinesOnChanged,
               maxLines: 1,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
           ],
           // optional
@@ -294,14 +293,14 @@ class _Fields extends ConsumerWidget {
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
           ],
-          // optionalß
+          // optional
           if (formState.showBuildingDurabilityField) ...[
             PrimaryField(
               labelText: getStr('auth:signup:fields:buildingdurability:title'),
               onChanged: notifier.buildingDurabilityOnChanged,
               maxLines: 1,
             ),
-          ]
+          ],
         ],
       ].joinWidgetList(
         (index) => const SizedBox(
