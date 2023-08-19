@@ -1,3 +1,4 @@
+import 'package:afad_app/features/education_videos/ui/education_videos_screen.dart';
 import 'package:afad_app/features/home/models/bottom_bar/bottom_bar_index.dart';
 import 'package:afad_app/features/profile/ui/profile_screen.dart';
 import 'package:afad_app/services/bluetooth/devices_screen.dart';
@@ -17,10 +18,22 @@ class BottomNavScreen extends ConsumerWidget {
     final state = ref.watch(bottomBarStateProvider);
     final notifier = ref.read(bottomBarStateProvider.notifier);
 
+    Widget bod;
+
+    switch (state.bottomBarIndex) {
+      case BottomBarIndex.devices:
+        bod = const DevicesScreen();
+        break;
+      case BottomBarIndex.educationVideos:
+        bod = const EducationVideosScreen();
+        break;
+      case BottomBarIndex.profile:
+        bod = const ProfileScreen();
+        break;
+    }
+
     return Scaffold(
-      body: state.bottomBarIndex == BottomBarIndex.devices
-          ? const DevicesScreen()
-          : const ProfileScreen(),
+      body: bod,
       bottomNavigationBar: ClipRRect(
         borderRadius: Theme.of(context).bottomBarBorderRadius,
         // TODO: spread items
