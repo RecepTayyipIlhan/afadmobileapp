@@ -103,23 +103,7 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
     }
   }
 
-  /*void loadAllMarkers(List<String> markers){
-    _mapMarkers.clear();
-    setState(() {
 
-      for (var i= 0; i<konumDataList.length; i++){
-        var loc = markers[i].split(", ");
-        _mapMarkers.add(
-            Marker(markerId: MarkerId(DateTime.now().toString()),
-              position: LatLng(double.parse(loc[0]), double.parse(loc[1])),
-              infoWindow: const InfoWindow(
-                title: 'Enkaz Altındayım',
-              ),)
-        );
-      }
-
-    });
-  }*/
 
   void logout() async {
     final res = await showDialog(
@@ -287,92 +271,7 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
             ),
           ),
 
-          /* Builder(
-            builder: (context) {
-              if (!show) {
-                return SecondaryBtn(
-                  onPressed: () {
-                    setState(() {
-                      show = true;
-                    });
-                  },
-                  eventName: '',
-                  text: 'Gizle',
-                );
-              }
-              return PositionedDirectional(
-                end: 50,
-                top: 50,
-                child: Column(
-                  children: [
-                    SecondaryBtn(
-                      onPressed: () {
-                        setState(() {
-                          show = false;
-                        });
-                      },
-                      eventName: '',
-                      text: 'Göster',
-                    ),
-                    Container(
 
-                      color: Colors.white.withOpacity(0.9),
-                      height: screen.size.width * 0.4,
-                      width: screen.size.width * 0.4,
-                      child: SingleChildScrollView(
-                        child: DataTable(
-                          columns: <DataColumn>[
-                            DataColumn(label: Text("Id")),
-                            DataColumn(label: Text("İsim")),
-                            DataColumn(label: Text("Tür")),
-                            DataColumn(label: Text("Mesaj")),
-                            DataColumn(label: Text("Konum")),
-                          ],
-                          rows: List<DataRow>.generate(
-                            konumDataList.length,
-                            (index) => DataRow(
-                              cells: [
-                                DataCell(Text("142")),
-                                DataCell(Text("Recep Tayyip")),
-                                DataCell(Text("İhbar")),
-                                DataCell(Text("Enkaz Altı")),
-                                DataCell(Text(konumDataList[index])),
-                              ],
-                              onSelectChanged: (selected) {
-                                _onRowSelect(selected! ? index : -1);
-                                if (selected) {
-                                  var location = konumDataList[index].split(', ');
-                                  print("deneme :" +
-                                      location[0] +
-                                      " ---- " +
-                                      location[1]);
-
-                                  CameraPosition cameraPosition =
-                                      CameraPosition(
-                                    target: LatLng(double.parse(location[0]),
-                                        double.parse(location[1])),
-                                    zoom: 15.0,
-                                  );
-
-                                  mapController?.animateCamera(
-                                      CameraUpdate.newCameraPosition(
-                                          cameraPosition));
-                                  _addMarker(location[0], location[1]);
-
-                                  setState(() {});
-                                }
-                              },
-                              selected: index == _selectedRowIndex,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),*/
         ],
       ),
     );
