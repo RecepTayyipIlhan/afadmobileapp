@@ -49,7 +49,7 @@ extension MyTheme on ThemeData {
   Color get bottomBarUnSelectedIconColor =>
       AppTheme._lightOnDarkTextColor.withOpacity(.5);
   BorderRadiusGeometry get bottomBarBorderRadius => const BorderRadius.vertical(
-        top: Radius.circular(20),
+        top: Radius.circular(0),
       );
 
   Color get profileItemNoDangerTextColor => AppTheme._lightOnBgTextColor;

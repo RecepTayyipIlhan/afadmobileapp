@@ -6,16 +6,14 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'select_bonded_device_page.dart';
 import '../../features/mayday_call/chat_page.dart';
 
-//import './ChatPage2.dart';
-
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class DevicesScreen extends StatefulWidget {
+  const DevicesScreen({super.key});
 
   @override
-  State<MainPage> createState() => _MainPage();
+  State<DevicesScreen> createState() => _MainPage();
 }
 
-class _MainPage extends State<MainPage> {
+class _MainPage extends State<DevicesScreen> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
   String _address = deviceAddress;
@@ -124,6 +122,7 @@ class _MainPage extends State<MainPage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF003399).withOpacity(0.9),
         title: const Text('Lora Sensörüne Bağlanın'),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

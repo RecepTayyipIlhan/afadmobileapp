@@ -1,4 +1,5 @@
 enum BottomBarIndex {
-  home,
+  devices,
+  educationVideos,
   profile,
 }

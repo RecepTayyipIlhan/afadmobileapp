@@ -13,6 +13,6 @@ class BottomBarState with _$BottomBarState {
   }) = _BottomBarState;
 
   factory BottomBarState.initial() => BottomBarState(
-        bottomBarIndex: BottomBarIndex.home,
+        bottomBarIndex: BottomBarIndex.devices,
       );
 }
