@@ -4,9 +4,9 @@
 // and I dont really have time for this right now
 // ignore_for_file: deprecated_member_use
 
-import 'package:afad_app/features/admin/detailed_person_page.dart';
+import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
 
-import '../features/admin/admin_home_screen.dart';
+import '../features/admin/ui/admin_home_screen.dart';
 import '../features/home/prov/network_detector_prov.dart';
 import '../features/home/ui/bottom_nav_screen.dart';
 import '../features/home/ui/no_connection_screen.dart';
