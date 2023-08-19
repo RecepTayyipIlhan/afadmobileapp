@@ -184,22 +184,20 @@ extension UserFunctions on CloudFirestoreService {
 }
 
 extension AdminFunctions on CloudFirestoreService {
-  Future<List<AppUser>?> getUsers() async {
-    try {
-      final doc = await _db.collection(_FirestoreNames._users).get();
+  Stream<List<AppUser>?> getUsers() {
+    return _db.collection(_FirestoreNames._users).snapshots().map(
+      (e) {
+        final users = e.docs
+            .map(
+              (e) => AppUser.fromJson(
+                e.data(),
+              ),
+            )
+            .toList();
 
-      if (doc.docs.isEmpty) {
-        return null;
-      }
-
-      final users = doc.docs.map((e) => AppUser.fromJson(e.data())).toList();
-
-      return users;
-    } catch (e) {
-      logger.e(e);
-    }
-
-    return null;
+        return users;
+      },
+    );
   }
 }
 
