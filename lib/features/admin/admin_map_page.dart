@@ -1,3 +1,5 @@
+import 'package:afad_app/features/auth/models/app_user.dart';
+import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/route_table.dart';
 import 'package:afad_app/utils/utils.dart';
@@ -5,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../utils/prov/auth_prov.dart';
 import 'detailed_person_page.dart';
+import 'package:afad_app/services/cloud_firestore_service.dart';
 
 class AdminMapPage extends ConsumerStatefulWidget {
   const AdminMapPage({Key? key}) : super(key: key);
@@ -140,19 +142,44 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
     }
   }
 
+  List<AppUser> users = [];
+
+  List<HelpMessage> messages = [];
+
   @override
   void initState() {
     super.initState();
     _loadAllMarkers();
+
+    ref.read(fbDbProv).getUsers().listen(
+      (event) {
+        users = event ?? [];
+        setState(() {});
+      },
+    );
+
+    ref.read(fbDbProv).getMessages().listen((event) {
+      messages = event ?? [];
+      setState(() {});
+    });
+
+    final a = ref.read(fbDbProv).getUsers().listen((event) {
+      print(event?.map((e) => e.email));
+    });
+
+    ref.read(fbDbProv).getMessages().listen((event) {
+      print(event?.map((e) => e.ui));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData screen = MediaQuery.of(context);
+
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox(
+          Container(
             height: screen.size.height,
             width: screen.size.width,
             child: GoogleMap(
@@ -216,40 +243,36 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                             DataColumn(label: Text("Id")),
                             DataColumn(label: Text("İsim")),
                             DataColumn(label: Text("Tür")),
-                            DataColumn(label: Text("Mesaj")),
-                            DataColumn(label: Text("Konum")),
+                            /* DataColumn(label: Text("Mesaj")),
+                            DataColumn(label: Text("Konum")),    */
                           ],
                           rows: List<DataRow>.generate(
-                            konumDataList.length,
+                            messages.length,
                             (index) => DataRow(
                               cells: [
-                                DataCell(Text("142")),
-                                DataCell(Text("Recep Tayyip")),
-                                DataCell(Text("İhbar")),
-                                DataCell(Text("Enkaz Altı")),
-                                DataCell(Text(konumDataList[index])),
+                                DataCell(Text(messages[index].ui.toString())),
+                                DataCell(Text(messages[index].mt.toString())),
+                                DataCell(Text(
+                                    messages[index].loc.latitude.toString())),
+                                /* DataCell(Text("Enkaz Altı")),
+                                DataCell(Text(konumDataList[index])), */
                               ],
                               onSelectChanged: (selected) {
                                 _onRowSelect(selected! ? index : -1);
                                 if (selected) {
-                                  var location =
-                                      konumDataList[index].split(', ');
-                                  print("deneme :" +
-                                      location[0] +
-                                      " ---- " +
-                                      location[1]);
-
+                                  //var location = konumDataList[index].split(', ');
+                                    var location = messages[index].loc;
                                   CameraPosition cameraPosition =
                                       CameraPosition(
-                                    target: LatLng(double.parse(location[0]),
-                                        double.parse(location[1])),
+                                    target: LatLng(location.latitude,
+                                        location.longitude),
                                     zoom: 15.0,
                                   );
 
                                   mapController?.animateCamera(
                                       CameraUpdate.newCameraPosition(
                                           cameraPosition));
-                                  _addMarker(location[0], location[1]);
+                                  _addMarker(location.latitude.toString() ,location.longitude.toString());
 
                                   setState(() {});
                                 }

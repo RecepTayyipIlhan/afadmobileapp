@@ -1,3 +1,4 @@
+import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -199,7 +200,28 @@ extension AdminFunctions on CloudFirestoreService {
       },
     );
   }
+  Stream<List<HelpMessage>?> getMessages() {
+    return _db.collection(_FirestoreNames._messages).snapshots().map(
+          (e) {
+        final users = e.docs
+            .map(
+              (e) => HelpMessage.fromJson(
+            e.data(),
+          ),
+        )
+            .toList();
+
+        return users;
+      },
+    );
+  }
+
+
 }
+
+
+
+
 
 class DayHasQuiz {
   final DateTime day;
@@ -235,6 +257,7 @@ class _FirestoreNames {
   static const String
       //
       _users = 'users',
+      _messages = 'messages',
       _userOldProfiles = 'user_old_profiles',
       _userPoints = 'user_points'
       //
