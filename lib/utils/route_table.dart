@@ -157,7 +157,8 @@ class RouteTable {
       return GoRouter(
         navigatorKey: key,
         debugLogDiagnostics: true,
-        initialLocation: connection.isOn ? initialLocation : '/no_connection',
+        // initialLocation: connection.isOn ? initialLocation : '/no_connection',
+        initialLocation: initialLocation,
         routes: [
           _authRoute(),
           GoRoute(
@@ -174,9 +175,9 @@ class RouteTable {
           return ErrorScreen.routeError();
         },
         redirect: (context, state) async {
-          if (state.location == '/no_connection') {
-            return null;
-          }
+          // if (state.location == '/no_connection') {
+          //   return null;
+          // }
 
           const splashLoc = '/';
           final homeLoc = state.namedLocation(rHome);
