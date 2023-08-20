@@ -16,7 +16,6 @@ class AdminMapState with _$AdminMapState {
     required Set<Marker> mapMarkers,
     required bool show,
     required int selectedRowIndex,
-    required CameraPosition cameraPosition,
     required List<AppUser> users,
     required List<HelpMessage> messages,
   }) = _AdminMapState;
@@ -25,12 +24,13 @@ class AdminMapState with _$AdminMapState {
         mapMarkers: {},
         show: true,
         selectedRowIndex: -1,
-        cameraPosition: CameraPosition(
-          target: LatLng(41.086058, 28.918416),
-          zoom: 10.0,
-        ),
         messages: [],
         users: [],
+      );
+
+  CameraPosition get defaultCamerapPosition => const CameraPosition(
+        target: LatLng(41.086058, 28.918416),
+        zoom: 10.0,
       );
 
   bool isRowSelected(int rowIndex) => selectedRowIndex == rowIndex;

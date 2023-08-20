@@ -16,6 +16,16 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
   @override
   void initState() {
     super.initState();
+
+    Future.delayed(
+      const Duration(milliseconds: 100),
+      () {
+        final pageNotifier = ref.watch(adminMapStateProvider.notifier);
+        pageNotifier.init(
+          context: context,
+        );
+      },
+    );
   }
 
   @override

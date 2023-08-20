@@ -52,13 +52,19 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
         zoom: 15.0,
       );
 
-      state.mapController
-          ?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-
-      _addMarker(
-        loc: locationLatLng,
-        context: context,
+      state.mapController?.animateCamera(
+        CameraUpdate.newCameraPosition(
+          cameraPosition,
+        ),
       );
+
+      _setAllOtherMarkersUnvisible(
+        markerId: MarkerId(
+          index.toString(),
+        ),
+      );
+    } else {
+      _setAllMarkersVisible();
     }
   }
 
@@ -77,60 +83,74 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       );
 
       print("Seçilen Konum: $state.selectedLocation");
-      _addMarker(
-        loc: locationLatLng,
-        context: context,
-      );
+      // _addMarker(
+      //   loc: locationLatLng,
+      //   context: context,
+      // );
     } else {
-      // state.selectedLocation = null;
       state = state.copyWith(selectedLocation: null);
-      _loadAllMarkers(
-        context: context,
+      _resetCameraToDefault();
+    }
+  }
+
+  void _setAllOtherMarkersUnvisible({
+    required MarkerId markerId,
+  }) {
+    if (state.mapController != null) {
+      state = state.copyWith(
+        mapMarkers: state.mapMarkers.map(
+          (e) {
+            return e.markerId == markerId
+                ? e.copyWith(visibleParam: true)
+                : e.copyWith(visibleParam: false);
+          },
+        ).toSet(),
       );
     }
   }
 
-  void _addMarker({
-    required LatLng loc,
-    required BuildContext context,
-  }) {
+  void _setAllMarkersVisible() {
     if (state.mapController != null) {
-      state.mapMarkers.clear();
-      state.mapMarkers.add(
-        Marker(
-          markerId: MarkerId(DateTime.now().toString()),
-          position: loc,
-          infoWindow: InfoWindow(
-            title: 'Enkaz Altındayım',
-            onTap: () => _routeDetailedPersonPage(context),
-          ),
-        ),
+      state = state.copyWith(
+        mapMarkers: state.mapMarkers.map(
+          (e) {
+            return e.copyWith(visibleParam: true);
+          },
+        ).toSet(),
       );
     }
+  }
+
+  void _resetCameraToDefault() {
+    state.mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        state.defaultCamerapPosition,
+      ),
+    );
   }
 
   void _loadAllMarkers({
     required BuildContext context,
   }) {
-    state.mapMarkers.clear();
-    state.mapController?.animateCamera(
-      CameraUpdate.newCameraPosition(
-        state.cameraPosition,
-      ),
+    state = state.copyWith(
+      mapMarkers: {},
     );
     for (var i = 0; i < state.messages.length; i++) {
       final location = state.messages[i].loc;
       final locationLatLng = LatLng(location.latitude, location.longitude);
 
-      state.mapMarkers.add(
-        Marker(
-          markerId: MarkerId(i.toString()),
-          position: locationLatLng,
-          infoWindow: InfoWindow(
-            title: 'Enkaz Altındayım',
-            onTap: () => _routeDetailedPersonPage(context),
+      state = state.copyWith(
+        mapMarkers: {
+          ...state.mapMarkers,
+          Marker(
+            markerId: MarkerId(i.toString()),
+            position: locationLatLng,
+            infoWindow: InfoWindow(
+              title: 'Enkaz Altındayım',
+              onTap: () => _routeDetailedPersonPage(context),
+            ),
           ),
-        ),
+        },
       );
     }
   }
@@ -174,10 +194,6 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
   Future<void> init({
     required BuildContext context,
   }) async {
-    _loadAllMarkers(
-      context: context,
-    );
-
     ref.read(fbDbProv).getUsers().listen(
       (event) {
         state = state.copyWith(
@@ -187,7 +203,12 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     );
 
     ref.read(fbDbProv).getMessages().listen((event) {
-      state = state.copyWith(messages: event ?? []);
+      state = state.copyWith(
+        messages: event ?? [],
+      );
+      _loadAllMarkers(
+        context: context,
+      );
     });
   }
 }

@@ -21,7 +21,6 @@ mixin _$AdminMapState {
   Set<Marker> get mapMarkers => throw _privateConstructorUsedError;
   bool get show => throw _privateConstructorUsedError;
   int get selectedRowIndex => throw _privateConstructorUsedError;
-  CameraPosition get cameraPosition => throw _privateConstructorUsedError;
   List<AppUser> get users => throw _privateConstructorUsedError;
   List<HelpMessage> get messages => throw _privateConstructorUsedError;
 
@@ -42,7 +41,6 @@ abstract class $AdminMapStateCopyWith<$Res> {
       Set<Marker> mapMarkers,
       bool show,
       int selectedRowIndex,
-      CameraPosition cameraPosition,
       List<AppUser> users,
       List<HelpMessage> messages});
 }
@@ -65,7 +63,6 @@ class _$AdminMapStateCopyWithImpl<$Res, $Val extends AdminMapState>
     Object? mapMarkers = null,
     Object? show = null,
     Object? selectedRowIndex = null,
-    Object? cameraPosition = null,
     Object? users = null,
     Object? messages = null,
   }) {
@@ -90,10 +87,6 @@ class _$AdminMapStateCopyWithImpl<$Res, $Val extends AdminMapState>
           ? _value.selectedRowIndex
           : selectedRowIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      cameraPosition: null == cameraPosition
-          ? _value.cameraPosition
-          : cameraPosition // ignore: cast_nullable_to_non_nullable
-              as CameraPosition,
       users: null == users
           ? _value.users
           : users // ignore: cast_nullable_to_non_nullable
@@ -120,7 +113,6 @@ abstract class _$$_AdminMapStateCopyWith<$Res>
       Set<Marker> mapMarkers,
       bool show,
       int selectedRowIndex,
-      CameraPosition cameraPosition,
       List<AppUser> users,
       List<HelpMessage> messages});
 }
@@ -141,7 +133,6 @@ class __$$_AdminMapStateCopyWithImpl<$Res>
     Object? mapMarkers = null,
     Object? show = null,
     Object? selectedRowIndex = null,
-    Object? cameraPosition = null,
     Object? users = null,
     Object? messages = null,
   }) {
@@ -166,10 +157,6 @@ class __$$_AdminMapStateCopyWithImpl<$Res>
           ? _value.selectedRowIndex
           : selectedRowIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      cameraPosition: null == cameraPosition
-          ? _value.cameraPosition
-          : cameraPosition // ignore: cast_nullable_to_non_nullable
-              as CameraPosition,
       users: null == users
           ? _value._users
           : users // ignore: cast_nullable_to_non_nullable
@@ -191,7 +178,6 @@ class _$_AdminMapState extends _AdminMapState {
       required final Set<Marker> mapMarkers,
       required this.show,
       required this.selectedRowIndex,
-      required this.cameraPosition,
       required final List<AppUser> users,
       required final List<HelpMessage> messages})
       : _mapMarkers = mapMarkers,
@@ -215,8 +201,6 @@ class _$_AdminMapState extends _AdminMapState {
   final bool show;
   @override
   final int selectedRowIndex;
-  @override
-  final CameraPosition cameraPosition;
   final List<AppUser> _users;
   @override
   List<AppUser> get users {
@@ -235,7 +219,7 @@ class _$_AdminMapState extends _AdminMapState {
 
   @override
   String toString() {
-    return 'AdminMapState(mapController: $mapController, selectedLocation: $selectedLocation, mapMarkers: $mapMarkers, show: $show, selectedRowIndex: $selectedRowIndex, cameraPosition: $cameraPosition, users: $users, messages: $messages)';
+    return 'AdminMapState(mapController: $mapController, selectedLocation: $selectedLocation, mapMarkers: $mapMarkers, show: $show, selectedRowIndex: $selectedRowIndex, users: $users, messages: $messages)';
   }
 
   @override
@@ -252,8 +236,6 @@ class _$_AdminMapState extends _AdminMapState {
             (identical(other.show, show) || other.show == show) &&
             (identical(other.selectedRowIndex, selectedRowIndex) ||
                 other.selectedRowIndex == selectedRowIndex) &&
-            (identical(other.cameraPosition, cameraPosition) ||
-                other.cameraPosition == cameraPosition) &&
             const DeepCollectionEquality().equals(other._users, _users) &&
             const DeepCollectionEquality().equals(other._messages, _messages));
   }
@@ -266,7 +248,6 @@ class _$_AdminMapState extends _AdminMapState {
       const DeepCollectionEquality().hash(_mapMarkers),
       show,
       selectedRowIndex,
-      cameraPosition,
       const DeepCollectionEquality().hash(_users),
       const DeepCollectionEquality().hash(_messages));
 
@@ -284,7 +265,6 @@ abstract class _AdminMapState extends AdminMapState {
       required final Set<Marker> mapMarkers,
       required final bool show,
       required final int selectedRowIndex,
-      required final CameraPosition cameraPosition,
       required final List<AppUser> users,
       required final List<HelpMessage> messages}) = _$_AdminMapState;
   const _AdminMapState._() : super._();
@@ -299,8 +279,6 @@ abstract class _AdminMapState extends AdminMapState {
   bool get show;
   @override
   int get selectedRowIndex;
-  @override
-  CameraPosition get cameraPosition;
   @override
   List<AppUser> get users;
   @override
