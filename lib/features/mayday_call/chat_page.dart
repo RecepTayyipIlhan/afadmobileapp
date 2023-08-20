@@ -192,11 +192,13 @@ class _ChatPage extends ConsumerState<ChatPage> {
             return Column(
               children: <Widget>[
                 const Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      BackButton(),
+                      BackButton(
+                        color: Colors.white,
+                      ),
                       Text(
                         "Afad Destek ",
                         style: TextStyle(
@@ -233,33 +235,6 @@ class _ChatPage extends ConsumerState<ChatPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      //Search Bar
-                      AnimatedContainer(
-                        duration: const Duration(seconds: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.35),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        padding: const EdgeInsets.all(12.0),
-                        child: const Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 6),
-                            Text(
-                              'Arama',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       //Where are u
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -271,10 +246,6 @@ class _ChatPage extends ConsumerState<ChatPage> {
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
-                          Icon(
-                            Icons.more_horiz,
-                            color: Colors.white,
                           ),
                         ],
                       ),
@@ -348,7 +319,6 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       fontSize: 18,
                                     ),
                                   ),
-                                  Icon(Icons.more_horiz)
                                 ],
                               ),
                               Column(
@@ -406,7 +376,6 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       fontSize: 18,
                                     ),
                                   ),
-                                  Icon(Icons.more_horiz)
                                 ],
                               ),
                               Column(
