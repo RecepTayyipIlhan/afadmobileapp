@@ -274,21 +274,21 @@ class AppInitProv {
     // dynamic links
     ref.read(firebaseDynamicLinksInitializerProvider).init();
 
-    // remote config
-    {
-      try {
-        final remoteConfig = await FirebaseRemoteConfig.instance;
-        await remoteConfig.setConfigSettings(
-          RemoteConfigSettings(
-            fetchTimeout: const Duration(seconds: 10),
-            minimumFetchInterval: const Duration(seconds: 10),
-          ),
-        );
-        await remoteConfig.fetchAndActivate();
-      } catch (e) {
-        logger.e(e);
-      }
-    }
+    // // remote config
+    // {
+    //   try {
+    //     final remoteConfig = await FirebaseRemoteConfig.instance;
+    //     await remoteConfig.setConfigSettings(
+    //       RemoteConfigSettings(
+    //         fetchTimeout: const Duration(seconds: 10),
+    //         minimumFetchInterval: const Duration(seconds: 10),
+    //       ),
+    //     );
+    //     await remoteConfig.fetchAndActivate();
+    //   } catch (e) {
+    //     logger.e(e);
+    //   }
+    // }
 
     try {
       ref.read(fbAnalyticsProv).appOpened();
