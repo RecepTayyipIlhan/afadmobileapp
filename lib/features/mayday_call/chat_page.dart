@@ -1,27 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:afad_app/ui/widgets/error_widget.dart';
 import 'package:afad_app/utils/app_theme.dart';
+import 'package:afad_app/utils/prov/auth_prov.dart';
 import 'package:afad_app/utils/utils.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-//import 'package:afad_app/screens/mayday_call/components/place_icon.dart';
-//import '../../services/location/get_loc.dart';
-import '../../global_data.dart';
-import '../../services/location/get_loc.dart';
-//import 'components/all_requests.dart';
-//import '../home/menu_page.dart';
-
-class ChatPage extends StatefulWidget {
-  final BluetoothDevice? server;
-
-  const ChatPage({
-    super.key,
-    required this.server,
-  });
-
-  @override
-  State<ChatPage> createState() => _ChatPage();
-}
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:location/location.dart';
 
 class Person {
   final String id;
@@ -34,112 +22,154 @@ class Person {
 }
 
 class _Message {
-  int whom;
+  String whom;
   String text;
 
   _Message(this.whom, this.text);
 }
 
-class _ChatPage extends State<ChatPage> {
-  Loc latLon = Loc();
-  //get location from gps
+class ChatPage extends ConsumerStatefulWidget {
+  final BluetoothDevice? server;
 
-  static const clientID = 0;
+  const ChatPage({
+    super.key,
+    required this.server,
+  });
+
+  @override
+  ConsumerState<ChatPage> createState() => _ChatPage();
+}
+
+class _ChatPage extends ConsumerState<ChatPage> {
+  LocationData? locationData;
+
+  StreamSubscription<LocationData>? locationSubscription;
+
+  Location? _locationObj;
+  Location get locationObj {
+    _locationObj ??= Location();
+    _locationObj!.changeSettings(accuracy: LocationAccuracy.high);
+
+    return _locationObj!;
+  }
+
+  void initLocation() async {
+    locationSubscription = locationObj.onLocationChanged.listen(
+      (LocationData currentLocation) {
+        locationData = currentLocation;
+      },
+    );
+  }
+
+  Future<LocationData> getCurrentLocation() async {
+    final loc = await locationObj.getLocation();
+    locationData = loc;
+    return loc;
+  }
+
   BluetoothConnection? connection;
 
-  List<_Message> messages = <_Message>[];
-  //List<_Message> messages = List<_Message>();
+  final textEditingController = TextEditingController();
 
-  String _messageBuffer = '';
-  Person p = const Person("186", "41.208277°K 28.957777°D");
-
-  final TextEditingController textEditingController = TextEditingController();
-
-  bool isConnecting = true;
   bool get isConnected => connection != null && connection?.isConnected == true;
 
-  bool isDisconnecting = false;
+  void onSentMessageSuccess() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          "Mesaj gönderildi",
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
 
-  bool zoom0 = true;
-  bool zoom1 = true;
-  bool zoom2 = true;
-  bool zoom3 = true;
+  void onSentMessageError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          "Mesaj gönderilemedi",
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  Future<bool> sendMessageOfType(int type) async {
+    final userid = ref.read(authProvider).appUser?.id;
+
+    if (userid == null) {
+      debugPrint("userid is null");
+
+      onSentMessageError();
+      return false;
+    }
+
+    final loc = locationData ?? await getCurrentLocation();
+
+    final lat = loc.latitude, lon = loc.longitude;
+
+    var message = "$userid,$type,$lat,$lon";
+
+    debugPrint("sendinggggg $message");
+
+    textEditingController.clear();
+
+    try {
+      final newMsg = Uint8List.fromList(
+        utf8.encode("$message\r\n"),
+      );
+      connection?.output.add(newMsg);
+      await connection?.output.allSent;
+
+      setState(() {});
+
+      onSentMessageSuccess();
+      return true;
+    } catch (e) {
+      // Ignore error, but notify state
+      debugPrint("SEND MESSAGEE EROORRR $e");
+      setState(() {});
+
+      onSentMessageError();
+      return false;
+    }
+  }
+
+  void initBtConnection() async {
+    try {
+      final con = await BluetoothConnection.toAddress(
+        widget.server?.address,
+      );
+
+      debugPrint('Connected to the device');
+      connection = con;
+      debugPrint("connection is connected: ${connection?.isConnected}");
+      setState(() {});
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
-    print("addressss is ${widget.server?.address}");
-
-    BluetoothConnection.toAddress(
-      widget.server?.address,
-    ).then(
-      (con) {
-        print('Connected to the device');
-        connection = con;
-        print("connection is connected: ${connection?.isConnected}");
-        isConnecting = false;
-        isDisconnecting = false;
-        setState(() {});
-
-        connection!.input?.listen(_onDataReceived).onDone(
-          () {
-            // Example: Detect which side closed the connection
-            // There should be `isDisconnecting` flag to show are we are (locally)
-            // in middle of disconnecting process, should be set before calling
-            // `dispose`, `finish` or `close`, which all causes to disconnect.
-            // If we except the disconnection, `onDone` should be fired as result.
-            // If we didn't except this (no flag set), it means closing by remote.
-            if (isDisconnecting) {
-              print('Disconnecting locally!');
-            } else {
-              print('Disconnected remotely!');
-            }
-            if (mounted) {
-              setState(() {});
-            }
-          },
-        );
-      },
-    ).catchError(
-      (error) {
-        print('Cannot connect, exception occured');
-        print(error.toString());
-      },
-    );
+    initLocation();
+    initBtConnection();
+    debugPrint("addressss is ${widget.server?.address}");
   }
 
   @override
   void dispose() {
-    // Avoid memory leak (`setState` after dispose) and disconnect
-    if (isConnected) {
-      isDisconnecting = true;
-      connection?.dispose();
-      connection = null;
-    }
+    connection?.dispose();
+    locationSubscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // to avoid dead code warnings
-    bool initialValue = () {
-      return true;
-    }();
-
-    List loc = latLon.getLocation();
-    print("-------------------------");
-    print((loc).toString());
-    print("------------");
-    print((personList).toString());
-
-    String lat = loc[0].toString();
-    String lon = loc[1].toString();
-    // String id = personList?[0]["id"];
-    // TODO(adnanjpg)
-    String id = "111";
-
-    if (!isConnected || isConnecting) {
+    if (!isConnected) {
       return const Scaffold(
         body: Center(
           child: Text('Bağlanıyor...'),
@@ -151,32 +181,29 @@ class _ChatPage extends State<ChatPage> {
       body: SafeArea(
         child: Builder(
           builder: (context) {
+            final userid = ref.watch(authProvider).appUser?.id;
+
+            if (userid == null) {
+              return const Center(
+                child: ErrWidget.empty(),
+              );
+            }
+
             return Column(
               children: <Widget>[
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          /* Navigator.pop(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => HomeScreen()));*/
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Text(
+                      BackButton(),
+                      Text(
                         "Afad Destek ",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -194,11 +221,13 @@ class _ChatPage extends State<ChatPage> {
                       ),
                       Row(children: <Widget>[
                         Text(
-                          "10 Ağustos, 2021",
+                          DateFormat('dd MMMM, yyyy', 'tr')
+                              .format(DateTime.now()),
                           style: TextStyle(
-                              color: Colors.grey[300],
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal),
+                            color: Colors.grey[300],
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ]),
                       const SizedBox(
@@ -238,9 +267,10 @@ class _ChatPage extends State<ChatPage> {
                           Text(
                             "Şuanda Nerdesin ? ",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Icon(
                             Icons.more_horiz,
@@ -258,9 +288,7 @@ class _ChatPage extends State<ChatPage> {
                             item: (
                               title: "Enkaz Altındayım",
                               imagePath: 'assets/icons/sos.png',
-                              onTap: isConnected
-                                  ? () => sendMessage("$id,0,$lat,$lon")
-                                  : null,
+                              onTap: () => sendMessageOfType(0),
                             ),
                           ),
                           LocationNotifyItem(
@@ -268,7 +296,7 @@ class _ChatPage extends State<ChatPage> {
                               title: "Evdeyim",
                               imagePath: 'assets/icons/home.png',
                               onTap: isConnected
-                                  ? () => sendMessage("$id,8,$lat,$lon")
+                                  ? () => sendMessageOfType(8)
                                   : null,
                             ),
                           ),
@@ -277,7 +305,7 @@ class _ChatPage extends State<ChatPage> {
                               title: "Toplanma Alanı",
                               imagePath: 'assets/icons/meeting.png',
                               onTap: isConnected
-                                  ? () => sendMessage("$id,9,$lat,$lon")
+                                  ? () => sendMessageOfType(9)
                                   : null,
                             ),
                           ),
@@ -286,7 +314,7 @@ class _ChatPage extends State<ChatPage> {
                               title: "Kayboldum",
                               imagePath: 'assets/icons/lost.png',
                               onTap: isConnected
-                                  ? () => sendMessage("$id,10,$lat,$lon")
+                                  ? () => sendMessageOfType(10)
                                   : null,
                             ),
                           ),
@@ -331,9 +359,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza ambulans gönderir",
                                       icon: Icons.emergency,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,1,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(1),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -342,9 +368,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza gıda gönderir",
                                       icon: Icons.food_bank_rounded,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,2,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(2),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -353,9 +377,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza ilaç gönderir",
                                       icon: Icons.local_hospital,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,3,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(3),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -364,9 +386,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza barınma gönderir",
                                       icon: Icons.local_hotel_rounded,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,4,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(4),
                                     ),
                                   ),
                                 ].joinWidgetList(
@@ -397,9 +417,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Bu bilgi Afadın gaz sızıntılarını tespit etmesi için kullanılacaktır",
                                       icon: Icons.dangerous_outlined,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,5,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(5),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -408,9 +426,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Bu bilgi Afadın yangınları tespit etmesi için kullanılacaktır",
                                       icon: Icons.fireplace_rounded,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,6,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(6),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -419,9 +435,7 @@ class _ChatPage extends State<ChatPage> {
                                       subtitle:
                                           "Bu bilgi Afadın enkazları tespit etmesi için kullanılacaktır",
                                       icon: Icons.house_siding_rounded,
-                                      onTap: isConnected
-                                          ? () => sendMessage("$id,7,$lat,$lon")
-                                          : null,
+                                      onTap: () => sendMessageOfType(7),
                                     ),
                                   ),
                                 ].joinWidgetList(
@@ -447,85 +461,6 @@ class _ChatPage extends State<ChatPage> {
         ),
       ),
     );
-  }
-
-  void _onDataReceived(Uint8List data) {
-    // Allocate buffer for parsed data
-    int backspacesCounter = 0;
-    for (var byte in data) {
-      if (byte == 8 || byte == 127) {
-        backspacesCounter++;
-      }
-    }
-    Uint8List buffer = Uint8List(data.length - backspacesCounter);
-    int bufferIndex = buffer.length;
-
-    // Apply backspace control character
-    backspacesCounter = 0;
-    for (int i = data.length - 1; i >= 0; i--) {
-      if (data[i] == 8 || data[i] == 127) {
-        backspacesCounter++;
-      } else {
-        if (backspacesCounter > 0) {
-          backspacesCounter--;
-        } else {
-          buffer[--bufferIndex] = data[i];
-        }
-      }
-    }
-
-    // Create message if there is new line character
-    String dataString = String.fromCharCodes(buffer);
-    int index = buffer.indexOf(13);
-    if (~index != 0) {
-      setState(() {
-        messages.add(
-          _Message(
-            1,
-            backspacesCounter > 0
-                ? _messageBuffer.substring(
-                    0, _messageBuffer.length - backspacesCounter)
-                : _messageBuffer + dataString.substring(0, index),
-          ),
-        );
-        _messageBuffer = dataString.substring(index);
-      });
-    } else {
-      _messageBuffer = (backspacesCounter > 0
-          ? _messageBuffer.substring(
-              0, _messageBuffer.length - backspacesCounter)
-          : _messageBuffer + dataString);
-    }
-  }
-
-  void printt(String text) {
-    print(text.toString());
-  }
-
-  void sendMessage(String text) async {
-    print("sendinggggg $text");
-
-    text = text.trim();
-    textEditingController.clear();
-
-    if (text.isNotEmpty) {
-      try {
-        connection?.output.add(
-          Uint8List.fromList(
-            utf8.encode("$text\r\n"),
-          ),
-        );
-        await connection?.output.allSent;
-
-        setState(() {
-          messages.add(_Message(clientID, text));
-        });
-      } catch (e) {
-        // Ignore error, but notify state
-        print("SEND MESSAGEE EROORRR $e");
-        setState(() {});
-      }
-    }
   }
 }
 
