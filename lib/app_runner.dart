@@ -4,7 +4,7 @@ import 'app.dart';
 import 'firebase_options.dart';
 import 'ui/widgets/error_screen.dart';
 
-enum Flavor { DEV, PROD }
+enum Flavor { AFAD, TRACKER }
 
 late _AppConfig appConfig;
 
@@ -23,17 +23,25 @@ class _AppConfig {
 
   factory _AppConfig.fromFlavor(Flavor flavor) {
     switch (flavor) {
-      case Flavor.DEV:
-        return _AppConfig._prod();
-      case Flavor.PROD:
-        return _AppConfig._prod();
+      case Flavor.AFAD:
+        return _AppConfig._afad();
+      case Flavor.TRACKER:
+        return _AppConfig._tracker();
     }
   }
 
-  _AppConfig._prod()
+  _AppConfig._afad()
       : this._(
           deepLinksHost: 'https://afadmobileapp.page.link',
           androidBundleId: 'com.example.afad_app',
+          iosBundleId: 'com.arithmatrix',
+          firebaseOptionsInstance: DefaultFirebaseOptions(),
+        );
+
+  _AppConfig._tracker()
+      : this._(
+          deepLinksHost: 'https://afadmobileapp.page.link',
+          androidBundleId: 'com.example.tracker_app',
           iosBundleId: 'com.arithmatrix',
           firebaseOptionsInstance: DefaultFirebaseOptions(),
         );
