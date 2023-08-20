@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'bluetooth_device_list_entry.dart';
 
-enum _DeviceAvailability {
+enum DeviceAvailability {
   // ignore: unused_field
   no,
   maybe,
   yes,
 }
 
-class _DeviceWithAvailability extends BluetoothDevice {
-  _DeviceAvailability availability;
+class DeviceWithAvailability extends BluetoothDevice {
+  DeviceAvailability availability;
   int? rssi;
 
-  _DeviceWithAvailability(BluetoothDevice device, this.availability)
+  DeviceWithAvailability(BluetoothDevice device, this.availability)
       : super(
           address: device.address,
           name: device.name,
@@ -27,17 +27,17 @@ class _DeviceWithAvailability extends BluetoothDevice {
 class SelectBondedDevicePage extends StatefulWidget {
   /// If true, on page start there is performed discovery upon the bonded devices.
   /// Then, if they are not avaliable, they would be disabled from the selection.
-  final bool checkAvailability;
+  final bool initiallyCheckAvailability;
 
-  const SelectBondedDevicePage({super.key, this.checkAvailability = true});
+  const SelectBondedDevicePage(
+      {super.key, this.initiallyCheckAvailability = true});
 
   @override
   State<SelectBondedDevicePage> createState() => _SelectBondedDevicePage();
 }
 
 class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
-  //List<_DeviceWithAvailability> devices = List<_DeviceWithAvailability>();
-  List<_DeviceWithAvailability> devices = <_DeviceWithAvailability>[];
+  List<DeviceWithAvailability> devices = <DeviceWithAvailability>[];
 
   // Availability
   StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
@@ -49,29 +49,30 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
   void initState() {
     super.initState();
 
-    _isDiscovering = widget.checkAvailability;
+    _isDiscovering = widget.initiallyCheckAvailability;
 
     if (_isDiscovering) {
       _startDiscovery();
     }
 
-    // Setup a list of the bonded devices
-    FlutterBluetoothSerial.instance
-        .getBondedDevices()
-        .then((List<BluetoothDevice> bondedDevices) {
-      setState(() {
-        devices = bondedDevices
-            .map(
-              (device) => _DeviceWithAvailability(
-                device,
-                widget.checkAvailability
-                    ? _DeviceAvailability.maybe
-                    : _DeviceAvailability.yes,
-              ),
-            )
-            .toList();
-      });
-    });
+    initBondedDevices();
+  }
+
+  FlutterBluetoothSerial get bluetooth => FlutterBluetoothSerial.instance;
+
+  Future<void> initBondedDevices() async {
+    // final bondedDevs = await bluetooth.getBondedDevices();
+    // devices = bondedDevs
+    //     .map(
+    //       (device) => _DeviceWithAvailability(
+    //         device,
+    //         widget.checkAvailability
+    //             ? _DeviceAvailability.maybe
+    //             : _DeviceAvailability.yes,
+    //       ),
+    //     )
+    //     .toList();
+    // setState(() {});
   }
 
   void _restartDiscovery() {
@@ -84,25 +85,36 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
 
   void _startDiscovery() {
     print("startDiscovery()");
-    _discoveryStreamSubscription =
-        FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
-      setState(() {
-        final i = devices.iterator;
-        while (i.moveNext()) {
-          var device = i.current;
-          if (device == r.device) {
-            device.availability = _DeviceAvailability.yes;
-            device.rssi = r.rssi;
-          }
-        }
-      });
-    });
 
-    _discoveryStreamSubscription?.onDone(() {
-      setState(() {
+    final discStream = bluetooth.startDiscovery();
+    _discoveryStreamSubscription = discStream.listen(
+      (r) {
+        final alreadyExistingDeviceIndex = devices.indexWhere(
+          (device) => device.address == r.device.address,
+        );
+
+        if (alreadyExistingDeviceIndex != -1) {
+          devices[alreadyExistingDeviceIndex].rssi = r.rssi;
+        } else {
+          devices.add(
+            DeviceWithAvailability(
+              r.device,
+              DeviceAvailability.yes,
+            ),
+          );
+        }
+
+        print(devices.toString());
+        setState(() {});
+      },
+    );
+
+    _discoveryStreamSubscription?.onDone(
+      () {
         _isDiscovering = false;
-      });
-    });
+        setState(() {});
+      },
+    );
   }
 
   @override
@@ -115,6 +127,11 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
 
   @override
   Widget build(BuildContext context) {
+    final sortedDevs = [...devices];
+    // put the device names "ESP32test"
+    sortedDevs.sort(
+      (d1, d2) => d1.name == "ESP32test" ? -1 : 1,
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lora Cihazınızı Seçiniz'),
@@ -122,10 +139,13 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
           if (_isDiscovering)
             FittedBox(
               child: Container(
-                margin: const EdgeInsets.all(16.0),
-                child: const CircularProgressIndicator(
+                height: 10,
+                width: 10,
+                margin: const EdgeInsets.all(8.0),
+                child: CircularProgressIndicator(
+                  strokeWidth: 1,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.white,
+                    Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ),
@@ -138,18 +158,53 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
         ],
       ),
       body: ListView(
-        children: devices
-            .map(
-              (device) => BluetoothDeviceListEntry(
-                device: device,
-                rssi: device.rssi,
-                enabled: device.availability == _DeviceAvailability.yes,
-                onTap: () {
-                  Navigator.of(context).pop(device);
-                },
-              ),
-            )
-            .toList(),
+        children: sortedDevs.map(
+          (device) {
+            return BluetoothDeviceListEntry(
+              device: device,
+              rssi: device.rssi,
+              enabled: device.availability == DeviceAvailability.yes,
+              onTap: () async {
+                final scaffoldMessenger = ScaffoldMessenger.of(context);
+                final navigator = Navigator.of(context);
+                if (!device.isBonded) {
+                  final isBondedSuccess = await bluetooth.bondDeviceAtAddress(
+                    device.address,
+                  );
+
+                  if (isBondedSuccess == true) {
+                    scaffoldMessenger.showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Bağlantı Başarılı",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  } else {
+                    scaffoldMessenger.showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Bağlantı Başarısız",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                    return;
+                  }
+                }
+
+                navigator.pop(device);
+              },
+            );
+          },
+        ).toList(),
       ),
     );
   }

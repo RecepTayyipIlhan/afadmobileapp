@@ -14,15 +14,23 @@ class DevicesScreen extends StatefulWidget {
   const DevicesScreen({super.key});
 
   @override
-  State<DevicesScreen> createState() => _MainPage();
+  State<DevicesScreen> createState() => _DevicesScreen();
 }
 
-class _MainPage extends State<DevicesScreen> {
+class _DevicesScreen extends State<DevicesScreen> {
   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
-  String _address = deviceAddress;
-  // ignore: unused_field
-  String _name = deviceName;
+  String? _address;
+  String? _name;
+
+  // This code is just a example if you need to change page and you need to communicate to the raspberry again
+  Communication com = Communication();
+  void init() async {
+    await com.connectToBluetooth(_address);
+    print("address is $_address");
+    com.sendMessage("Hello");
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -82,15 +90,6 @@ class _MainPage extends State<DevicesScreen> {
     );
   }
 
-  // This code is just a example if you need to change page and you need to communicate to the raspberry again
-  Communication com = Communication();
-  void init() async {
-    await com.connectToBluetooth(_address);
-    print("address is " + _address);
-    com.sendMessage("Hello");
-    setState(() {});
-  }
-
   @override
   void dispose() {
     FlutterBluetoothSerial.instance.setPairingRequestHandler(null);
@@ -100,11 +99,6 @@ class _MainPage extends State<DevicesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    BluetoothDevice b = const BluetoothDevice(
-      name: deviceName,
-      address: deviceAddress,
-    );
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       //backgroundColor: Color(0xFFE63946),
@@ -122,15 +116,27 @@ class _MainPage extends State<DevicesScreen> {
                     ? () async {
                         final navigator = Navigator.of(context);
 
-                        await navigator.push(
+                        final selectedDevice = await navigator.push(
                           MaterialPageRoute(
                             builder: (context) {
                               return const SelectBondedDevicePage(
-                                  checkAvailability: false);
+                                initiallyCheckAvailability: true,
+                              );
                             },
                           ),
                         );
-                        _startChat(navigator, b);
+
+                        if (selectedDevice is DeviceWithAvailability) {
+                          navigator.push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ChatPage(
+                                  server: selectedDevice,
+                                );
+                              },
+                            ),
+                          );
+                        }
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -196,16 +202,6 @@ class _MainPage extends State<DevicesScreen> {
             height: 20,
           ),
         ),
-      ),
-    );
-  }
-
-  void _startChat(NavigatorState navigator, BluetoothDevice server) {
-    navigator.push(
-      MaterialPageRoute(
-        builder: (context) {
-          return ChatPage(server: server);
-        },
       ),
     );
   }

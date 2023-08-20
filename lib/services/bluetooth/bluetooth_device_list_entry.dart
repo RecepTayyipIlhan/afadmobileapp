@@ -58,27 +58,27 @@ class BluetoothDeviceListEntry extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          rssi != null
-              ? Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: DefaultTextStyle(
-                    style: _computeTextStyle(rssi!),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(rssi.toString()),
-                        const Text('dBm'),
-                      ],
-                    ),
-                  ),
-                )
-              : const SizedBox(width: 0, height: 0),
-          device.isConnected
-              ? const Icon(Icons.import_export)
-              : const SizedBox(width: 0, height: 0),
-          device.isBonded
-              ? const Icon(Icons.link)
-              : const SizedBox(width: 0, height: 0),
+          if (rssi != null) ...[
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              child: DefaultTextStyle(
+                style: _computeTextStyle(rssi!),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(rssi.toString()),
+                    const Text('dBm'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+          if (device.isConnected) ...[
+            const Icon(Icons.import_export),
+          ],
+          if (device.isBonded) ...[
+            const Icon(Icons.link),
+          ],
         ],
       ),
     );

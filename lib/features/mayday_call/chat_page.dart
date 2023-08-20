@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:afad_app/ui/widgets/btns/primary_btn.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import '../../services/location/get_loc.dart';
 
 class ChatPage extends StatefulWidget {
   final BluetoothDevice? server;
-  //final Function() foo;
 
   const ChatPage({
     super.key,
@@ -141,17 +139,18 @@ class _ChatPage extends State<ChatPage> {
     // TODO(adnanjpg)
     String id = "111";
 
+    if (!isConnected || isConnecting) {
+      return const Scaffold(
+        body: Center(
+          child: Text('Bağlanıyor...'),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).bgColorAfad,
       body: SafeArea(
         child: Builder(
           builder: (context) {
-            // TODO(adnanjpg): uncomment
-            // if (!isConnected || isConnecting) {
-            //   return const Center(
-            //     child: Text('Bağlanıyor...'),
-            //   );
-            // }
             return Column(
               children: <Widget>[
                 Padding(
