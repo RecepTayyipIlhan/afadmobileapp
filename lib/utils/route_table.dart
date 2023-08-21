@@ -5,6 +5,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
+import 'package:afad_app/features/auth/models/app_user.dart';
 
 import '../features/admin/ui/admin_home_screen.dart';
 import '../features/home/prov/network_detector_prov.dart';
@@ -141,7 +142,7 @@ class RouteTable {
           GoRoute(
             name: rAdminDetailedPersonPage,
             path: 'detailed_person_page',
-            builder: (context, state) => const DetailedPersonPage(),
+            builder: (context, state) => DetailedPersonPage(user: state.extra as AppUser,),
           ),
         ],
       );

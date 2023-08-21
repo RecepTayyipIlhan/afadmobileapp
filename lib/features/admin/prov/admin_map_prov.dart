@@ -1,3 +1,4 @@
+import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/services/cloud_firestore_service.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
@@ -21,9 +22,10 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     state = state.copyWith(mapController: controller);
   }
 
-  void _routeDetailedPersonPage(BuildContext context) {
+  void _routeDetailedPersonPage(BuildContext context, AppUser user) {
     GoRouter.of(context).pushNamed(
       RouteTable.rAdminDetailedPersonPage,
+      extra: user,
     );
   }
 
@@ -45,7 +47,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     if (selected) {
       //var location = konumDataList[index].split(', ');
       var location = state.messages[index].loc;
-      final locationLatLng = LatLng(location.latitude, location.longitude);
+      var locationLatLng = LatLng(location.latitude, location.longitude);
 
       CameraPosition cameraPosition = CameraPosition(
         target: locationLatLng,
@@ -131,9 +133,11 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
 
   void _loadAllMarkers({
     required BuildContext context,
+    required GoogleMapController? mapController,
   }) {
     state = state.copyWith(
       mapMarkers: {},
+      mapController: mapController,
     );
     for (var i = 0; i < state.messages.length; i++) {
       final location = state.messages[i].loc;
@@ -147,7 +151,13 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
             position: locationLatLng,
             infoWindow: InfoWindow(
               title: 'Enkaz Altındayım',
-              onTap: () => _routeDetailedPersonPage(context),
+              onTap: () {
+                String ui = state.messages[i].ui;
+                var user = state.users.firstWhere(
+                      (element) => element.id == ui,
+                );
+                _routeDetailedPersonPage(context, user);
+              },
             ),
           ),
         },
@@ -208,6 +218,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       );
       _loadAllMarkers(
         context: context,
+        mapController: state.mapController,
       );
     });
   }
