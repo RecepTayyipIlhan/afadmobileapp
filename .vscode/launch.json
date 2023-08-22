@@ -9,7 +9,9 @@
                 "--flavor",
                 "afad",
                 "--target",
-                "lib/main_afad.dart"
+                "lib/main_afad.dart",
+                "--web-port",
+                "65133"
             ]
         },
         {
@@ -21,7 +23,9 @@
                 "--flavor",
                 "tracker",
                 "--target",
-                "lib/main_tracker.dart"
+                "lib/main_tracker.dart",
+                "--web-port",
+                "65133"
             ]
         }
     ]
