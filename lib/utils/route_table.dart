@@ -143,7 +143,7 @@ class RouteTable {
             name: rAdminDetailedPersonPage,
             path: 'detailed_person_page',
             builder: (context, state) => DetailedPersonPage(
-              user_d: state.extra as AppUser,
+              user: state.extra as AppUser,
             ),
           ),
         ],

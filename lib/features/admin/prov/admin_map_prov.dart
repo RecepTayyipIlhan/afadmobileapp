@@ -117,6 +117,13 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     );
   }
 
+  AppUser queryUser({
+    required String ui,
+  }) {
+    AppUser user = state.users.firstWhere((element) => element.id == ui);
+    return user;
+  }
+
   Marker _markerFromMessage({
     required int index,
     required BuildContext context,
@@ -126,13 +133,17 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     final location = message.loc;
     final locationLatLng = LatLng(location.latitude, location.longitude);
 
+    AppUser user = state.users.firstWhere(
+      (element) => element.id == message.ui,
+    );
+
     return Marker(
       markerId: MarkerId(index.toString()),
       position: locationLatLng,
       infoWindow: InfoWindow(
         title: 'Enkaz Altındayım',
         onTap: () {
-          _routeDetailedPersonPage(context);
+          _routeDetailedPersonPage(context, user);
         },
       ),
     );
@@ -140,34 +151,11 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
 
   void _loadAllMarkers({
     required BuildContext context,
-    required GoogleMapController? mapController,
   }) {
     state = state.copyWith(
       mapMarkers: {},
-      mapController: mapController,
     );
 
-<<<<<<< HEAD
-      state = state.copyWith(
-        mapMarkers: {
-          ...state.mapMarkers,
-          Marker(
-            markerId: MarkerId(i.toString()),
-            position: locationLatLng,
-            infoWindow: InfoWindow(
-              title: 'Enkaz Altındayım',
-              onTap: () {
-                String ui = state.messages[i].ui;
-                var user = state.users.firstWhere(
-                      (element) => element.id == ui,
-                );
-                _routeDetailedPersonPage(context, user);
-              },
-            ),
-          ),
-        },
-      );
-=======
     var newMarkers = <Marker>{};
     for (var i = 0; i < state.messages.length; i++) {
       newMarkers = {
@@ -177,7 +165,6 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
           context: context,
         ),
       };
->>>>>>> 712849b885e185af3c125e8ce6660b97dcb09d88
     }
 
     state = state.copyWith(
@@ -238,7 +225,6 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       );
       _loadAllMarkers(
         context: context,
-        mapController: state.mapController,
       );
     });
   }
