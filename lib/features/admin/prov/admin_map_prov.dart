@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:afad_app/features/auth/models/app_user.dart';
+=======
+import 'package:afad_app/features/mayday_call/help_message.dart';
+>>>>>>> 712849b885e185af3c125e8ce6660b97dcb09d88
 import 'package:afad_app/services/cloud_firestore_service.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
@@ -60,13 +64,12 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
         ),
       );
 
-      _setAllOtherMarkersUnvisible(
-        markerId: MarkerId(
-          index.toString(),
-        ),
+      _removeOtherMarkers(
+        index: index,
+        context: context,
       );
     } else {
-      _setAllMarkersVisible();
+      _loadAllMarkers(context: context);
     }
   }
 
@@ -95,31 +98,17 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     }
   }
 
-  void _setAllOtherMarkersUnvisible({
-    required MarkerId markerId,
+  void _removeOtherMarkers({
+    required int index,
+    required BuildContext context,
   }) {
     if (state.mapController != null) {
-      state = state.copyWith(
-        mapMarkers: state.mapMarkers.map(
-          (e) {
-            return e.markerId == markerId
-                ? e.copyWith(visibleParam: true)
-                : e.copyWith(visibleParam: false);
-          },
-        ).toSet(),
-      );
-    }
-  }
-
-  void _setAllMarkersVisible() {
-    if (state.mapController != null) {
-      state = state.copyWith(
-        mapMarkers: state.mapMarkers.map(
-          (e) {
-            return e.copyWith(visibleParam: true);
-          },
-        ).toSet(),
-      );
+      state = state.copyWith(mapMarkers: {
+        _markerFromMessage(
+          index: index,
+          context: context,
+        ),
+      });
     }
   }
 
@@ -127,6 +116,27 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     state.mapController?.animateCamera(
       CameraUpdate.newCameraPosition(
         state.defaultCamerapPosition,
+      ),
+    );
+  }
+
+  Marker _markerFromMessage({
+    required int index,
+    required BuildContext context,
+  }) {
+    final message = state.messages[index];
+
+    final location = message.loc;
+    final locationLatLng = LatLng(location.latitude, location.longitude);
+
+    return Marker(
+      markerId: MarkerId(index.toString()),
+      position: locationLatLng,
+      infoWindow: InfoWindow(
+        title: 'Enkaz Altındayım',
+        onTap: () {
+          _routeDetailedPersonPage(context);
+        },
       ),
     );
   }
@@ -139,10 +149,8 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       mapMarkers: {},
       mapController: mapController,
     );
-    for (var i = 0; i < state.messages.length; i++) {
-      final location = state.messages[i].loc;
-      final locationLatLng = LatLng(location.latitude, location.longitude);
 
+<<<<<<< HEAD
       state = state.copyWith(
         mapMarkers: {
           ...state.mapMarkers,
@@ -162,7 +170,22 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
           ),
         },
       );
+=======
+    var newMarkers = <Marker>{};
+    for (var i = 0; i < state.messages.length; i++) {
+      newMarkers = {
+        ...newMarkers,
+        _markerFromMessage(
+          index: i,
+          context: context,
+        ),
+      };
+>>>>>>> 712849b885e185af3c125e8ce6660b97dcb09d88
     }
+
+    state = state.copyWith(
+      mapMarkers: newMarkers,
+    );
   }
 
   void logout(BuildContext context) async {
