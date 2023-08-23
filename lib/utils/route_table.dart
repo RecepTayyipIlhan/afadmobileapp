@@ -142,7 +142,9 @@ class RouteTable {
           GoRoute(
             name: rAdminDetailedPersonPage,
             path: 'detailed_person_page',
-            builder: (context, state) => DetailedPersonPage(user: state.extra as AppUser,),
+            builder: (context, state) => DetailedPersonPage(
+              user_d: state.extra as AppUser,
+            ),
           ),
         ],
       );

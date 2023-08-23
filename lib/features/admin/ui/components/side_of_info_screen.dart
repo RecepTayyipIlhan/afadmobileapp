@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:afad_app/features/auth/models/app_user.dart';
 
 class SideScreen extends StatelessWidget {
-  const SideScreen({Key? key}) : super(key: key);
+  final AppUser user_d;
+  const SideScreen({Key? key, required this.user_d}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +15,17 @@ class SideScreen extends StatelessWidget {
         children: <Widget>[
           ClipOval(
             child: Image.network(
-              "https://media.licdn.com/dms/image/D5603AQFhFYfRpuFVVg/profile-displayphoto-shrink_800_800/0/1678191317751?e=1697673600&v=beta&t=dzwuirGJaMZ68dWm27TQSS7YRbGVxBd4k8cbHxhdIWk",
+              user_d.profilePicUrl.toString(),
               width: 150,
               height: 150,
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
-            "Recep Tayyip İlhan",
+            user_d.fullName,
             style: TextStyle(
               fontFamily: "Roboto",
               fontSize: 18,
@@ -31,8 +33,8 @@ class SideScreen extends StatelessWidget {
             ),
           ),
           Text(
-            "ilhanreceptayyip@gmail.com",
-            style: TextStyle(fontFamily: "Roboto",color: Colors.black26),
+            user_d.email,
+            style: TextStyle(fontFamily: "Roboto", color: Colors.black26),
             textAlign: TextAlign.left,
           ),
         ],

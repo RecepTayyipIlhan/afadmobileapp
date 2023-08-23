@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:64197882688:android:33225912e3629d039ac0a5",
+        "mobilesdk_app_id": "1:64197882688:android:8082f76a0ab8a1ee9ac0a5",
         "android_client_info": {
-          "package_name": "com.example.afad_app"
+          "package_name": "com.example"
         }
       },
       "oauth_client": [
         {
-          "client_id": "64197882688-g5e132sh94lpn71ucu2k5r7so1j4boio.apps.googleusercontent.com",
+          "client_id": "64197882688-7vupb5immngq4kvm19bq117iilu4ts0u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +27,95 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "64197882688-g5e132sh94lpn71ucu2k5r7so1j4boio.apps.googleusercontent.com",
+              "client_id": "64197882688-7vupb5immngq4kvm19bq117iilu4ts0u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "64197882688-0mct73v0gfag4jejrro8787l2vu8mdrd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.afadApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64197882688:android:33225912e3629d039ac0a5",
+        "android_client_info": {
+          "package_name": "com.example.afad_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64197882688-8ta4862sibc80r023nkk0urmqp36dr49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.afad_app",
+            "certificate_hash": "1d4aa4a6b25fe5f7dad0beff910fe0cecab9825a"
+          }
+        },
+        {
+          "client_id": "64197882688-7vupb5immngq4kvm19bq117iilu4ts0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA-2wD9-gdE0SGRyN1yeN3YT_BwYK5cw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64197882688-7vupb5immngq4kvm19bq117iilu4ts0u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "64197882688-0mct73v0gfag4jejrro8787l2vu8mdrd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.afadApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64197882688:android:aa97894a3da6dfe09ac0a5",
+        "android_client_info": {
+          "package_name": "com.example.afad_takip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64197882688-as5jc7skk9t1ju2ft9hop9d50j487vvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.afad_takip",
+            "certificate_hash": "1d4aa4a6b25fe5f7dad0beff910fe0cecab9825a"
+          }
+        },
+        {
+          "client_id": "64197882688-7vupb5immngq4kvm19bq117iilu4ts0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA-2wD9-gdE0SGRyN1yeN3YT_BwYK5cw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64197882688-7vupb5immngq4kvm19bq117iilu4ts0u.apps.googleusercontent.com",
               "client_type": 3
             },
             {

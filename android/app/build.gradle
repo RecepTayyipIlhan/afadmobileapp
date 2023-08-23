@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.afad_app"
+        applicationId "com.example"
         minSdkVersion 20
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -65,6 +65,20 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        afad {
+            dimension "default"
+            resValue "string", "app_name", "Afet Yardım"
+            applicationIdSuffix ".afad_app"
+        }
+        tracker {
+            dimension "default"
+            resValue "string", "app_name", "İkaz Takip"
+            applicationIdSuffix ".afad_takip"
         }
     }
 }

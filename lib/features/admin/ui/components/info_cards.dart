@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'info_card.dart';
+import 'package:afad_app/features/auth/models/app_user.dart';
 
 class InfoCards extends StatelessWidget {
-  const InfoCards({Key? key}) : super(key: key);
+  final AppUser user_d;
+  const InfoCards({Key? key, required this.user_d}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,11 @@ class InfoCards extends StatelessWidget {
             children: <Widget>[
               InfoCard(
                 text: "İsim",
-                value: "Recep Tayyip İlhan",
+                value: user_d.fullName,
               ),
               InfoCard(
                 text: "Tc",
-                value: "14249420994",
+                value: user_d.idNumber,
               ),
             ],
           ),
@@ -31,11 +33,11 @@ class InfoCards extends StatelessWidget {
             children: <Widget>[
               InfoCard(
                 text: "Kan Grubu",
-                value: "A rh+",
+                value: user_d.bloodGroup.toString(),
               ),
               InfoCard(
                 text: "Adres",
-                value: "Mevlana mahallesi 901sk no:4d daire:10",
+                value: user_d.address.toString(),
               ),
             ],
           ),
@@ -45,13 +47,13 @@ class InfoCards extends StatelessWidget {
             children: <Widget>[
               InfoCard(
                 text: "İl",
-                value: "İstanbul",
+                value: user_d.birthDate.toString(),
               ),
-              InfoCard(text: "İlçe", value: "Gaziosmanpaşa"),
+              const InfoCard(text: "İlçe", value: "Gaziosmanpaşa"),
             ],
           ),
           SizedBox(height: screen.height * 0.03),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               InfoCard(
