@@ -27,7 +27,7 @@ class _SideScreenState extends State<SideScreen> {
       //borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
       border: Border.all(
         color: Colors.black54,
-        width: 2.0, // Adjust the border width as needed
+        width: 1.5, // Adjust the border width as needed
       ),
     );
   }
@@ -89,6 +89,9 @@ class _SideScreenState extends State<SideScreen> {
                     )),
                     onTap: () => listTileTab(0),
                   ),
+                ),
+                SizedBox(
+                  height: 25,
                 ),
                 Container(
                   decoration: tileDecoration(),
