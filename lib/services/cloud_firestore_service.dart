@@ -1,21 +1,29 @@
 import 'package:afad_app/features/mayday_call/help_message.dart';
+import 'package:afad_app/features/tracker/models/tracker_location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../features/auth/models/app_user.dart';
 import '../utils/utils.dart';
 
 final fbDbProv = Provider(CloudFirestoreService.new);
 
-final _dbProv = Provider(
+final _firestoreProv = Provider(
   (_) => FirebaseFirestore.instance,
+);
+
+final _realtimeProv = Provider(
+  (_) => FirebaseDatabase.instance,
 );
 
 class CloudFirestoreService {
   final Ref _ref;
   const CloudFirestoreService(this._ref);
 
-  FirebaseFirestore get _db => _ref.read(_dbProv);
+  FirebaseFirestore get _firestore => _ref.read(_firestoreProv);
+  FirebaseDatabase get _realtime => _ref.read(_realtimeProv);
 }
 
 extension UserFunctions on CloudFirestoreService {
@@ -25,7 +33,7 @@ extension UserFunctions on CloudFirestoreService {
     required Map<String, String?> deviceInfo,
   }) async {
     try {
-      await _db
+      await _firestore
           .collection(_FirestoreNames._deviceInfo)
           .doc(userId ?? _FirestoreNames._unauthUserDeviceInfo)
           .collection(
@@ -50,14 +58,14 @@ extension UserFunctions on CloudFirestoreService {
 
       final json = user.toJson();
 
-      await _db.collection(_FirestoreNames._users).add(json);
+      await _firestore.collection(_FirestoreNames._users).add(json);
     } catch (e) {
       logger.e(e);
 
       // if the user has been created, we want to delete it
       // and then rethrow the error
 
-      final query = await _db
+      final query = await _firestore
           .collection(_FirestoreNames._users)
           .where('email', isEqualTo: user.email)
           .get();
@@ -84,7 +92,7 @@ extension UserFunctions on CloudFirestoreService {
       final json = user.toJson();
 
       var doc = fetchedDoc ??
-          await _db
+          await _firestore
               .collection(_FirestoreNames._users)
               .where('id', isEqualTo: user.id)
               .get();
@@ -113,7 +121,7 @@ extension UserFunctions on CloudFirestoreService {
   }
 
   Stream<AppUser?> streamUser(String userId) {
-    return _db
+    return _firestore
         .collection(_FirestoreNames._users)
         .where('id', isEqualTo: userId)
         .snapshots()
@@ -135,7 +143,7 @@ extension UserFunctions on CloudFirestoreService {
   /// as it causes a circular dependency
   Future<bool> setUserProfilePicUrl(String userId, String url) async {
     try {
-      final doc = await _db
+      final doc = await _firestore
           .collection(_FirestoreNames._users)
           .where('id', isEqualTo: userId)
           .get();
@@ -162,7 +170,7 @@ extension UserFunctions on CloudFirestoreService {
 
   Future<bool> deleteUser(String userId) async {
     try {
-      final doc = await _db
+      final doc = await _firestore
           .collection(_FirestoreNames._users)
           .where('id', isEqualTo: userId)
           .get();
@@ -186,7 +194,7 @@ extension UserFunctions on CloudFirestoreService {
 
 extension AdminFunctions on CloudFirestoreService {
   Stream<List<AppUser>?> getUsers() {
-    return _db.collection(_FirestoreNames._users).snapshots().map(
+    return _firestore.collection(_FirestoreNames._users).snapshots().map(
       (e) {
         final users = e.docs
             .map(
@@ -200,15 +208,16 @@ extension AdminFunctions on CloudFirestoreService {
       },
     );
   }
+
   Stream<List<HelpMessage>?> getMessages() {
-    return _db.collection(_FirestoreNames._messages).snapshots().map(
-          (e) {
+    return _firestore.collection(_FirestoreNames._messages).snapshots().map(
+      (e) {
         final users = e.docs
             .map(
               (e) => HelpMessage.fromJson(
-            e.data(),
-          ),
-        )
+                e.data(),
+              ),
+            )
             .toList();
 
         return users;
@@ -216,12 +225,28 @@ extension AdminFunctions on CloudFirestoreService {
     );
   }
 
+// TODO(adnanjpg)
+  Stream<TrackerLocation> streamTrackerLocation() {
+    // ignore: sdk_version_since
+    return Stream.value(
+      TrackerLocation(
+        loc: GeoPoint(100, 100),
+      ),
+    );
+    // const userid = "12344";
+    // final ref = _realtime.ref('1');
 
+    // return ref.onValue.map(
+    //   (event) {
+    //     final data = event.snapshot.value;
+
+    //     final location = TrackerLocation.fromJson(data);
+
+    //     return location;
+    //   },
+    // );
+  }
 }
-
-
-
-
 
 class DayHasQuiz {
   final DateTime day;

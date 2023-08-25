@@ -4,7 +4,9 @@
 // and I dont really have time for this right now
 // ignore_for_file: deprecated_member_use
 
+import 'package:afad_app/app_runner.dart';
 import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
+import 'package:afad_app/features/auth/ui/qr_code_screen.dart';
 
 import '../features/admin/ui/admin_home_screen.dart';
 import '../features/home/prov/network_detector_prov.dart';
@@ -46,6 +48,7 @@ class RouteTable {
       //
       rLoginScreen = 'login_screen',
       rSignupScreen = 'signup_screen',
+      rQrScreen = 'qr_screen',
       rDeleteAccountScreen = 'delete_account_screen',
       rForgotPassScreen = 'forgot_pass_screen'
       //
@@ -85,6 +88,11 @@ class RouteTable {
             name: rSignupScreen,
             path: 'signup',
             builder: (context, state) => const SignupScreen(),
+          ),
+          GoRoute(
+            name: rQrScreen,
+            path: 'qrcode',
+            builder: (context, state) => const QrCodeScreen(),
           ),
         ],
       );
@@ -184,6 +192,7 @@ class RouteTable {
           final adminHomeLoc = state.namedLocation(rAdminHome);
           final loginLoc = state.namedLocation(rLoginScreen);
           final signupLoc = state.namedLocation(rSignupScreen);
+          final qrcodeLoc = state.namedLocation(rQrScreen);
 
           final isSplash = state.location == splashLoc;
           final isAuth = state.location.startsWith('/auth') == true;

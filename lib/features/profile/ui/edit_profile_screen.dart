@@ -1,3 +1,4 @@
+import 'package:afad_app/app_runner.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/features/profile/prov/edit_profile_prov.dart';
 import 'package:afad_app/ui/widgets/error_widget.dart';
@@ -78,11 +79,12 @@ class _Body extends ConsumerWidget {
 class _Fields extends ConsumerWidget {
   const _Fields();
 
+  bool get isAfad => selectedFlavor == Flavor.AFAD;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formState = ref.watch(editProfileStateProvider);
     final notifier = ref.watch(editProfileStateProvider.notifier);
-
     return Column(
       children: [
         SizedBox(
@@ -155,24 +157,25 @@ class _Fields extends ConsumerWidget {
           validator: notifier.phoneNumberValidator,
           keyboardType: TextInputType.phone,
         ),
-        PrimaryField(
-          initialValue: formState.relativePhone,
-          icon: SizedBox(
-            width: 80,
-            child: PrimaryField(
-              initialValue: formState.relativeCountryPhoneCode,
-              onTap: () => notifier.relativeCountryCodeOnPressed(context),
-              value: formState.relativeCountryCodeFormatted(context),
-              enabled: false,
-              enabledStyle: true,
-              textAlign: TextAlign.center,
+        if (isAfad)
+          PrimaryField(
+            initialValue: formState.relativePhone,
+            icon: SizedBox(
+              width: 80,
+              child: PrimaryField(
+                initialValue: formState.relativeCountryPhoneCode,
+                onTap: () => notifier.relativeCountryCodeOnPressed(context),
+                value: formState.relativeCountryCodeFormatted(context),
+                enabled: false,
+                enabledStyle: true,
+                textAlign: TextAlign.center,
+              ),
             ),
+            onChanged: notifier.relativePhoneNumberOnChanged,
+            labelText: getStr('edit_profile:fields:relativephone:title'),
+            validator: notifier.relativePhoneNumberValidator,
+            keyboardType: TextInputType.phone,
           ),
-          onChanged: notifier.relativePhoneNumberOnChanged,
-          labelText: getStr('edit_profile:fields:relativephone:title'),
-          validator: notifier.relativePhoneNumberValidator,
-          keyboardType: TextInputType.phone,
-        ),
         PrimaryDropdown<RelativeType>(
           initialValue: formState.relativeType,
           labelText: getStr('edit_profile:fields:relativetype:title'),
@@ -191,15 +194,16 @@ class _Fields extends ConsumerWidget {
               )
               .toList(),
         ),
-        PrimaryField(
-          initialValue: formState.peopleAtSameAddress,
-          labelText: getStr('edit_profile:fields:peopleatsameaddress:title'),
-          onChanged: notifier.peopleAtSameAddressOnChanged,
-          validator: notifier.peopleAtSameAddressValidator,
-          maxLines: 1,
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        ),
+        if (isAfad)
+          PrimaryField(
+            initialValue: formState.peopleAtSameAddress,
+            labelText: getStr('edit_profile:fields:peopleatsameaddress:title'),
+            onChanged: notifier.peopleAtSameAddressOnChanged,
+            validator: notifier.peopleAtSameAddressValidator,
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
         PrimaryField(
           initialValue: formState.address,
           labelText: getStr('edit_profile:fields:address:title'),
@@ -207,37 +211,41 @@ class _Fields extends ConsumerWidget {
           validator: notifier.addressValidator,
           maxLines: 3,
         ),
-        // optional
-        PrimaryField(
-          initialValue: formState.diseases,
-          labelText: getStr('edit_profile:fields:diseases:title'),
-          onChanged: notifier.diseasesOnChanged,
-          maxLines: 1,
-        ),
-        // optional
-        PrimaryField(
-          initialValue: formState.medicines,
-          labelText: getStr('edit_profile:fields:medicines:title'),
-          onChanged: notifier.medicinesOnChanged,
-          maxLines: 1,
-        ),
-        // optional
-        PrimaryField(
-          initialValue: formState.buildingAge,
-          labelText: getStr('edit_profile:fields:buildingage:title'),
-          onChanged: notifier.buildingAgeOnChanged,
-          validator: notifier.buildingAgeValidator,
-          maxLines: 1,
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        ),
-        // optional
-        PrimaryField(
-          initialValue: formState.buildingDurability,
-          labelText: getStr('edit_profile:fields:buildingdurability:title'),
-          onChanged: notifier.buildingDurabilityOnChanged,
-          maxLines: 1,
-        ),
+        if (isAfad)
+          // optional
+          PrimaryField(
+            initialValue: formState.diseases,
+            labelText: getStr('edit_profile:fields:diseases:title'),
+            onChanged: notifier.diseasesOnChanged,
+            maxLines: 1,
+          ),
+        if (isAfad)
+          // optional
+          PrimaryField(
+            initialValue: formState.medicines,
+            labelText: getStr('edit_profile:fields:medicines:title'),
+            onChanged: notifier.medicinesOnChanged,
+            maxLines: 1,
+          ),
+        if (isAfad)
+          // optional
+          PrimaryField(
+            initialValue: formState.buildingAge,
+            labelText: getStr('edit_profile:fields:buildingage:title'),
+            onChanged: notifier.buildingAgeOnChanged,
+            validator: notifier.buildingAgeValidator,
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+        if (isAfad)
+          // optional
+          PrimaryField(
+            initialValue: formState.buildingDurability,
+            labelText: getStr('edit_profile:fields:buildingdurability:title'),
+            onChanged: notifier.buildingDurabilityOnChanged,
+            maxLines: 1,
+          ),
       ].joinWidgetList(
         (index) => const SizedBox(
           height: defPaddingSize,

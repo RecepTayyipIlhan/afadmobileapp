@@ -37,6 +37,7 @@ class _EasyLoc extends StatelessWidget {
       saveLocale: true,
       path: 'assets/translations',
       supportedLocales: appLangs.map((e) => e.toLocale()).toList(),
+      startLocale: getLangModel().toLocale(),
       child: child,
     );
   }

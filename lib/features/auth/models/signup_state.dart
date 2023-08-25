@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:afad_app/app_runner.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -132,19 +133,21 @@ class SignupState with _$SignupState {
   bool get showPassField => isEmailStep;
   bool get showEmailField => isEmailStep;
 
+  bool get isAfad => selectedFlavor == Flavor.AFAD;
+
   bool get showFullNameField => isInfoStep;
   bool get showBloodGroupField => isInfoStep;
   bool get showIdNumberField => isInfoStep;
-  bool get showRelativePhoneField => isInfoStep;
+  bool get showRelativePhoneField => isInfoStep && isAfad;
   bool get showRelativeTypeField => isInfoStep;
-  bool get showRelativeCountryPhoneCodeField => isInfoStep;
-  bool get showRelativeCountryLetterCodeField => isInfoStep;
-  bool get showDiseasesField => isInfoStep;
-  bool get showMedicinesField => isInfoStep;
-  bool get showPeopleAtSameAddressField => isInfoStep;
+  bool get showRelativeCountryPhoneCodeField => isInfoStep && isAfad;
+  bool get showRelativeCountryLetterCodeField => isInfoStep && isAfad;
+  bool get showDiseasesField => isInfoStep && isAfad;
+  bool get showMedicinesField => isInfoStep && isAfad;
+  bool get showPeopleAtSameAddressField => isInfoStep && isAfad;
   bool get showAddressField => isInfoStep;
-  bool get showBuildingAgeField => isInfoStep;
-  bool get showBuildingDurabilityField => isInfoStep;
+  bool get showBuildingAgeField => isInfoStep && isAfad;
+  bool get showBuildingDurabilityField => isInfoStep && isAfad;
   bool get showProfileImageField => isInfoStep;
   bool get showBirthDateField => isInfoStep;
   bool get showPhoneField => isInfoStep;
