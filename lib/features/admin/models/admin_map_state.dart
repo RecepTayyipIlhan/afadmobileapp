@@ -36,9 +36,10 @@ class AdminMapState with _$AdminMapState {
   bool isRowSelected(int rowIndex) => selectedRowIndex == rowIndex;
 
   List<DataColumn> get dataTableColumns => const <DataColumn>[
-        DataColumn(label: Text("Id")),
         DataColumn(label: Text("İsim")),
         DataColumn(label: Text("Tür")),
+        DataColumn(label: Text("Talep")),
+
         /* DataColumn(label: Text("Mesaj")),
                             DataColumn(label: Text("Konum")),    */
       ];

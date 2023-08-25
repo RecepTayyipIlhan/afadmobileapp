@@ -93,18 +93,22 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(
                         child: DataTable(
+                          sortColumnIndex: 0,
+                          sortAscending: true,
                           columns: pageState.dataTableColumns,
                           rows: List<DataRow>.generate(
                             pageState.messages.length,
                             (index) => DataRow(
                               cells: [
-                                DataCell(Text(
-                                    pageState.messages[index].ui.toString())),
+                                DataCell(Text(pageNotifier
+                                    .queryUser(ui: pageState.messages[index].ui)
+                                    .fullName)),
                                 DataCell(Text(
                                     pageState.messages[index].mt.toString())),
-                                DataCell(Text(pageState
-                                    .messages[index].loc.latitude
-                                    .toString())),
+                                //DataCell(Text("deneme")),
+                                DataCell(Text(pageNotifier
+                                    .queryUser(ui: pageState.messages[index].ui)
+                                    .countryLetterCode)),
                                 /* DataCell(Text("Enkaz Altı")),
                                 DataCell(Text(konumDataList[index])), */
                               ],

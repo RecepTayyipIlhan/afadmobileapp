@@ -1,3 +1,4 @@
+import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/services/cloud_firestore_service.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
@@ -19,11 +20,13 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
 
   void onMapCreated(GoogleMapController controller) {
     state = state.copyWith(mapController: controller);
+    //state.mapController?.setMapStyle("assets/map_style.txt");
   }
 
-  void _routeDetailedPersonPage(BuildContext context) {
+  void _routeDetailedPersonPage(BuildContext context, AppUser user) {
     GoRouter.of(context).pushNamed(
       RouteTable.rAdminDetailedPersonPage,
+      extra: user,
     );
   }
 
@@ -45,7 +48,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     if (selected) {
       //var location = konumDataList[index].split(', ');
       var location = state.messages[index].loc;
-      final locationLatLng = LatLng(location.latitude, location.longitude);
+      var locationLatLng = LatLng(location.latitude, location.longitude);
 
       CameraPosition cameraPosition = CameraPosition(
         target: locationLatLng,
@@ -114,6 +117,13 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     );
   }
 
+  AppUser queryUser({
+    required String ui,
+  }) {
+    AppUser user = state.users.firstWhere((element) => element.id == ui);
+    return user;
+  }
+
   Marker _markerFromMessage({
     required int index,
     required BuildContext context,
@@ -123,13 +133,17 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     final location = message.loc;
     final locationLatLng = LatLng(location.latitude, location.longitude);
 
+    AppUser user = state.users.firstWhere(
+      (element) => element.id == message.ui,
+    );
+
     return Marker(
       markerId: MarkerId(index.toString()),
       position: locationLatLng,
       infoWindow: InfoWindow(
         title: 'Enkaz Altındayım',
         onTap: () {
-          _routeDetailedPersonPage(context);
+          _routeDetailedPersonPage(context, user);
         },
       ),
     );

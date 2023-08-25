@@ -134,6 +134,9 @@ extension UserFunctions on CloudFirestoreService {
         final doc = event.docs.first;
 
         final user = AppUser.fromJson(doc.data());
+        print("************************");
+        print(user.fullName);
+        print("************************");
         return user;
       },
     );
@@ -224,6 +227,24 @@ extension AdminFunctions on CloudFirestoreService {
       },
     );
   }
+ /* Stream<AppUser?> getUserWithUi(String ui) {
+    return _db
+        .collection(_FirestoreNames._messages)
+        .where('ui', isEqualTo: ui)
+        .snapshots()
+        .map(
+          (event) {
+        if (event.docs.isEmpty) {
+          return null;
+        }
+
+        final doc = event.docs.first;
+
+        final msg = AppUser.fromJson(doc.data());
+        return msg;
+      },
+    );
+  }*/
 
 // TODO(adnanjpg)
   Stream<TrackerLocation> streamTrackerLocation() {

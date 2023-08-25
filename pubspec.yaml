@@ -5,7 +5,7 @@ version: 1.0.0+1
 # flutter 3.10.4
 # dart 3.0.3
 environment:
-  sdk: "3.0.3"
+  sdk: "3.2.0-91.0.dev"
 dependencies:
   flutter:
     sdk: flutter
@@ -82,6 +82,7 @@ flutter:
     - assets/images/home/
     - assets/images/home/quizzes/
     - assets/fonts/
+    - assets/map_style.txt
   fonts:
     - family: AppIcons
       fonts:

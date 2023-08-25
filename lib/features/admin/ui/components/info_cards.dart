@@ -1,8 +1,14 @@
+import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
 import 'package:flutter/material.dart';
 import 'info_card.dart';
+import 'package:afad_app/features/auth/models/app_user.dart';
 
 class InfoCards extends StatelessWidget {
-  const InfoCards({Key? key}) : super(key: key);
+  final AppUser user_d;
+  final SelectedScreen selectedScreen;
+  const InfoCards(
+      {Key? key, required this.user_d, required this.selectedScreen})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +22,15 @@ class InfoCards extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               InfoCard(
-                text: "İsim",
-                value: "Recep Tayyip İlhan",
+                text: "İsim :",
+                value: user_d.fullName,
+              ),
+              SizedBox(
+                width: 25,
               ),
               InfoCard(
-                text: "Tc",
-                value: "14249420994",
+                text: "Tc :",
+                value: user_d.idNumber,
               ),
             ],
           ),
@@ -30,12 +39,15 @@ class InfoCards extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               InfoCard(
-                text: "Kan Grubu",
-                value: "A rh+",
+                text: "Kan Grubu :",
+                value: user_d.bloodGroup.toString(),
+              ),
+              const SizedBox(
+                width: 25,
               ),
               InfoCard(
-                text: "Adres",
-                value: "Mevlana mahallesi 901sk no:4d daire:10",
+                text: "Aynı evdeki kişiler :",
+                value: user_d.peopleAtSameAddress.toString(),
               ),
             ],
           ),
@@ -45,9 +57,12 @@ class InfoCards extends StatelessWidget {
             children: <Widget>[
               InfoCard(
                 text: "İl",
-                value: "İstanbul",
+                value: user_d.birthDate.toString(),
               ),
-              InfoCard(text: "İlçe", value: "Gaziosmanpaşa"),
+              SizedBox(
+                width: 25,
+              ),
+              const InfoCard(text: "İlçe", value: "Gaziosmanpaşa"),
             ],
           ),
           SizedBox(height: screen.height * 0.03),
@@ -55,8 +70,8 @@ class InfoCards extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               InfoCard(
-                text: "Aile üyesi sayısı",
-                value: "3",
+                text: "Adres",
+                value: user_d.address.toString(),
               ),
             ],
           ),
