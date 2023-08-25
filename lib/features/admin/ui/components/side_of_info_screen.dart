@@ -1,9 +1,36 @@
+import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
 
-class SideScreen extends StatelessWidget {
+class SideScreen extends StatefulWidget {
   final AppUser user_d;
-  const SideScreen({Key? key, required this.user_d}) : super(key: key);
+  final void Function(SelectedScreen) onSelectedChanged;
+  final SelectedScreen selectedScreen;
+  const SideScreen(
+      {Key? key,
+      required this.user_d,
+      required this.selectedScreen,
+      required this.onSelectedChanged})
+      : super(key: key);
+
+  @override
+  State<SideScreen> createState() => _SideScreenState();
+}
+
+class _SideScreenState extends State<SideScreen> {
+  void listTileTab(int index) {
+    widget.onSelectedChanged(SelectedScreen.values[index]);
+  }
+
+  BoxDecoration tileDecoration() {
+    return BoxDecoration(
+      //borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+      border: Border.all(
+        color: Colors.black54,
+        width: 2.0, // Adjust the border width as needed
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +42,9 @@ class SideScreen extends StatelessWidget {
         children: <Widget>[
           ClipOval(
             child: Image.network(
-              user_d.profilePicUrl.toString(),
-              width: 150,
-              height: 150,
+              widget.user_d.profilePicUrl.toString(),
+              width: 175,
+              height: 175,
               fit: BoxFit.cover,
             ),
           ),
@@ -25,17 +52,64 @@ class SideScreen extends StatelessWidget {
             height: 20,
           ),
           Text(
-            user_d.fullName,
-            style: TextStyle(
+            widget.user_d.fullName,
+            style: const TextStyle(
               fontFamily: "Roboto",
-              fontSize: 18,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            user_d.email,
-            style: TextStyle(fontFamily: "Roboto", color: Colors.black26),
+            widget.user_d.email,
+            style: const TextStyle(
+                fontFamily: "Roboto", color: Colors.black26, fontSize: 18),
             textAlign: TextAlign.left,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: <Widget>[
+                Container(
+                  decoration: tileDecoration(),
+                  child: ListTile(
+                    selected:
+                        widget.selectedScreen == SelectedScreen.infoScreen,
+                    selectedTileColor:
+                        Colors.cyanAccent.shade100.withOpacity(0.2),
+                    leading: Icon(Icons.supervised_user_circle),
+                    title: const Center(
+                        child: Text(
+                      'Kullanıcı Bilgileri',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    )),
+                    onTap: () => listTileTab(0),
+                  ),
+                ),
+                Container(
+                  decoration: tileDecoration(),
+                  child: ListTile(
+                    selected:
+                        widget.selectedScreen == SelectedScreen.messageScreen,
+                    selectedTileColor:
+                        Colors.cyanAccent.shade200.withOpacity(0.2),
+                    leading: const Icon(Icons.message_rounded),
+                    title: const Center(
+                        child: Text(
+                      'Gönderilen Mesajlar',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    )),
+                    onTap: () => listTileTab(1),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

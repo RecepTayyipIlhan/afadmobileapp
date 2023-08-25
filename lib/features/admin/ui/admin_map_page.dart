@@ -93,6 +93,8 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(
                         child: DataTable(
+                          sortColumnIndex: 0,
+                          sortAscending: true,
                           columns: pageState.dataTableColumns,
                           rows: List<DataRow>.generate(
                             pageState.messages.length,

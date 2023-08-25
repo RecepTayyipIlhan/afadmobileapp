@@ -21,6 +21,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
 
   void onMapCreated(GoogleMapController controller) {
     state = state.copyWith(mapController: controller);
+    //state.mapController?.setMapStyle("assets/map_style.txt");
   }
 
   void _routeDetailedPersonPage(BuildContext context, AppUser user) {

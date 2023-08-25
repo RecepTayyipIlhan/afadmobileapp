@@ -79,6 +79,7 @@ flutter:
     - assets/images/home/
     - assets/images/home/quizzes/
     - assets/fonts/
+    - assets/map_style.txt
   fonts:
     - family: AppIcons
       fonts:
