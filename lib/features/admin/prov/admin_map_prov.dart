@@ -4,6 +4,7 @@ import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
 import 'package:afad_app/utils/route_table.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -18,9 +19,11 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
   final Ref ref;
   AdminMapStateNotifier(this.ref) : super(AdminMapState.initial());
 
-  void onMapCreated(GoogleMapController controller) {
+  void onMapCreated(GoogleMapController controller) async {
     state = state.copyWith(mapController: controller);
-    //state.mapController?.setMapStyle("assets/map_style.txt");
+
+    var mapStyle = await rootBundle.loadString("assets/map_style.txt");
+    state.mapController?.setMapStyle(mapStyle);
   }
 
   void _routeDetailedPersonPage(BuildContext context, AppUser user) {
