@@ -14,8 +14,8 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
       idNumber: json['idNumber'] as String,
       relativePhone: json['relativePhone'] as String,
-      relativeCountryPhoneCode: json['relativeCountryPhoneCode'] as String,
-      relativeCountryLetterCode: json['relativeCountryLetterCode'] as String,
+      relativeCountryPhoneCode: json['relativeCountryPhoneCode'] as String?,
+      relativeCountryLetterCode: json['relativeCountryLetterCode'] as String?,
       relativeType: $enumDecode(_$RelativeTypeEnumMap, json['relativeType']),
       diseases: json['diseases'] as String?,
       medicines: json['medicines'] as String?,
@@ -33,6 +33,7 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       lastUpdated: json['lastUpdated'] == null
           ? null
           : DateTime.parse(json['lastUpdated'] as String),
+      cihazid: json['cihazid'] as String?,
     );
 
 Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
@@ -59,6 +60,7 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
       'countryLetterCode': instance.countryLetterCode,
       'phone': instance.phone,
       'lastUpdated': instance.lastUpdated?.toIso8601String(),
+      'cihazid': instance.cihazid,
     };
 
 const _$AppUserRoleEnumMap = {

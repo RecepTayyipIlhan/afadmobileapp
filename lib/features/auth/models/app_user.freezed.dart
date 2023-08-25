@@ -27,8 +27,8 @@ mixin _$AppUser {
   BloodGroup get bloodGroup => throw _privateConstructorUsedError;
   String get idNumber => throw _privateConstructorUsedError;
   String get relativePhone => throw _privateConstructorUsedError;
-  String get relativeCountryPhoneCode => throw _privateConstructorUsedError;
-  String get relativeCountryLetterCode => throw _privateConstructorUsedError;
+  String? get relativeCountryPhoneCode => throw _privateConstructorUsedError;
+  String? get relativeCountryLetterCode => throw _privateConstructorUsedError;
   RelativeType get relativeType => throw _privateConstructorUsedError;
   String? get diseases => throw _privateConstructorUsedError;
   String? get medicines => throw _privateConstructorUsedError;
@@ -44,6 +44,7 @@ mixin _$AppUser {
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool get isLoading => throw _privateConstructorUsedError;
   DateTime? get lastUpdated => throw _privateConstructorUsedError;
+  String? get cihazid => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,8 +64,8 @@ abstract class $AppUserCopyWith<$Res> {
       BloodGroup bloodGroup,
       String idNumber,
       String relativePhone,
-      String relativeCountryPhoneCode,
-      String relativeCountryLetterCode,
+      String? relativeCountryPhoneCode,
+      String? relativeCountryLetterCode,
       RelativeType relativeType,
       String? diseases,
       String? medicines,
@@ -78,7 +79,8 @@ abstract class $AppUserCopyWith<$Res> {
       String countryLetterCode,
       String phone,
       @JsonKey(includeFromJson: false, includeToJson: false) bool isLoading,
-      DateTime? lastUpdated});
+      DateTime? lastUpdated,
+      String? cihazid});
 }
 
 /// @nodoc
@@ -101,8 +103,8 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? bloodGroup = null,
     Object? idNumber = null,
     Object? relativePhone = null,
-    Object? relativeCountryPhoneCode = null,
-    Object? relativeCountryLetterCode = null,
+    Object? relativeCountryPhoneCode = freezed,
+    Object? relativeCountryLetterCode = freezed,
     Object? relativeType = null,
     Object? diseases = freezed,
     Object? medicines = freezed,
@@ -117,6 +119,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? phone = null,
     Object? isLoading = null,
     Object? lastUpdated = freezed,
+    Object? cihazid = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -147,14 +150,14 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.relativePhone
           : relativePhone // ignore: cast_nullable_to_non_nullable
               as String,
-      relativeCountryPhoneCode: null == relativeCountryPhoneCode
+      relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
           ? _value.relativeCountryPhoneCode
           : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      relativeCountryLetterCode: null == relativeCountryLetterCode
+              as String?,
+      relativeCountryLetterCode: freezed == relativeCountryLetterCode
           ? _value.relativeCountryLetterCode
           : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       relativeType: null == relativeType
           ? _value.relativeType
           : relativeType // ignore: cast_nullable_to_non_nullable
@@ -211,6 +214,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      cihazid: freezed == cihazid
+          ? _value.cihazid
+          : cihazid // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -230,8 +237,8 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       BloodGroup bloodGroup,
       String idNumber,
       String relativePhone,
-      String relativeCountryPhoneCode,
-      String relativeCountryLetterCode,
+      String? relativeCountryPhoneCode,
+      String? relativeCountryLetterCode,
       RelativeType relativeType,
       String? diseases,
       String? medicines,
@@ -245,7 +252,8 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String countryLetterCode,
       String phone,
       @JsonKey(includeFromJson: false, includeToJson: false) bool isLoading,
-      DateTime? lastUpdated});
+      DateTime? lastUpdated,
+      String? cihazid});
 }
 
 /// @nodoc
@@ -265,8 +273,8 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? bloodGroup = null,
     Object? idNumber = null,
     Object? relativePhone = null,
-    Object? relativeCountryPhoneCode = null,
-    Object? relativeCountryLetterCode = null,
+    Object? relativeCountryPhoneCode = freezed,
+    Object? relativeCountryLetterCode = freezed,
     Object? relativeType = null,
     Object? diseases = freezed,
     Object? medicines = freezed,
@@ -281,6 +289,7 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? phone = null,
     Object? isLoading = null,
     Object? lastUpdated = freezed,
+    Object? cihazid = freezed,
   }) {
     return _then(_$_AppUser(
       id: null == id
@@ -311,14 +320,14 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.relativePhone
           : relativePhone // ignore: cast_nullable_to_non_nullable
               as String,
-      relativeCountryPhoneCode: null == relativeCountryPhoneCode
+      relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
           ? _value.relativeCountryPhoneCode
           : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      relativeCountryLetterCode: null == relativeCountryLetterCode
+              as String?,
+      relativeCountryLetterCode: freezed == relativeCountryLetterCode
           ? _value.relativeCountryLetterCode
           : relativeCountryLetterCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       relativeType: null == relativeType
           ? _value.relativeType
           : relativeType // ignore: cast_nullable_to_non_nullable
@@ -375,6 +384,10 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      cihazid: freezed == cihazid
+          ? _value.cihazid
+          : cihazid // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -390,12 +403,12 @@ class _$_AppUser extends _AppUser {
       required this.bloodGroup,
       required this.idNumber,
       required this.relativePhone,
-      required this.relativeCountryPhoneCode,
-      required this.relativeCountryLetterCode,
+      this.relativeCountryPhoneCode,
+      this.relativeCountryLetterCode,
       required this.relativeType,
       this.diseases,
       this.medicines,
-      required this.peopleAtSameAddress,
+      this.peopleAtSameAddress,
       required this.address,
       this.buildingAge,
       this.buildingDurability,
@@ -406,7 +419,8 @@ class _$_AppUser extends _AppUser {
       required this.phone,
       @JsonKey(includeFromJson: false, includeToJson: false)
       this.isLoading = false,
-      this.lastUpdated})
+      this.lastUpdated,
+      this.cihazid})
       : super._();
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
@@ -427,9 +441,9 @@ class _$_AppUser extends _AppUser {
   @override
   final String relativePhone;
   @override
-  final String relativeCountryPhoneCode;
+  final String? relativeCountryPhoneCode;
   @override
-  final String relativeCountryLetterCode;
+  final String? relativeCountryLetterCode;
   @override
   final RelativeType relativeType;
   @override
@@ -459,10 +473,12 @@ class _$_AppUser extends _AppUser {
   final bool isLoading;
   @override
   final DateTime? lastUpdated;
+  @override
+  final String? cihazid;
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated)';
+    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated, cihazid: $cihazid)';
   }
 
   @override
@@ -512,7 +528,8 @@ class _$_AppUser extends _AppUser {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.lastUpdated, lastUpdated) ||
-                other.lastUpdated == lastUpdated));
+                other.lastUpdated == lastUpdated) &&
+            (identical(other.cihazid, cihazid) || other.cihazid == cihazid));
   }
 
   @JsonKey(ignore: true)
@@ -541,7 +558,8 @@ class _$_AppUser extends _AppUser {
         countryLetterCode,
         phone,
         isLoading,
-        lastUpdated
+        lastUpdated,
+        cihazid
       ]);
 
   @JsonKey(ignore: true)
@@ -567,12 +585,12 @@ abstract class _AppUser extends AppUser {
       required final BloodGroup bloodGroup,
       required final String idNumber,
       required final String relativePhone,
-      required final String relativeCountryPhoneCode,
-      required final String relativeCountryLetterCode,
+      final String? relativeCountryPhoneCode,
+      final String? relativeCountryLetterCode,
       required final RelativeType relativeType,
       final String? diseases,
       final String? medicines,
-      required final String? peopleAtSameAddress,
+      final String? peopleAtSameAddress,
       required final String? address,
       final String? buildingAge,
       final String? buildingDurability,
@@ -583,7 +601,8 @@ abstract class _AppUser extends AppUser {
       required final String phone,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final bool isLoading,
-      final DateTime? lastUpdated}) = _$_AppUser;
+      final DateTime? lastUpdated,
+      final String? cihazid}) = _$_AppUser;
   _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
@@ -603,9 +622,9 @@ abstract class _AppUser extends AppUser {
   @override
   String get relativePhone;
   @override
-  String get relativeCountryPhoneCode;
+  String? get relativeCountryPhoneCode;
   @override
-  String get relativeCountryLetterCode;
+  String? get relativeCountryLetterCode;
   @override
   RelativeType get relativeType;
   @override
@@ -635,6 +654,8 @@ abstract class _AppUser extends AppUser {
   bool get isLoading;
   @override
   DateTime? get lastUpdated;
+  @override
+  String? get cihazid;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

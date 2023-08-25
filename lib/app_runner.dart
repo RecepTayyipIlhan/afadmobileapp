@@ -6,6 +6,11 @@ import 'ui/widgets/error_screen.dart';
 
 enum Flavor { AFAD, TRACKER }
 
+late Flavor _selectedFlavor;
+
+Flavor get selectedFlavor => _selectedFlavor;
+bool get isAfad => selectedFlavor == Flavor.AFAD;
+
 late _AppConfig appConfig;
 
 class _AppConfig {
@@ -24,8 +29,10 @@ class _AppConfig {
   factory _AppConfig.fromFlavor(Flavor flavor) {
     switch (flavor) {
       case Flavor.AFAD:
+        _selectedFlavor = Flavor.AFAD;
         return _AppConfig._afad();
       case Flavor.TRACKER:
+        _selectedFlavor = Flavor.TRACKER;
         return _AppConfig._tracker();
     }
   }

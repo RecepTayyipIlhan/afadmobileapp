@@ -45,12 +45,12 @@ class AppUser with _$AppUser {
     required BloodGroup bloodGroup,
     required String idNumber,
     required String relativePhone,
-    required String relativeCountryPhoneCode,
-    required String relativeCountryLetterCode,
+    String? relativeCountryPhoneCode,
+    String? relativeCountryLetterCode,
     required RelativeType relativeType,
     String? diseases,
     String? medicines,
-    required String? peopleAtSameAddress,
+    String? peopleAtSameAddress,
     required String? address,
     String? buildingAge,
     String? buildingDurability,
@@ -63,6 +63,7 @@ class AppUser with _$AppUser {
     @Default(false)
     bool isLoading,
     DateTime? lastUpdated,
+    String? cihazid,
   }) = _AppUser;
 
   factory AppUser.fromFormState({
@@ -84,6 +85,7 @@ class AppUser with _$AppUser {
     required String countryPhoneCode,
     required String countryLetterCode,
     required String phone,
+    String? cihazid,
   }) =>
       AppUser(
         id: '',
@@ -107,6 +109,7 @@ class AppUser with _$AppUser {
         countryPhoneCode: countryPhoneCode,
         countryLetterCode: countryLetterCode,
         phone: phone,
+        cihazid: cihazid,
       );
 
   factory AppUser.fromEditProfileFormState({
@@ -131,6 +134,7 @@ class AppUser with _$AppUser {
     required String countryPhoneCode,
     required String countryLetterCode,
     required String phone,
+    String? cihazid,
   }) =>
       AppUser(
         id: id,
@@ -155,6 +159,7 @@ class AppUser with _$AppUser {
         countryLetterCode: countryLetterCode,
         phone: phone,
         profilePicUrl: profilePicUrl,
+        cihazid: cihazid,
       );
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

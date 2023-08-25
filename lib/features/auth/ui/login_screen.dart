@@ -1,3 +1,4 @@
+import 'package:afad_app/app_runner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading/loading.dart';
@@ -116,9 +117,15 @@ class _Bod extends StatelessWidget {
                 TextBtn(
                   text: getStr('auth:login:dont_have_an_account:button_part'),
                   onPressed: () {
-                    GoRouter.of(context).pushNamed(
-                      RouteTable.rSignupScreen,
-                    );
+                    if (isAfad) {
+                      GoRouter.of(context).pushNamed(
+                        RouteTable.rSignupScreen,
+                      );
+                    } else {
+                      GoRouter.of(context).pushNamed(
+                        RouteTable.rQrScreen,
+                      );
+                    }
                   },
                   eventName: 'auth:login:dont_have_an_account:button_part',
                 ),

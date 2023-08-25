@@ -1,9 +1,20 @@
 part of 'utils.dart';
 
-// FUTURETODO
 String getLanguageCode() {
+  if (selectedFlavor == Flavor.TRACKER) {
+    return 'en-US';
+  }
+
   // return 'en-US';
   return 'tr-TR';
+}
+
+LangModel getLangModel() {
+  if (selectedFlavor == Flavor.TRACKER) {
+    return LangModel('en', 'US', 'English');
+  }
+
+  return LangModel('tr', 'TR', 'Türkçe');
 }
 
 String getStr(String? inp) {
