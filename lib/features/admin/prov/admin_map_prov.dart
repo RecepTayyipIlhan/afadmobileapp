@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:afad_app/features/admin/models/map_style.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/services/cloud_firestore_service.dart';
 import 'package:afad_app/utils/app_theme.dart';
@@ -9,6 +12,202 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../models/admin_map_state.dart';
+
+const mapStyle = MapStyle(
+  styleItems: [
+    MapStyleItem(
+      elementType: "geometry",
+      stylers: [
+        {"color": "#ebe3cd"}
+      ],
+    ),
+    MapStyleItem(
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#523735"}
+      ],
+    ),
+    MapStyleItem(
+      elementType: "labels.text.stroke",
+      stylers: [
+        {"color": "#f5f1e6"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "administrative",
+      elementType: "geometry",
+      stylers: [
+        {"visibility": "off"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "administrative",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#c9b2a6"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "administrative.land_parcel",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#dcd2be"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "administrative.land_parcel",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#ae9e90"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "landscape.natural",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#dfd2ae"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "poi",
+      stylers: [
+        {"visibility": "off"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "poi",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#dfd2ae"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#93817c"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "poi.park",
+      elementType: "geometry.fill",
+      stylers: [
+        {"color": "#a5b076"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#447530"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#f5f1e6"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road",
+      elementType: "labels.icon",
+      stylers: [
+        {"visibility": "off"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#fdfcf8"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#f8c967"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#e9bc62"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway.controlled_access",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#e98d58"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway.controlled_access",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#db8555"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.local",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#806b63"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "transit",
+      stylers: [
+        {"visibility": "off"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "transit.line",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#dfd2ae"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "transit.line",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#8f7d77"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "transit.line",
+      elementType: "labels.text.stroke",
+      stylers: [
+        {"color": "#ebe3cd"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "transit.station",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#dfd2ae"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "water",
+      elementType: "geometry.fill",
+      stylers: [
+        {"color": "#b9d3c2"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#92998d"}
+      ],
+    ),
+  ],
+);
 
 final adminMapStateProvider =
     StateNotifierProvider<AdminMapStateNotifier, AdminMapState>(
@@ -22,8 +221,8 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
   void onMapCreated(GoogleMapController controller) async {
     state = state.copyWith(mapController: controller);
 
-    var mapStyle = await rootBundle.loadString("assets/map_style.txt");
-    state.mapController?.setMapStyle(mapStyle);
+    final st = json.encode(mapStyle.toJsonForMap());
+    state.mapController?.setMapStyle(st);
   }
 
   void _routeDetailedPersonPage(BuildContext context, AppUser user) {
