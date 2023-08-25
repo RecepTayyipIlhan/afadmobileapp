@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: flutter build web --flavor afad --target lib/main_afad.dart
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+        - run: flutter build web --flavor afad --target lib/main_afad.dart
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
