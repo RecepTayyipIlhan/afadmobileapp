@@ -18,19 +18,19 @@ const mapStyle = MapStyle(
     MapStyleItem(
       elementType: "geometry",
       stylers: [
-        {"color": "#ebe3cd"}
+        {"color": "#1d2c4d"}
       ],
     ),
     MapStyleItem(
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#523735"}
+        {"color": "#8ec3b9"}
       ],
     ),
     MapStyleItem(
       elementType: "labels.text.stroke",
       stylers: [
-        {"color": "#f5f1e6"}
+        {"color": "#1a3646"}
       ],
     ),
     MapStyleItem(
@@ -41,31 +41,38 @@ const mapStyle = MapStyle(
       ],
     ),
     MapStyleItem(
-      featureType: "administrative",
+      featureType: "administrative.country",
       elementType: "geometry.stroke",
       stylers: [
-        {"color": "#c9b2a6"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "administrative.land_parcel",
-      elementType: "geometry.stroke",
-      stylers: [
-        {"color": "#dcd2be"}
+        {"color": "#4b6878"}
       ],
     ),
     MapStyleItem(
       featureType: "administrative.land_parcel",
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#ae9e90"}
+        {"color": "#64779e"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "administrative.province",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#4b6878"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "landscape.man_made",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#334e87"}
       ],
     ),
     MapStyleItem(
       featureType: "landscape.natural",
       elementType: "geometry",
       stylers: [
-        {"color": "#dfd2ae"}
+        {"color": "#023e58"}
       ],
     ),
     MapStyleItem(
@@ -78,35 +85,42 @@ const mapStyle = MapStyle(
       featureType: "poi",
       elementType: "geometry",
       stylers: [
-        {"color": "#dfd2ae"}
+        {"color": "#283d6a"}
       ],
     ),
     MapStyleItem(
       featureType: "poi",
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#93817c"}
+        {"color": "#6f9ba5"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "poi",
+      elementType: "labels.text.stroke",
+      stylers: [
+        {"color": "#1d2c4d"}
       ],
     ),
     MapStyleItem(
       featureType: "poi.park",
       elementType: "geometry.fill",
       stylers: [
-        {"color": "#a5b076"}
+        {"color": "#023e58"}
       ],
     ),
     MapStyleItem(
       featureType: "poi.park",
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#447530"}
+        {"color": "#3C7680"}
       ],
     ),
     MapStyleItem(
       featureType: "road",
       elementType: "geometry",
       stylers: [
-        {"color": "#f5f1e6"}
+        {"color": "#304a7d"}
       ],
     ),
     MapStyleItem(
@@ -117,45 +131,45 @@ const mapStyle = MapStyle(
       ],
     ),
     MapStyleItem(
-      featureType: "road.arterial",
-      elementType: "geometry",
-      stylers: [
-        {"color": "#fdfcf8"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "road.highway",
-      elementType: "geometry",
-      stylers: [
-        {"color": "#f8c967"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "road.highway",
-      elementType: "geometry.stroke",
-      stylers: [
-        {"color": "#e9bc62"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "road.highway.controlled_access",
-      elementType: "geometry",
-      stylers: [
-        {"color": "#e98d58"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "road.highway.controlled_access",
-      elementType: "geometry.stroke",
-      stylers: [
-        {"color": "#db8555"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "road.local",
+      featureType: "road",
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#806b63"}
+        {"color": "#98a5be"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road",
+      elementType: "labels.text.stroke",
+      stylers: [
+        {"color": "#1d2c4d"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [
+        {"color": "#2c6675"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [
+        {"color": "#255763"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [
+        {"color": "#b0d5ce"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "road.highway",
+      elementType: "labels.text.stroke",
+      stylers: [
+        {"color": "#023e58"}
       ],
     ),
     MapStyleItem(
@@ -165,45 +179,45 @@ const mapStyle = MapStyle(
       ],
     ),
     MapStyleItem(
-      featureType: "transit.line",
-      elementType: "geometry",
-      stylers: [
-        {"color": "#dfd2ae"}
-      ],
-    ),
-    MapStyleItem(
-      featureType: "transit.line",
+      featureType: "transit",
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#8f7d77"}
+        {"color": "#98a5be"}
+      ],
+    ),
+    MapStyleItem(
+      featureType: "transit",
+      elementType: "labels.text.stroke",
+      stylers: [
+        {"color": "#1d2c4d"}
       ],
     ),
     MapStyleItem(
       featureType: "transit.line",
-      elementType: "labels.text.stroke",
+      elementType: "geometry.fill",
       stylers: [
-        {"color": "#ebe3cd"}
+        {"color": "#283d6a"}
       ],
     ),
     MapStyleItem(
       featureType: "transit.station",
       elementType: "geometry",
       stylers: [
-        {"color": "#dfd2ae"}
+        {"color": "#3a4762"}
       ],
     ),
     MapStyleItem(
       featureType: "water",
-      elementType: "geometry.fill",
+      elementType: "geometry",
       stylers: [
-        {"color": "#b9d3c2"}
+        {"color": "#0e1626"}
       ],
     ),
     MapStyleItem(
       featureType: "water",
       elementType: "labels.text.fill",
       stylers: [
-        {"color": "#92998d"}
+        {"color": "#4e6d70"}
       ],
     ),
   ],
