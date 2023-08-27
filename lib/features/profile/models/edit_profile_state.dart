@@ -76,7 +76,7 @@ class EditProfileState with _$EditProfileState {
       fullName: fullName,
       bloodGroup: bloodGroup!,
       idNumber: idNumber!,
-      relativePhone: relativePhone!,
+      relativePhone: relativePhone,
       relativeCountryPhoneCode: relativeCountryPhoneCode!,
       relativeCountryLetterCode: relativeCountryLetterCode!,
       relativeType: relativeType!,

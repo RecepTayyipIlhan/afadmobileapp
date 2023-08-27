@@ -13,7 +13,7 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
       role: $enumDecode(_$AppUserRoleEnumMap, json['role']),
       bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
       idNumber: json['idNumber'] as String,
-      relativePhone: json['relativePhone'] as String,
+      relativePhone: json['relativePhone'] as String?,
       relativeCountryPhoneCode: json['relativeCountryPhoneCode'] as String?,
       relativeCountryLetterCode: json['relativeCountryLetterCode'] as String?,
       relativeType: $enumDecode(_$RelativeTypeEnumMap, json['relativeType']),

@@ -1,23 +1,13 @@
 import 'dart:io';
 
-import 'package:afad_app/features/auth/models/app_user.dart';
-import 'package:afad_app/ui/widgets/primary_dropdown.dart';
-import 'package:afad_app/utils/app_theme.dart';
-import 'package:afad_app/utils/icons/app_icons_icons.dart';
 import 'package:afad_app/utils/route_table.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading/loading.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import '../../../ui/widgets/btns/auth_icon_btn.dart';
-import '../../../ui/widgets/btns/primary_btn.dart';
-import '../../../ui/widgets/primary_field.dart';
 import '../../../utils/utils.dart';
 
-import '../../../ui/widgets/primary_image_picker.dart';
 import '../prov/signup_prov.dart';
 
 class QrCodeScreen extends ConsumerWidget {
@@ -89,10 +79,13 @@ class _Bod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height,
       margin: defPaddingAll,
       child: Column(
         children: [
-          const _Fields(),
+          const Expanded(
+            child: _Fields(),
+          ),
         ].joinWidgetList(
           (index) => const SizedBox(
             height: defPaddingSize * 2,
@@ -148,9 +141,6 @@ class _FieldsState extends ConsumerState<_Fields> {
   Widget build(
     BuildContext context,
   ) {
-    final formState = ref.watch(signupStateProvider);
-    final notifier = ref.watch(signupStateProvider.notifier);
-
     return Column(
       children: [
         Expanded(
@@ -166,9 +156,9 @@ class _FieldsState extends ConsumerState<_Fields> {
             child: (result != null)
                 ? Text(
                     'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                : Text('Scan a code'),
+                : const Text('Scan a code'),
           ),
-        )
+        ),
       ].joinWidgetList(
         (index) => const SizedBox(
           height: defPaddingSize,

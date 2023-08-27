@@ -119,9 +119,6 @@ class _Fields extends ConsumerWidget {
             onChanged: notifier.plakaKoduOnChanged,
             validator: notifier.plakaKoduValidator,
             initialValue: formState.plakaKodu,
-            key: formState.plakaKodu != null
-                ? Key(formState.plakaKodu.toString())
-                : null,
             items: ref
                 .watch(appInitStateProv)
                 .iller!
@@ -129,9 +126,7 @@ class _Fields extends ConsumerWidget {
                   (e) => DropdownMenuItem(
                     value: e.plakaKodu,
                     child: Text(
-                      getStr(
-                        e.ilAdi.toString(),
-                      ),
+                      e.ilAdi.toString(),
                     ),
                   ),
                 )
@@ -156,9 +151,7 @@ class _Fields extends ConsumerWidget {
                   (e) => DropdownMenuItem(
                     value: e.ilceKodu,
                     child: Text(
-                      getStr(
-                        e.ilceAdi.toString(),
-                      ),
+                      e.ilceAdi.toString(),
                     ),
                   ),
                 )

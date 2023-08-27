@@ -26,7 +26,7 @@ mixin _$AppUser {
   AppUserRole get role => throw _privateConstructorUsedError;
   BloodGroup get bloodGroup => throw _privateConstructorUsedError;
   String get idNumber => throw _privateConstructorUsedError;
-  String get relativePhone => throw _privateConstructorUsedError;
+  String? get relativePhone => throw _privateConstructorUsedError;
   String? get relativeCountryPhoneCode => throw _privateConstructorUsedError;
   String? get relativeCountryLetterCode => throw _privateConstructorUsedError;
   RelativeType get relativeType => throw _privateConstructorUsedError;
@@ -65,7 +65,7 @@ abstract class $AppUserCopyWith<$Res> {
       AppUserRole role,
       BloodGroup bloodGroup,
       String idNumber,
-      String relativePhone,
+      String? relativePhone,
       String? relativeCountryPhoneCode,
       String? relativeCountryLetterCode,
       RelativeType relativeType,
@@ -106,7 +106,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? role = null,
     Object? bloodGroup = null,
     Object? idNumber = null,
-    Object? relativePhone = null,
+    Object? relativePhone = freezed,
     Object? relativeCountryPhoneCode = freezed,
     Object? relativeCountryLetterCode = freezed,
     Object? relativeType = null,
@@ -152,10 +152,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.idNumber
           : idNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      relativePhone: null == relativePhone
+      relativePhone: freezed == relativePhone
           ? _value.relativePhone
           : relativePhone // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
           ? _value.relativeCountryPhoneCode
           : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,7 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       AppUserRole role,
       BloodGroup bloodGroup,
       String idNumber,
-      String relativePhone,
+      String? relativePhone,
       String? relativeCountryPhoneCode,
       String? relativeCountryLetterCode,
       RelativeType relativeType,
@@ -288,7 +288,7 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? role = null,
     Object? bloodGroup = null,
     Object? idNumber = null,
-    Object? relativePhone = null,
+    Object? relativePhone = freezed,
     Object? relativeCountryPhoneCode = freezed,
     Object? relativeCountryLetterCode = freezed,
     Object? relativeType = null,
@@ -334,10 +334,10 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.idNumber
           : idNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      relativePhone: null == relativePhone
+      relativePhone: freezed == relativePhone
           ? _value.relativePhone
           : relativePhone // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       relativeCountryPhoneCode: freezed == relativeCountryPhoneCode
           ? _value.relativeCountryPhoneCode
           : relativeCountryPhoneCode // ignore: cast_nullable_to_non_nullable
@@ -467,7 +467,7 @@ class _$_AppUser extends _AppUser {
   @override
   final String idNumber;
   @override
-  final String relativePhone;
+  final String? relativePhone;
   @override
   final String? relativeCountryPhoneCode;
   @override
@@ -622,7 +622,7 @@ abstract class _AppUser extends AppUser {
       required final AppUserRole role,
       required final BloodGroup bloodGroup,
       required final String idNumber,
-      required final String relativePhone,
+      required final String? relativePhone,
       final String? relativeCountryPhoneCode,
       final String? relativeCountryLetterCode,
       required final RelativeType relativeType,
@@ -660,7 +660,7 @@ abstract class _AppUser extends AppUser {
   @override
   String get idNumber;
   @override
-  String get relativePhone;
+  String? get relativePhone;
   @override
   String? get relativeCountryPhoneCode;
   @override
