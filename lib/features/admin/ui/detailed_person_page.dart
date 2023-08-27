@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
 import 'components/side_of_info_screen.dart';
 import 'components/info_cards.dart';
+import 'components/message_list.dart';
 
 class DetailedPersonPage extends StatefulWidget {
   final AppUser user;
@@ -32,7 +33,9 @@ class _DetailedPersonPageState extends State<DetailedPersonPage> {
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
-        title: Text('Kullanıcı Bilgileri'),
+        title: Text(selectedIndex == SelectedScreen.infoScreen
+            ? "Kullanıcı Bilgileri"
+            : "Kullanıcının Mesajları"),
       ),
       body: Column(
         children: <Widget>[
@@ -52,7 +55,7 @@ class _DetailedPersonPageState extends State<DetailedPersonPage> {
                   user_d: widget.user,
                 )
               else
-                Text("Hekooooooo"),
+                MessagesList(),
             ],
           ),
         ],

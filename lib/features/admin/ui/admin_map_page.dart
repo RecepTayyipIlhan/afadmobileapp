@@ -50,7 +50,7 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
             ),
           ),
           PositionedDirectional(
-            end: 20,
+            end: 0,
             top: 20,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -89,6 +89,7 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                     ),
                     child: Container(
                       color: Colors.white.withOpacity(0.9),
+                      //color: Color.fromRGBO(223, 210, 175, 0.8),
                       height: screen.size.width * 0.4,
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(

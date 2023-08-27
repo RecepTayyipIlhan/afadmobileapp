@@ -103,7 +103,7 @@ class _SideScreenState extends State<SideScreen> {
                     leading: const Icon(Icons.message_rounded),
                     title: const Center(
                         child: Text(
-                      'Gönderilen Mesajlar',
+                      'Kullanıcının Mesajları',
                       style: TextStyle(
                         color: Colors.black,
                       ),
