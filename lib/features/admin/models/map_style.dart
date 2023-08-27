@@ -17,6 +17,8 @@ class MapStyleItem with _$MapStyleItem {
 
 @freezed
 class MapStyle with _$MapStyle {
+  const MapStyle._();
+
   const factory MapStyle({
     List<MapStyleItem>? styleItems,
   }) = _MapStyle;

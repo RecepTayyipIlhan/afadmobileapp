@@ -285,9 +285,10 @@ class __$$_MapStyleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MapStyle implements _MapStyle {
+class _$_MapStyle extends _MapStyle {
   const _$_MapStyle({final List<MapStyleItem>? styleItems})
-      : _styleItems = styleItems;
+      : _styleItems = styleItems,
+        super._();
 
   factory _$_MapStyle.fromJson(Map<String, dynamic> json) =>
       _$$_MapStyleFromJson(json);
@@ -335,8 +336,9 @@ class _$_MapStyle implements _MapStyle {
   }
 }
 
-abstract class _MapStyle implements MapStyle {
+abstract class _MapStyle extends MapStyle {
   const factory _MapStyle({final List<MapStyleItem>? styleItems}) = _$_MapStyle;
+  const _MapStyle._() : super._();
 
   factory _MapStyle.fromJson(Map<String, dynamic> json) = _$_MapStyle.fromJson;
 
