@@ -38,6 +38,8 @@ mixin _$EditProfileState {
   Ref<Object?> get ref => throw _privateConstructorUsedError;
   GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
   AppUser get user => throw _privateConstructorUsedError;
+  String? get plakaKodu => throw _privateConstructorUsedError;
+  String? get ilceKodu => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditProfileStateCopyWith<EditProfileState> get copyWith =>
@@ -72,7 +74,9 @@ abstract class $EditProfileStateCopyWith<$Res> {
       String? phone,
       Ref<Object?> ref,
       GlobalKey<FormState> formKey,
-      AppUser user});
+      AppUser user,
+      String? plakaKodu,
+      String? ilceKodu});
 
   $AppUserCopyWith<$Res> get user;
 }
@@ -112,6 +116,8 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? ref = null,
     Object? formKey = null,
     Object? user = null,
+    Object? plakaKodu = freezed,
+    Object? ilceKodu = freezed,
   }) {
     return _then(_value.copyWith(
       fullName: null == fullName
@@ -202,6 +208,14 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as AppUser,
+      plakaKodu: freezed == plakaKodu
+          ? _value.plakaKodu
+          : plakaKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ilceKodu: freezed == ilceKodu
+          ? _value.ilceKodu
+          : ilceKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -244,7 +258,9 @@ abstract class _$$_EditProfileStateCopyWith<$Res>
       String? phone,
       Ref<Object?> ref,
       GlobalKey<FormState> formKey,
-      AppUser user});
+      AppUser user,
+      String? plakaKodu,
+      String? ilceKodu});
 
   @override
   $AppUserCopyWith<$Res> get user;
@@ -283,6 +299,8 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
     Object? ref = null,
     Object? formKey = null,
     Object? user = null,
+    Object? plakaKodu = freezed,
+    Object? ilceKodu = freezed,
   }) {
     return _then(_$_EditProfileState(
       fullName: null == fullName
@@ -373,6 +391,14 @@ class __$$_EditProfileStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as AppUser,
+      plakaKodu: freezed == plakaKodu
+          ? _value.plakaKodu
+          : plakaKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ilceKodu: freezed == ilceKodu
+          ? _value.ilceKodu
+          : ilceKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -402,7 +428,9 @@ class _$_EditProfileState extends _EditProfileState {
       this.phone,
       required this.ref,
       required this.formKey,
-      required this.user})
+      required this.user,
+      required this.plakaKodu,
+      required this.ilceKodu})
       : super._();
 
   @override
@@ -449,10 +477,14 @@ class _$_EditProfileState extends _EditProfileState {
   final GlobalKey<FormState> formKey;
   @override
   final AppUser user;
+  @override
+  final String? plakaKodu;
+  @override
+  final String? ilceKodu;
 
   @override
   String toString() {
-    return 'EditProfileState(fullName: $fullName, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user)';
+    return 'EditProfileState(fullName: $fullName, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profileImage: $profileImage, profileImageUrl: $profileImageUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, ref: $ref, formKey: $formKey, user: $user, plakaKodu: $plakaKodu, ilceKodu: $ilceKodu)';
   }
 
   @override
@@ -500,7 +532,11 @@ class _$_EditProfileState extends _EditProfileState {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.formKey, formKey) || other.formKey == formKey) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.plakaKodu, plakaKodu) ||
+                other.plakaKodu == plakaKodu) &&
+            (identical(other.ilceKodu, ilceKodu) ||
+                other.ilceKodu == ilceKodu));
   }
 
   @override
@@ -527,7 +563,9 @@ class _$_EditProfileState extends _EditProfileState {
         phone,
         ref,
         formKey,
-        user
+        user,
+        plakaKodu,
+        ilceKodu
       ]);
 
   @JsonKey(ignore: true)
@@ -560,7 +598,9 @@ abstract class _EditProfileState extends EditProfileState {
       final String? phone,
       required final Ref<Object?> ref,
       required final GlobalKey<FormState> formKey,
-      required final AppUser user}) = _$_EditProfileState;
+      required final AppUser user,
+      required final String? plakaKodu,
+      required final String? ilceKodu}) = _$_EditProfileState;
   const _EditProfileState._() : super._();
 
   @override
@@ -607,6 +647,10 @@ abstract class _EditProfileState extends EditProfileState {
   GlobalKey<FormState> get formKey;
   @override
   AppUser get user;
+  @override
+  String? get plakaKodu;
+  @override
+  String? get ilceKodu;
   @override
   @JsonKey(ignore: true)
   _$$_EditProfileStateCopyWith<_$_EditProfileState> get copyWith =>

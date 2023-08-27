@@ -40,6 +40,8 @@ mixin _$SignupState {
   Ref<Object?> get ref => throw _privateConstructorUsedError;
   GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
   int? get emailLinkResendSecondsLeft => throw _privateConstructorUsedError;
+  String? get plakaKodu => throw _privateConstructorUsedError;
+  String? get ilceKodu => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignupStateCopyWith<SignupState> get copyWith =>
@@ -76,7 +78,9 @@ abstract class $SignupStateCopyWith<$Res> {
       bool isEmailLinkRequested,
       Ref<Object?> ref,
       GlobalKey<FormState> formKey,
-      int? emailLinkResendSecondsLeft});
+      int? emailLinkResendSecondsLeft,
+      String? plakaKodu,
+      String? ilceKodu});
 }
 
 /// @nodoc
@@ -116,6 +120,8 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? ref = null,
     Object? formKey = null,
     Object? emailLinkResendSecondsLeft = freezed,
+    Object? plakaKodu = freezed,
+    Object? ilceKodu = freezed,
   }) {
     return _then(_value.copyWith(
       email: freezed == email
@@ -214,6 +220,14 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
           ? _value.emailLinkResendSecondsLeft
           : emailLinkResendSecondsLeft // ignore: cast_nullable_to_non_nullable
               as int?,
+      plakaKodu: freezed == plakaKodu
+          ? _value.plakaKodu
+          : plakaKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ilceKodu: freezed == ilceKodu
+          ? _value.ilceKodu
+          : ilceKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -250,7 +264,9 @@ abstract class _$$_SignupStateCopyWith<$Res>
       bool isEmailLinkRequested,
       Ref<Object?> ref,
       GlobalKey<FormState> formKey,
-      int? emailLinkResendSecondsLeft});
+      int? emailLinkResendSecondsLeft,
+      String? plakaKodu,
+      String? ilceKodu});
 }
 
 /// @nodoc
@@ -288,6 +304,8 @@ class __$$_SignupStateCopyWithImpl<$Res>
     Object? ref = null,
     Object? formKey = null,
     Object? emailLinkResendSecondsLeft = freezed,
+    Object? plakaKodu = freezed,
+    Object? ilceKodu = freezed,
   }) {
     return _then(_$_SignupState(
       email: freezed == email
@@ -386,6 +404,14 @@ class __$$_SignupStateCopyWithImpl<$Res>
           ? _value.emailLinkResendSecondsLeft
           : emailLinkResendSecondsLeft // ignore: cast_nullable_to_non_nullable
               as int?,
+      plakaKodu: freezed == plakaKodu
+          ? _value.plakaKodu
+          : plakaKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ilceKodu: freezed == ilceKodu
+          ? _value.ilceKodu
+          : ilceKodu // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -417,7 +443,9 @@ class _$_SignupState extends _SignupState {
       this.isEmailLinkRequested = true,
       required this.ref,
       required this.formKey,
-      this.emailLinkResendSecondsLeft})
+      this.emailLinkResendSecondsLeft,
+      this.plakaKodu,
+      this.ilceKodu})
       : super._();
 
   @override
@@ -469,10 +497,14 @@ class _$_SignupState extends _SignupState {
   final GlobalKey<FormState> formKey;
   @override
   final int? emailLinkResendSecondsLeft;
+  @override
+  final String? plakaKodu;
+  @override
+  final String? ilceKodu;
 
   @override
   String toString() {
-    return 'SignupState(email: $email, pass: $pass, fullName: $fullName, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft)';
+    return 'SignupState(email: $email, pass: $pass, fullName: $fullName, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profileImage: $profileImage, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isEmailLinkRequested: $isEmailLinkRequested, ref: $ref, formKey: $formKey, emailLinkResendSecondsLeft: $emailLinkResendSecondsLeft, plakaKodu: $plakaKodu, ilceKodu: $ilceKodu)';
   }
 
   @override
@@ -525,7 +557,11 @@ class _$_SignupState extends _SignupState {
             (identical(other.emailLinkResendSecondsLeft,
                     emailLinkResendSecondsLeft) ||
                 other.emailLinkResendSecondsLeft ==
-                    emailLinkResendSecondsLeft));
+                    emailLinkResendSecondsLeft) &&
+            (identical(other.plakaKodu, plakaKodu) ||
+                other.plakaKodu == plakaKodu) &&
+            (identical(other.ilceKodu, ilceKodu) ||
+                other.ilceKodu == ilceKodu));
   }
 
   @override
@@ -554,7 +590,9 @@ class _$_SignupState extends _SignupState {
         isEmailLinkRequested,
         ref,
         formKey,
-        emailLinkResendSecondsLeft
+        emailLinkResendSecondsLeft,
+        plakaKodu,
+        ilceKodu
       ]);
 
   @JsonKey(ignore: true)
@@ -589,7 +627,9 @@ abstract class _SignupState extends SignupState {
       final bool isEmailLinkRequested,
       required final Ref<Object?> ref,
       required final GlobalKey<FormState> formKey,
-      final int? emailLinkResendSecondsLeft}) = _$_SignupState;
+      final int? emailLinkResendSecondsLeft,
+      final String? plakaKodu,
+      final String? ilceKodu}) = _$_SignupState;
   const _SignupState._() : super._();
 
   @override
@@ -640,6 +680,10 @@ abstract class _SignupState extends SignupState {
   GlobalKey<FormState> get formKey;
   @override
   int? get emailLinkResendSecondsLeft;
+  @override
+  String? get plakaKodu;
+  @override
+  String? get ilceKodu;
   @override
   @JsonKey(ignore: true)
   _$$_SignupStateCopyWith<_$_SignupState> get copyWith =>

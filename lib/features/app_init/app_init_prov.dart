@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:afad_app/app_runner.dart';
+import 'package:afad_app/features/admin/models/il_ilce_model.dart';
 import 'package:afad_app/services/analytics_service.dart';
 import 'package:afad_app/services/cloud_firestore_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -18,6 +19,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home/prov/network_detector_prov.dart';
@@ -290,11 +292,31 @@ class AppInitProv {
     //   }
     // }
 
+    await setIlIlce();
+
     try {
       ref.read(fbAnalyticsProv).appOpened();
     } catch (e) {
       logger.e(e);
     }
+  }
+
+  Future<void> setIlIlce() async {
+    final json = await rootBundle.loadString('assets/il_ilce.json');
+
+    final map = jsonDecode(json) as Map<String, dynamic>;
+
+    final iller = (map['data'] as List<dynamic>).map(
+      (e) {
+        return IlModel.fromJson(e as Map<String, dynamic>);
+      },
+    ).toList();
+
+    ref.read(appInitStateProv.notifier).update(
+          (state) => state.copyWith(
+            iller: iller,
+          ),
+        );
   }
 
   Future<void> recordDeviceInfo() async {

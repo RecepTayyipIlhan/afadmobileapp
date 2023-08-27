@@ -35,6 +35,8 @@ class EditProfileState with _$EditProfileState {
     required Ref ref,
     required GlobalKey<FormState> formKey,
     required AppUser user,
+    required String? plakaKodu,
+    required String? ilceKodu,
   }) = _EditProfileState;
 
   factory EditProfileState.fromAppUser({
@@ -63,6 +65,8 @@ class EditProfileState with _$EditProfileState {
       phone: user.phone,
       profileImageUrl: user.profilePicUrl,
       user: user,
+      plakaKodu: user.plakaKodu,
+      ilceKodu: user.ilceKodu,
     );
   }
 
@@ -89,6 +93,8 @@ class EditProfileState with _$EditProfileState {
       id: user.id,
       profilePicUrl: profileImageUrl,
       role: user.role,
+      plakaKodu: plakaKodu!,
+      ilceKodu: ilceKodu!,
     );
   }
 
@@ -125,4 +131,7 @@ class EditProfileState with _$EditProfileState {
 
     return '+$relativeCountryPhoneCode';
   }
+
+  bool get showPlakaKoduField => true;
+  bool get showIlceKoduField => plakaKodu != null && true;
 }

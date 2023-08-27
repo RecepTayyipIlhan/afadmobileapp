@@ -1,4 +1,5 @@
 import 'package:afad_app/app_runner.dart';
+import 'package:afad_app/features/app_init/app_init_prov.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/features/profile/prov/edit_profile_prov.dart';
 import 'package:afad_app/ui/widgets/error_widget.dart';
@@ -112,6 +113,57 @@ class _Fields extends ConsumerWidget {
             color: Theme.of(context).editProfileFieldsSuffixIconColor,
           ),
         ),
+        if (formState.showPlakaKoduField)
+          PrimaryDropdown<String>(
+            labelText: getStr('auth:signup:fields:plakakodu:title'),
+            onChanged: notifier.plakaKoduOnChanged,
+            validator: notifier.plakaKoduValidator,
+            initialValue: formState.plakaKodu,
+            key: formState.plakaKodu != null
+                ? Key(formState.plakaKodu.toString())
+                : null,
+            items: ref
+                .watch(appInitStateProv)
+                .iller!
+                .map(
+                  (e) => DropdownMenuItem(
+                    value: e.plakaKodu,
+                    child: Text(
+                      getStr(
+                        e.ilAdi.toString(),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        if (formState.showIlceKoduField)
+          PrimaryDropdown<String>(
+            labelText: getStr('auth:signup:fields:ilcekodu:title'),
+            onChanged: notifier.ilceKoduOnChanged,
+            validator: notifier.ilceKoduValidator,
+            initialValue: formState.ilceKodu,
+            key: formState.ilceKodu != null
+                ? Key(formState.ilceKodu.toString())
+                : null,
+            items: ref
+                .watch(appInitStateProv)
+                .iller!
+                .firstWhere(
+                    (element) => element.plakaKodu == formState.plakaKodu)
+                .ilceler
+                .map(
+                  (e) => DropdownMenuItem(
+                    value: e.ilceKodu,
+                    child: Text(
+                      getStr(
+                        e.ilceAdi.toString(),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
         PrimaryDropdown<BloodGroup>(
           initialValue: formState.bloodGroup,
           labelText: getStr('edit_profile:fields:bloodgroup:title'),

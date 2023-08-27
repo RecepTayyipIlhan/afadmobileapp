@@ -42,6 +42,8 @@ class SignupState with _$SignupState {
     required Ref ref,
     required GlobalKey<FormState> formKey,
     int? emailLinkResendSecondsLeft,
+    String? plakaKodu,
+    String? ilceKodu,
   }) = _SignupState;
 
   factory SignupState.initial({required Ref ref}) {
@@ -70,6 +72,8 @@ class SignupState with _$SignupState {
         countryPhoneCode: countryPhoneCode!,
         countryLetterCode: countryLetterCode!,
         phone: phone!,
+        ilceKodu: ilceKodu!,
+        plakaKodu: plakaKodu!,
       );
 
   Duration get emailLinkResendDuration => const Duration(seconds: 30);
@@ -151,4 +155,6 @@ class SignupState with _$SignupState {
   bool get showProfileImageField => isInfoStep;
   bool get showBirthDateField => isInfoStep;
   bool get showPhoneField => isInfoStep;
+  bool get showPlakaKoduField => isInfoStep;
+  bool get showIlceKoduField => plakaKodu != null && isInfoStep;
 }

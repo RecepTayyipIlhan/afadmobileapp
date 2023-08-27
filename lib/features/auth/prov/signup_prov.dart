@@ -259,6 +259,17 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     state = state.copyWith(relativeType: value);
   }
 
+  void plakaKoduOnChanged(String? plakakodu) {
+    state = state.copyWith(
+      plakaKodu: plakakodu,
+      ilceKodu: null,
+    );
+  }
+
+  void ilceKoduOnChanged(String? ilcekodu) {
+    state = state.copyWith(ilceKodu: ilcekodu);
+  }
+
   void diseasesOnChanged(String value) {
     state = state.copyWith(diseases: value);
   }
@@ -370,6 +381,22 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
   String? relativeTypeValidator(RelativeType? value) {
     if (value == null) {
       return getStr('auth:signup:validator:invalid:relative_type');
+    }
+
+    return null;
+  }
+
+  String? plakaKoduValidator(String? value) {
+    if (value == null) {
+      return getStr('auth:signup:validator:invalid:plakakodu');
+    }
+
+    return null;
+  }
+
+  String? ilceKoduValidator(String? value) {
+    if (value == null) {
+      return getStr('auth:signup:validator:invalid:ilcekodu');
     }
 
     return null;

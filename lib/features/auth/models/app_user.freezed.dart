@@ -45,6 +45,8 @@ mixin _$AppUser {
   bool get isLoading => throw _privateConstructorUsedError;
   DateTime? get lastUpdated => throw _privateConstructorUsedError;
   String? get cihazid => throw _privateConstructorUsedError;
+  String get plakaKodu => throw _privateConstructorUsedError;
+  String get ilceKodu => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -80,7 +82,9 @@ abstract class $AppUserCopyWith<$Res> {
       String phone,
       @JsonKey(includeFromJson: false, includeToJson: false) bool isLoading,
       DateTime? lastUpdated,
-      String? cihazid});
+      String? cihazid,
+      String plakaKodu,
+      String ilceKodu});
 }
 
 /// @nodoc
@@ -120,6 +124,8 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? isLoading = null,
     Object? lastUpdated = freezed,
     Object? cihazid = freezed,
+    Object? plakaKodu = null,
+    Object? ilceKodu = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -218,6 +224,14 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.cihazid
           : cihazid // ignore: cast_nullable_to_non_nullable
               as String?,
+      plakaKodu: null == plakaKodu
+          ? _value.plakaKodu
+          : plakaKodu // ignore: cast_nullable_to_non_nullable
+              as String,
+      ilceKodu: null == ilceKodu
+          ? _value.ilceKodu
+          : ilceKodu // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -253,7 +267,9 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String phone,
       @JsonKey(includeFromJson: false, includeToJson: false) bool isLoading,
       DateTime? lastUpdated,
-      String? cihazid});
+      String? cihazid,
+      String plakaKodu,
+      String ilceKodu});
 }
 
 /// @nodoc
@@ -290,6 +306,8 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? lastUpdated = freezed,
     Object? cihazid = freezed,
+    Object? plakaKodu = null,
+    Object? ilceKodu = null,
   }) {
     return _then(_$_AppUser(
       id: null == id
@@ -388,6 +406,14 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.cihazid
           : cihazid // ignore: cast_nullable_to_non_nullable
               as String?,
+      plakaKodu: null == plakaKodu
+          ? _value.plakaKodu
+          : plakaKodu // ignore: cast_nullable_to_non_nullable
+              as String,
+      ilceKodu: null == ilceKodu
+          ? _value.ilceKodu
+          : ilceKodu // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -420,7 +446,9 @@ class _$_AppUser extends _AppUser {
       @JsonKey(includeFromJson: false, includeToJson: false)
       this.isLoading = false,
       this.lastUpdated,
-      this.cihazid})
+      this.cihazid,
+      required this.plakaKodu,
+      required this.ilceKodu})
       : super._();
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
@@ -475,10 +503,14 @@ class _$_AppUser extends _AppUser {
   final DateTime? lastUpdated;
   @override
   final String? cihazid;
+  @override
+  final String plakaKodu;
+  @override
+  final String ilceKodu;
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated, cihazid: $cihazid)';
+    return 'AppUser(id: $id, email: $email, fullName: $fullName, role: $role, bloodGroup: $bloodGroup, idNumber: $idNumber, relativePhone: $relativePhone, relativeCountryPhoneCode: $relativeCountryPhoneCode, relativeCountryLetterCode: $relativeCountryLetterCode, relativeType: $relativeType, diseases: $diseases, medicines: $medicines, peopleAtSameAddress: $peopleAtSameAddress, address: $address, buildingAge: $buildingAge, buildingDurability: $buildingDurability, profilePicUrl: $profilePicUrl, birthDate: $birthDate, countryPhoneCode: $countryPhoneCode, countryLetterCode: $countryLetterCode, phone: $phone, isLoading: $isLoading, lastUpdated: $lastUpdated, cihazid: $cihazid, plakaKodu: $plakaKodu, ilceKodu: $ilceKodu)';
   }
 
   @override
@@ -529,7 +561,11 @@ class _$_AppUser extends _AppUser {
                 other.isLoading == isLoading) &&
             (identical(other.lastUpdated, lastUpdated) ||
                 other.lastUpdated == lastUpdated) &&
-            (identical(other.cihazid, cihazid) || other.cihazid == cihazid));
+            (identical(other.cihazid, cihazid) || other.cihazid == cihazid) &&
+            (identical(other.plakaKodu, plakaKodu) ||
+                other.plakaKodu == plakaKodu) &&
+            (identical(other.ilceKodu, ilceKodu) ||
+                other.ilceKodu == ilceKodu));
   }
 
   @JsonKey(ignore: true)
@@ -559,7 +595,9 @@ class _$_AppUser extends _AppUser {
         phone,
         isLoading,
         lastUpdated,
-        cihazid
+        cihazid,
+        plakaKodu,
+        ilceKodu
       ]);
 
   @JsonKey(ignore: true)
@@ -602,7 +640,9 @@ abstract class _AppUser extends AppUser {
       @JsonKey(includeFromJson: false, includeToJson: false)
       final bool isLoading,
       final DateTime? lastUpdated,
-      final String? cihazid}) = _$_AppUser;
+      final String? cihazid,
+      required final String plakaKodu,
+      required final String ilceKodu}) = _$_AppUser;
   _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
@@ -656,6 +696,10 @@ abstract class _AppUser extends AppUser {
   DateTime? get lastUpdated;
   @override
   String? get cihazid;
+  @override
+  String get plakaKodu;
+  @override
+  String get ilceKodu;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

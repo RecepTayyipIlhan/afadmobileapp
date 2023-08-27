@@ -64,6 +64,8 @@ class AppUser with _$AppUser {
     bool isLoading,
     DateTime? lastUpdated,
     String? cihazid,
+    required String plakaKodu,
+    required String ilceKodu,
   }) = _AppUser;
 
   factory AppUser.fromFormState({
@@ -86,6 +88,8 @@ class AppUser with _$AppUser {
     required String countryLetterCode,
     required String phone,
     String? cihazid,
+    required String plakaKodu,
+    required String ilceKodu,
   }) =>
       AppUser(
         id: '',
@@ -110,6 +114,8 @@ class AppUser with _$AppUser {
         countryLetterCode: countryLetterCode,
         phone: phone,
         cihazid: cihazid,
+        plakaKodu: plakaKodu,
+        ilceKodu: ilceKodu,
       );
 
   factory AppUser.fromEditProfileFormState({
@@ -135,6 +141,8 @@ class AppUser with _$AppUser {
     required String countryLetterCode,
     required String phone,
     String? cihazid,
+    required String plakaKodu,
+    required String ilceKodu,
   }) =>
       AppUser(
         id: id,
@@ -160,6 +168,8 @@ class AppUser with _$AppUser {
         phone: phone,
         profilePicUrl: profilePicUrl,
         cihazid: cihazid,
+        plakaKodu: plakaKodu,
+        ilceKodu: ilceKodu,
       );
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

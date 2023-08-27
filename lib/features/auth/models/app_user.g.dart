@@ -34,6 +34,8 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
           ? null
           : DateTime.parse(json['lastUpdated'] as String),
       cihazid: json['cihazid'] as String?,
+      plakaKodu: json['plakaKodu'] as String,
+      ilceKodu: json['ilceKodu'] as String,
     );
 
 Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
@@ -61,6 +63,8 @@ Map<String, dynamic> _$$_AppUserToJson(_$_AppUser instance) =>
       'phone': instance.phone,
       'lastUpdated': instance.lastUpdated?.toIso8601String(),
       'cihazid': instance.cihazid,
+      'plakaKodu': instance.plakaKodu,
+      'ilceKodu': instance.ilceKodu,
     };
 
 const _$AppUserRoleEnumMap = {

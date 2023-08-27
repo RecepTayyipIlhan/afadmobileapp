@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppInitState {
   AppSettings? get settings => throw _privateConstructorUsedError;
   bool get isInited => throw _privateConstructorUsedError;
+  List<IlModel>? get iller => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppInitStateCopyWith<AppInitState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $AppInitStateCopyWith<$Res> {
           AppInitState value, $Res Function(AppInitState) then) =
       _$AppInitStateCopyWithImpl<$Res, AppInitState>;
   @useResult
-  $Res call({AppSettings? settings, bool isInited});
+  $Res call({AppSettings? settings, bool isInited, List<IlModel>? iller});
 
   $AppSettingsCopyWith<$Res>? get settings;
 }
@@ -50,6 +51,7 @@ class _$AppInitStateCopyWithImpl<$Res, $Val extends AppInitState>
   $Res call({
     Object? settings = freezed,
     Object? isInited = null,
+    Object? iller = freezed,
   }) {
     return _then(_value.copyWith(
       settings: freezed == settings
@@ -60,6 +62,10 @@ class _$AppInitStateCopyWithImpl<$Res, $Val extends AppInitState>
           ? _value.isInited
           : isInited // ignore: cast_nullable_to_non_nullable
               as bool,
+      iller: freezed == iller
+          ? _value.iller
+          : iller // ignore: cast_nullable_to_non_nullable
+              as List<IlModel>?,
     ) as $Val);
   }
 
@@ -84,7 +90,7 @@ abstract class _$$_AppInitStateCopyWith<$Res>
       __$$_AppInitStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AppSettings? settings, bool isInited});
+  $Res call({AppSettings? settings, bool isInited, List<IlModel>? iller});
 
   @override
   $AppSettingsCopyWith<$Res>? get settings;
@@ -103,6 +109,7 @@ class __$$_AppInitStateCopyWithImpl<$Res>
   $Res call({
     Object? settings = freezed,
     Object? isInited = null,
+    Object? iller = freezed,
   }) {
     return _then(_$_AppInitState(
       settings: freezed == settings
@@ -113,6 +120,10 @@ class __$$_AppInitStateCopyWithImpl<$Res>
           ? _value.isInited
           : isInited // ignore: cast_nullable_to_non_nullable
               as bool,
+      iller: freezed == iller
+          ? _value._iller
+          : iller // ignore: cast_nullable_to_non_nullable
+              as List<IlModel>?,
     ));
   }
 }
@@ -120,17 +131,30 @@ class __$$_AppInitStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AppInitState implements _AppInitState {
-  const _$_AppInitState({required this.settings, this.isInited = false});
+  const _$_AppInitState(
+      {required this.settings,
+      this.isInited = false,
+      final List<IlModel>? iller})
+      : _iller = iller;
 
   @override
   final AppSettings? settings;
   @override
   @JsonKey()
   final bool isInited;
+  final List<IlModel>? _iller;
+  @override
+  List<IlModel>? get iller {
+    final value = _iller;
+    if (value == null) return null;
+    if (_iller is EqualUnmodifiableListView) return _iller;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'AppInitState(settings: $settings, isInited: $isInited)';
+    return 'AppInitState(settings: $settings, isInited: $isInited, iller: $iller)';
   }
 
   @override
@@ -141,11 +165,13 @@ class _$_AppInitState implements _AppInitState {
             (identical(other.settings, settings) ||
                 other.settings == settings) &&
             (identical(other.isInited, isInited) ||
-                other.isInited == isInited));
+                other.isInited == isInited) &&
+            const DeepCollectionEquality().equals(other._iller, _iller));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, settings, isInited);
+  int get hashCode => Object.hash(runtimeType, settings, isInited,
+      const DeepCollectionEquality().hash(_iller));
 
   @JsonKey(ignore: true)
   @override
@@ -157,12 +183,15 @@ class _$_AppInitState implements _AppInitState {
 abstract class _AppInitState implements AppInitState {
   const factory _AppInitState(
       {required final AppSettings? settings,
-      final bool isInited}) = _$_AppInitState;
+      final bool isInited,
+      final List<IlModel>? iller}) = _$_AppInitState;
 
   @override
   AppSettings? get settings;
   @override
   bool get isInited;
+  @override
+  List<IlModel>? get iller;
   @override
   @JsonKey(ignore: true)
   _$$_AppInitStateCopyWith<_$_AppInitState> get copyWith =>
