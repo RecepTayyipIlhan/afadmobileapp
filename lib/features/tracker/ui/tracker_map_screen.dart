@@ -1,8 +1,8 @@
 import 'package:afad_app/features/tracker/prov/tracker_map_prov.dart';
+import 'package:afad_app/ui/widgets/btns/text_btn.dart';
 import 'package:afad_app/ui/widgets/error_screen.dart';
 import 'package:afad_app/ui/widgets/loading_screen.dart';
-import 'package:afad_app/utils/app_theme.dart';
-import 'package:afad_app/utils/utils.dart';
+import 'package:afad_app/utils/prov/auth_prov.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -32,22 +32,55 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
             return SizedBox(
               height: screen.size.height,
               width: screen.size.width,
-              child: Stack(
+              child: Column(
                 children: [
-                  GoogleMap(
-                    initialCameraPosition: pageState.defaultCamerapPosition,
-                    markers: {
-                      Marker(
-                        markerId: MarkerId(
-                          [data.loc.latitude, data.loc.longitude].join(","),
+                  Expanded(
+                    child: GoogleMap(
+                      initialCameraPosition: pageState.defaultCamerapPosition,
+                      markers: {
+                        Marker(
+                          markerId: MarkerId(
+                            [data.loc.latitude, data.loc.longitude].join(","),
+                          ),
+                          position: LatLng(
+                            data.loc.latitude,
+                            data.loc.longitude,
+                          ),
+                        )
+                      },
+                      onMapCreated: pageNotifier.onMapCreated,
+                    ),
+                  ),
+                  Builder(
+                    builder: (context) {
+                      final user = ref.watch(authProvider).appUser!;
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: user.profilePicUrl != null
+                              ? NetworkImage(
+                                  user.profilePicUrl!,
+                                )
+                              : null,
                         ),
-                        position: LatLng(
-                          data.loc.latitude,
-                          data.loc.longitude,
+                        title: Text(user.fullName),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              [
+                                data.loc.latitude,
+                                data.loc.longitude,
+                              ].join(","),
+                            ),
+                          ],
                         ),
-                      )
+                        trailing: TextBtn(
+                          eventName: '',
+                          text: 'Haritada aç',
+                          onPressed: () {},
+                        ),
+                      );
                     },
-                    onMapCreated: pageNotifier.onMapCreated,
                   ),
                 ],
               ),
