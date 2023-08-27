@@ -227,7 +227,7 @@ extension AdminFunctions on CloudFirestoreService {
       },
     );
   }
- /* Stream<AppUser?> getUserWithUi(String ui) {
+  /* Stream<AppUser?> getUserWithUi(String ui) {
     return _db
         .collection(_FirestoreNames._messages)
         .where('ui', isEqualTo: ui)
@@ -251,7 +251,7 @@ extension AdminFunctions on CloudFirestoreService {
     // ignore: sdk_version_since
     return Stream.value(
       TrackerLocation(
-        loc: GeoPoint(100, 100),
+        loc: GeoPoint(41.084969, 28.896004),
       ),
     );
     // const userid = "12344";

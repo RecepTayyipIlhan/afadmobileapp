@@ -10,9 +10,11 @@ class BottomBarState with _$BottomBarState {
 
   factory BottomBarState({
     required BottomBarIndex bottomBarIndex,
+    required TrackerBottomBarIndex trackerBottomBarIndex,
   }) = _BottomBarState;
 
   factory BottomBarState.initial() => BottomBarState(
         bottomBarIndex: BottomBarIndex.devices,
+        trackerBottomBarIndex: TrackerBottomBarIndex.takip,
       );
 }

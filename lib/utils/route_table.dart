@@ -8,6 +8,7 @@ import 'package:afad_app/app_runner.dart';
 import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
 import 'package:afad_app/features/auth/ui/qr_code_screen.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
+import 'package:afad_app/features/tracker/ui/tracker_map_screen.dart';
 
 import '../features/admin/ui/admin_home_screen.dart';
 import '../features/home/prov/network_detector_prov.dart';
@@ -109,7 +110,6 @@ class RouteTable {
             name: rHome,
             path: 'home',
             builder: (context, state) {
-              // return const HomeScreen();
               return const BottomNavScreen();
             },
           ),

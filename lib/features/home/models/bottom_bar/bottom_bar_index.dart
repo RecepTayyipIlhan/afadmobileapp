@@ -3,3 +3,8 @@ enum BottomBarIndex {
   educationVideos,
   profile,
 }
+
+enum TrackerBottomBarIndex {
+  takip,
+  profile,
+}

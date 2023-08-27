@@ -1,3 +1,4 @@
+import 'package:afad_app/app_runner.dart';
 import 'package:afad_app/features/home/models/bottom_bar/bottom_bar_index.dart';
 import 'package:afad_app/services/analytics_service.dart';
 import 'package:afad_app/utils/utils.dart';
@@ -21,17 +22,28 @@ class BottomBarStateNotifier extends StateNotifier<BottomBarState> {
         'bottom_bar_tap',
         parameters: {
           'index': index,
-          'the_same': index == state.bottomBarIndex.index,
+          'the_same': isAfad
+              ? index == state.bottomBarIndex.index
+              : index == state.trackerBottomBarIndex.index,
         },
       );
     } catch (e) {
       logger.e(e);
     }
 
-    if (index < 0 || index > BottomBarIndex.values.length) return;
+    if (index < 0 ||
+        (isAfad
+            ? index > BottomBarIndex.values.length
+            : index > TrackerBottomBarIndex.values.length)) return;
 
-    final bottomEnum = BottomBarIndex.values[index];
+    if (isAfad) {
+      final bottomEnum = BottomBarIndex.values[index];
 
-    state = state.copyWith(bottomBarIndex: bottomEnum);
+      state = state.copyWith(bottomBarIndex: bottomEnum);
+    } else {
+      final bottomEnum = TrackerBottomBarIndex.values[index];
+
+      state = state.copyWith(trackerBottomBarIndex: bottomEnum);
+    }
   }
 }
