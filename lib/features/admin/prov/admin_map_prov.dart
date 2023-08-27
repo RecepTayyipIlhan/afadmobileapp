@@ -357,11 +357,15 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     );
   }
 
-  AppUser queryUser({
+  AppUser? queryUser({
     required String ui,
   }) {
-    AppUser user = state.users.firstWhere((element) => element.id == ui);
-    return user;
+    try {
+      AppUser user = state.users.firstWhere((element) => element.id == ui);
+      return user;
+    } catch (e) {
+      return null;
+    }
   }
 
   Marker _markerFromMessage({

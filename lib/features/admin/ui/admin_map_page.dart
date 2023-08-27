@@ -93,51 +93,61 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                       height: screen.size.width * 0.4,
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(
-                        child: DataTable(
-                          //flutter data table sort alphabetically when clicked to colunm name
-                          sortColumnIndex: 1,
-                          sortAscending: true,
-                          columns: pageNotifier.dataTableColumns,
-                          rows: List<DataRow>.generate(
-                            pageState.messages.length,
-                            (index) => DataRow(
-                              cells: [
-                                DataCell(
-                                  Text(
-                                    pageNotifier
-                                        .queryUser(
-                                            ui: pageState.messages[index].ui)
-                                        .fullName,
-                                  ),
-                                ),
-                                DataCell(
-                                  Text(
-                                    pageNotifier.getMessageFromEnum(
-                                      pageState.messages[index].mt.index,
+                        child: Builder(
+                          builder: (context) {
+                            final els = pageState.messages.where(
+                              (e) {
+                                return pageNotifier.queryUser(ui: e.ui) != null;
+                              },
+                            ).map(
+                              (item) {
+                                final user =
+                                    pageNotifier.queryUser(ui: item.ui)!;
+
+                                final index = pageState.messages.indexOf(item);
+
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Text(
+                                        user.fullName,
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                //DataCell(Text("deneme")),
-                                DataCell(
-                                  Text(
-                                    pageNotifier
-                                        .queryUser(
-                                            ui: pageState.messages[index].ui)
-                                        .countryLetterCode,
-                                  ),
-                                ),
-                                /* DataCell(Text("Enkaz Altı")),
+                                    DataCell(
+                                      Text(
+                                        pageNotifier.getMessageFromEnum(
+                                          item.mt.index,
+                                        ),
+                                      ),
+                                    ),
+                                    //DataCell(Text("deneme")),
+                                    DataCell(
+                                      Text(
+                                        user.countryLetterCode,
+                                      ),
+                                    ),
+                                    /* DataCell(Text("Enkaz Altı")),
                                 DataCell(Text(konumDataList[index])), */
-                              ],
-                              onSelectChanged: (selected) =>
-                                  pageNotifier.onSelectChanged(
-                                context: context,
-                                index: index,
-                                selected: selected,
-                              ),
-                              selected: pageState.isRowSelected(index),
-                            ),
-                          ),
+                                  ],
+                                  onSelectChanged: (selected) =>
+                                      pageNotifier.onSelectChanged(
+                                    context: context,
+                                    index: index,
+                                    selected: selected,
+                                  ),
+                                  selected: pageState.isRowSelected(index),
+                                );
+                              },
+                            );
+
+                            return DataTable(
+                              //flutter data table sort alphabetically when clicked to colunm name
+                              sortColumnIndex: 1,
+                              sortAscending: true,
+                              columns: pageNotifier.dataTableColumns,
+                              rows: els.toList(),
+                            );
+                          },
                         ),
                       ),
                     ),
