@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:afad_app/features/admin/models/map_style.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
+import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:afad_app/services/cloud_firestore_service.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
@@ -239,6 +240,29 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     state.mapController?.setMapStyle(st);
   }
 
+  List<DataColumn> get dataTableColumns => <DataColumn>[
+        const DataColumn(
+          label: Text("İsim"),
+        ),
+        const DataColumn(
+          label: Text("Tür"),
+          /* onSort: (columnIndex, ascending) {
+            state = state.copyWith(
+              sortColumnIndex: columnIndex,
+            );
+            state = state.copyWith(
+              sortAscending: ascending,
+            );
+            if (ascending) {
+              state.messages.sort((a, b) => a.mt.index.compareTo(b.mt.index));
+            } else {
+              state.messages.sort((a, b) => b.mt.index.compareTo(a.mt.index));
+            }
+          },*/
+        ),
+        const DataColumn(label: Text("Talep")),
+      ];
+
   void _routeDetailedPersonPage(BuildContext context, AppUser user) {
     GoRouter.of(context).pushNamed(
       RouteTable.rAdminDetailedPersonPage,
@@ -363,6 +387,18 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
         },
       ),
     );
+  }
+
+  String getMessageFromEnum(int enum_index) {
+    MessageType mt = MessageType.values[enum_index];
+    switch (mt) {
+      case MessageType.EnkazAltindayim:
+        return "Enkaz Altında";
+      case MessageType.Ambulans:
+        return "Ambulans Talebi";
+      case MessageType.KonaklamaTalebi:
+        return "Konaklama Talebi";
+    }
   }
 
   void _loadAllMarkers({

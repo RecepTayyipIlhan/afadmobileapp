@@ -22,7 +22,7 @@ class _SideScreenState extends State<SideScreen> {
     widget.onSelectedChanged(SelectedScreen.values[index]);
   }
 
-  BoxDecoration tileDecoration() {
+  /*BoxDecoration tileDecoration() {
     return BoxDecoration(
       //borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
       border: Border.all(
@@ -30,7 +30,7 @@ class _SideScreenState extends State<SideScreen> {
         width: 1.5, // Adjust the border width as needed
       ),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -73,13 +73,16 @@ class _SideScreenState extends State<SideScreen> {
               padding: EdgeInsets.all(10),
               children: <Widget>[
                 Container(
-                  decoration: tileDecoration(),
+                  //decoration: tileDecoration(),
                   child: ListTile(
                     selected:
                         widget.selectedScreen == SelectedScreen.infoScreen,
                     selectedTileColor:
                         Colors.cyanAccent.shade100.withOpacity(0.2),
-                    leading: Icon(Icons.supervised_user_circle),
+                    leading: Icon(
+                      Icons.supervised_user_circle,
+                      color: Colors.black,
+                    ),
                     title: const Center(
                         child: Text(
                       'Kullanıcı Bilgileri',
@@ -91,16 +94,17 @@ class _SideScreenState extends State<SideScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 25,
+                  height: 5,
                 ),
                 Container(
-                  decoration: tileDecoration(),
+                  //decoration: tileDecoration(),
                   child: ListTile(
                     selected:
                         widget.selectedScreen == SelectedScreen.messageScreen,
                     selectedTileColor:
                         Colors.cyanAccent.shade200.withOpacity(0.2),
-                    leading: const Icon(Icons.message_rounded),
+                    leading:
+                        const Icon(Icons.message_rounded, color: Colors.black),
                     title: const Center(
                         child: Text(
                       'Kullanıcının Mesajları',

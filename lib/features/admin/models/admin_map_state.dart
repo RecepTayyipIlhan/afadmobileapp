@@ -18,6 +18,9 @@ class AdminMapState with _$AdminMapState {
     required int selectedRowIndex,
     required List<AppUser> users,
     required List<HelpMessage> messages,
+    required int
+        sortColumnIndex, // Initialize with the index of the "Tür" column.
+    required bool sortAscending,
   }) = _AdminMapState;
 
   factory AdminMapState.initial() => const AdminMapState(
@@ -26,6 +29,8 @@ class AdminMapState with _$AdminMapState {
         selectedRowIndex: -1,
         messages: [],
         users: [],
+        sortColumnIndex: 1,
+        sortAscending: true,
       );
 
   CameraPosition get defaultCamerapPosition => const CameraPosition(
@@ -34,13 +39,4 @@ class AdminMapState with _$AdminMapState {
       );
 
   bool isRowSelected(int rowIndex) => selectedRowIndex == rowIndex;
-
-  List<DataColumn> get dataTableColumns => const <DataColumn>[
-        DataColumn(label: Text("İsim")),
-        DataColumn(label: Text("Tür")),
-        DataColumn(label: Text("Talep")),
-
-        /* DataColumn(label: Text("Mesaj")),
-                            DataColumn(label: Text("Konum")),    */
-      ];
 }

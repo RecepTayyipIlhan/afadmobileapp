@@ -94,22 +94,38 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                       width: screen.size.width * 0.4,
                       child: SingleChildScrollView(
                         child: DataTable(
-                          sortColumnIndex: 0,
+                          //flutter data table sort alphabetically when clicked to colunm name
+                          sortColumnIndex: 1,
                           sortAscending: true,
-                          columns: pageState.dataTableColumns,
+                          columns: pageNotifier.dataTableColumns,
                           rows: List<DataRow>.generate(
                             pageState.messages.length,
                             (index) => DataRow(
                               cells: [
-                                DataCell(Text(pageNotifier
-                                    .queryUser(ui: pageState.messages[index].ui)
-                                    .fullName)),
-                                DataCell(Text(
-                                    pageState.messages[index].mt.toString())),
+                                DataCell(
+                                  Text(
+                                    pageNotifier
+                                        .queryUser(
+                                            ui: pageState.messages[index].ui)
+                                        .fullName,
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    pageNotifier.getMessageFromEnum(
+                                      pageState.messages[index].mt.index,
+                                    ),
+                                  ),
+                                ),
                                 //DataCell(Text("deneme")),
-                                DataCell(Text(pageNotifier
-                                    .queryUser(ui: pageState.messages[index].ui)
-                                    .countryLetterCode)),
+                                DataCell(
+                                  Text(
+                                    pageNotifier
+                                        .queryUser(
+                                            ui: pageState.messages[index].ui)
+                                        .countryLetterCode,
+                                  ),
+                                ),
                                 /* DataCell(Text("Enkaz Altı")),
                                 DataCell(Text(konumDataList[index])), */
                               ],
