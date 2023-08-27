@@ -1,6 +1,8 @@
 import 'package:afad_app/services/cloud_firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/tracker_map_state.dart';
 
@@ -19,5 +21,13 @@ class TrackerMapStateNotifier extends StateNotifier<TrackerMapState> {
 
   void onMapCreated(GoogleMapController controller) {
     state = state.copyWith(mapController: controller);
+  }
+
+  void openInMapApp(GeoPoint loc) async {
+    final url =
+        'https://www.google.com/maps/search/?api=1&query=${loc.latitude},${loc.longitude}';
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

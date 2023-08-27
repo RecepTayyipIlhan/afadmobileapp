@@ -63,6 +63,10 @@ dependencies:
   firebase_database: ^10.2.3
   qr_flutter: ^4.1.0
   qr_code_scanner: ^1.0.1
+  url_launcher: ^6.1.12
+  geocode: ^1.0.3
+  geolocator: ^10.0.0
+  http: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

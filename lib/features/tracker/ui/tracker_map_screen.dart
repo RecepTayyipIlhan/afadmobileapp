@@ -54,30 +54,43 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                   Builder(
                     builder: (context) {
                       final user = ref.watch(authProvider).appUser!;
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: user.profilePicUrl != null
-                              ? NetworkImage(
-                                  user.profilePicUrl!,
-                                )
-                              : null,
-                        ),
-                        title: Text(user.fullName),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      return SizedBox(
+                        height: 140,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              [
-                                data.loc.latitude,
-                                data.loc.longitude,
-                              ].join(","),
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: user.profilePicUrl != null
+                                    ? NetworkImage(
+                                        user.profilePicUrl!,
+                                      )
+                                    : null,
+                              ),
+                              title: Text(user.fullName),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FutureBuilder(
+                                    future: pageState.address(data.loc),
+                                    builder: (context, snp) {
+                                      if (snp.hasData) {
+                                        return Text(snp.data.toString());
+                                      }
+                                      return const SizedBox();
+                                    },
+                                  ),
+                                ],
+                              ),
+                              trailing: TextBtn(
+                                eventName: '',
+                                text: 'Haritada aç',
+                                onPressed: () {
+                                  pageNotifier.openInMapApp(data.loc);
+                                },
+                              ),
                             ),
                           ],
-                        ),
-                        trailing: TextBtn(
-                          eventName: '',
-                          text: 'Haritada aç',
-                          onPressed: () {},
                         ),
                       );
                     },
