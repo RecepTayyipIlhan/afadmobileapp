@@ -3,6 +3,7 @@ import 'package:afad_app/ui/widgets/btns/text_btn.dart';
 import 'package:afad_app/ui/widgets/error_screen.dart';
 import 'package:afad_app/ui/widgets/loading_screen.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
+import 'package:afad_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -90,41 +91,69 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ListTile(
-                                      leading: CircleAvatar(
-                                        // minRadius: 50,
-                                        // maxRadius: 75,
-                                        backgroundImage:
-                                            user.profilePicUrl != null
-                                                ? NetworkImage(
-                                                    user.profilePicUrl!,
-                                                  )
-                                                : null,
-                                      ),
-                                      title: Text(user.fullName),
-                                      subtitle: Column(
+                                    Container(
+                                      margin: const EdgeInsets.all(10),
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          FutureBuilder(
-                                            future: pageState.address(data.loc),
-                                            builder: (context, snp) {
-                                              if (snp.hasData) {
-                                                return Text(
-                                                    snp.data.toString());
-                                              }
-                                              return const SizedBox();
-                                            },
+                                          SizedBox(
+                                            height: 100,
+                                            width: 100,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              child: Image.network(
+                                                user.profilePicUrl!,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
                                           ),
-                                          TextBtn(
-                                            eventName: '',
-                                            text: 'Haritada aç',
-                                            onPressed: () {
-                                              pageNotifier
-                                                  .openInMapApp(data.loc);
-                                            },
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  user.fullName,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    FutureBuilder(
+                                                      future: pageState
+                                                          .address(data.loc),
+                                                      builder: (context, snp) {
+                                                        if (snp.hasData) {
+                                                          return Text(snp.data
+                                                              .toString());
+                                                        }
+                                                        return const SizedBox();
+                                                      },
+                                                    ),
+                                                    TextBtn(
+                                                      eventName: '',
+                                                      text: 'Haritada aç',
+                                                      onPressed: () {
+                                                        pageNotifier
+                                                            .openInMapApp(
+                                                                data.loc);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
+                                        ].joinWidgetList(
+                                          (index) => const SizedBox(
+                                            width: 10,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
