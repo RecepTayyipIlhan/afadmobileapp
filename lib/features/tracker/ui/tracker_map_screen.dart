@@ -24,6 +24,7 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Konum Takibi'),
+        automaticallyImplyLeading: false,
       ),
       body: Builder(
         builder: (context) {
@@ -37,80 +38,103 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                 child: SizedBox(
                   height: screen.size.height,
                   width: screen.size.width,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          padding: const EdgeInsets.all(5),
-                          child: GoogleMap(
-                            initialCameraPosition:
-                                pageState.defaultCamerapPosition,
-                            markers: {
-                              Marker(
-                                markerId: MarkerId(
-                                  [data.loc.latitude, data.loc.longitude]
-                                      .join(","),
-                                ),
-                                position: LatLng(
-                                  data.loc.latitude,
-                                  data.loc.longitude,
-                                ),
-                              )
-                            },
-                            onMapCreated: pageNotifier.onMapCreated,
+                  child: Container(
+                    color: Colors.white,
+                    margin: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 2,
+                              ),
+                            ),
+                            child: GoogleMap(
+                              initialCameraPosition:
+                                  pageState.defaultCamerapPosition,
+                              markers: {
+                                Marker(
+                                  markerId: MarkerId(
+                                    [data.loc.latitude, data.loc.longitude]
+                                        .join(","),
+                                  ),
+                                  position: LatLng(
+                                    data.loc.latitude,
+                                    data.loc.longitude,
+                                  ),
+                                )
+                              },
+                              onMapCreated: pageNotifier.onMapCreated,
+                            ),
                           ),
                         ),
-                      ),
-                      Builder(
-                        builder: (context) {
-                          final user = ref.watch(authProvider).appUser!;
-                          return SizedBox(
-                            height: 140,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage: user.profilePicUrl != null
-                                        ? NetworkImage(
-                                            user.profilePicUrl!,
-                                          )
-                                        : null,
-                                  ),
-                                  title: Text(user.fullName),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FutureBuilder(
-                                        future: pageState.address(data.loc),
-                                        builder: (context, snp) {
-                                          if (snp.hasData) {
-                                            return Text(snp.data.toString());
-                                          }
-                                          return const SizedBox();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  trailing: TextBtn(
-                                    eventName: '',
-                                    text: 'Haritada aç',
-                                    onPressed: () {
-                                      pageNotifier.openInMapApp(data.loc);
-                                    },
-                                  ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Builder(
+                          builder: (context) {
+                            final user = ref.watch(authProvider).appUser!;
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  width: 2,
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                              ),
+                              child: SizedBox(
+                                height: 140,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ListTile(
+                                      leading: CircleAvatar(
+                                        // minRadius: 50,
+                                        // maxRadius: 75,
+                                        backgroundImage:
+                                            user.profilePicUrl != null
+                                                ? NetworkImage(
+                                                    user.profilePicUrl!,
+                                                  )
+                                                : null,
+                                      ),
+                                      title: Text(user.fullName),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FutureBuilder(
+                                            future: pageState.address(data.loc),
+                                            builder: (context, snp) {
+                                              if (snp.hasData) {
+                                                return Text(
+                                                    snp.data.toString());
+                                              }
+                                              return const SizedBox();
+                                            },
+                                          ),
+                                          TextBtn(
+                                            eventName: '',
+                                            text: 'Haritada aç',
+                                            onPressed: () {
+                                              pageNotifier
+                                                  .openInMapApp(data.loc);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

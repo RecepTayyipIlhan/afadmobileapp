@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$BottomBarState {
   BottomBarIndex get bottomBarIndex => throw _privateConstructorUsedError;
+  TrackerBottomBarIndex get trackerBottomBarIndex =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BottomBarStateCopyWith<BottomBarState> get copyWith =>
@@ -29,7 +31,9 @@ abstract class $BottomBarStateCopyWith<$Res> {
           BottomBarState value, $Res Function(BottomBarState) then) =
       _$BottomBarStateCopyWithImpl<$Res, BottomBarState>;
   @useResult
-  $Res call({BottomBarIndex bottomBarIndex});
+  $Res call(
+      {BottomBarIndex bottomBarIndex,
+      TrackerBottomBarIndex trackerBottomBarIndex});
 }
 
 /// @nodoc
@@ -46,12 +50,17 @@ class _$BottomBarStateCopyWithImpl<$Res, $Val extends BottomBarState>
   @override
   $Res call({
     Object? bottomBarIndex = null,
+    Object? trackerBottomBarIndex = null,
   }) {
     return _then(_value.copyWith(
       bottomBarIndex: null == bottomBarIndex
           ? _value.bottomBarIndex
           : bottomBarIndex // ignore: cast_nullable_to_non_nullable
               as BottomBarIndex,
+      trackerBottomBarIndex: null == trackerBottomBarIndex
+          ? _value.trackerBottomBarIndex
+          : trackerBottomBarIndex // ignore: cast_nullable_to_non_nullable
+              as TrackerBottomBarIndex,
     ) as $Val);
   }
 }
@@ -64,7 +73,9 @@ abstract class _$$_BottomBarStateCopyWith<$Res>
       __$$_BottomBarStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({BottomBarIndex bottomBarIndex});
+  $Res call(
+      {BottomBarIndex bottomBarIndex,
+      TrackerBottomBarIndex trackerBottomBarIndex});
 }
 
 /// @nodoc
@@ -79,12 +90,17 @@ class __$$_BottomBarStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? bottomBarIndex = null,
+    Object? trackerBottomBarIndex = null,
   }) {
     return _then(_$_BottomBarState(
       bottomBarIndex: null == bottomBarIndex
           ? _value.bottomBarIndex
           : bottomBarIndex // ignore: cast_nullable_to_non_nullable
               as BottomBarIndex,
+      trackerBottomBarIndex: null == trackerBottomBarIndex
+          ? _value.trackerBottomBarIndex
+          : trackerBottomBarIndex // ignore: cast_nullable_to_non_nullable
+              as TrackerBottomBarIndex,
     ));
   }
 }
@@ -92,14 +108,18 @@ class __$$_BottomBarStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_BottomBarState extends _BottomBarState {
-  _$_BottomBarState({required this.bottomBarIndex}) : super._();
+  _$_BottomBarState(
+      {required this.bottomBarIndex, required this.trackerBottomBarIndex})
+      : super._();
 
   @override
   final BottomBarIndex bottomBarIndex;
+  @override
+  final TrackerBottomBarIndex trackerBottomBarIndex;
 
   @override
   String toString() {
-    return 'BottomBarState(bottomBarIndex: $bottomBarIndex)';
+    return 'BottomBarState(bottomBarIndex: $bottomBarIndex, trackerBottomBarIndex: $trackerBottomBarIndex)';
   }
 
   @override
@@ -108,11 +128,14 @@ class _$_BottomBarState extends _BottomBarState {
         (other.runtimeType == runtimeType &&
             other is _$_BottomBarState &&
             (identical(other.bottomBarIndex, bottomBarIndex) ||
-                other.bottomBarIndex == bottomBarIndex));
+                other.bottomBarIndex == bottomBarIndex) &&
+            (identical(other.trackerBottomBarIndex, trackerBottomBarIndex) ||
+                other.trackerBottomBarIndex == trackerBottomBarIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, bottomBarIndex);
+  int get hashCode =>
+      Object.hash(runtimeType, bottomBarIndex, trackerBottomBarIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -122,12 +145,16 @@ class _$_BottomBarState extends _BottomBarState {
 }
 
 abstract class _BottomBarState extends BottomBarState {
-  factory _BottomBarState({required final BottomBarIndex bottomBarIndex}) =
+  factory _BottomBarState(
+          {required final BottomBarIndex bottomBarIndex,
+          required final TrackerBottomBarIndex trackerBottomBarIndex}) =
       _$_BottomBarState;
   _BottomBarState._() : super._();
 
   @override
   BottomBarIndex get bottomBarIndex;
+  @override
+  TrackerBottomBarIndex get trackerBottomBarIndex;
   @override
   @JsonKey(ignore: true)
   _$$_BottomBarStateCopyWith<_$_BottomBarState> get copyWith =>

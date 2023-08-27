@@ -110,10 +110,6 @@ class RouteTable {
             name: rHome,
             path: 'home',
             builder: (context, state) {
-              if (!isAfad) {
-                return const TrackerMapScreen();
-              }
-              // return const HomeScreen();
               return const BottomNavScreen();
             },
           ),
