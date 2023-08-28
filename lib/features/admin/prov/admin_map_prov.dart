@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:afad_app/features/admin/models/il_ilce_model.dart';
 import '../models/admin_map_state.dart';
 
 const mapStyle = MapStyle(
@@ -426,6 +426,29 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     state = state.copyWith(
       mapMarkers: newMarkers,
     );
+  }
+
+  Future<String> getDistrict(String number) async {
+    final json = await rootBundle.loadString('assets/il_ilce.json');
+
+    final map = jsonDecode(json) as Map<String, dynamic>;
+
+    final iller = (map['data'] as List<dynamic>).map(
+      (e) {
+        return IlModel.fromJson(e as Map<String, dynamic>);
+      },
+    ).toList();
+
+    int num = int.parse(number);
+
+    for (int i = 0; i < iller.length; i++) {
+      for (int j = 0; j < iller[i].ilceler.length; j++) {
+        if (int.parse(iller[i].ilceler[j].ilceKodu) == num) {
+          return iller[i].ilceler[j].ilceAdi.toString();
+        }
+      }
+    }
+    return "Not Found";
   }
 
   void logout(BuildContext context) async {

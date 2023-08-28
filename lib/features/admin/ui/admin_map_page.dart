@@ -122,8 +122,22 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                                     ),
                                     //DataCell(Text("deneme")),
                                     DataCell(
-                                      Text(
-                                        user.countryLetterCode,
+                                      FutureBuilder<String>(
+                                        future: pageNotifier
+                                            .getDistrict(user.ilceKodu),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return CircularProgressIndicator(); // Show a loading indicator while waiting.
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                "Error: ${snapshot.error}");
+                                          } else {
+                                            return Text(snapshot.data ??
+                                                ''); // Display the district when available.
+                                          }
+                                        },
                                       ),
                                     ),
                                     /* DataCell(Text("Enkaz Altı")),
