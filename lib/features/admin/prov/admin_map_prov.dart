@@ -245,7 +245,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
           label: Text("İsim"),
         ),
         const DataColumn(
-          label: Text("Tür"),
+          label: Text("Talep"),
           /* onSort: (columnIndex, ascending) {
             state = state.copyWith(
               sortColumnIndex: columnIndex,
@@ -260,7 +260,8 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
             }
           },*/
         ),
-        const DataColumn(label: Text("Talep")),
+        const DataColumn(label: Text("İl")),
+        const DataColumn(label: Text("İlçe")),
       ];
 
   void _routeDetailedPersonPage(BuildContext context, AppUser user) {
@@ -428,7 +429,46 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     );
   }
 
-  Future<String> getDistrict(String number) async {
+  Future<void> _setCityList() async {
+    final json = await rootBundle.loadString('assets/il_ilce.json');
+
+    final map = jsonDecode(json) as Map<String, dynamic>;
+
+    final iller = (map['data'] as List<dynamic>).map(
+      (e) {
+        return IlModel.fromJson(e as Map<String, dynamic>);
+      },
+    ).toList();
+
+    state = state.copyWith(
+      iller: iller,
+    );
+  }
+
+  String getCity(String num) {
+    int number = int.parse(num);
+    for (int i = 0; i < state.iller.length; i++) {
+      if (int.parse(state.iller[i].plakaKodu) == number) {
+        return state.iller[i].ilAdi.toString();
+      }
+    }
+    return "Not Found";
+  }
+
+  String getDistrict(String number) {
+    int num = int.parse(number);
+
+    for (int i = 0; i < state.iller.length; i++) {
+      for (int j = 0; j < state.iller[i].ilceler.length; j++) {
+        if (int.parse(state.iller[i].ilceler[j].ilceKodu) == num) {
+          return state.iller[i].ilceler[j].ilceAdi.toString();
+        }
+      }
+    }
+    return "Not Found";
+  }
+
+  /*Future<String> getDistrict(String number) async {
     final json = await rootBundle.loadString('assets/il_ilce.json');
 
     final map = jsonDecode(json) as Map<String, dynamic>;
@@ -449,7 +489,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       }
     }
     return "Not Found";
-  }
+  }*/
 
   void logout(BuildContext context) async {
     final res = await showDialog(
@@ -490,6 +530,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
   Future<void> init({
     required BuildContext context,
   }) async {
+    await _setCityList();
     ref.read(fbDbProv).getUsers().listen(
       (event) {
         state = state.copyWith(

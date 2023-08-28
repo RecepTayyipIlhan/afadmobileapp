@@ -122,24 +122,19 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                                     ),
                                     //DataCell(Text("deneme")),
                                     DataCell(
-                                      FutureBuilder<String>(
-                                        future: pageNotifier
-                                            .getDistrict(user.ilceKodu),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot<String> snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return CircularProgressIndicator(); // Show a loading indicator while waiting.
-                                          } else if (snapshot.hasError) {
-                                            return Text(
-                                                "Error: ${snapshot.error}");
-                                          } else {
-                                            return Text(snapshot.data ??
-                                                ''); // Display the district when available.
-                                          }
-                                        },
+                                      Text(
+                                        pageNotifier.getCity(user.plakaKodu),
                                       ),
                                     ),
+
+                                    DataCell(
+                                      Text(
+                                        pageNotifier.getDistrict(
+                                          user.ilceKodu,
+                                        ),
+                                      ),
+                                    ),
+
                                     /* DataCell(Text("Enkaz Altı")),
                                 DataCell(Text(konumDataList[index])), */
                                   ],

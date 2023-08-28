@@ -26,6 +26,7 @@ mixin _$AdminMapState {
   int get sortColumnIndex =>
       throw _privateConstructorUsedError; // Initialize with the index of the "Tür" column.
   bool get sortAscending => throw _privateConstructorUsedError;
+  List<IlModel> get iller => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdminMapStateCopyWith<AdminMapState> get copyWith =>
@@ -47,7 +48,8 @@ abstract class $AdminMapStateCopyWith<$Res> {
       List<AppUser> users,
       List<HelpMessage> messages,
       int sortColumnIndex,
-      bool sortAscending});
+      bool sortAscending,
+      List<IlModel> iller});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$AdminMapStateCopyWithImpl<$Res, $Val extends AdminMapState>
     Object? messages = null,
     Object? sortColumnIndex = null,
     Object? sortAscending = null,
+    Object? iller = null,
   }) {
     return _then(_value.copyWith(
       mapController: freezed == mapController
@@ -110,6 +113,10 @@ class _$AdminMapStateCopyWithImpl<$Res, $Val extends AdminMapState>
           ? _value.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
               as bool,
+      iller: null == iller
+          ? _value.iller
+          : iller // ignore: cast_nullable_to_non_nullable
+              as List<IlModel>,
     ) as $Val);
   }
 }
@@ -131,7 +138,8 @@ abstract class _$$_AdminMapStateCopyWith<$Res>
       List<AppUser> users,
       List<HelpMessage> messages,
       int sortColumnIndex,
-      bool sortAscending});
+      bool sortAscending,
+      List<IlModel> iller});
 }
 
 /// @nodoc
@@ -154,6 +162,7 @@ class __$$_AdminMapStateCopyWithImpl<$Res>
     Object? messages = null,
     Object? sortColumnIndex = null,
     Object? sortAscending = null,
+    Object? iller = null,
   }) {
     return _then(_$_AdminMapState(
       mapController: freezed == mapController
@@ -192,6 +201,10 @@ class __$$_AdminMapStateCopyWithImpl<$Res>
           ? _value.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
               as bool,
+      iller: null == iller
+          ? _value._iller
+          : iller // ignore: cast_nullable_to_non_nullable
+              as List<IlModel>,
     ));
   }
 }
@@ -208,10 +221,12 @@ class _$_AdminMapState extends _AdminMapState {
       required final List<AppUser> users,
       required final List<HelpMessage> messages,
       required this.sortColumnIndex,
-      required this.sortAscending})
+      required this.sortAscending,
+      required final List<IlModel> iller})
       : _mapMarkers = mapMarkers,
         _users = users,
         _messages = messages,
+        _iller = iller,
         super._();
 
   @override
@@ -251,10 +266,17 @@ class _$_AdminMapState extends _AdminMapState {
 // Initialize with the index of the "Tür" column.
   @override
   final bool sortAscending;
+  final List<IlModel> _iller;
+  @override
+  List<IlModel> get iller {
+    if (_iller is EqualUnmodifiableListView) return _iller;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_iller);
+  }
 
   @override
   String toString() {
-    return 'AdminMapState(mapController: $mapController, selectedLocation: $selectedLocation, mapMarkers: $mapMarkers, show: $show, selectedRowIndex: $selectedRowIndex, users: $users, messages: $messages, sortColumnIndex: $sortColumnIndex, sortAscending: $sortAscending)';
+    return 'AdminMapState(mapController: $mapController, selectedLocation: $selectedLocation, mapMarkers: $mapMarkers, show: $show, selectedRowIndex: $selectedRowIndex, users: $users, messages: $messages, sortColumnIndex: $sortColumnIndex, sortAscending: $sortAscending, iller: $iller)';
   }
 
   @override
@@ -276,7 +298,8 @@ class _$_AdminMapState extends _AdminMapState {
             (identical(other.sortColumnIndex, sortColumnIndex) ||
                 other.sortColumnIndex == sortColumnIndex) &&
             (identical(other.sortAscending, sortAscending) ||
-                other.sortAscending == sortAscending));
+                other.sortAscending == sortAscending) &&
+            const DeepCollectionEquality().equals(other._iller, _iller));
   }
 
   @override
@@ -290,7 +313,8 @@ class _$_AdminMapState extends _AdminMapState {
       const DeepCollectionEquality().hash(_users),
       const DeepCollectionEquality().hash(_messages),
       sortColumnIndex,
-      sortAscending);
+      sortAscending,
+      const DeepCollectionEquality().hash(_iller));
 
   @JsonKey(ignore: true)
   @override
@@ -309,7 +333,8 @@ abstract class _AdminMapState extends AdminMapState {
       required final List<AppUser> users,
       required final List<HelpMessage> messages,
       required final int sortColumnIndex,
-      required final bool sortAscending}) = _$_AdminMapState;
+      required final bool sortAscending,
+      required final List<IlModel> iller}) = _$_AdminMapState;
   const _AdminMapState._() : super._();
 
   @override
@@ -330,6 +355,8 @@ abstract class _AdminMapState extends AdminMapState {
   int get sortColumnIndex;
   @override // Initialize with the index of the "Tür" column.
   bool get sortAscending;
+  @override
+  List<IlModel> get iller;
   @override
   @JsonKey(ignore: true)
   _$$_AdminMapStateCopyWith<_$_AdminMapState> get copyWith =>

@@ -3,7 +3,7 @@ import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:afad_app/features/admin/models/il_ilce_model.dart';
 part 'admin_map_state.freezed.dart';
 
 @freezed
@@ -21,6 +21,7 @@ class AdminMapState with _$AdminMapState {
     required int
         sortColumnIndex, // Initialize with the index of the "Tür" column.
     required bool sortAscending,
+    required List<IlModel> iller,
   }) = _AdminMapState;
 
   factory AdminMapState.initial() => const AdminMapState(
@@ -31,6 +32,7 @@ class AdminMapState with _$AdminMapState {
         users: [],
         sortColumnIndex: 1,
         sortAscending: true,
+        iller: [],
       );
 
   CameraPosition get defaultCamerapPosition => const CameraPosition(
