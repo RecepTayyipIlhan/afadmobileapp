@@ -35,17 +35,24 @@ class _SideScreenState extends State<SideScreen> {
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
+    final img = widget.user_d.profilePicUrl;
     return Container(
       width: screen.width * 0.25,
       height: screen.height * 0.88,
       child: Column(
         children: <Widget>[
           ClipOval(
-            child: Image.network(
-              widget.user_d.profilePicUrl.toString(),
-              width: 175,
+            child: SizedBox(
               height: 175,
-              fit: BoxFit.cover,
+              width: 175,
+              child: img != null
+                  ? Image.network(
+                      img,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      color: Theme.of(context).primaryColor,
+                    ),
             ),
           ),
           const SizedBox(
