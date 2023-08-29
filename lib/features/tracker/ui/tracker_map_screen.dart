@@ -16,6 +16,28 @@ class TrackerMapScreen extends ConsumerStatefulWidget {
 }
 
 class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
+  BitmapDescriptor? _markerIcon;
+
+  void setMarkerIcon() async {
+    const config = ImageConfiguration(size: Size(48, 48));
+
+    final asset = await BitmapDescriptor.fromAssetImage(
+      config,
+      'assets/images/map_cool_marker.png',
+    );
+
+    setState(() {
+      _markerIcon = asset;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    setMarkerIcon();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData screen = MediaQuery.of(context);
@@ -35,6 +57,21 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
             loading: LoadingScreen.new,
             error: ErrorScreen.new,
             data: (data) {
+              final loccc = data.loc;
+              final latlng = LatLng(loccc.latitude, loccc.longitude);
+
+              Future.delayed(
+                const Duration(milliseconds: 50),
+                () {
+                  pageNotifier.setMapCameraPosition(
+                    CameraPosition(
+                      target: latlng,
+                      zoom: 10.0,
+                    ),
+                  );
+                },
+              );
+
               return SafeArea(
                 child: SizedBox(
                   height: screen.size.height,
@@ -59,13 +96,15 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                               markers: {
                                 Marker(
                                   markerId: MarkerId(
-                                    [data.loc.latitude, data.loc.longitude]
-                                        .join(","),
+                                    [
+                                      latlng.latitude,
+                                      latlng.longitude,
+                                    ].join(","),
                                   ),
-                                  position: LatLng(
-                                    data.loc.latitude,
-                                    data.loc.longitude,
-                                  ),
+                                  position: latlng,
+                                  icon: _markerIcon != null
+                                      ? _markerIcon!
+                                      : BitmapDescriptor.defaultMarker,
                                 )
                               },
                               onMapCreated: pageNotifier.onMapCreated,
@@ -87,7 +126,7 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                 ),
                               ),
                               child: SizedBox(
-                                height: 140,
+                                height: 190,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -103,10 +142,17 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(50),
-                                              child: Image.network(
-                                                user.profilePicUrl!,
-                                                fit: BoxFit.contain,
-                                              ),
+                                              child: user.profilePicUrl != null
+                                                  ? Image.network(
+                                                      user.profilePicUrl!,
+                                                      fit: BoxFit.contain,
+                                                    )
+                                                  :
+                                                  // empty box
+                                                  Container(
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
                                             ),
                                           ),
                                           Expanded(
@@ -134,6 +180,12 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                                         }
                                                         return const SizedBox();
                                                       },
+                                                    ),
+                                                    Text(
+                                                      'Son güncelleme: 1 dakika önce',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall,
                                                     ),
                                                     TextBtn(
                                                       eventName: '',

@@ -18,7 +18,7 @@ class TrackerMapState with _$TrackerMapState {
   factory TrackerMapState.initial() => const TrackerMapState();
 
   CameraPosition get defaultCamerapPosition => const CameraPosition(
-        target: LatLng(41.086058, 28.918416),
+        target: LatLng(39.953692, 32.689757),
         zoom: 10.0,
       );
 

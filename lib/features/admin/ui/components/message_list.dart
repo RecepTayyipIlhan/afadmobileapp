@@ -21,7 +21,7 @@ class _MessagesListState extends ConsumerState<MessagesList> {
 
     return Container(
       child: StreamBuilder<List<HelpMessage?>>(
-        stream: firestore.getUserWithUi(widget.user_d.id.toString()),
+        stream: firestore.getMsgsOfUser(widget.user_d.id.toString()),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final messages = snapshot.data!;

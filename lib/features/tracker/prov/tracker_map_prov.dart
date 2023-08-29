@@ -23,6 +23,14 @@ class TrackerMapStateNotifier extends StateNotifier<TrackerMapState> {
     state = state.copyWith(mapController: controller);
   }
 
+  void setMapCameraPosition(CameraPosition position) {
+    state.mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        position,
+      ),
+    );
+  }
+
   void openInMapApp(GeoPoint loc) async {
     final url =
         'https://www.google.com/maps/search/?api=1&query=${loc.latitude},${loc.longitude}';

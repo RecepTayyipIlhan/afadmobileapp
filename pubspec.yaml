@@ -5,7 +5,7 @@ version: 1.0.0+1
 # flutter 3.10.4
 # dart 3.0.3
 environment:
-  sdk: "3.2.0-91.0.dev"
+  sdk: "3.0.3"
 dependencies:
   flutter:
     sdk: flutter
@@ -67,6 +67,7 @@ dependencies:
   geocode: ^1.0.3
   geolocator: ^10.0.0
   http: ^1.1.0
+  timeago: ^3.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

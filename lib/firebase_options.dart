@@ -55,6 +55,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '64197882688',
     projectId: 'afad-app-23',
     authDomain: 'afad-app-23.firebaseapp.com',
+    databaseURL:
+        'https://afad-app-23-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'afad-app-23.appspot.com',
   );
 
@@ -63,6 +65,8 @@ class DefaultFirebaseOptions {
     appId: '1:64197882688:android:8082f76a0ab8a1ee9ac0a5',
     messagingSenderId: '64197882688',
     projectId: 'afad-app-23',
+    databaseURL:
+        'https://afad-app-23-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'afad-app-23.appspot.com',
   );
 }
