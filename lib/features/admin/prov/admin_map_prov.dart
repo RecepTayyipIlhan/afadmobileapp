@@ -539,9 +539,9 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       },
     );
 
-    ref.read(fbDbProv).getMessages().listen((event) {
+    ref.read(fbDbProv).allMsgsOfTest().listen((event) {
       state = state.copyWith(
-        messages: event ?? [],
+        messages: event,
       );
       _loadAllMarkers(
         context: context,

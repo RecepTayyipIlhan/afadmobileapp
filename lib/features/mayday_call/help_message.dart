@@ -39,4 +39,24 @@ class HelpMessage with _$HelpMessage {
 
   factory HelpMessage.fromJson(Map<String, dynamic> json) =>
       _$HelpMessageFromJson(json);
+
+  // str{index}: YR7Q8HOgzJQ0IUhpOm6GCatTqP03,1,39.8833096,32.7360542
+  // str{index}: userid,messagetype,lat,lng
+  factory HelpMessage.decodeFromMsg(String msg) {
+    final spl = msg.trim().split(",");
+
+    final userid = spl[0];
+    final messagetype = int.parse(spl[1]);
+    final lat = double.parse(spl[2]);
+    final lng = double.parse(spl[3]);
+
+    return HelpMessage(
+      loc: GeoPoint(
+        lat,
+        lng,
+      ),
+      ui: userid,
+      mt: messageTypeFromJson(messagetype),
+    );
+  }
 }

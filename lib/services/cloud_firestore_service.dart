@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:afad_app/features/tracker/models/tracker_location.dart';
+import 'package:afad_app/global_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../features/auth/models/app_user.dart';
+import '../models/data_models/gps_btn_msg.dart';
 import '../utils/utils.dart';
 
 final fbDbProv = Provider(CloudFirestoreService.new);
@@ -212,54 +214,67 @@ extension AdminFunctions on CloudFirestoreService {
     );
   }
 
-  Stream<List<HelpMessage?>> getUserWithUi(String userId) {
-    return _firestore
-        .collection(_FirestoreNames._messages)
-        .where('id', isEqualTo: userId)
-        .snapshots()
-        .map(
+  Stream<List<HelpMessage>> allMsgsOfTest() {
+    final ref = _realtime.ref("test");
+
+    return ref.onValue.map(
       (event) {
-        final doc =
-            event.docs.map((e) => HelpMessage.fromJson(e.data())).toList();
-        return doc;
-      },
-    );
-  }
+        final children = event.snapshot.children;
+        final list = children.map(
+          (e) {
+            final k = e.key!;
+            final val = e.value as String;
+            final val64 = val.split(",")[2];
 
-  Stream<List<HelpMessage>?> getMessages() {
-    return _firestore.collection(_FirestoreNames._messages).snapshots().map(
-      (e) {
-        final users = e.docs
-            .map(
-              (e) => HelpMessage.fromJson(
-                e.data(),
-              ),
-            )
-            .toList();
+            final bytes = base64.decode(val64);
+            final decodedString = utf8.decode(bytes);
 
-        return users;
-      },
-    );
-  }
+            HelpMessage? msg;
+            try {
+              if (k.startsWith("gps")) {
+                final gpsBtnMsg = GpsBtnMsg.decodeFromMsg(decodedString);
 
-  /*Stream<HelpMessage?> getUserWithUi(String ui) {
-    return _firestore
-        .collection(_FirestoreNames._messages)
-        .where('ui', isEqualTo: ui)
-        .snapshots()
-        .map(
-      (event) {
-        if (event.docs.isEmpty) {
-          return null;
+                msg = HelpMessage(
+                  loc: GeoPoint(
+                    gpsBtnMsg.latLng.latitude,
+                    gpsBtnMsg.latLng.longitude,
+                  ),
+                  mt: MessageType.EnkazAltindayim,
+                  ui: defaultUserId,
+                );
+              } else {
+                msg = HelpMessage.decodeFromMsg(decodedString);
+              }
+            } catch (e) {
+              logger.e(e);
+            }
+
+            return msg;
+          },
+        ).toList();
+
+        final List<HelpMessage> filtered = [];
+
+        for (var item in list) {
+          if (item != null) {
+            filtered.add(item);
+          }
         }
 
-        final doc = event.docs.first;
-
-        final msg = HelpMessage.fromJson(doc.data());
-        return msg;
+        return filtered;
       },
     );
-  }*/
+  }
+
+  Stream<List<HelpMessage>> getMsgsOfUser(String userId) {
+    return allMsgsOfTest().map(
+      (event) => event
+          .where(
+            (element) => element.ui == userId,
+          )
+          .toList(),
+    );
+  }
 
   Stream<TrackerLocation> streamTrackerLocation() {
     final ref = _realtime.ref("tracker/str");

@@ -22,7 +22,7 @@ class _MessagesListState extends State<MessagesList> {
         "deneme"); /*Container(
       child: StreamBuilder<List<HelpMessage?>>(
         stream:
-            cloudFirestoreService.getUserWithUi(widget.user_d.id.toString()) ,
+            cloudFirestoreService.getMsgsOfUser(widget.user_d.id.toString()) ,
             
         builder: (context, snapshot) {
           if (snapshot.hasData) {
