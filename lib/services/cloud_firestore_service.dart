@@ -134,9 +134,7 @@ extension UserFunctions on CloudFirestoreService {
         final doc = event.docs.first;
 
         final user = AppUser.fromJson(doc.data());
-        print("************************");
-        print(user.fullName);
-        print("************************");
+
         return user;
       },
     );
@@ -212,6 +210,20 @@ extension AdminFunctions on CloudFirestoreService {
     );
   }
 
+  Stream<List<HelpMessage?>> getUserWithUi(String userId) {
+    return _firestore
+        .collection(_FirestoreNames._messages)
+        .where('id', isEqualTo: userId)
+        .snapshots()
+        .map(
+      (event) {
+        final doc =
+            event.docs.map((e) => HelpMessage.fromJson(e.data())).toList();
+        return doc;
+      },
+    );
+  }
+
   Stream<List<HelpMessage>?> getMessages() {
     return _firestore.collection(_FirestoreNames._messages).snapshots().map(
       (e) {
@@ -227,20 +239,21 @@ extension AdminFunctions on CloudFirestoreService {
       },
     );
   }
-  /* Stream<AppUser?> getUserWithUi(String ui) {
-    return _db
+
+  /*Stream<HelpMessage?> getUserWithUi(String ui) {
+    return _firestore
         .collection(_FirestoreNames._messages)
         .where('ui', isEqualTo: ui)
         .snapshots()
         .map(
-          (event) {
+      (event) {
         if (event.docs.isEmpty) {
           return null;
         }
 
         final doc = event.docs.first;
 
-        final msg = AppUser.fromJson(doc.data());
+        final msg = HelpMessage.fromJson(doc.data());
         return msg;
       },
     );

@@ -55,7 +55,7 @@ class _DetailedPersonPageState extends State<DetailedPersonPage> {
                   user_d: widget.user,
                 )
               else
-                MessagesList(),
+                MessagesList(user_d: widget.user),
             ],
           ),
         ],
