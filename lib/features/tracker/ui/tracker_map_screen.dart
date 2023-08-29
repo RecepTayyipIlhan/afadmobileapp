@@ -39,15 +39,19 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
             loading: LoadingScreen.new,
             error: ErrorScreen.new,
             data: (data) {
-              final latlng = data.loc;
-              final lastUpdated = data.lastUpdated;
-              timeago.setLocaleMessages(
-                'tr',
-                TrMessages(),
-              );
-              final lastUpdatedStr = timeago.format(
-                lastUpdated,
-                locale: 'tr',
+              final loccc = data.loc;
+              final latlng = LatLng(loccc.latitude, loccc.longitude);
+
+              Future.delayed(
+                const Duration(milliseconds: 50),
+                () {
+                  pageNotifier.setMapCameraPosition(
+                    CameraPosition(
+                      target: latlng,
+                      zoom: 10.0,
+                    ),
+                  );
+                },
               );
 
               return SafeArea(
@@ -79,10 +83,7 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                       latlng.longitude,
                                     ].join(","),
                                   ),
-                                  position: LatLng(
-                                    latlng.latitude,
-                                    latlng.longitude,
-                                  ),
+                                  position: latlng,
                                 )
                               },
                               onMapCreated: pageNotifier.onMapCreated,
