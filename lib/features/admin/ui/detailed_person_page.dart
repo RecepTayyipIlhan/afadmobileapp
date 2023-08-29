@@ -37,26 +37,29 @@ class _DetailedPersonPageState extends State<DetailedPersonPage> {
             ? "Kullanıcı Bilgileri"
             : "Kullanıcının Mesajları"),
       ),
-      body: Column(
+      body: Row(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              SideScreen(
-                selectedScreen: selectedIndex,
-                onSelectedChanged: onSelecteChange,
-                user_d: widget.user,
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              if (selectedIndex == SelectedScreen.infoScreen)
-                InfoCards(
-                  selectedScreen: selectedIndex,
-                  user_d: widget.user,
-                )
-              else
-                MessagesList(user_d: widget.user),
-            ],
+          SideScreen(
+            selectedScreen: selectedIndex,
+            onSelectedChanged: onSelecteChange,
+            user_d: widget.user,
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Expanded(
+            child: Builder(
+              builder: (context) {
+                if (selectedIndex == SelectedScreen.infoScreen) {
+                  return InfoCards(
+                    selectedScreen: selectedIndex,
+                    user_d: widget.user,
+                  );
+                } else {
+                  return MessagesList(user_d: widget.user);
+                }
+              },
+            ),
           ),
         ],
       ),
