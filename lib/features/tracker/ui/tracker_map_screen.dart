@@ -103,10 +103,17 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(50),
-                                              child: Image.network(
-                                                user.profilePicUrl!,
-                                                fit: BoxFit.contain,
-                                              ),
+                                              child: user.profilePicUrl != null
+                                                  ? Image.network(
+                                                      user.profilePicUrl!,
+                                                      fit: BoxFit.contain,
+                                                    )
+                                                  :
+                                                  // empty box
+                                                  Container(
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
                                             ),
                                           ),
                                           Expanded(
