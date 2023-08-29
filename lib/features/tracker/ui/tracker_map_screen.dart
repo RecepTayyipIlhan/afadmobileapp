@@ -4,13 +4,9 @@ import 'package:afad_app/ui/widgets/error_screen.dart';
 import 'package:afad_app/ui/widgets/loading_screen.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
 import 'package:afad_app/utils/utils.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:timeago/timeago.dart' as timeago;
-
-import '../../../utils/timeago_tr_messages.dart';
 
 class TrackerMapScreen extends ConsumerStatefulWidget {
   const TrackerMapScreen({Key? key}) : super(key: key);
@@ -20,6 +16,28 @@ class TrackerMapScreen extends ConsumerStatefulWidget {
 }
 
 class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
+  BitmapDescriptor? _markerIcon;
+
+  void setMarkerIcon() async {
+    const config = ImageConfiguration(size: Size(48, 48));
+
+    final asset = await BitmapDescriptor.fromAssetImage(
+      config,
+      'assets/images/map_cool_marker.png',
+    );
+
+    setState(() {
+      _markerIcon = asset;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    setMarkerIcon();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData screen = MediaQuery.of(context);
@@ -84,6 +102,9 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                     ].join(","),
                                   ),
                                   position: latlng,
+                                  icon: _markerIcon != null
+                                      ? _markerIcon!
+                                      : BitmapDescriptor.defaultMarker,
                                 )
                               },
                               onMapCreated: pageNotifier.onMapCreated,
