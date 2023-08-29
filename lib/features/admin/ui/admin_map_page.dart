@@ -148,11 +148,9 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
                                 );
                               },
                             );
-
                             return DataTable(
-                              //flutter data table sort alphabetically when clicked to colunm name
-                              sortColumnIndex: 1,
-                              sortAscending: true,
+                              sortColumnIndex: pageState.sortColumnIndex,
+                              sortAscending: pageState.sortAscending,
                               columns: pageNotifier.dataTableColumns,
                               rows: els.toList(),
                             );

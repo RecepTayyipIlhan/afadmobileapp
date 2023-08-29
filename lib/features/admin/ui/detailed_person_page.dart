@@ -46,7 +46,7 @@ class _DetailedPersonPageState extends State<DetailedPersonPage> {
                 onSelectedChanged: onSelecteChange,
                 user_d: widget.user,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               if (selectedIndex == SelectedScreen.infoScreen)

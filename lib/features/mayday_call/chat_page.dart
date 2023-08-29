@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:afad_app/ui/widgets/error_widget.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
@@ -95,7 +96,7 @@ class _ChatPage extends ConsumerState<ChatPage> {
     );
   }
 
-  Future<bool> sendMessageOfType(int type) async {
+  Future<bool> sendMessageOfType(MessageType type) async {
     final userid = ref.read(authProvider).appUser?.id;
 
     if (userid == null) {
@@ -259,7 +260,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                             item: (
                               title: "Enkaz Altındayım",
                               imagePath: 'assets/icons/sos.png',
-                              onTap: () => sendMessageOfType(0),
+                              onTap: () => sendMessageOfType(
+                                  MessageType.EnkazAltindayim),
                             ),
                           ),
                           LocationNotifyItem(
@@ -267,7 +269,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                               title: "Evdeyim",
                               imagePath: 'assets/icons/home.png',
                               onTap: isConnected
-                                  ? () => sendMessageOfType(8)
+                                  ? () => sendMessageOfType(
+                                      MessageType.EvdeyimDurumumIyi)
                                   : null,
                             ),
                           ),
@@ -276,7 +279,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                               title: "Toplanma Alanı",
                               imagePath: 'assets/icons/meeting.png',
                               onTap: isConnected
-                                  ? () => sendMessageOfType(9)
+                                  ? () => sendMessageOfType(
+                                      MessageType.ToplanmaAlani)
                                   : null,
                             ),
                           ),
@@ -285,7 +289,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                               title: "Kayboldum",
                               imagePath: 'assets/icons/lost.png',
                               onTap: isConnected
-                                  ? () => sendMessageOfType(10)
+                                  ? () =>
+                                      sendMessageOfType(MessageType.Kayboldum)
                                   : null,
                             ),
                           ),
@@ -329,7 +334,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza ambulans gönderir",
                                       icon: Icons.emergency,
-                                      onTap: () => sendMessageOfType(1),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.Ambulans),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -338,7 +344,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza gıda gönderir",
                                       icon: Icons.food_bank_rounded,
-                                      onTap: () => sendMessageOfType(2),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.GidaTalebi),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -347,7 +354,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza ilaç gönderir",
                                       icon: Icons.local_hospital,
-                                      onTap: () => sendMessageOfType(3),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.IlacTalebi),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -356,7 +364,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Şuanki konumunuza barınma gönderir",
                                       icon: Icons.local_hotel_rounded,
-                                      onTap: () => sendMessageOfType(4),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.BarinmaTalebi),
                                     ),
                                   ),
                                 ].joinWidgetList(
@@ -386,7 +395,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Bu bilgi Afadın gaz sızıntılarını tespit etmesi için kullanılacaktır",
                                       icon: Icons.dangerous_outlined,
-                                      onTap: () => sendMessageOfType(5),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.GazIhbari),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -395,7 +405,8 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Bu bilgi Afadın yangınları tespit etmesi için kullanılacaktır",
                                       icon: Icons.fireplace_rounded,
-                                      onTap: () => sendMessageOfType(6),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.YanginIhbari),
                                     ),
                                   ),
                                   HelpRequestItem(
@@ -404,7 +415,18 @@ class _ChatPage extends ConsumerState<ChatPage> {
                                       subtitle:
                                           "Bu bilgi Afadın enkazları tespit etmesi için kullanılacaktır",
                                       icon: Icons.house_siding_rounded,
-                                      onTap: () => sendMessageOfType(7),
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.EnkazIhbari),
+                                    ),
+                                  ),
+                                  HelpRequestItem(
+                                    item: (
+                                      title: "Yağmacı ",
+                                      subtitle:
+                                          "Bu bilgi Afadın yağma yapılan yerleri tespit etmesi için kullanılacaktır",
+                                      icon: Icons.warning_amber_rounded,
+                                      onTap: () => sendMessageOfType(
+                                          MessageType.YagmaciIhbari),
                                     ),
                                   ),
                                 ].joinWidgetList(

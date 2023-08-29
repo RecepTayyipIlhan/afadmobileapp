@@ -7,7 +7,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'help_message.g.dart';
 part 'help_message.freezed.dart';
 
-enum MessageType { EnkazAltindayim, Ambulans, KonaklamaTalebi }
+enum MessageType {
+  EnkazAltindayim,
+  Ambulans,
+  GidaTalebi,
+  IlacTalebi,
+  BarinmaTalebi,
+  GazIhbari,
+  YanginIhbari,
+  EnkazIhbari,
+  EvdeyimDurumumIyi,
+  ToplanmaAlani,
+  Kayboldum,
+  YagmaciIhbari,
+}
 
 MessageType messageTypeFromJson(int json) {
   return MessageType.values[json];

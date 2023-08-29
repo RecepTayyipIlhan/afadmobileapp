@@ -2,28 +2,26 @@ import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:flutter/material.dart';
 import 'package:afad_app/services/cloud_firestore_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MessagesList extends StatefulWidget {
+class MessagesList extends ConsumerStatefulWidget {
   final AppUser user_d;
   const MessagesList({super.key, required this.user_d});
 
   @override
-  State<MessagesList> createState() => _MessagesListState();
+  ConsumerState<MessagesList> createState() => _MessagesListState();
 }
 
-class _MessagesListState extends State<MessagesList> {
-  //final CloudFirestoreService cloudFirestoreService = CloudFirestoreService();
-
+class _MessagesListState extends ConsumerState<MessagesList> {
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
 
-    return Text(
-        "deneme"); /*Container(
+    final firestore = ref.watch(fbDbProv);
+
+    return Container(
       child: StreamBuilder<List<HelpMessage?>>(
-        stream:
-            cloudFirestoreService.getUserWithUi(widget.user_d.id.toString()) ,
-            
+        stream: firestore.getUserWithUi(widget.user_d.id.toString()),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final messages = snapshot.data!;
@@ -49,7 +47,7 @@ class _MessagesListState extends State<MessagesList> {
                       ],
                     ),
                     child: ListTile(
-                      title:  Text(
+                      title: Text(
                         messages[index]!.mt.toString(),
                         style: const TextStyle(
                           fontSize: 16,
@@ -75,6 +73,6 @@ class _MessagesListState extends State<MessagesList> {
           }
         },
       ),
-    );*/
+    );
   }
 }

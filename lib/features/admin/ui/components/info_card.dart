@@ -11,7 +11,7 @@ class InfoCard extends StatelessWidget {
     var screen = MediaQuery.of(context).size;
     return Expanded(
       child: Container(
-        height: screen.height * 0.15,
+        height: screen.height * 0.14,
         // width: screen.width * 0.25,
         decoration: BoxDecoration(
           color: Colors.white,
