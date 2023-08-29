@@ -22,6 +22,7 @@ class TrackerLocation with _$TrackerLocation {
   factory TrackerLocation({
     @JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
     required GeoPoint loc,
+    required DateTime lastUpdated,
   }) = _TrackerLocation;
 
   factory TrackerLocation.fromJson(Map<String, dynamic> json) =>

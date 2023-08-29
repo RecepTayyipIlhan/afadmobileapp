@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:afad_app/features/mayday_call/help_message.dart';
 import 'package:afad_app/features/tracker/models/tracker_location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -259,26 +261,30 @@ extension AdminFunctions on CloudFirestoreService {
     );
   }*/
 
-// TODO(adnanjpg)
   Stream<TrackerLocation> streamTrackerLocation() {
-    // ignore: sdk_version_since
-    return Stream.value(
-      TrackerLocation(
-        loc: GeoPoint(41.084969, 28.896004),
-      ),
+    final ref = _realtime.ref("tracker/str");
+
+    return ref.onValue.map(
+      (event) {
+        final val64Full = event.snapshot.value as String;
+        // blob,base64,base64({lat},{lng})
+        final val64 = val64Full.split(",")[2];
+
+        final bytes = base64.decode(val64);
+        final decodedString = utf8.decode(bytes);
+
+        final lat = decodedString.split(",")[0];
+        final lng = decodedString.split(",")[1];
+
+        return TrackerLocation(
+          loc: GeoPoint(
+            double.parse(lat),
+            double.parse(lng),
+          ),
+          lastUpdated: DateTime.now(),
+        );
+      },
     );
-    // const userid = "12344";
-    // final ref = _realtime.ref('1');
-
-    // return ref.onValue.map(
-    //   (event) {
-    //     final data = event.snapshot.value;
-
-    //     final location = TrackerLocation.fromJson(data);
-
-    //     return location;
-    //   },
-    // );
   }
 }
 

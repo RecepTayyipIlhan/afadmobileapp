@@ -22,6 +22,7 @@ TrackerLocation _$TrackerLocationFromJson(Map<String, dynamic> json) {
 mixin _$TrackerLocation {
   @JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
   GeoPoint get loc => throw _privateConstructorUsedError;
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,8 @@ abstract class $TrackerLocationCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
-      GeoPoint loc});
+      GeoPoint loc,
+      DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -54,12 +56,17 @@ class _$TrackerLocationCopyWithImpl<$Res, $Val extends TrackerLocation>
   @override
   $Res call({
     Object? loc = null,
+    Object? lastUpdated = null,
   }) {
     return _then(_value.copyWith(
       loc: null == loc
           ? _value.loc
           : loc // ignore: cast_nullable_to_non_nullable
               as GeoPoint,
+      lastUpdated: null == lastUpdated
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -74,7 +81,8 @@ abstract class _$$_TrackerLocationCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
-      GeoPoint loc});
+      GeoPoint loc,
+      DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -89,12 +97,17 @@ class __$$_TrackerLocationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loc = null,
+    Object? lastUpdated = null,
   }) {
     return _then(_$_TrackerLocation(
       loc: null == loc
           ? _value.loc
           : loc // ignore: cast_nullable_to_non_nullable
               as GeoPoint,
+      lastUpdated: null == lastUpdated
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -104,7 +117,8 @@ class __$$_TrackerLocationCopyWithImpl<$Res>
 class _$_TrackerLocation extends _TrackerLocation {
   _$_TrackerLocation(
       {@JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
-      required this.loc})
+      required this.loc,
+      required this.lastUpdated})
       : super._();
 
   factory _$_TrackerLocation.fromJson(Map<String, dynamic> json) =>
@@ -113,10 +127,12 @@ class _$_TrackerLocation extends _TrackerLocation {
   @override
   @JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
   final GeoPoint loc;
+  @override
+  final DateTime lastUpdated;
 
   @override
   String toString() {
-    return 'TrackerLocation(loc: $loc)';
+    return 'TrackerLocation(loc: $loc, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -124,12 +140,14 @@ class _$_TrackerLocation extends _TrackerLocation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TrackerLocation &&
-            (identical(other.loc, loc) || other.loc == loc));
+            (identical(other.loc, loc) || other.loc == loc) &&
+            (identical(other.lastUpdated, lastUpdated) ||
+                other.lastUpdated == lastUpdated));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, loc);
+  int get hashCode => Object.hash(runtimeType, loc, lastUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -148,7 +166,8 @@ class _$_TrackerLocation extends _TrackerLocation {
 abstract class _TrackerLocation extends TrackerLocation {
   factory _TrackerLocation(
       {@JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
-      required final GeoPoint loc}) = _$_TrackerLocation;
+      required final GeoPoint loc,
+      required final DateTime lastUpdated}) = _$_TrackerLocation;
   _TrackerLocation._() : super._();
 
   factory _TrackerLocation.fromJson(Map<String, dynamic> json) =
@@ -157,6 +176,8 @@ abstract class _TrackerLocation extends TrackerLocation {
   @override
   @JsonKey(fromJson: geoPointFromJson, toJson: geoPointToJson)
   GeoPoint get loc;
+  @override
+  DateTime get lastUpdated;
   @override
   @JsonKey(ignore: true)
   _$$_TrackerLocationCopyWith<_$_TrackerLocation> get copyWith =>
