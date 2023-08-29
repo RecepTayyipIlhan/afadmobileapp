@@ -160,7 +160,7 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                                       },
                                                     ),
                                                     Text(
-                                                      'Son güncelleme: $lastUpdatedStr',
+                                                      'Son güncelleme: 1 dakika önce',
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .titleSmall,
