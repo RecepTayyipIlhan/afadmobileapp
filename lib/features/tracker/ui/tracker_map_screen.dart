@@ -4,9 +4,13 @@ import 'package:afad_app/ui/widgets/error_screen.dart';
 import 'package:afad_app/ui/widgets/loading_screen.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
 import 'package:afad_app/utils/utils.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
+import '../../../utils/timeago_tr_messages.dart';
 
 class TrackerMapScreen extends ConsumerStatefulWidget {
   const TrackerMapScreen({Key? key}) : super(key: key);
@@ -35,6 +39,17 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
             loading: LoadingScreen.new,
             error: ErrorScreen.new,
             data: (data) {
+              final latlng = data.loc;
+              final lastUpdated = data.lastUpdated;
+              timeago.setLocaleMessages(
+                'tr',
+                TrMessages(),
+              );
+              final lastUpdatedStr = timeago.format(
+                lastUpdated,
+                locale: 'tr',
+              );
+
               return SafeArea(
                 child: SizedBox(
                   height: screen.size.height,
@@ -59,12 +74,14 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                               markers: {
                                 Marker(
                                   markerId: MarkerId(
-                                    [data.loc.latitude, data.loc.longitude]
-                                        .join(","),
+                                    [
+                                      latlng.latitude,
+                                      latlng.longitude,
+                                    ].join(","),
                                   ),
                                   position: LatLng(
-                                    data.loc.latitude,
-                                    data.loc.longitude,
+                                    latlng.latitude,
+                                    latlng.longitude,
                                   ),
                                 )
                               },
@@ -87,7 +104,7 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                 ),
                               ),
                               child: SizedBox(
-                                height: 140,
+                                height: 190,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -141,6 +158,12 @@ class _TrackerMapScreenState extends ConsumerState<TrackerMapScreen> {
                                                         }
                                                         return const SizedBox();
                                                       },
+                                                    ),
+                                                    Text(
+                                                      'Son güncelleme: $lastUpdatedStr',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall,
                                                     ),
                                                     TextBtn(
                                                       eventName: '',
