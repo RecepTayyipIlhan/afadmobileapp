@@ -1,10 +1,13 @@
 import 'package:afad_app/features/admin/ui/detailed_person_page.dart';
+import 'package:afad_app/features/app_init/app_init_prov.dart';
+import 'package:afad_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'info_card.dart';
 import 'package:afad_app/features/auth/models/app_user.dart';
 import 'package:afad_app/features/admin/prov/admin_map_prov.dart';
 
-class InfoCards extends StatelessWidget {
+class InfoCards extends ConsumerWidget {
   final AppUser user_d;
   final SelectedScreen selectedScreen;
   const InfoCards(
@@ -12,10 +15,29 @@ class InfoCards extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     var screen = MediaQuery.of(context).size;
 
-    return Container(
+    final adminProvNot = ref.watch(adminMapStateProvider.notifier);
+    String? il, ilce;
+    try {
+      il = adminProvNot.getCity(user_d.plakaKodu);
+      ilce = adminProvNot.getDistrict(
+        user_d.ilceKodu,
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    String valueOrBilgiYok(dynamic value) {
+      if (value == null) {
+        return "Bilgi Yok";
+      } else {
+        return value.toString();
+      }
+    }
+
+    return SizedBox(
       width: screen.width * 0.70,
       height: screen.height * 0.70,
       child: SingleChildScrollView(
@@ -26,14 +48,14 @@ class InfoCards extends StatelessWidget {
               children: <Widget>[
                 InfoCard(
                   text: "İsim :",
-                  value: user_d.fullName,
+                  value: valueOrBilgiYok(user_d.fullName),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 ),
                 InfoCard(
                   text: "Tc :",
-                  value: user_d.idNumber,
+                  value: valueOrBilgiYok(user_d.idNumber),
                 ),
               ],
             ),
@@ -43,47 +65,54 @@ class InfoCards extends StatelessWidget {
               children: <Widget>[
                 InfoCard(
                   text: "Kan Grubu :",
-                  value: user_d.bloodGroup.toString(),
+                  value: valueOrBilgiYok(getStr(user_d.bloodGroup.toString())),
                 ),
                 const SizedBox(
                   width: 25,
                 ),
                 InfoCard(
                   text: "Aynı evdeki kişiler :",
-                  value: user_d.peopleAtSameAddress.toString(),
+                  value: valueOrBilgiYok(user_d.peopleAtSameAddress),
                 ),
               ],
             ),
             SizedBox(height: screen.height * 0.03),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 InfoCard(
                   text: "İl",
-                  value: "İstanbul",
+                  value: valueOrBilgiYok(il),
                 ),
-                SizedBox(
+                InfoCard(
+                  text: "İlçe",
+                  value: valueOrBilgiYok(ilce),
+                ),
+              ].joinWidgetList(
+                (index) => const SizedBox(
                   width: 25,
                 ),
-                const InfoCard(text: "İlçe", value: "Gaziosmanpaşa"),
-              ],
+              ),
             ),
             SizedBox(height: screen.height * 0.03),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                InfoCard(
-                  text: "Kan Grubu :",
-                  value: user_d.bloodGroup.toString(),
-                ),
-                const SizedBox(
+                if (user_d.buildingAge != null)
+                  InfoCard(
+                    text: "Bina yaşı :",
+                    value: valueOrBilgiYok(user_d.buildingAge),
+                  ),
+                if (user_d.buildingDurability != null)
+                  InfoCard(
+                    text: "Bina dayanıklılığı :",
+                    value: valueOrBilgiYok(user_d.buildingDurability),
+                  ),
+              ].joinWidgetList(
+                (index) => const SizedBox(
                   width: 25,
                 ),
-                InfoCard(
-                  text: "Aynı evdeki kişiler :",
-                  value: user_d.peopleAtSameAddress.toString(),
-                ),
-              ],
+              ),
             ),
             SizedBox(height: screen.height * 0.03),
             Row(
@@ -91,16 +120,14 @@ class InfoCards extends StatelessWidget {
               children: <Widget>[
                 InfoCard(
                   text: "Kullanılan İlaçlar :",
-                  value: user_d.medicines != null
-                      ? user_d.medicines!
-                      : " Bilgi Yok",
+                  value: valueOrBilgiYok(user_d.medicines),
                 ),
                 const SizedBox(
                   width: 25,
                 ),
                 InfoCard(
                   text: "Telefon Numarası :",
-                  value: user_d.phone,
+                  value: valueOrBilgiYok(user_d.phone),
                 ),
               ],
             ),
@@ -110,7 +137,7 @@ class InfoCards extends StatelessWidget {
               children: <Widget>[
                 InfoCard(
                   text: "Adres",
-                  value: user_d.address.toString(),
+                  value: valueOrBilgiYok(user_d.address),
                 ),
               ],
             ),
