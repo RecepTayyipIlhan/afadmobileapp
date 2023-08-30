@@ -258,14 +258,17 @@ extension AdminFunctions on CloudFirestoreService {
         for (var item in list) {
           if (item != null) {
             if (filtered.any((element) =>
-                element.loc.latitude == item!.loc.latitude &&
-                element.loc.longitude == item!.loc.longitude)) {
-              item = item.copyWith(
-                loc: GeoPoint(
-                  item.loc.latitude + 0.000150,
-                  item.loc.longitude + 0.000150,
-                ),
-              );
+                element.loc.latitude == item.loc.latitude &&
+                element.loc.longitude == item.loc.longitude &&
+                element.mt == item.mt &&
+                element.ui == item.ui)) {
+              continue;
+              // item = item.copyWith(
+              //   loc: GeoPoint(
+              //     item.loc.latitude + 0.000150,
+              //     item.loc.longitude + 0.000150,
+              //   ),
+              // );
             }
             filtered.add(item);
           }
