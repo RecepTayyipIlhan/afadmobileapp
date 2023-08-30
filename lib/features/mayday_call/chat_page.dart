@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:afad_app/features/mayday_call/help_message.dart';
+import 'package:afad_app/services/bluetooth/select_bonded_device_page.dart';
 import 'package:afad_app/ui/widgets/error_widget.dart';
 import 'package:afad_app/utils/app_theme.dart';
 import 'package:afad_app/utils/prov/auth_prov.dart';
@@ -30,11 +31,13 @@ class _Message {
 }
 
 class ChatPage extends ConsumerStatefulWidget {
-  final BluetoothDevice? server;
+  final DeviceWithAvailability? deviceWithAvailability;
+
+  BluetoothDevice? get server => deviceWithAvailability;
 
   const ChatPage({
     super.key,
-    required this.server,
+    required this.deviceWithAvailability,
   });
 
   @override
@@ -72,7 +75,9 @@ class _ChatPage extends ConsumerState<ChatPage> {
 
   final textEditingController = TextEditingController();
 
-  bool get isConnected => connection != null && connection?.isConnected == true;
+  bool get isConnected =>
+      widget.deviceWithAvailability?.isFake == true ||
+      (connection != null && connection?.isConnected == true);
 
   void onSentMessageSuccess() {
     ScaffoldMessenger.of(context).showSnackBar(

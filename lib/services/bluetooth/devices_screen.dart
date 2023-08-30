@@ -131,7 +131,7 @@ class _DevicesScreen extends State<DevicesScreen> {
                             MaterialPageRoute(
                               builder: (context) {
                                 return ChatPage(
-                                  server: selectedDevice,
+                                  deviceWithAvailability: selectedDevice,
                                 );
                               },
                             ),

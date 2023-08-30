@@ -22,7 +22,11 @@ class DeviceWithAvailability extends BluetoothDevice {
           isConnected: device.isConnected,
           bondState: device.bondState,
         );
+
+  bool get isFake => address == fakeViewDeviceId;
 }
+
+const fakeViewDeviceId = "33:44:EE:YY";
 
 class SelectBondedDevicePage extends StatefulWidget {
   /// If true, on page start there is performed discovery upon the bonded devices.
@@ -37,6 +41,14 @@ class SelectBondedDevicePage extends StatefulWidget {
 }
 
 class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
+  bool viewFakeDevice = false;
+
+  void toggleViewFakeDevice() {
+    setState(() {
+      viewFakeDevice = !viewFakeDevice;
+    });
+  }
+
   List<DeviceWithAvailability> devices = <DeviceWithAvailability>[];
 
   // Availability
@@ -127,14 +139,33 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
 
   @override
   Widget build(BuildContext context) {
-    final sortedDevs = [...devices];
+    final sortedDevs = [
+      ...devices,
+      ...[
+        if (viewFakeDevice)
+          DeviceWithAvailability(
+            const BluetoothDevice(
+              name: "ESP32testf",
+              address: fakeViewDeviceId,
+            ),
+            DeviceAvailability.yes,
+          ),
+      ]
+    ];
     // put the device names "ESP32test"
     sortedDevs.sort(
-      (d1, d2) => d1.name == "ESP32test" ? -1 : 1,
+      (d1, d2) => d1.name?.startsWith("ESP32test") == true ? -1 : 1,
     );
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lora Cihazınızı Seçiniz'),
+        title: InkWell(
+          onLongPress: () {
+            toggleViewFakeDevice();
+          },
+          child: const Text(
+            'Lora Cihazınızı Seçiniz',
+          ),
+        ),
         actions: <Widget>[
           if (_isDiscovering)
             FittedBox(
@@ -167,7 +198,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
               onTap: () async {
                 final scaffoldMessenger = ScaffoldMessenger.of(context);
                 final navigator = Navigator.of(context);
-                if (!device.isBonded) {
+                if (!device.isFake && !device.isBonded) {
                   final isBondedSuccess = await bluetooth.bondDeviceAtAddress(
                     device.address,
                   );
