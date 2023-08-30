@@ -175,7 +175,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
       markerId: MarkerId(index.toString()),
       position: locationLatLng,
       infoWindow: InfoWindow(
-        title: 'Enkaz Altındayım',
+        title: message.mt.toViewString(),
         onTap: () {
           _routeDetailedPersonPage(context, user);
         },
@@ -185,32 +185,7 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
 
   String getMessageFromEnum(int enum_index) {
     MessageType mt = MessageType.values[enum_index];
-    switch (mt) {
-      case MessageType.EnkazAltindayim:
-        return "Enkaz Altında";
-      case MessageType.Ambulans:
-        return "Ambulans Talebi";
-      case MessageType.BarinmaTalebi:
-        return "Barınma Talebi";
-      case MessageType.EvdeyimDurumumIyi:
-        return "Evdeyim Durumum İyi";
-      case MessageType.GazIhbari:
-        return "Gaz İhbarı";
-      case MessageType.IlacTalebi:
-        return "İlaç Talebi";
-      case MessageType.Kayboldum:
-        return "Kayboldum";
-      case MessageType.EnkazIhbari:
-        return "Enkaz İhbarı";
-      case MessageType.YanginIhbari:
-        return "Yangın İhbarı";
-      case MessageType.YagmaciIhbari:
-        return "Yağmacı İhbarı";
-      case MessageType.ToplanmaAlani:
-        return "Toplanma Alanı";
-      case MessageType.GidaTalebi:
-        return "Gıda Talebi";
-    }
+    return mt.toViewString();
   }
 
   void _loadAllMarkers({
