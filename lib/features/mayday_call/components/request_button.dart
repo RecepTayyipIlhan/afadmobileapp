@@ -14,7 +14,7 @@ class RequestButton extends StatelessWidget {
   });
 
   static ChatPage chat = const ChatPage(
-    server: null,
+    deviceWithAvailability: null,
   );
   @override
   Widget build(BuildContext context) {
