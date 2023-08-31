@@ -41,10 +41,7 @@ class _MyAppState extends ConsumerState<AdminMapPage> {
             height: screen.size.height,
             width: screen.size.width,
             child: GoogleMap(
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(41.0122, 28.976),
-                zoom: 10.0,
-              ),
+              initialCameraPosition: pageState.defaultCamerapPosition,
               markers: pageState.mapMarkers,
               onMapCreated: pageNotifier.onMapCreated,
             ),
