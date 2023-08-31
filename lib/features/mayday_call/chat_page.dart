@@ -115,7 +115,7 @@ class _ChatPage extends ConsumerState<ChatPage> {
 
     final lat = loc.latitude, lon = loc.longitude;
 
-    var message = "$userid,$type,$lat,$lon";
+    var message = "$userid,${type.index},$lat,$lon";
 
     debugPrint("sendinggggg $message");
 
