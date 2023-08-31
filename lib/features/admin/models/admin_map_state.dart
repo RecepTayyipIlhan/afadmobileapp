@@ -35,7 +35,7 @@ class AdminMapState with _$AdminMapState {
       );
 
   CameraPosition get defaultCamerapPosition => const CameraPosition(
-        target: LatLng(39.953692, 32.689757),
+        target: LatLng(39.967061, 33.140524),
         zoom: 10.0,
       );
 
