@@ -188,6 +188,11 @@ class AdminMapStateNotifier extends StateNotifier<AdminMapState> {
     return mt.toViewString();
   }
 
+  // String getMessageDescFromEnum(int enum_index) {
+  //   MessageType mt = MessageType.values[enum_index];
+  //   return mt.toViewDescString();
+  // }
+
   void _loadAllMarkers({
     required BuildContext context,
   }) {

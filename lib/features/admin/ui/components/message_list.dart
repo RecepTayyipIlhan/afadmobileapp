@@ -59,13 +59,13 @@ class _MessagesListState extends ConsumerState<MessagesList> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      subtitle: Text(
-                        msg.mt.toString(),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      // subtitle: Text(
+                      //   pageNotifier.getMessageDescFromEnum(msg.mt.index),
+                      //   style: const TextStyle(
+                      //     fontSize: 14,
+                      //     fontWeight: FontWeight.w400,
+                      //   ),
+                      // ),
                     ),
                   );
                 },

@@ -49,6 +49,35 @@ enum MessageType {
         return "Gıda Talebi";
     }
   }
+
+  // String toViewDescString() {
+  //   switch (this) {
+  //     case MessageType.EnkazAltindayim:
+  //       return
+  //     case MessageType.Ambulans:
+  //       return "Ambulans Talebi";
+  //     case MessageType.BarinmaTalebi:
+  //       return "Barınma Talebi";
+  //     case MessageType.EvdeyimDurumumIyi:
+  //       return "Evdeyim Durumum İyi";
+  //     case MessageType.GazIhbari:
+  //       return "Gaz İhbarı";
+  //     case MessageType.IlacTalebi:
+  //       return "İlaç Talebi";
+  //     case MessageType.Kayboldum:
+  //       return "Kayboldum";
+  //     case MessageType.EnkazIhbari:
+  //       return "Enkaz İhbarı";
+  //     case MessageType.YanginIhbari:
+  //       return "Yangın İhbarı";
+  //     case MessageType.YagmaciIhbari:
+  //       return "Yağmacı İhbarı";
+  //     case MessageType.ToplanmaAlani:
+  //       return "Toplanma Alanı";
+  //     case MessageType.GidaTalebi:
+  //       return "Gıda Talebi";
+  //   }
+  // }
 }
 
 MessageType messageTypeFromJson(int json) {
